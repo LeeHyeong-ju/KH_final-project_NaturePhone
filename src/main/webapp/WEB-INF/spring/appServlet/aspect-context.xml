@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+<!-- 
+	<AOP>
+	- Aspect Oriented Programming의 약자로 관점 지향 프로그래밍이라는 의미
+	관심사를 분리해서 필요한 주 업무에 모듈 형식으로 삽입해서 실행하는 형태
+	
+	<AOP 관련 용어>
+	#관점 (Aspect)
+	- 구현하고자 하는 횡단 관심사의 기능, 클래스 단위
+	- 한 개 이상의 Pointcut과 Advice의 조합으로 만들어짐
+	
+	#Pointcut
+	- 어느 클래스의 어떤 메소드, 어느 joinpoint(관점을 삽입해서 Advice가 적용 될 수 있는 위치)를 사용할 것인지
+	- AspectJ에서는 와일드 카드를 이용한 메소드 시그니처 사용
+	
+	#Advice
+	- 각 조인포인트에 삽입 되어져 동작할 수 있는 코드
+	- 주로 메소드 단위로 구성 된 어드바이스는 포인트 컷에 의해 결정 된 모듈의 조인포인트에서 호출 되어 사용 됨
+	(BeforeAdvice, AroundAdvice, AfterReturningAdvice, AfterAdvice, AfterThrowingAdvice)
+	
+	#Weaving
+	- pointcut에 의해 결정 된 joinpoint에 지정 된 advice를 삽입하는 과정
+ -->
+ 
+ <!-- 어노테이션을 통한 AOP 구현 시 필요한 코드(web.xml에 현재 xml 파일 읽도록 추가) -->
+ <aop:aspectj-autoproxy/>
+ <!-- Aspect Weaver 라이브러리 필요(pom.xml 추가) -->
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
