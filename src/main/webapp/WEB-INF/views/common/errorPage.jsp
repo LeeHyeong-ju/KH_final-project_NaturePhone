@@ -19,10 +19,10 @@
 </style>
 </head>
 <body>
-	<%-- <jsp:include page="menubar.jsp"/>
+	<jsp:include page="menubar.jsp"/>
 	<div class="error_container">
 		<img src="${ contextPath }/resources/images/error-image.png"/>
 		<h2>${ msg }<%= request.getAttribute("javax.servlet.error.message") %></h2>
-	</div> --%>
+	</div>
 </body>
 </html>
