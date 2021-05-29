@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 수정</title>
-</head>
+
 <style>
 /* 사이드 바*/
 .sideBar {
@@ -31,10 +31,6 @@
 
 .rightSpace a {
 	color: rgb(7, 7, 7) !important;
-}
-
-.rightSpace {
-	margin-top: 100px;
 }
 
 .sideBar li {
@@ -64,15 +60,16 @@ span {
 	color: rgb(7, 7, 7) !important;
 }
 </style>
-
+</head>
 <body>
-
+	<jsp:include page="../common/menubar.jsp"/>
+	
 	<div class="container">
 
 		<div class="row">
 
 			<div class="col-md-2 rightSpace">
-				<div class="list-group col-md-10 sideBar">
+				<div class="list-group col-md-10 sideBar" style="margin-top: 100px;">
 					<ul>
 						<li class="list-group-item sideTitle">마이페이지</li>
 						<li><a href="#"

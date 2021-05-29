@@ -11,9 +11,13 @@
 	</settings>
 	
 	<!-- typeAliases -->
-	
+	<typeAliases>
+		<typeAlias type="com.kh.naturephone.member.model.vo.Member" alias="Member"/>
+	</typeAliases>
 	
 	<!-- mappers -->
-	
+	<mappers>
+		<mapper resource="mappers/member-mapper.xml"/>
+	</mappers>
 	
 </configuration>

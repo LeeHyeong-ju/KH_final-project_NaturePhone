@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+	<resultMap id="memberResultSet" type="Member">
+		<id property="userNo" column="USER_NO"/>
+		<result property="token" column="TOKEN"/>
+		<result property="grade" column="USER_GRADE"/>
+		<result property="id" column="USER_ID"/>
+		<result property="pwd" column="USER_PWD"/>
+		<result property="name" column="USER_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="approvalKey" column="APPROVAL_KEY"/>
+		<result property="approvalStatus" column="APPROVAL_STATUS"/>
+		<result property="email" column="EMAIL"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="quitType" column="QUIT_TYPE"/>
+		<result property="quitContent" column="QUIT_CONTENT"/>
+	</resultMap>
+
+	<select id="selectMember" parameterType="Member" resultMap="memberResultSet">
+		SELECT 
+          		  USER_NO
+		        , TOKEN
+		        , USER_GRADE
+		        , USER_ID
+		        , USER_PWD
+		        , USER_NAME
+		        , PHONE
+		        , ADDRESS
+		        , APPROVAL_KEY
+		        , APPROVAL_STATUS
+		        , EMAIL
+		        , CREATE_DATE
+		        , MODIFY_DATE
+		        , STATUS
+		        , QUIT_TYPE
+		        , QUIT_CONTENT
+		FROM 
+        		MEMBER_TB
+		WHERE
+        		USER_ID = #{ id }
+		AND     USER_PWD = #{ pwd }
+		AND     STATUS = 'Y'
+	</select>
+
+</mapper>
