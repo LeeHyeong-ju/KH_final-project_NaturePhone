@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Nature Phone</title>
 </head>
 <body>
 	<jsp:include page="common/menubar.jsp"/>
