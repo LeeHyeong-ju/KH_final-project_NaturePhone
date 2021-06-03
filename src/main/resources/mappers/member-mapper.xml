@@ -44,8 +44,97 @@
         		MEMBER_TB
 		WHERE
         		USER_ID = #{ id }
-		AND     USER_PWD = #{ pwd }
 		AND     STATUS = 'Y'
 	</select>
-
+	
+	<select id="idOverlapCheck" parameterType="String" resultType="int">
+		SELECT  COUNT(*) 
+		FROM
+				MEMBER_TB
+		WHERE 
+				USER_ID = #{id}
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT
+		INTO MEMBER_TB
+		(
+			  USER_NO
+			, TOKEN
+			, USER_GRADE
+			, USER_ID
+			, USER_PWD
+			, USER_NAME
+			, PHONE
+			, ADDRESS
+			, APPROVAL_KEY
+			, APPROVAL_STATUS
+			, EMAIL
+			, CREATE_DATE
+			, MODIFY_DATE
+			, STATUS
+			, QUIT_TYPE
+			, QUIT_CONTENT
+		)
+		VALUES
+		(
+			  SEQ_USER_NO.nextval
+			, NULL
+			, DEFAULT
+			, #{ id }
+			, #{ pwd }
+			, #{ name }
+			, #{ phone }
+			, #{ address }
+			, #{ approvalKey }
+			, 'N'
+			, #{ email }
+			, SYSDATE
+			, SYSDATE
+			, DEFAULT
+			, NULL
+			, NULL
+		)
+	</insert>
+	
+	<update id="updateMember" parameterType="Member">
+		UPDATE
+				MEMBER_TB
+		SET
+				  PHONE = #{ phone }
+				, ADDRESS = #{ address }
+				, MODIFY_DATE = SYSDATE
+		WHERE
+				USER_NO = #{ userNo }
+	</update>
+	
+	<update id="pwdUpdate">
+		UPDATE
+				MEMBER_TB
+		SET
+				USER_PWD = #{ pwd }
+		WHERE
+				USER_NO = #{ userNo }
+	</update>
+	
+	<update id="deleteMember" parameterType="Member">
+		UPDATE
+				MEMBER_TB
+		SET
+				  STATUS = 'N'
+				, QUIT_TYPE = #{ quitType }
+				, QUIT_CONTENT = #{ quitContent }
+		WHERE
+				USER_NO = #{ userNo }
+	</update>
+	
+	<update id="approval_member" parameterType="Member">
+		UPDATE 
+				MEMBER_TB 
+		SET 
+				APPROVAL_STATUS = 'Y'
+		WHERE   
+				EMAIL = #{ email } 
+		AND 	APPROVAL_KEY = #{ approvalKey }
+</update>
 </mapper>

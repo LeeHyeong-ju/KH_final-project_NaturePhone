@@ -102,14 +102,19 @@
           
           <div class="forgot">
           <br>
-            <a href="" >아이디 찾기</a> |
-            <a href="">비밀번호 찾기</a> |
-            <a href="${ contextPath }/member/joinPage">회원가입</a>
+            <a href="${ contextPath }/member/joinPage">회원가입</a> |
+            <a href="" id="searchMemberOpen">아이디/비밀번호 찾기</a>
           </div>
 
         </div>
       </div>
     </div>
-        
+    <script>
+    	document.getElementById("searchMemberOpen").onclick = function() {
+    		window.open('${ contextPath }/member/searchMemberPage', 'popup2', 'width=800, height=450');
+    	}
+    
+    
+    </script>   
 </body>
 </html>

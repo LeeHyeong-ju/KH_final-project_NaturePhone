@@ -14,9 +14,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 public class Member {
-	private int userNo;
+	private Integer userNo;
 	private String token;
 	private String grade;
 	private String id;

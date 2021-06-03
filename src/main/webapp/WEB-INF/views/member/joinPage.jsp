@@ -28,6 +28,16 @@ span {
 #joinForm * {
 	font-size: 13px;
 }
+
+.idOverlapTd{
+	padding-top: 0px;
+}
+
+.SC{
+	padding-right : 15px;
+	padding-left : 15px;
+
+}
 </style>
 </head>
 <body>
@@ -58,11 +68,10 @@ span {
 								</td>
 							</tr>
 							
-							<tr id="idOverlap">
-								<th class="col-3">
-								</th>
-								<td class="input-group" style="padding-top:0px;">
-									<span>중복 된 아이디가 있습니다.</span>
+							<tr id="idOverLapTr" style="display:none;">
+								<th class='col-3'></th> 
+								<td class='input-group' style='padding-top: 0px;'>
+									<span id="idOverlap"></span>
 								</td>
 							</tr>
 							
@@ -114,14 +123,13 @@ span {
 											<option value="018">018</option>
 											<option value="019">019</option>
 										</select> 
-										<b>&nbsp&nbsp&nbsp&nbsp - &nbsp&nbsp&nbsp&nbsp</b> 
+										<b class="SC"><i class="far fa-window-minimize"></i></b> 
 										
 										<input type="text"  id="hp2" name="hp2" class="reg_input form-control" minlength="3" maxlength="4" required> 
 										
-										<b>&nbsp&nbsp&nbsp&nbsp - &nbsp&nbsp&nbsp&nbsp</b> 
+										<b class="SC"><i class="far fa-window-minimize"></i></b> 
 										
 										<input type="text" id="hp3" name="hp3" class="reg_input form-control" minlength="4" maxlength="4" required>
-
 									</div> 
 								</td>
 							</tr>
@@ -147,34 +155,34 @@ span {
 							<tr>
 								<th scope="row"><span> * </span><label for="reg_mb_email"
 									class="req">이메일</label></th>
-								<td><input type="hidden" name="old_email" value="">
+								<td><input type="hidden" name="email" id="email" >
 
 									<div class="emailselect_wrap input-group">
-										<input type="text" name="email1" value="" id="email1"
-											class="reg_input form-control" maxlength="20" required="">
-										<b>&nbsp&nbsp&nbsp&nbsp@&nbsp&nbsp&nbsp&nbsp</b> 
-										<input type="text" name="email2" value="" id="email2"
-											class="reg_input form-control" maxlength="20" required=""
-											readonly="">&nbsp <select name="email3" id="email3"
-											class="form-select" required="" onchange="emailAddress(this)">
+										<input type="text" name="email1" id="email1" class="reg_input form-control" maxlength="20">
+
+										<p class="SC" style="margin-bottom: 0px; margin-top: 5px;">@</p>
+
+										<input type="text" name="email2" id="email2" class="reg_input form-control" maxlength="20" required readonly>&nbsp 
+										
+										<select name="email3" id="email3" class="form-select" required onchange="emailAddress(this)">
 											<option value="" selected>선택하세요</option>
 											<option value="1">직접입력</option>
 											<option value="naver.com">naver.com</option>
 											<option value="daum.net">daum.net</option>
 											<option value="nate.com">nate.com</option>
 											<option value="gmail.com">gmail.com</option>
-										</select>&nbsp
-										<div>
-											<button type="button" class="btn btn-primary" onclick="">메일
-												인증</button>
-										</div>
+										</select>
+										
 									</div> 
-									<!-- 메일 -->
-									<input type="hidden" name="email" id="email">
 								</td>
 							</tr>
+							<tr id="emailOverlap"></tr>
 
 						</table>
+						<p style="font-weight:bold; text-align:center;"><i class="fas fa-star" style="color:red;"></i> 주의 : 이메일 인증을 하셔야 로그인이 가능합니다. 정확한 이메일을 적어주세요.</p>
+						
+						<hr>
+						
 						<br>
 						<div class="row" style="margin: auto;">
 							<a href="" class="btn btn-primary col">취소</a> <span class="col-1"></span>
@@ -188,26 +196,54 @@ span {
 
 		</div>
 	</div>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
 	<script>
 		// 이메일 주소 선택
 		function emailAddress(e) {
 			var ea = $(e);
-
+			
 			var email2 = $('input[name=email2]');
 
 			if (ea.val() == "1") {
 				email2.attr('readonly', false);
 				email2.val('');
+				
 			} else {
 				email2.attr('readonly', true);
 				email2.val(ea.val());
 			}
+			
 		}
-
+		
 		// 아이디 중복 확인 - Ajax
+		$("#id").keyup(function() {
+			$.ajax({
+				url : "${ contextPath }/member/idOverlap",
+				type : "POST",
+				data : {
+					id : $("#id").val()
+				},
+				success : function(data) {
+					if (data == 1) {
+						$('#idOverLapTr').show();
+						$("#idOverlap").text('중복된 아이디가 존재합니다.');
+						$("#btn_submit").attr("disabled", "disabled");
+					} else {
+						$("#idOverlap").text("");
+						$('#idOverLapTr').hide();
+						$("#btn_submit").removeAttr("disabled");
+					}
+				},
+				error : function(e){
+					console.log("error code : " + e.status + "\n" + "message : " + e.responseText);
+				}
+			})
+		});
+		
+		
 		/*--------- 로그인 폼 유효성 확인 ---------*/
 		function joinFormSubmit(f) {
+			
 			// 회원아이디 검사 1 - 4~10자, 영어 대문자 x, 맨앞 숫자 x
 			var idCheck= /^[a-z]+[a-z0-9]{3,19}$/g;
 			if (!idCheck.test(f.id.value)){ 
@@ -216,7 +252,6 @@ span {
 				return false; 
 			}
 
-			
 			// 비밀번호 검사 1 - 일치
 			if (f.pwd.value != f.pwd2.value) {
 				alert("비밀번호가 같지 않습니다.");
@@ -224,7 +259,6 @@ span {
 				f.pwd2.focus();
 				return false;
 			}
-			
 			
 			// 비밀번호 검사 2 - 8~16자 영문 대 소문자, 숫자, 특수문자 사용 
 			var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
@@ -235,7 +269,6 @@ span {
 				f.pwd.focus();
 				return false;
 			} 
-			
 			
 			// 이름 검사
 			for (var i = 0; i < f.name.value.length; i++) {
@@ -281,8 +314,11 @@ span {
 				hp3.focus();
 				return false;
 			}
+			
 		}
-
+		</script>
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script>
 		/*--------- 다음 주소 API ---------*/
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(

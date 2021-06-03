@@ -13,11 +13,13 @@
 	<!-- typeAliases -->
 	<typeAliases>
 		<typeAlias type="com.kh.naturephone.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.naturephone.member.model.vo.MyBoard" alias="MyBoard"/>
 	</typeAliases>
 	
 	<!-- mappers -->
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/myList-mapper.xml"/>
 	</mappers>
 	
 </configuration>
