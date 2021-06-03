@@ -4,6 +4,7 @@
 "-//mybatis.org//DTD Config 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+
 	<!-- settings -->
 	<settings>
 		<!-- 만약에 null로 데이터가 전달 되면 빈칸이 아닌 null로 인식 -->
@@ -23,7 +24,7 @@
 		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.BuyerInfo" alias="BuyerInfo"/>
 		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.PaymentInfo" alias="PaymentInfo"/>
 		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CalculateInfo" alias="CalculateInfo"/>
-
+		<typeAlias type="com.kh.naturephone.goods.model.vo.Goods" alias="Goods"/>
 	</typeAliases>
 	
 	<mappers>
@@ -34,6 +35,8 @@
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/myList-mapper.xml"/>
 		<mapper resource="mappers/support-mapper.xml"/>
+		<mapper resource="mappers/goods-mapper.xml"/>
 	</mappers>
 	
+
 </configuration>
