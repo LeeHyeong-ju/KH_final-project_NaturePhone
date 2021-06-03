@@ -6,6 +6,7 @@
 	<title>Home</title>
 </head>
 <body>
-	<jsp:include page="common/menubar.jsp"></jsp:include>
+	
+	<jsp:forward page="goods/goodsInsert.jsp"></jsp:forward>
 </body>
 </html>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sellInfoMapper">
+
+	<resultMap type="DealInfo" id="dealInfoResultSet">
+		<id property="goodsNo" column="GOODS_NO"/>
+		<result property="price" column="PRICE"/>
+		<result property="gtitle" column="GOODS_TITLE"/>
+		<result property="modelName" column="MODEL_NAME"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="progress" column="PROGRESS"/>
+		<result property="dealWay" column="DEAL_WAY"/>
+	</resultMap>
+	
+	<resultMap type="BuyerInfo" id="buyerInfoResultSet">
+		<id property="dealNo" column="DEAL_NO"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="dealRequest" column="REQUEST"/>
+		<result property="goodsNo" column="GOODS_NO"/>
+	</resultMap>
+	
+	<resultMap type="PaymentInfo" id="paymentInfoResultSet">
+		<id property="goodsNo" column="GOODS_NO"/>
+		<result property="price" column="PRICE"/>
+		<result property="dealWay" column="DEAL_WAY"/>
+		<result property="deliveryFee" column="DELIVERY_FEE"/>
+	</resultMap>
+	
+	<resultMap type="CalculateInfo" id="calculateInfoResultSet">
+		<id property="goodsNo" column="GOODS_NO"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="sbank" column="S_BANK"/>
+		<result property="saccount" column="S_ACCOUNT"/>
+		<result property="price" column="PRICE"/>		
+	</resultMap>
+	
+	<select id="selectSellInfoList" parameterType="_int" resultMap="dealInfoResultSet">
+		SELECT
+			   GOODS_NO
+			 , PRICE
+			 , GOODS_TITLE
+			 , CREATE_DATE
+			 , MODEL_NAME
+			 , PROGRESS
+		  FROM
+		  	   GOODS_TB
+			   JOIN PHONE_TB USING (PRO_NO)
+			   JOIN PRODUCT_TB USING (PRO_NO)
+			   JOIN DEAL_TB USING (GOODS_NO)
+		 WHERE
+		 	   USER_NO = #{userNo}
+	  ORDER BY
+	  		   GOODS_NO DESC
+	</select>
+	
+	<select id="selectSellInfo" parameterType="_int" resultMap="dealInfoResultSet">
+		SELECT
+			   GOODS_NO
+			 , PRICE
+			 , GOODS_TITLE
+			 , CREATE_DATE
+			 , MODEL_NAME
+			 , PROGRESS
+			 , DEAL_WAY
+		  FROM
+		  	   GOODS_TB
+			   JOIN PHONE_TB USING (PRO_NO)
+			   JOIN PRODUCT_TB USING (PRO_NO)
+			   JOIN DEAL_TB USING (GOODS_NO)
+		 WHERE
+		 	   GOODS_NO = #{goodsNo}	
+	</select>
+	
+	<select id="selectBuyerInfo" parameterType="_int" resultMap="buyerInfoResultSet">
+		SELECT
+			   DEAL_NO
+			 , USER_NAME
+			 , M.PHONE
+			 , M.ADDRESS
+			 , REQUEST
+			 , GOODS_NO
+		  FROM
+		  	   MEMBER_TB M
+			   JOIN DEAL_TB ON (USER_NO = BUYER_NO)
+		 WHERE
+		 	   GOODS_NO = #{goodsNo}		
+	</select>
+	
+	<select id="selectBuyerModifyInfo" parameterType="_int" resultMap="buyerInfoResultSet">
+		SELECT
+			   DEAL_NO
+			 , USER_NAME
+			 , D.PHONE
+			 , D.ADDRESS
+			 , REQUEST
+			 , GOODS_NO
+		  FROM
+		  	   DEAL_TB D
+			   JOIN MEMBER_TB ON (BUYER_NO = USER_NO)
+		 WHERE
+		 	   GOODS_NO = #{goodsNo}	
+	</select>
+	
+	<select id="selectPaymentInfo" parameterType="_int" resultMap="paymentInfoResultSet">
+		SELECT
+			   GOODS_NO
+			 , PRICE
+			 , DEAL_WAY
+			 , DELIVERY_FEE
+		  FROM
+		  	   GOODS_TB
+		 WHERE
+		 	   GOODS_NO = #{goodsNo}
+	</select>
+	
+	<select id="selectCalculateInfo" parameterType="_int" resultMap="calculateInfoResultSet">
+		SELECT
+			   GOODS_NO
+			 , USER_NAME
+			 , PHONE
+			 , S_BANK
+			 , S_ACCOUNT
+			 , PRICE
+		  FROM
+		  	   GOODS_TB
+			   JOIN MEMBER_TB USING (USER_NO)
+		 WHERE
+		 	   GOODS_NO = #{goodsNo}
+	</select>
+	
+</mapper>
