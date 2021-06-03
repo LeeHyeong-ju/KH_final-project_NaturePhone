@@ -3,10 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Nature Phone</title>
 </head>
 <body>
-	
-	<jsp:forward page="goods/goodsInsert.jsp"></jsp:forward>
+	<jsp:include page="common/menubar.jsp"/>
 </body>
 </html>
