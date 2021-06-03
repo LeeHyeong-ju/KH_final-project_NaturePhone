@@ -7,6 +7,10 @@ scope="application"/>
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- 자바스크립트-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 <!-- 부트스트랩 5.0 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
@@ -150,7 +154,7 @@ scope="application"/>
 					<ul class="topBotomBordersOut navbar-nav mx-auto text-center">
 						<li class="nav-item"><a class="nav-link" href="#">Market</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Community</a></li>
-						<li class="nav-item"><a class="nav-link" href="${ contextPath }/support/compare">Support</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Support</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Service</a></li>
 					</ul>
 				</div>
