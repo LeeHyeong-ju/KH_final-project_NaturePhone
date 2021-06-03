@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodsMapper">
+	<insert id="insertGoods" parameterType="Goods">
+	INSERT
+	INTO GOODS_TB
+	(
+		GOODS_NO
+	  , USER_NO
+	  , PRO_NO
+	  , CARR_NO
+	  , GOODS_TITLE
+	  , G_CONTENT
+	  , CREATE_DATE
+	  , MODIFY_DATE
+	  , DEAL_WAY
+	  , CONDITION
+	  , COMPONENT
+	  , PRICE
+	  , DELIVERY_FEE
+	  , DEAL_ADD
+	  , DRCT_STATUS
+	  , STATUS
+	  , S_BANK
+	  , S_ACCOUNT
+	  , USER_ID
+	)
+	VALUES
+		(
+			#{goodsNo}
+	      , #{userNo}
+	      , #{proNo}
+	      , #{carrNo}
+	      , #{goodsTitle}
+	      , #{content}
+	      , SYSDATE
+	      , SYSDATE
+	      , #{dealWay}
+	      , #{condition}
+	      , #{component}
+	      , #{price}
+	      , #{deliveryFee}
+	      , #{dealAdd}
+	      , #{drctStatus}
+	      , DEFAULT
+	      , '신한'
+	      , '2203123'
+	      , 'id1'
+		)
+	</insert>
+
+
+</mapper>
