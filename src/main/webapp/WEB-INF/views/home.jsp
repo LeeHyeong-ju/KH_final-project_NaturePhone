@@ -7,8 +7,8 @@
 </head>
 <body>
 
-	<jsp:include page="board/boardFreeInsert.jsp"></jsp:include>
 	<jsp:include page="common/menubar.jsp"/>
+	<jsp:include page="board/boardFreeInsert.jsp"></jsp:include>
 
 </body>
 </html>
