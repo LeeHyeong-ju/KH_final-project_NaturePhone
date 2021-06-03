@@ -8,9 +8,9 @@ scope="application"/>
 <head>
 <meta charset="UTF-8">
 <!-- 자바스크립트-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> -->
 <!-- 부트스트랩 5.0 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
