@@ -7,10 +7,7 @@ scope="application"/>
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- 자바스크립트-->
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script> -->
+
 <!-- 부트스트랩 5.0 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
@@ -119,9 +116,9 @@ scope="application"/>
 			<div class="container d-flex flex-wrap">
 				<ul class="nav me-auto"></ul>
 				<ul class="nav">
-					<li class="topNav"><a href="#" class="nav-link link-dark px-2"
+					<li class="topNav"><a href="${ contextPath }/member/loginPage" class="nav-link link-dark px-2"
 						style="cursor: pointer;">Login</a></li>
-					<li class="topNav"><a href="#" class="nav-link link-dark px-2"
+					<li class="topNav"><a href="${ contextPath }/member/joinPage" class="nav-link link-dark px-2"
 						style="margin-right: 75px;">Sign up</a></li>
 				</ul>
 			</div>
@@ -135,8 +132,8 @@ scope="application"/>
                     <li class="topNav"><a href="#" class="nav-link link-dark px-2"><i class="fas fa-envelope"></i></a></li>
                     <li class="topNav"><a href="#" class="nav-link link-dark px-2"><i class="fas fa-shopping-cart"></i></a></li>
                     <li class="topNav"><a href="#" class="nav-link link-dark px-2">${ loginUser.name }님</a></li>
-                    <li class="topNav"><a href="#" class="nav-link link-dark px-2">MyPage</a></li>
-                    <li class="topNav"><a href="#" class="nav-link link-dark px-2" style="margin-right:75px;">Logout</a></li>
+                    <li class="topNav"><a href="${ contextPath }/member/myPage" class="nav-link link-dark px-2">MyPage</a></li>
+                    <li class="topNav"><a href="${ contextPath }/member/logout" class="nav-link link-dark px-2" style="margin-right:75px;">Logout</a></li>
                 </ul>
             </div>
         </nav>	
@@ -149,12 +146,12 @@ scope="application"/>
 					class="navbar-collapse collapse justify-content-between align-items-center w-100"
 					id="collapsingNavbar2">
 					<div class="logo form-control">
-						<img src="${ contextPath }/resources/images/logo.png" style="width: 230px;">
+						<a href="${ contextPath }"><img src="${ contextPath }/resources/images/logo.png" style="width: 230px;"></a>
 					</div>
 					<ul class="topBotomBordersOut navbar-nav mx-auto text-center">
 						<li class="nav-item"><a class="nav-link" href="#">Market</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Community</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+						<li class="nav-item"><a class="nav-link" href="${ contextPath }/support/compare">Support</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Service</a></li>
 					</ul>
 				</div>
