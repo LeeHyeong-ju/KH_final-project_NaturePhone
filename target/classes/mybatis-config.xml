@@ -11,9 +11,14 @@
 	</settings>
 	
 	<!-- typeAliases -->
-	
+	<typeAliases>	
+		<typeAlias type="com.kh.naturephone.boardFree.model.vo.Board_TB" alias="Board_TB"/>
+		<typeAlias type="com.kh.naturephone.boardFree.model.vo.B_Att_TB" alias="B_Att_TB"/>						
+	</typeAliases>
 	
 	<!-- mappers -->
-	
+	<mappers>
+		<mapper resource="mappers/board-mapper.xml"/>		
+	</mappers>
 	
 </configuration>
