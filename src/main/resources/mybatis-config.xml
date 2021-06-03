@@ -28,9 +28,7 @@
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/myList-mapper.xml"/>
 		<mapper resource="mappers/sellInfo-mapper.xml"/>
-
 		<mapper resource="mappers/support-mapper.xml"/>
-		<mapper resource="mappers/sellInfo-mapper.xml"/>
 	</mappers>
 	
 </configuration>
