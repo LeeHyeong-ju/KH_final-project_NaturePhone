@@ -10,6 +10,7 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.naturephone.boardFree.model.vo.PageInfo;
 import com.kh.naturephone.member.model.dao.MemberDao;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.member.model.vo.MyBoard;
@@ -139,14 +140,20 @@ public class MemberServiceImpl implements MemberService{
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 	
 	@Override
-	public List<MyBoard> selectMyBoardList(int userNo) {
-		return mDao.selectMyBoardList(userNo);
+	public List<MyBoard> selectMyBoardList(int userNo, PageInfo pi) {
+		return mDao.selectMyBoardList(userNo, pi);
+	}
+	
+	@Override
+	public int selectListCount(int userNo) {
+		return mDao.selectListCount(userNo);
 	}
 
 	@Override
 	public List<MyReply> selectMyReplyList() {
 		return mDao.selectMyReplyList();
 	}
+
 
 	
 

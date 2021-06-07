@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="messageMapper">
+	<resultMap id="messageResultSet" type="Message">
+		<id property="messageNo" column="MSG_NO"/>
+		<result property="messageTitle" column="MSG_TITLE"/>
+		<result property="messageContent" column="MSG_CONTENT"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="viewStatus" column="VIEW_STATUS"/>
+		<result property="senderNo" column="SENDER_NO"/>
+		<result property="recipientNo" column="RECIPIENT_NO"/>
+		<result property="type" column="MSG_TYPE"/>
+		<result property="deleteDate" column="DELETE_DATE"/>
+		<result property="status" column="MSG_STATUS"/>
+		<result property="divisionNo" column="DIVISION_NO"/>
+		<result property="userName" column="USER_NAME"/>
+	</resultMap>
+	
+	<select id="selectListCount" parameterType="Message" resultType="_int">
+		SELECT
+				COUNT(*)
+		FROM
+				MESSAGE_TB
+		WHERE
+				MSG_STATUS = 'Y'
+	<choose>
+		<!-- 받은 쪽지함일 때 -->
+    	<when test="recipientNo != 0">
+    	AND RECIPIENT_NO = #{ recipientNo }
+    	</when>
+    	<!-- 보낸 쪽지함일 때 -->
+    	<when test="senderNo != 0">
+		AND SENDER_NO = #{ senderNo }
+		</when>
+		<!-- 보관함이거나 휴지통일때 -->
+		<otherwise>
+		AND MSG_TYPE = #{ type }
+		</otherwise>
+    </choose>
+	</select>
+	
+	<select id="selectList" parameterType="Message" resultMap="messageResultSet">
+		SELECT
+		          A.MSG_NO
+		        , A.MSG_TITLE
+		        , A.MSG_CONTENT
+		        , A.CREATE_DATE
+		        , A.VIEW_STATUS
+		        , A.SENDER_NO
+		        , A.RECIPIENT_NO
+		        , A.MSG_TYPE
+		        , A.DELETE_DATE
+		        , B.USER_NAME
+		FROM
+		        MESSAGE_TB A
+	<choose>
+		<!-- 받은 쪽지함일 때 -->
+    	<when test="recipientNo != 0">
+    	JOIN    MEMBER_TB B
+		ON      A.SENDER_NO = B.USER_NO
+		WHERE
+		        MSG_STATUS ='Y'
+		AND     RECIPIENT_NO = #{ recipientNo }
+		AND     MSG_TYPE IS NULL
+    	</when>
+    	<!-- 보낸 쪽지함일 때 -->
+    	<when test="senderNo != 0">
+		JOIN    MEMBER_TB B
+		ON      A.RECIPIENT_NO = B.USER_NO
+		WHERE
+		        MSG_STATUS ='Y'
+		AND     SENDER_NO = #{ senderNo }
+		AND     MSG_TYPE IS NULL
+		</when>
+		<!-- 보관함이거나 휴지통일때 -->
+		<otherwise>
+		AND 	DIVISION_NO = #{ divisionNo }
+		AND 	MSG_TYPE = #{ type }
+		</otherwise>
+    </choose>
+    ORDER BY
+    			MSG_NO DESC
+	</select>
+</mapper>

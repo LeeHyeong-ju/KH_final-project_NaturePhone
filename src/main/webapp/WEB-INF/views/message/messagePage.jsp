@@ -85,10 +85,10 @@
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">쪽지함</li>
-						<li><a href="${ contextPath }/message/selectList?type=받은쪽지함"
+						<li><a href="${ contextPath }/message/selectList?type=받은 쪽지함"
 							class="list-group-item list-group-item-action sideContent">받은
 								쪽지함</a></li>
-						<li><a href="${ contextPath }/message/selectList?type=보낸쪽지함"
+						<li><a href="${ contextPath }/message/selectList?type=보낸 쪽지함"
 							class="list-group-item list-group-item-action sideContent">보낸
 								쪽지함</a></li>
 						<li><a href="${ contextPath }/message/selectList?type=보관함"
@@ -115,69 +115,125 @@
 			
             <!-- 내용 -->
              <div class="col-md-8 content">
-                <div class="main-div">
-                    <div class="panel row">
-                        <div class="col-7">
-                            <h5>받은 쪽지함</h5> 
-                        </div>
-                        
-                        <div class=" col-5">
+				<div class="main-div">
+					<div class="panel row">
+						<div class="col-7">
+							<h5>${ message.type }</h5>
+						</div>
 
-							<div class="input-group mb-3">
+						<div class=" col-5">
+
+							<div class="input-group input-group-sm mb-3">
 								<button class="btn btn-outline-secondary dropdown-toggle"
-									type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+									type="button" data-bs-toggle="dropdown" aria-expanded="false">검색하기</button>
 								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-									<li><hr class="dropdown-divider"></li>
-									<li><a class="dropdown-item" href="#">Separated link</a></li>
+									<li><a class="dropdown-item" href="#">제목</a></li>
+									<li><a class="dropdown-item" href="#">내용</a></li>
+									<li><a class="dropdown-item" href="#">이름</a></li>
 								</ul>
 								<input type="text" class="form-control"
 									aria-label="Text input with dropdown button">
 							</div>
 
 						</div>
-                        
-                    </div>
-                    <hr style="margin-top: 9px;">
-                    <table class="table table-hover">
-                        <thead class="table-light">
-                          <tr>
-                            <th scope="col" class="col-1">
-                                <input type="checkbox" name="">
-                            </th>
-                            <th scope="col" class="col-2">유형</th>
-                            <th scope="col" class="col-5">제목</th>
-                            <th scope="col" class="col-2">보낸사람</th>
-                            <th scope="col" class="col-2">받은일시</th>
-                          </tr>
-                        </thead>
 
-                        <tbody>
-                          <tr>
-                            <th scope="row"><input type="checkbox" name=""></th>
-                            <td>일반</td>
-                            <td>팔렸는지 궁금합니다!!</td>
-                            <td>홍길동</td>
-                            <td>2021-04-30</td>
-                          </tr>
-                        </tbody>
+					</div>
+					<hr style="margin-top: -8px;">
+					<table class="table table-hover">
+						<thead class="table-light">
+							<tr>
+								<th scope="col" class="col-1"><input type="checkbox"
+									name=""></th>
+								<th scope="col" class="col-2">유형</th>
+								<th scope="col" class="col-5">제목</th>
+								<th scope="col" class="col-2">보낸사람</th>
+								<th scope="col" class="col-2">받은일시</th>
+							</tr>
+						</thead>
 
-                        
-                      </table>
-                      
-                        <div class="row messageMove">
-                          <div class="col"></div>
-                          <div class="col">페이징</div>
-                          <div class="col">
-                            <button type="button" class="btn btn-primary btn-sm">보관함 담기</button>
-                            <button type="button" class="btn btn-primary btn-sm">휴지통 담기</button>
-                          </div>
-                </div>
-            </div>
-        </div>
+						<tbody>
+
+							<c:forEach items="${ list }" var="m">
+								<tr>
+									<th scope="row"><input type="checkbox" name=""></th>
+									<td>일반</td>
+									<td>${ m.messageTitle }</td>
+									<td>${ m.userName }</td>
+									<td>${ m.createDate }</td>
+								</tr>
+
+							</c:forEach>
+
+						</tbody>
+						<tfoot>
+
+						</tfoot>
+
+					</table>
+
+					<div class="row messageMove">
+						<div class="col"></div>
+						<div class="col">
+							<nav aria-label="Page navigation">
+								<ul class="pagination justify-content-center">
+									<!-- 이전 -->
+									<c:if test="${pi.currentPage <= 1 }">
+										<li class="page-item"><a class="page-link"
+											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										</a></li>
+									</c:if>
+									<c:if test="${ pi.currentPage > 1 }">
+										<c:url var="before"
+											value="/message/selectList?type=${ message.type }">
+											<c:param name="page" value="${ pi.currentPage -1 }" />
+										</c:url>
+										<a class="page-link" href="${ before }" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+										</a>
+									</c:if>
+
+									<!-- 페이지 숫자 -->
+									<c:forEach var="p" begin="${ pi.startPage }"
+										end="${pi.endPage }">
+										<c:if test="${ p eq pi.currentPage }">
+											<li class="page-item"><a class="page-link">${ p }</a></li>
+										</c:if>
+										<c:if test="${ p ne pi.currentPage }">
+											<c:url var="pagination"
+												value="/message/selectList?type=${ message.type }">
+												<c:param name="page" value="${ p }" />
+											</c:url>
+											<a class="page-link" href="${ pagination }">${ p }</a>
+										</c:if>
+									</c:forEach>
+
+									<!-- 다음 -->
+									<c:if test="${ pi.currentPage >= pi.maxPage }">
+										<li class="page-item"><a class="page-link"
+											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										</a></li>
+									</c:if>
+									<c:if test="${ pi.currentPage < pi.maxPage }">
+										<c:url var="after"
+											value="/message/selectList?type=${ message.type }">
+											<c:param name="page" value="${ pi.currentPage + 1 }" />
+										</c:url>
+										<a class="page-link" href="${ after }" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+										</a>
+									</c:if>
+								</ul>
+							</nav>
+						</div>
+						<div class="col">
+							<button type="button" class="btn btn-primary btn-sm">보관함
+								담기</button>
+							<button type="button" class="btn btn-primary btn-sm">휴지통
+								담기</button>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
     </div>
 </body>

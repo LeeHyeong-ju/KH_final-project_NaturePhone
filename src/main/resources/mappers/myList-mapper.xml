@@ -27,4 +27,14 @@
 		ORDER BY
 				B_NO DESC
 	</select>
+	<select id="selectListCount" parameterType="_int" resultType="_int">
+		SELECT
+				COUNT(*)
+		FROM
+				BOARD_TB
+		WHERE
+				USER_NO = #{ userNo }
+		AND		B_STATUS = 'Y'
+		
+	</select>
 </mapper>

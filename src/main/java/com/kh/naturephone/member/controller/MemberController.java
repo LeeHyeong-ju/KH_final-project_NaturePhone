@@ -22,6 +22,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.member.model.service.MemberService;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.member.model.vo.MyBoard;
@@ -234,13 +236,16 @@ public class MemberController {
 	// 나의 게시글 조회
 	@GetMapping("/myBoardList")
 	public ModelAndView selectMyBoardList(ModelAndView mv,
-										  @SessionAttribute("loginUser") Member loginUser) {
+										  @SessionAttribute("loginUser") Member loginUser,
+										  @RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 		
 		int userNo = loginUser.getUserNo();
-		List<MyBoard> list = mService.selectMyBoardList(userNo);
-			
+		int listCount = mService.selectListCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		List<MyBoard> list = mService.selectMyBoardList(userNo, pi);
 		if(list != null) {
 			mv.addObject("list", list);
+			mv.addObject("pi", pi);
 			mv.setViewName("member/myBoardPage");
 		} 
 		return mv;

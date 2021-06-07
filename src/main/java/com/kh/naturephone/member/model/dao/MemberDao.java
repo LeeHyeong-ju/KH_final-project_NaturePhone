@@ -2,6 +2,7 @@ package com.kh.naturephone.member.model.dao;
 
 import java.util.List;
 
+import com.kh.naturephone.boardFree.model.vo.PageInfo;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.member.model.vo.MyBoard;
 import com.kh.naturephone.member.model.vo.MyReply;
@@ -31,10 +32,14 @@ public interface MemberDao {
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 	
 	// 1. 나의 게시글 조회
-	List<MyBoard> selectMyBoardList(int userNo);
-
+	List<MyBoard> selectMyBoardList(int userNo, PageInfo pi);
+	
+	// 1-1. 페이징 처리
+	int selectListCount(int userNo);
+	
 	// 2. 나의 게시글 조회
 	List<MyReply> selectMyReplyList();
+
 
 
 

@@ -97,15 +97,15 @@ span {
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">쪽지함</li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/message/selectList?type=받은 쪽지함"
 							class="list-group-item list-group-item-action sideContent">받은
 								쪽지함</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/message/selectList?type=보낸 쪽지함"
 							class="list-group-item list-group-item-action sideContent">보낸
 								쪽지함</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/message/selectList?type=보관함"
 							class="list-group-item list-group-item-action sideContent">보관함</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/message/selectList?type=휴지통"
 							class="list-group-item list-group-item-action sideContent">휴지통</a></li>
 					</ul>
 				</div>
@@ -291,6 +291,13 @@ span {
 			</div>
 		</div>
 	</form>
+	
+	<c:if test="${ !empty list }">
+		<div class="btnArea">
+		쪽지가 존재하지 않습니다.
+			<button class="btn" onclick="location.href='${ contextPath }/board/write'">글쓰기</button>
+		</div>
+	</c:if>
 	
 	<script>
 	
