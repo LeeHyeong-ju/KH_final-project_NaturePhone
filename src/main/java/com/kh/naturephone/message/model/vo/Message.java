@@ -18,12 +18,15 @@ public class Message {
 	private String messageTitle;
 	private String messageContent;
 	private Date createDate;
-	private Date deleteDate;
 	private String viewStatus;
 	private int senderNo;
 	private int recipientNo;
+	private String sStatus;
+	private String rStatus;
+	
+	private String userId;
+	
 	private String type;
-	private String status;
-	private int divisionNo;
-	private String userName;
+	private String userStatus;
+	private Date deleteDate;
 }

@@ -85,11 +85,11 @@
           <form id="Login" action="${ contextPath }/member/login" method="post">
     
           <div class="form-group">   
-            <input class="form-control" id="id" name="id" placeholder="아이디를 입력해주세요.">
+            <input class="form-control" id="id" name="id" placeholder="아이디를 입력해주세요." required>
           </div>
         
           <div class="form-group">
-            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요.">
+            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요." required>
           </div>
                 
           <button type="submit" class="btn btn-primary">Login</button>

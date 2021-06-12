@@ -59,6 +59,7 @@
       font-size: 13px;
     }
 
+
 </style>
 
 </head>
@@ -91,86 +92,135 @@
 						<li><a href="${ contextPath }/message/selectList?type=보낸 쪽지함"
 							class="list-group-item list-group-item-action sideContent">보낸
 								쪽지함</a></li>
-						<li><a href="${ contextPath }/message/selectList?type=보관함"
-							class="list-group-item list-group-item-action sideContent">보관함</a></li>
-						<li><a href="${ contextPath }/message/selectList?type=휴지통"
-							class="list-group-item list-group-item-action sideContent">휴지통</a></li>
 					</ul>
 				</div>
 
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">주문내역</li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/sellInfo/list"
 							class="list-group-item list-group-item-action sideContent">나의
 								판매내역</a></li>
 						<li><a href="#"
 							class="list-group-item list-group-item-action sideContent">나의
 								구매내역</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/itd/list"
 							class="list-group-item list-group-item-action sideContent">관심상품</a></li>
 					</ul>
 				</div>
 			</div>
 			
             <!-- 내용 -->
+            
              <div class="col-md-8 content">
 				<div class="main-div">
 					<div class="panel row">
 						<div class="col-7">
-							<h5>${ message.type }</h5>
+							<h5 id="mType">${ message.type }</h5>
 						</div>
-
-						<div class=" col-5">
-
-							<div class="input-group input-group-sm mb-3">
-								<button class="btn btn-outline-secondary dropdown-toggle"
-									type="button" data-bs-toggle="dropdown" aria-expanded="false">검색하기</button>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">제목</a></li>
-									<li><a class="dropdown-item" href="#">내용</a></li>
-									<li><a class="dropdown-item" href="#">이름</a></li>
-								</ul>
-								<input type="text" class="form-control"
-									aria-label="Text input with dropdown button">
-							</div>
-
+						
+						
+						<div class="col-5">
+						
+						<form action="${ contextPath }/message/search" method="GET">
+						<div class="input-group input-group-sm mb-3" >
+							<select  class="form-select form-select-sm" id="searchCondition" name="searchCondition">
+								<option value="all" <c:if test="${ param.searchCondition == 'all' }">selected</c:if>>전체</option>
+								<option value="title" <c:if test="${ param.searchCondition == 'title' }">selected</c:if>>제목</option>
+								<option value="content" <c:if test="${ param.searchCondition == 'content' }">selected</c:if>>내용</option>
+								<option value="writer" <c:if test="${ param.searchCondition == 'name' }">selected</c:if>>이름</option>
+							</select>
+							<input type="search" class="form-control" name="searchValue" style="width:100px;" value="${ param.searchValue }" required>
+							<input type="hidden" name="type" value="${ message.type }">
+							<button class="btn btn-primary btn-sm">검색</button>
+						</div>
+						
+						</form>
+						
 						</div>
 
 					</div>
 					<hr style="margin-top: -8px;">
+					
+					<form id="delList">
 					<table class="table table-hover">
 						<thead class="table-light">
 							<tr>
-								<th scope="col" class="col-1"><input type="checkbox"
-									name=""></th>
-								<th scope="col" class="col-2">유형</th>
+							
+							<c:choose>
+                        	<c:when test="${ message.type eq '받은 쪽지함' }">
+                        		<th scope="col" class="col-1">
+                        			<input type="checkbox" name='selectall' value='selectall' onclick='selectAll(this)'>
+                        		</th>
+                            	<th scope="col" class="col-2">분류</th>
 								<th scope="col" class="col-5">제목</th>
-								<th scope="col" class="col-2">보낸사람</th>
-								<th scope="col" class="col-2">받은일시</th>
+								<th scope="col" class="col-2">보낸 사람</th>
+								<th scope="col" class="col-2">받은 일시</th>
+                            </c:when>
+                            <c:when test="${ message.type eq '보낸 쪽지함' }">
+                            	<th scope="col" class="col-1">
+                            		<input type="checkbox" name='selectall' value='selectall' onclick='selectAll(this)'>
+                            	</th>
+                            	<th scope="col" class="col-2">상태</th>
+								<th scope="col" class="col-5">제목</th>
+								<th scope="col" class="col-2">받는 사람</th>
+								<th scope="col" class="col-2">보낸 일시</th>
+                            </c:when>
+                        	</c:choose>	
+								
 							</tr>
 						</thead>
 
 						<tbody>
-
 							<c:forEach items="${ list }" var="m">
-								<tr>
-									<th scope="row"><input type="checkbox" name=""></th>
-									<td>일반</td>
-									<td>${ m.messageTitle }</td>
-									<td>${ m.userName }</td>
-									<td>${ m.createDate }</td>
+								<tr onclick="selectMessage(${ m.messageNo });">
+								<c:choose>
+		                        	<c:when test="${ message.type eq '받은 쪽지함' }">
+		                        		<th scope="row" onclick="event.cancelBubble=true">
+		                        			<input type="checkbox" name='checkRow' value="${ m.messageNo }" onclick='checkSelectAll()'>
+		                        		</th>
+		                        		
+		                        		<c:if test="${ m.senderNo == 1 }">
+										<td style="color:red;">중요</td>
+										</c:if>
+										<c:if test="${ m.senderNo != 1 }">
+										<td>일반</td>
+										</c:if>
+										
+										<td>${ m.messageTitle }</td>
+										<td>${ m.userId }</td>
+										<td>${ m.createDate }</td>
+										
+		                            </c:when>
+		                            
+		                            <c:when test="${ message.type eq '보낸 쪽지함' }">
+		                            	<th scope="row" onclick="event.cancelBubble=true">
+		                            		<input type="checkbox" name='checkRow' value="${ m.messageNo }" onclick='checkSelectAll()'>
+		                            	</th>
+		                            	
+		                        		<c:if test="${ m.viewStatus == 'Y' }">
+										<td style="color:blue;">읽음</td>
+										</c:if>
+										<c:if test="${ m.viewStatus == 'N'}">
+										<td>안읽음</td>
+										</c:if>
+										
+										<td>${ m.messageTitle }</td>
+										<td>${ m.userId }</td>
+										<td>${ m.createDate }</td>
+		                            </c:when>
+	                        	</c:choose>	
+									
 								</tr>
 
 							</c:forEach>
 
 						</tbody>
-						<tfoot>
-
-						</tfoot>
 
 					</table>
-
+					</form>
+					
+					<!-- 페이징 처리 -->
 					<div class="row messageMove">
 						<div class="col"></div>
 						<div class="col">
@@ -193,10 +243,9 @@
 									</c:if>
 
 									<!-- 페이지 숫자 -->
-									<c:forEach var="p" begin="${ pi.startPage }"
-										end="${pi.endPage }">
+									<c:forEach var="p" begin="${ pi.startPage }" end="${pi.endPage }">
 										<c:if test="${ p eq pi.currentPage }">
-											<li class="page-item"><a class="page-link">${ p }</a></li>
+											<li class="page-item active"><a class="page-link">${ p }</a></li>
 										</c:if>
 										<c:if test="${ p ne pi.currentPage }">
 											<c:url var="pagination"
@@ -226,17 +275,110 @@
 							</nav>
 						</div>
 						<div class="col">
-							<button type="button" class="btn btn-primary btn-sm">보관함
-								담기</button>
-							<button type="button" class="btn btn-primary btn-sm">휴지통
-								담기</button>
+							<button type="button" id="delectMessageBtn" class="btn btn-primary btn-sm" onclick="deleteMessage()">삭제하기</button>
 						</div>
 					</div>
 				</div>
+				
+				
 			</div>
         </div>
     </div>
+   
+    <script>
+    
+    	/*---------------- 쪽지 상세 ----------------*/
+    	function selectMessage(messageNo){
+    		location.href = '${ contextPath }/message/detail?type=${ message.type }&messageNo=' + messageNo + '&page=${ pi.currentPage }';
+    	} 
+    	
+    	
+    	
+    	/*---------------- 체크박스 동작 ----------------*/
+    	function checkSelectAll()  {
+    		  // 전체 체크박스
+    		  const checkboxes 
+    		    = document.querySelectorAll('input[name="checkRow"]');
+    		  // 선택된 체크박스
+    		  const checked 
+    		    = document.querySelectorAll('input[name="checkRow"]:checked');
+    		  // select all 체크박스
+    		  const selectAll 
+    		    = document.querySelector('input[name="selectall"]');
+    		  
+    		  if(checkboxes.length === checked.length)  {
+    		    selectAll.checked = true;
+    		  }else {
+    		    selectAll.checked = false;
+    		  }
+
+    		}
+    	
+    	function selectAll(selectAll)  {
+    		  const checkboxes 
+    		     = document.getElementsByName('checkRow');
+    		  
+    		  checkboxes.forEach((checkbox) => {
+    		    checkbox.checked = selectAll.checked
+    		  })
+    		}
+    	
+    	/*---------------- 삭제버튼 눌렀을 때 ----------------*/
+		function deleteMessage(){
+    		var type = "${ message.type }";	
+    		var ckArr = [];					
+        	$("input[name=checkRow]:checked").each(function(){
+        		var chk = $(this).val();
+        		console.log(chk);
+        		ckArr.push(chk);
+        	})
+        		
+        	
+        	// 쪽지가 선택 되지 않았을 때
+        	if(ckArr.length == 0){
+        		alert("삭제할 쪽지를 선택해주세요.");
+        	
+        	// 쪽지가 선택 되었다면
+        	} else{
+        		// 정말 삭제할 것인지 확인
+	        	if(confirm("선택 된 쪽지를 삭제하시겠습니까?") == true){
+	        		console.log(ckArr);
+	        		console.log(type);
+	        		$.ajax({
+	        			type : 'POST',
+	        			url : "${ contextPath }/message/delete",
+	        			data:{ "ckArr" : ckArr, "type" : type },
+	        			dataType: "text",
+	                    success: function(data) {
+	                    	if(data == 'success'){
+	                    		location.reload();
+	                        	alert("삭제가 완료되었습니다.");
+	                    	} else {
+	                    		alert("삭제 실패.");
+	                    	}
+	                    },
+	                    error: function(e){
+	                        alert("error code : " + e.status + "\n"
+	                                + "message : " + e.responseText);
+	                    }        
+	        		});
+	        	
+	        	// 취소 버튼 눌렀을 때	페이지 reload
+	        	} else {	
+	        		location.reload(true);
+	        	}
+        		
+        	}
+        	
+    	}
+    	
+    	
+		
+		
+    
+    	
+    </script>
 </body>
-</body>
+
 
 </html>
