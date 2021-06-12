@@ -17,8 +17,11 @@ public interface MemberService {
 	// 1. 회원 로그인 서비스를 위한 메소드
 	Member loginMember(Member m);
 	
-	// 2. 아이디 중복 검사 메소드 (Ajax)
+	// 2-1. 아이디 중복 검사 메소드 (Ajax)
 	void idOverlapCheck(String id, HttpServletResponse response) throws Exception;
+	
+	// 2-2. 이메일 중복 검사 메소드 (Ajax)
+	void emailOverlapCheck(String email, HttpServletResponse response) throws Exception;
 
 	// 4. 회원가입 (DB insert)
 	int insertMember(Member m);
@@ -51,6 +54,8 @@ public interface MemberService {
 	
 	// 2. 나의 댓글 조회
 	List<MyReply> selectMyReplyList();
+
+	
 	
 
 

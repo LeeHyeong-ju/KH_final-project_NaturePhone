@@ -29,6 +29,13 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
+	public int emailOverlapCheck(String email) {
+		System.out.println("dad : " + email);
+		return sqlSession.selectOne("memberMapper.emailOverlapCheck", email);
+	}
+
+	
+	@Override
 	public int insertMember(Member m) {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
@@ -74,5 +81,6 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("myListMapper.selectListCount", userNo);
 	}
 
+	
 	
 }

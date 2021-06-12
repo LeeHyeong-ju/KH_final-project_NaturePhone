@@ -12,8 +12,11 @@ public interface MemberDao {
 	// 1. 회원 로그인 서비스를 위한 메소드
 	Member selectMember(Member m);
 
-	// 2. 아이디 중복 검사 메소드 (Ajax)
+	// 2-1. 아이디 중복 검사 메소드 (Ajax)
 	int idOverlapCheck(String id);
+	
+	// 2-2. 이메일 중복 검사 메소드 (Ajax)
+	int emailOverlapCheck(String email);
 
 	// 4. 회원가입 (DB insert)
 	int insertMember(Member m);

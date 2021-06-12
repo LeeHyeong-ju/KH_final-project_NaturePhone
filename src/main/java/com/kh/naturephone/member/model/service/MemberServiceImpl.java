@@ -1,5 +1,6 @@
 package com.kh.naturephone.member.model.service;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
@@ -35,6 +36,14 @@ public class MemberServiceImpl implements MemberService{
 		out.println(mDao.idOverlapCheck(id));
 		out.flush();
 		out.close();
+	}
+	
+	@Override
+	public void emailOverlapCheck(String email, HttpServletResponse response) throws Exception {
+		PrintWriter out = response.getWriter();
+		out.println(mDao.emailOverlapCheck(email));
+		out.flush();
+		out.close();		
 	}
 
 	@Override
@@ -153,6 +162,8 @@ public class MemberServiceImpl implements MemberService{
 	public List<MyReply> selectMyReplyList() {
 		return mDao.selectMyReplyList();
 	}
+
+	
 
 
 	

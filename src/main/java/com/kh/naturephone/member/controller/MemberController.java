@@ -111,10 +111,17 @@ public class MemberController {
 		}
 	}
 
-	// 2. 아이디 중복 검사 메소드 (Ajax)
+	// 2-1. 아이디 중복 검사 메소드 (Ajax)
 	@RequestMapping(value = "/idOverlap", method = RequestMethod.POST)
 	public void idOverlapCheck(String id, HttpServletResponse response) throws Exception {
 		mService.idOverlapCheck(id, response);
+	}
+	
+	// 2-2. 이메일 중복 검사 메소드 (Ajax)
+	@RequestMapping(value = "/emailOverlap", method = RequestMethod.POST)
+	public void emailOverlapCheck(String email, HttpServletResponse response) throws Exception {
+		System.out.println(email);
+		mService.emailOverlapCheck(email, response);
 	}
 
 	// 3. 이메일 인증 메소드

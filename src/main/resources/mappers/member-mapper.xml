@@ -55,6 +55,14 @@
 				USER_ID = #{id}
 	</select>
 	
+	<select id="emailOverlapCheck" parameterType="String" resultType="int">
+		SELECT  COUNT(*) 
+		FROM
+				MEMBER_TB
+		WHERE 
+				EMAIL = #{email}
+	</select>
+	
 	<insert id="insertMember" parameterType="Member">
 		INSERT
 		INTO MEMBER_TB
