@@ -109,6 +109,7 @@
         </div>
       </div>
     </div>
+    <jsp:include page="../common/footer.jsp"/>
     <script>
     	document.getElementById("searchMemberOpen").onclick = function() {
     		window.open('${ contextPath }/member/searchMemberPage', 'popup2', 'width=800, height=450');

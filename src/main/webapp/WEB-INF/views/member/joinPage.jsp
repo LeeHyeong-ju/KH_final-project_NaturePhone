@@ -205,7 +205,7 @@ span {
 
 		</div>
 	</div>
-	
+	<jsp:include page="../common/footer.jsp"/>
 	<script>
 		// 이메일 주소 선택
 		function emailAddress(e) {

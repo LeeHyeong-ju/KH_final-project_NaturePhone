@@ -488,6 +488,7 @@ E-mail등으로 연락하시면 즉시 개인정보의 삭제 등 필요한 조�
     </div>
   </div>
 
+	<jsp:include page="../common/footer.jsp"/>
   <script>
 
     function fregister_submit(f) {

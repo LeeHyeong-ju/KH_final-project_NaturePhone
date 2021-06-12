@@ -289,6 +289,8 @@ span {
 		</div>
 	</form>
 	
+	<jsp:include page="../common/footer.jsp"/>
+	
 	<script>
 	
 		// 탈퇴하기 버튼 클릭 시

@@ -206,6 +206,8 @@
 		</div>
 	</div>
 	
+	<jsp:include page="../common/footer.jsp"/>
+	
 	<script>
 	/*------------- 실시간 글자수 카운팅 -------------*/
 	$("#messageContent").on("propertychange change keyup paste input", function() {
