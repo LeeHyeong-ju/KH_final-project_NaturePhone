@@ -174,7 +174,7 @@ span {
 										&nbsp 
 										<div>
 											<input type="hidden" id="email" name="email">
-                                            <button type="button" class="btn btn-primary" id="joinSendMailBtn" onclick="return joinSendMail(this)">메일 인증</button>
+                                            <button type="button" class="btn btn-primary" id="joinSendMailBtn" onclick="joinSendMail()">메일 인증</button>
                                         </div>
 										
 									</div> 
@@ -189,7 +189,7 @@ span {
 							</tr>
 
 						</table>
-						<p style="font-weight:bold; text-align:center;"><i class="fas fa-star" style="color:red;"></i> 주의 : 이메일 인증을 하셔야 로그인이 가능합니다. 정확한 이메일을 적어주세요.</p>
+						<p style="font-weight:bold; text-align:center;"><i class="fas fa-star" style="color:red;"></i> 주의 : 이메일 인증을 하셔야 회원가입이 가능합니다. 정확한 이메일을 적어주세요.</p>
 						
 						<hr>
 						
@@ -300,6 +300,10 @@ span {
 				}
 			})
 		})
+		
+		function joinSendMail(){
+			
+		}
 		
 
 		/*--------- 로그인 폼 유효성 확인 ---------*/
