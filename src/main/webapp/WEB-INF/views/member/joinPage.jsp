@@ -188,8 +188,8 @@ span {
 							</tr>
 
 						</table>
-<!-- 						<p style="font-weight:bold; text-align:center;"><i class="fas fa-star" style="color:red;"></i> 주의 : 이메일 인증을 하셔야 로그인이 가능합니다. 정확한 이메일을 적어주세요.</p>
- -->						
+						<p style="font-weight:bold; text-align:center;"><i class="fas fa-star" style="color:red;"></i> 주의 : 이메일 인증을 하셔야 로그인이 가능합니다. 정확한 이메일을 적어주세요.</p>
+						
 						<hr>
 						
 						<br>
@@ -356,10 +356,9 @@ span {
 			
 			// 이메일
 			var regType1 = /^[A-Za-z0-9+]{4,12}$/; 
-			var email1 = document.getElementById('email1').value;
-			var email2 = document.getElementById('email2').value;
-			if(!regType1.test(f.email1.value) || !regType1.test(f.email2.value)){
-				alert('이메일에는 한글을 넣을 수 없습니다.');
+
+			if(!regType1.test(f.email1.value)){
+				alert(f.email1.value);
 				email1.value = "";
 				email1.focus();
 				return false;

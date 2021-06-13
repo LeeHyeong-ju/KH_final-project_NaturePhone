@@ -27,6 +27,7 @@ import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.member.model.service.MemberService;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.member.model.vo.MyBoard;
+import com.kh.naturephone.member.model.vo.MyReply;
 
 @Controller
 @RequestMapping("/member")
@@ -257,4 +258,23 @@ public class MemberController {
 		} 
 		return mv;
 	}
+	
+	/*
+	 * // 나의 댓글 조회
+	 * 
+	 * @GetMapping("/myReplyList") public ModelAndView
+	 * selectMyReplyList(ModelAndView mv,
+	 * 
+	 * @SessionAttribute("loginUser") Member loginUser,
+	 * 
+	 * @RequestParam(value="page", required=false, defaultValue="1") int
+	 * currentPage) {
+	 * 
+	 * int userNo = loginUser.getUserNo(); int listCount =
+	 * mService.selectListCount(userNo); PageInfo pi =
+	 * Pagination.getPageInfo(currentPage, listCount); List<MyReply> list =
+	 * mService.selectMyReplyList(userNo, pi); if(list != null) {
+	 * mv.addObject("list", list); mv.addObject("pi", pi);
+	 * mv.setViewName("member/myReplyPage"); } return mv; }
+	 */
 }

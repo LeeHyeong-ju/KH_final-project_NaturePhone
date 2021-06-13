@@ -139,7 +139,7 @@ public class MemberServiceImpl implements MemberService{
 		} else { // 이메일 인증을 성공하였을 경우
 			out.println("<script>");
 			out.println("alert('인증이 완료되었습니다.');");
-			//out.println("location.href='../index.jsp';");
+			out.println("window.history.back()");
 			out.println("</script>");
 			out.close();
 		}		
