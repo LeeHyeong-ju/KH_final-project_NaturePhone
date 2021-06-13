@@ -11,8 +11,6 @@
 	</settings>
 	
 	<!-- typeAliases -->
-
-
 	<typeAliases>	
 		<typeAlias type="com.kh.naturephone.boardFree.model.vo.Board_TB" alias="Board_TB"/>
 		<typeAlias type="com.kh.naturephone.boardFree.model.vo.B_Att_TB" alias="B_Att_TB"/>						
@@ -23,17 +21,17 @@
 		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.BuyerInfo" alias="BuyerInfo"/>
 		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.PaymentInfo" alias="PaymentInfo"/>
 		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CalculateInfo" alias="CalculateInfo"/>
-
+		<typeAlias type="com.kh.naturephone.notice.model.vo.Search" alias="Search"/>
+		<typeAlias type="com.kh.naturephone.notice.model.vo.Reply_TB" alias="Reply_TB"/>
 	</typeAliases>
 	
 	<mappers>
-
 		<mapper resource="mappers/board-mapper.xml"/>		
 		<mapper resource="mappers/sellInfo-mapper.xml"/>
-
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/myList-mapper.xml"/>
 		<mapper resource="mappers/support-mapper.xml"/>
+		<mapper resource="mappers/notice-mapper.xml"/>
 	</mappers>
 	
 </configuration>

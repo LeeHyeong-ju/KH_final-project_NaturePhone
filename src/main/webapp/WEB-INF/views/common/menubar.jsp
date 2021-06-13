@@ -152,7 +152,7 @@ scope="application"/>
 						<li class="nav-item"><a class="nav-link" href="#">Market</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Community</a></li>
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/support/compare">Support</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Service</a></li>
+						<li class="nav-item"><a class="nav-link" href="${ contextPath }/notice/list">Service</a></li>
 					</ul>
 				</div>
 			</div>
