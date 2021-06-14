@@ -3,6 +3,7 @@ package com.kh.naturephone.member.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +23,11 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.naturephone.common.PageInfo;
+import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.member.model.service.MemberService;
+import com.kh.naturephone.member.model.vo.KeyPublish;
+import com.kh.naturephone.member.model.vo.MailUtil;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.member.model.vo.MyBoard;
 
@@ -96,29 +101,60 @@ public class MemberController {
 		
 		if (loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) {
 			
-			if(loginUser.getApprovalStatus().equals("N")) {
-				model.addAttribute("msg", "이메일 인증을 하신 후 로그인해주세요.");
-				return "member/loginPage";
-			}else {
-				model.addAttribute("loginUser", loginUser);
-				return "redirect:/";
-			}
+			model.addAttribute("loginUser", loginUser);
+			return "redirect:/";
+				
 		} else {
 			model.addAttribute("msg", "로그인에 실패하였습니다.");
 			return "member/loginPage";
 		}
 	}
 
-	// 2. 아이디 중복 검사 메소드 (Ajax)
+	// 2-1. 아이디 중복 검사 메소드 (Ajax)
 	@RequestMapping(value = "/idOverlap", method = RequestMethod.POST)
 	public void idOverlapCheck(String id, HttpServletResponse response) throws Exception {
 		mService.idOverlapCheck(id, response);
 	}
+	
+	// 2-2. 이메일 중복 검사 메소드 (Ajax)
+	@RequestMapping(value = "/emailOverlap", method = RequestMethod.POST)
+	public void emailOverlapCheck(String email, HttpServletResponse response) throws Exception {
+		System.out.println(email);
+		mService.emailOverlapCheck(email, response);
+	}
 
-	// 3. 이메일 인증 메소드
-	@RequestMapping(value = "/memberApproval", method = RequestMethod.POST)
-	public void approval_member(@ModelAttribute Member m, HttpServletResponse response) throws Exception {
-		mService.approval_member(m, response);
+	// 3-1. 회원가입 - 메일 인증
+	@RequestMapping(value = "/joinSendMail", method = RequestMethod.POST)
+	@ResponseBody
+	public void joinSendMail(@ModelAttribute Member m, HttpSession session) throws Exception {
+		String keyCode = KeyPublish.createKey();
+		
+		session.setAttribute("keyCode", keyCode);
+		
+		String subject = "";
+		String msg = "";
+
+		// 회원가입 메일 내용
+		subject = "Nature Phone 회원가입 인증 코드입니다.";
+		msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+		msg += "<div style='font-size: 130%'>";
+		msg += "회원가입 페이지에서 인증코드 <strong>";
+		msg += keyCode + "</strong> 를 입력해 주세요.</div><br/>";
+		
+		MailUtil.sendMail(m.getEmail(), subject, msg);
+		
+	}
+	
+	// 3-2. 메일 인증키 확인
+	@RequestMapping(value = "/keyCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public String keyCheck(@RequestParam("modalInput") String key,
+						   @SessionAttribute("keyCode") String keyCode) {
+		if(key != null && key.equals(keyCode)) {
+			return "success";
+		} else {
+			return "false";
+		}
 	}
 	
 	// 4. 회원가입 (DB insert)
@@ -130,20 +166,13 @@ public class MemberController {
 						     @RequestParam("hp1") String hp1, 
 						     @RequestParam("hp2") String hp2, 
 						     @RequestParam("hp3") String hp3,
-						     @RequestParam("email1") String e1, 
-						     @RequestParam("email2") String e2, 
 						     Model model, 
 						     RedirectAttributes rd) throws Exception {
-
+		System.out.println(m.getEmail());
 		m.setAddress(postcode + "," + address1 + "," + address2);
 		m.setPhone(hp1 + "-" + hp2 + "-" + hp3);
-		m.setEmail(e1 + '@' + e2);
 		m.setPwd(bcryptPasswordEncoder.encode(m.getPwd()));
-		// 인증키 set
-		m.setApprovalKey(mService.create_key());
-		// 인증 메일 발송
-		mService.sendEmail(m);
-		
+
 		int result = mService.insertMember(m);
 
 		if (result > 0) {
@@ -177,7 +206,6 @@ public class MemberController {
 			model.addAttribute("msg", "회원 정보 수정에 실패하였습니다.");
 			return "common/errorPage";
 		}
-
 	}
 
 	// 6. 비밀번호 변경
@@ -231,18 +259,109 @@ public class MemberController {
 		}
 	}
 
+		// 8. 아이디 찾기
+		@RequestMapping(value = "/findIdSendMailAjax", method = RequestMethod.POST)
+		@ResponseBody
+		public String findIdSendMail(@RequestParam(value="findIdEmail") String findIdEmail) throws Exception {
+			
+			String searchId = mService.findIdSendMail(findIdEmail);
+			
+			String subject = "";
+			String msg = "";
+
+			if(searchId != null) {
+				// 회원가입 메일 내용
+				subject = "Nature Phone 아이디입니다.";
+				msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+				msg += "<div style='font-size: 130%'>";
+				msg += "회원님의 아이디는 <strong>";
+				msg += searchId + "</strong> 입니다. </div><br/>";
+				
+				MailUtil.sendMail(findIdEmail, subject, msg);
+				return "success";
+			} else {
+				return "null";
+			}
+		}
+	
+		// 9. 비밀번호 찾기
+		@RequestMapping(value="/findPwdEmailAjax", method = RequestMethod.POST)
+		@ResponseBody
+		public String findPwdSendEmail(@RequestBody Member m) throws Exception {
+			
+			String searchId = mService.findIdSendMail(m.getEmail());
+			
+			if(searchId != null) {
+				String keyCode = KeyPublish.createKey() + "Q" + "v" + "!" + "5";
+				
+				System.out.println(keyCode);
+				
+				m.setApprovalKey(bcryptPasswordEncoder.encode(keyCode));
+				System.out.println(m);
+				String subject = "";
+				String msg = "";
+	
+				int result = mService.findPwdSendEmail(m);
+				
+				if(result > 0) {
+					
+					// 회원가입 메일 내용
+					subject = "Nature Phone "+ searchId +"님 새로운 비밀번호를 발급해드립니다.";
+					msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+					msg += "<div style='font-size: 130%'>";
+					msg += "새로운 비밀번호 <strong>";
+					msg += keyCode + "</strong> 를 발급해드렸습니다. 로그인 하신 후 비밀번호를 꼭 바꿔주세요.</div><br/>";
+					
+					MailUtil.sendMail(m.getEmail(), subject, msg);
+				
+					return "success";
+				} else {
+					return "updateFail";
+				}
+			} else {
+				return "null";
+			}
+		}
+	
+	
+	
+	
+	
+	
 	// 나의 게시글 조회
 	@GetMapping("/myBoardList")
 	public ModelAndView selectMyBoardList(ModelAndView mv,
-										  @SessionAttribute("loginUser") Member loginUser) {
+										  @SessionAttribute("loginUser") Member loginUser,
+										  @RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 		
 		int userNo = loginUser.getUserNo();
-		List<MyBoard> list = mService.selectMyBoardList(userNo);
-			
+		int listCount = mService.selectListCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		List<MyBoard> list = mService.selectMyBoardList(userNo, pi);
 		if(list != null) {
 			mv.addObject("list", list);
+			mv.addObject("pi", pi);
 			mv.setViewName("member/myBoardPage");
 		} 
 		return mv;
 	}
+	
+	/*
+	 * // 나의 댓글 조회
+	 * 
+	 * @GetMapping("/myReplyList") public ModelAndView
+	 * selectMyReplyList(ModelAndView mv,
+	 * 
+	 * @SessionAttribute("loginUser") Member loginUser,
+	 * 
+	 * @RequestParam(value="page", required=false, defaultValue="1") int
+	 * currentPage) {
+	 * 
+	 * int userNo = loginUser.getUserNo(); int listCount =
+	 * mService.selectListCount(userNo); PageInfo pi =
+	 * Pagination.getPageInfo(currentPage, listCount); List<MyReply> list =
+	 * mService.selectMyReplyList(userNo, pi); if(list != null) {
+	 * mv.addObject("list", list); mv.addObject("pi", pi);
+	 * mv.setViewName("member/myReplyPage"); } return mv; }
+	 */
 }

@@ -55,6 +55,14 @@
 				USER_ID = #{id}
 	</select>
 	
+	<select id="emailOverlapCheck" parameterType="String" resultType="int">
+		SELECT  COUNT(*) 
+		FROM
+				MEMBER_TB
+		WHERE 
+				EMAIL = #{email}
+	</select>
+	
 	<insert id="insertMember" parameterType="Member">
 		INSERT
 		INTO MEMBER_TB
@@ -128,13 +136,23 @@
 				USER_NO = #{ userNo }
 	</update>
 	
-	<update id="approval_member" parameterType="Member">
+	<select id="findIdSendMail" parameterType="String" resultType="string">
+		SELECT 
+				USER_ID
+		FROM 
+				MEMBER_TB
+		WHERE 
+				EMAIL = '${value}'
+		AND 	STATUS = 'Y'
+	</select>
+	
+	<update id="findPwdSendEmail" parameterType="Member">
 		UPDATE 
-				MEMBER_TB 
-		SET 
-				APPROVAL_STATUS = 'Y'
-		WHERE   
-				EMAIL = #{ email } 
-		AND 	APPROVAL_KEY = #{ approvalKey }
-</update>
+		        MEMBER_TB
+		SET
+		        USER_PWD = #{ approvalKey }
+		WHERE
+		        EMAIL = #{ email }
+		AND 	STATUS = 'Y'
+	</update>
 </mapper>

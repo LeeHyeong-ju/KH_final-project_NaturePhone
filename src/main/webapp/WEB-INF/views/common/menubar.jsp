@@ -129,7 +129,7 @@ scope="application"/>
             <div class="container d-flex flex-wrap">
                 <ul class="nav me-auto"></ul>
                 <ul class="nav">
-                    <li class="topNav"><a href="#" class="nav-link link-dark px-2"><i class="fas fa-envelope"></i></a></li>
+                    <li class="topNav"><a href="${ contextPath }/message/selectList?type=받은 쪽지함" class="nav-link link-dark px-2"><i class="fas fa-envelope"></i></a></li>
                     <li class="topNav"><a href="#" class="nav-link link-dark px-2"><i class="fas fa-shopping-cart"></i></a></li>
                     <li class="topNav"><a href="#" class="nav-link link-dark px-2">${ loginUser.name }님</a></li>
                     <li class="topNav"><a href="${ contextPath }/member/myPage" class="nav-link link-dark px-2">MyPage</a></li>

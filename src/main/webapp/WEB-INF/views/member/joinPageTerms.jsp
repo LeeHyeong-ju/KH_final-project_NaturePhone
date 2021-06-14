@@ -476,10 +476,10 @@ E-mail등으로 연락하시면 즉시 개인정보의 삭제 등 필요한 조�
             <button class="btn btn-primary">일반 회원 가입</button>
           </div>
           <div class="col">
-            <button class="btn btn-primary">카카오 계정으로 회원가입</button>
+            <button type="button" class="btn btn-primary">카카오 계정으로 회원가입</button>
           </div>
           <div class="col">
-            <button class="btn btn-primary">네이버 계정으로 회원가입</button>
+            <button type="button" class="btn btn-primary">네이버 계정으로 회원가입</button>
           </div>
         </div>
       </div>
@@ -488,6 +488,7 @@ E-mail등으로 연락하시면 즉시 개인정보의 삭제 등 필요한 조�
     </div>
   </div>
 
+	<jsp:include page="../common/footer.jsp"/>
   <script>
 
     function fregister_submit(f) {
