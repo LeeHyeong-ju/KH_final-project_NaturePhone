@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.naturephone.attachment.model.vo.Attachment;
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.goods.model.service.GoodsService;
 import com.kh.naturephone.goods.model.vo.Goods;

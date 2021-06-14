@@ -306,9 +306,7 @@ public class NoticeController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int userno = loginUser.getUserNo();
 		r.setUserno(userno);
-		List<Reply> rlist = nService.insertNoticeReply(r);
-			
-		System.out.println("list : " + rlist);	 
+		List<Reply> rlist = nService.insertNoticeReply(r); 
 		
 		Gson gson = new GsonBuilder()
 						.setDateFormat("yy.MM.dd hh:mm")

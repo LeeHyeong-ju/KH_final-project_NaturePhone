@@ -70,6 +70,7 @@
 		   JOIN MEMBER_TB USING(USER_NO)
 		WHERE
 				B_STATUS= 'Y'
+		AND		CATEGORY = '공지'
 	 ORDER BY
 				B_NO DESC		  	
 	</select>

@@ -1,6 +1,5 @@
 package com.kh.naturephone.goods.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.naturephone.attachment.model.vo.Attachment;
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.goods.model.vo.Goods;
 import com.kh.naturephone.support.model.vo.Phone;
 

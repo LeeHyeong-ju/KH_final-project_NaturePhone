@@ -191,7 +191,7 @@
 						for(i in data){
 							html += '<tr>';
 							html += '<td style="font-size: 17px">'+data[i].writer_id+'</td>';
-							html += '<td style="font-size: 12px"><fmt:formatDate value="'+data[i].createDate+'" pattern="yy.MM.dd hh:mm"/>&nbsp;&nbsp;<button style=" border: none;  margin-bottom:2px;" type="button" class="btn-close" aria-label="Close"></button></td>';
+							html += '<td style="font-size: 12px">'+data[i].createDate+'&nbsp;&nbsp;<button style=" border: none;  margin-bottom:2px;" type="button" class="btn-close" aria-label="Close"></button></td>';
 							html += '<td><button style=" border: none;">신고</button></td>';
 							html += '</tr>';
 							html += '<tr>';							
@@ -205,5 +205,6 @@
 			});			
 		});	
 	</script>
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
