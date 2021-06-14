@@ -66,50 +66,98 @@
      border: solid 1px black;
      position: relative;
   }
+    [type=file] {
+      display : block;
+   }
+   
+   #contentImgArea {
+      display :inline-block;
+      margin:15px;
+   }
+  
 </style>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
     <div class="container">
       <div class="row">
           <div class="col-md-2 rightSpace" style="margin-top: 100px;">
               <div class="list-group col-md-10 sideBar">
-                  <ul>
-                      <li class="list-group-item sideTitle">커뮤니티</li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
-                  </ul>
+                   <ul>
+                        <li class="list-group-item sideTitle">커뮤니티</li>
+                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
+                        <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
+                        <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
+                    </ul>
               </div>
           </div>
             <!-- 내용 -->
          <div class="col-md-8 content">
         <div class="main-div">
-       
+        <form action="${ contextPath }/boardMobile/insert" id="writeForm" method="post" enctype="multipart/form-data">
           <h5>모바일뉴스</h5>
                  
           <table class="table table-bordered">
             <thead>
               <tr>
                 <th scope="col" style="text-align: center; width: 20%; background-color:#F4F4F4;">제목</th>
-                <td><input type="text" style="width: 70%; border: 1px solid  #C8C8C8;"></td>              
-                
+                <td><input type="text" name="btitle" style="width: 70%; border: 1px solid  #C8C8C8;"></td>                                            
               </tr>
+     
             </thead>
-      
+            <tbody>
+                     
+            </tbody>
           </table>
-          <textarea style="width: 100%; height: 200px; border: 1px solid  #C8C8C8;"></textarea>
-          <br>
-          <div class="mb-3">
-            <label for="formFileMultiple" class="form-label"></label>
-            <input class="form-control" type="file" id="formFileMultiple" multiple>
-          </div>
+          <textarea name="bcontent" style="width: 100%; height: 200px; border: 1px solid  #C8C8C8;"></textarea>
+          <br><br>                  
+          <h5 class="board_title">이미지 첨부</h5>
+			<input type="file" name="uploadFile">		
+			<div id="contentImgArea">
+				<img id="content1"> 
+			</div>
+			        
             <hr>
-            <button type="button" class="btn btn-secondary">목록으로</button>
-            <button type="button" class="btn btn-secondary" style="float: right;">등록</button>
+            <!-- <button type="button" class="btn btn-secondary">목록으로</button> -->
+            <button type="submit" class="btn btn-secondary" style="float: right;">등록</button>            
             
-            <br><br>
+          </form>
+          <button style="background-color: #C8C8C8;"class="btn btn-secondary" onclick="location.href='${ contextPath }/boardFree/list'">목록으로</button>
+            
         </div>
-      </div>
+      </div>     
         </div>
-     </div> 
+     </div>
+     
+      <script>
+      // 파일 첨부 시 이벤트 설정
+      $(function(){
+         $("[type=file]").change(function(){
+            loadImg(this);
+         });
+      });
+      
+      function loadImg(element){
+           if(element.files && element.files[0]){          
+            var reader = new FileReader();
+            reader.onload = function(e){               
+               var selector;
+               var size;
+               
+               switch(element.name){              
+               case "contentImg1" :
+                  selector = "#content1";
+                  size = {width : "250px", height : "150px", border : "solid 1px #dadada"};
+                  break;
+               case "contentImg2" :
+                  selector = "#content2";
+                  size = {width : "250px", height : "150px", border : "solid 1px #dadada"};
+                  break;
+               }               
+               $(selector).attr("src", e.target.result).css(size);
+            }
+         reader.readAsDataURL(element.files[0]);            
+         }
+      }   
+   </script>   
 </body>
 </html>

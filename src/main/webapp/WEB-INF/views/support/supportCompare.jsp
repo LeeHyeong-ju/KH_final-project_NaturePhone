@@ -216,7 +216,7 @@
 			/* 클릭 클릭시 클릭을 클릭한 위치 근처에 레이어가 나타난다. */
 			$('.phone-select-button').click(function(e)
 			{
-				eobj = e.target;
+				eobj = e.currentTarget;
 				
 				var sWidth = window.innerWidth;
 				var sHeight = window.innerHeight;
@@ -303,8 +303,8 @@
 			
 			$(document).on("click", '.phone-info', function(){
 				var thumbnail = $(this).children(".thumbnail").attr("src");
-				var img = $("<img>").attr("src", thumbnail);
-				eobj.append(img);
+				img = $("<img>").attr("src", thumbnail);
+				alert(img);
 				
 				$(this).parent().parent().parent().parent().hide();
 			});

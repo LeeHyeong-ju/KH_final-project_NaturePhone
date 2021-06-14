@@ -6,6 +6,10 @@
 	<title>Nature Phone</title>
 </head>
 <body>
+<<<<<<< HEAD
 	<jsp:include page="common/mainPage.jsp"/>	
+=======
+	<jsp:include page="common/mainPage.jsp"/>
+>>>>>>> c78903c143e51903577b3369b6881a2f926e9336
 </body>
 </html>
