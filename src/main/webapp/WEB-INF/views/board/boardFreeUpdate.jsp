@@ -79,7 +79,7 @@
       <div class="row">
           <div class="col-md-2 rightSpace" style="margin-top: 100px;">
               <div class="list-group col-md-10 sideBar">
-                   <ul>
+                  <ul>
                         <li class="list-group-item sideTitle">커뮤니티</li>
                         <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
                         <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
@@ -90,17 +90,15 @@
             <!-- 내용 -->
                 <div class="col-md-8 content">
         <div class="main-div">
-       <form action="${ contextPath }/boardFree/insert" id="writeForm" method="post" enctype="multipart/form-data">
+       <form action="${ contextPath }/boardFree/update" id="writeForm" method="post" enctype="multipart/form-data">
           <h5>자유게시판</h5>
                  
           <table class="table table-bordered">
             <thead>
               <tr>
                 <th scope="col" style="text-align: center; width: 20%; background-color:#F4F4F4;">제목</th>
-                <td><input type="text" name="btitle" style="width: 70%; border: 1px solid  #C8C8C8;"></td>
-                                            
+                <td><input type="text" name="btitle" value="${ board.btitle }" required style="width: 70%; border: 1px solid  #C8C8C8;"></td>                            
               </tr>
-     
             </thead>
             <tbody>
               <tr>
@@ -118,54 +116,26 @@
               </tr>              
             </tbody>
           </table>
-          <textarea name="bcontent" style="width: 100%; height: 200px; border: 1px solid  #C8C8C8;"></textarea>
+          <textarea name="bcontent"  required style="width: 100%; height: 200px; border: 1px solid  #C8C8C8;">${ board.bcontent }</textarea>
           <br><br>                  
           <h5 class="board_title">이미지 첨부</h5>
 			<input type="file" name="uploadFile">		
 			<div id="contentImgArea">
 				<img id="content1"> 
-			</div>			        
+			</div>
+			<input type="hidden" name="bforiginalName" value="${ att.bforiginalName }">
+			<input type="hidden" name="bfrenameName" value="${ att.bfrenameName }">
+			<input type="hidden" name="bno" value="${ board.bno }">        
             <hr>
-            <!-- <button type="button" class="btn btn-secondary">목록으로</button> -->
-            <button type="submit" class="btn btn-secondary" style="float: right;">등록</button>            
-           
+           <button class="btn" type="button" onclick="location.href='${ contextPath }/board/list?page=${ param.page }'">목록으로</button>
+            <button type="submit" class="btn btn-secondary" style="float: right;">수정하기</button>            
+            <br><br>
           </form>  
-          <button style="background-color: #C8C8C8;"class="btn btn-secondary" onclick="location.href='${ contextPath }/boardFree/list'">목록으로</button>
         </div>
       </div>     
         </div>
      </div>
      
-      <script>
-      // 파일 첨부 시 이벤트 설정
-      $(function(){
-         $("[type=file]").change(function(){
-            loadImg(this);
-         });
-      });
-      
-      function loadImg(element){
-           if(element.files && element.files[0]){          
-            var reader = new FileReader();
-            reader.onload = function(e){               
-               var selector;
-               var size;
-               
-               switch(element.name){              
-               case "contentImg1" :
-                  selector = "#content1";
-                  size = {width : "250px", height : "150px", border : "solid 1px #dadada"};
-                  break;
-               case "contentImg2" :
-                  selector = "#content2";
-                  size = {width : "250px", height : "150px", border : "solid 1px #dadada"};
-                  break;
-               }               
-               $(selector).attr("src", e.target.result).css(size);
-            }
-         reader.readAsDataURL(element.files[0]);            
-         }
-      }   
-   </script>   
+     
 </body>
 </html>

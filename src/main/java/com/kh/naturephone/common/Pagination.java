@@ -1,7 +1,5 @@
 package com.kh.naturephone.common;
 
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
-
 public class Pagination {
 	// PageInfo 객체를 리턴하는 static 메소드
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
