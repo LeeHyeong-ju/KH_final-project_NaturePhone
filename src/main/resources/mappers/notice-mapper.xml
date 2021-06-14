@@ -287,6 +287,50 @@
 			, #{bno}
 		)
 	</insert>
+	
+	<update id="deleteNotice" parameterType="_int">
+		UPDATE
+			   BOARD_TB
+		   SET
+			   B_STATUS = 'N'	   
+		 WHERE
+			   B_NO = #{bno}
+	</update>
+
+	<update id="deleteNoticeAtt" parameterType="_int">
+		UPDATE
+			   B_Att_TB
+		   SET
+			   BF_STATUS = 'N'	   
+		 WHERE
+			   B_NO = #{bno}
+	</update>
+	
+	<insert id="insertNoticeReply" parameterType="Reply">
+		INSERT INTO
+		REPLY_TB
+		(
+				RE_NO
+			  , USER_NO
+			  , RE_CONTENT
+			  , CREATE_DATE
+			  , MODIFY_DATE
+			  , RE_STATUS
+			  , B_NO
+			  , S_NO
+		)
+	   VALUES
+		(
+			   SEQ_RE_NO.NEXTVAL
+			 , #{userno}
+			 , #{recontent}
+			 , SYSDATE
+			 , SYSDATE
+			 , DEFAULT 
+			 , #{bno}
+			 , NULL	  	
+		)
+	</insert>
 </mapper>
 
 

@@ -80,4 +80,19 @@ public class NoticeDaoImpl implements NoticeDao {
 		na.setBno(bno);
 		return sqlSession.insert("noticeMapper.insertNoticeAtt2", na);
 	}
+
+	@Override
+	public int deleteNotice(int bno) {
+		return sqlSession.update("noticeMapper.deleteNotice", bno);
+	}
+
+	@Override
+	public void deleteNoticeAtt(int bno) {
+		sqlSession.update("noticeMapper.deleteNoticeAtt", bno);
+	}
+
+	@Override
+	public void insertNoticeReply(Reply r) {
+		sqlSession.insert("noticeMapper.insertNoticeReply", r);
+	}
 }

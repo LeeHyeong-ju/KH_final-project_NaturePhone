@@ -73,4 +73,18 @@ public class NoticeServiceImpl implements NoticeService {
 	public int insertNoticeAtt(B_Att_TB na, int bno) {
 		return nDao.insertNoticeAtt(na, bno);
 	}
+
+	@Override
+	public int deleteNotice(int bno) {
+		nDao.deleteNoticeAtt(bno);
+		
+		return nDao.deleteNotice(bno);
+	}
+
+	@Override
+	public List<Reply> insertNoticeReply(Reply r) {
+		nDao.insertNoticeReply(r);
+		
+		return nDao.selectReplyList(r.getBno());
+	}
 }

@@ -31,5 +31,9 @@ public interface NoticeService {
 	int updateNoticeAtt(B_Att_TB na);
 
 	int insertNoticeAtt(B_Att_TB na, int bno);
+
+	int deleteNotice(int bno);
+
+	List<Reply> insertNoticeReply(Reply r);
 	
 }

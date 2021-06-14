@@ -174,16 +174,15 @@
 								</c:url>
 								<a href="${ after }">[다음]</a>
 							</c:if>
-							</td>				
+							<c:if test="${ !empty loginUser && loginUser.grade eq '관리자' }">
+								<div class="btnArea" style="float:right;">
+									<button class="btn btn-secondary" onclick="location.href='${ contextPath }/notice/write'">글쓰기</button>			
+								</div>
+							</c:if>
+							</td>			
 						  </tr>
                         </tfoot>                     
                       </table>
-                                            
-	        <c:if test="${ !empty loginUser && loginUser.grade eq '관리자' }">
-				<div class="btnArea" style="float:right;">
-					<button class="btn" onclick="location.href='${ contextPath }/notice/write'">글쓰기</button>			
-				</div>
-			</c:if>	
 			
 			<div class="searchArea">
 			<form action="${ contextPath }/notice/search" method="get">

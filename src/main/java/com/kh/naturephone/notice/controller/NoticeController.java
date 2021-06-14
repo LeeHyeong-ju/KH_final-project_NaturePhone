@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +24,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.naturephone.common.B_Att_TB;
 import com.kh.naturephone.common.Board_TB;
 import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.common.Search;
+import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.notice.model.exception.NoticeException;
 import com.kh.naturephone.notice.model.service.NoticeService;
 import com.kh.naturephone.notice.model.vo.Reply;
@@ -275,6 +280,41 @@ public class NoticeController {
 		String savePath = root + "\\nuploadFiles";
 		File f = new File(savePath + "\\" + fileName);
 		if(f.exists()) f.delete();
+	}
+	
+	@RequestMapping("/delete")
+	public String NoticeDelete(int bno, HttpServletRequest request) throws NoticeException {
+		
+		B_Att_TB att =  nService.selectNoticeAtt(bno);
+		
+		if(att.getBfrenameName() != null) {
+			deleteFile(att.getBfrenameName(), request);				
+		}				
+		
+		int result = nService.deleteNotice(bno);
+				
+		if(result > 0) {		
+			return "redirect:/notice/list";
+		} else {
+			throw new NoticeException("게시글 삭제에 실패했습니다.");
+		}	
+	}
+	
+	@PostMapping(value="/insertReply", produces="application/json; charset=utf-8")
+	public @ResponseBody String insertReply(Reply r, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int userno = loginUser.getUserNo();
+		r.setUserno(userno);
+		List<Reply> rlist = nService.insertNoticeReply(r);
+			
+		System.out.println("list : " + rlist);	 
+		
+		Gson gson = new GsonBuilder()
+						.setDateFormat("yy.MM.dd hh:mm")
+						.create();
+				
+			return gson.toJson(rlist);
 	}
 }
 

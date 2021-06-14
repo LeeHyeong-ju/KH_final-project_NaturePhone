@@ -33,5 +33,11 @@ public interface NoticeDao {
 	int updateNoticeAtt(B_Att_TB na);
 
 	int insertNoticeAtt(B_Att_TB na, int bno);
+
+	int deleteNotice(int bno);
+
+	void deleteNoticeAtt(int bno);
+
+	void insertNoticeReply(Reply r);
 	
 }
