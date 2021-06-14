@@ -1,4 +1,4 @@
-package com.kh.naturephone.boardFree.model.vo;
+package com.kh.naturephone.common;
 
 import java.sql.Date;
 
@@ -16,6 +16,7 @@ import lombok.ToString;
 public class Board_TB {
 	private int bno;			// 글번호
 	private int userNo;			// 회원번호
+	private String writer_id;	// 작성자
 	private String btitle;		// 제목
 	private String bcontent;	// 내용
 	private String category;	// 게시판 분류(자유,모바일뉴스,공지사항,Q&A)
