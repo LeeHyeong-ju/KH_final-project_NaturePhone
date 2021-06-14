@@ -349,6 +349,7 @@ span {
 		}
 		
 		$("#modalBtn").on("click", function(){
+			
 			var modalInput = document.getElementById("modalInput").value;
 			
 			if(modalInput != null){

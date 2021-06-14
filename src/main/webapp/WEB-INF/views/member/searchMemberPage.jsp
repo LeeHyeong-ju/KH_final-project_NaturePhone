@@ -131,9 +131,9 @@
                                 회원 가입 시 기입하신 이메일 주소를 입력하신 후 '확인'버튼을 누르시면 이메일로 아이디를 발송해드립니다.
                             </p>
                             <div class="input-group input-group-sm mb-3">
-                                <input type="email" class="form-control"
+                                <input type="email" class="form-control" id="findIdEmail"
                                     placeholder="회원가입 시 기입하신 이메일 주소를 정확하게 입력해 주세요.">&nbsp;
-                                <button class="btn btn-primary btn-sm">확인</button>
+                                <button id="findIdBtn" class="btn btn-primary btn-sm">확인</button>
                             </div>
                         </div>
                         
@@ -143,9 +143,9 @@
                                 회원 가입 시 가입하신 이메일 주소를 입력하신 후 '확인'버튼을 누르시면 이메일로 비밀번호를 발송해드립니다.
                             </p>
                             <div class="input-group input-group-sm mb-3">
-                                <input type="email" class="form-control"
+                                <input type="email" class="form-control" id="findPwdEmail"
                                     placeholder="회원가입 시 기입하신 이메일 주소를 정확하게 입력해 주세요.">&nbsp;
-                                <button class="btn btn-primary btn-sm">확인</button>
+                                <button id="findPwdBtn" class="btn btn-primary btn-sm">확인</button>
                             </div>
                         </div>
                     </div>
@@ -154,6 +154,7 @@
         </div>
     </div>
         <script>
+        	// 탭 클릭할 때마다
             $(function () {
                 var $tabButtonItem = $('#tab-button li'),
                     $tabSelect = $('#tab-select'),
@@ -184,6 +185,65 @@
                     $(target).show();
                 });
             });
+        	
+        	// 아이디 찾기 
+            $("#findIdBtn").on("click", function(){
+		
+			var findIdEmail = document.getElementById("findIdEmail").value;
+			
+			if(findIdEmail != ""){
+				$.ajax({
+					type : 'POST',
+					data : { findIdEmail : findIdEmail },
+					dataType: "text",
+					url: "${ contextPath }/member/findIdSendMailAjax",
+					success: function(data) {
+						if(data == 'success'){
+                    		alert("메일이 전송되었습니다. 아이디를 확인하시고 로그인해주세요.");
+						} else {
+							alert("가입하지 않으셨습니다. 회원가입을 해주세요.");
+						}
+                    },
+                    error: function(){
+                        alert("error code : " + e.status + "\n"
+                                + "message : " + e.responseText);
+                    }     
+				});
+			}else {
+				alert("이메일 주소를 정확하게 입력해주세요.");
+			}
+		});
+        	
+        	// 비밀번호 찾기
+			$("#findPwdBtn").on("click", function(){
+			
+			var findPwdEmail = document.getElementById("findPwdEmail").value;
+			var obj = { email : findPwdEmail };
+			if(findPwdEmail != null){
+				$.ajax({
+					type : 'POST',
+					data : JSON.stringify(obj),
+					url: "${ contextPath }/member/findPwdEmailAjax",
+					dataType: "text",
+					contentType: "application/json; charset=UTF-8",
+					success: function(data) {
+						if(data == 'success'){
+                    		alert("임시비밀번호가 발급되었습니다. 로그인 후 비밀번호를 꼭 변경해주세요.");
+						} else if(null){
+							console.log("비밀번호 업데이트 실패");
+						} else{
+							alert("가입하지 않으셨습니다. 회원가입을 해주세요.");
+						}
+                    },
+                    error: function(e){
+                        alert("error code : " + e.status + "\n"
+                                + "message : " + e.responseText);
+                    }     
+				});
+			}else {
+				alert("인증키를 입력해주세요");
+			}
+		});
         </script>
 </body>
 </html>

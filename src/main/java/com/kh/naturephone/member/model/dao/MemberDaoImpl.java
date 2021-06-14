@@ -34,7 +34,6 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("memberMapper.emailOverlapCheck", email);
 	}
 
-	
 	@Override
 	public int insertMember(Member m) {
 		return sqlSession.insert("memberMapper.insertMember", m);
@@ -50,13 +49,21 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.update("memberMapper.pwdUpdate", loginUser);
 	}
 
-	
 	@Override
 	public int deleteMember(Member m) {
 		return sqlSession.update("memberMapper.deleteMember", m);
 	}
 	
+	@Override
+	public String findIdSendMail(String findIdEmail) {
+		return sqlSession.selectOne("memberMapper.findIdSendMail", findIdEmail);
+	}
 	
+	@Override
+	public int findPwdSendEmail(Member m) {
+		return sqlSession.update("memberMapper.findPwdSendEmail", m);
+	}
+
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 
 	@Override
@@ -75,6 +82,9 @@ public class MemberDaoImpl implements MemberDao{
 	public int selectListCount(int userNo) {
 		return sqlSession.selectOne("myListMapper.selectListCount", userNo);
 	}
+
+	
+	
 
 	
 	

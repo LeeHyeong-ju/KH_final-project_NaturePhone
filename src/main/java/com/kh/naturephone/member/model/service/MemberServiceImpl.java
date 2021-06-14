@@ -65,7 +65,16 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.deleteMember(m);
 	}
 
-	
+	@Override
+	public String findIdSendMail(String findIdEmail) {
+		return mDao.findIdSendMail(findIdEmail);
+	}
+
+	@Override
+	public int findPwdSendEmail(Member m) {
+		return mDao.findPwdSendEmail(m);
+	}
+
 
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 	
@@ -84,6 +93,8 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.selectMyReplyList();
 	}
 
+	
+	
 	
 
 	

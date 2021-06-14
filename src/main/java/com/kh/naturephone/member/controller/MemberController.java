@@ -259,6 +259,75 @@ public class MemberController {
 		}
 	}
 
+		// 8. 아이디 찾기
+		@RequestMapping(value = "/findIdSendMailAjax", method = RequestMethod.POST)
+		@ResponseBody
+		public String findIdSendMail(@RequestParam(value="findIdEmail") String findIdEmail) throws Exception {
+			
+			String searchId = mService.findIdSendMail(findIdEmail);
+			
+			String subject = "";
+			String msg = "";
+
+			if(searchId != null) {
+				// 회원가입 메일 내용
+				subject = "Nature Phone 아이디입니다.";
+				msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+				msg += "<div style='font-size: 130%'>";
+				msg += "회원님의 아이디는 <strong>";
+				msg += searchId + "</strong> 입니다. </div><br/>";
+				
+				MailUtil.sendMail(findIdEmail, subject, msg);
+				return "success";
+			} else {
+				return "null";
+			}
+		}
+	
+		// 9. 비밀번호 찾기
+		@RequestMapping(value="/findPwdEmailAjax", method = RequestMethod.POST)
+		@ResponseBody
+		public String findPwdSendEmail(@RequestBody Member m) throws Exception {
+			
+			String searchId = mService.findIdSendMail(m.getEmail());
+			
+			if(searchId != null) {
+				String keyCode = KeyPublish.createKey() + "Q" + "v" + "!" + "5";
+				
+				System.out.println(keyCode);
+				
+				m.setApprovalKey(bcryptPasswordEncoder.encode(keyCode));
+				System.out.println(m);
+				String subject = "";
+				String msg = "";
+	
+				int result = mService.findPwdSendEmail(m);
+				
+				if(result > 0) {
+					
+					// 회원가입 메일 내용
+					subject = "Nature Phone "+ searchId +"님 새로운 비밀번호를 발급해드립니다.";
+					msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+					msg += "<div style='font-size: 130%'>";
+					msg += "새로운 비밀번호 <strong>";
+					msg += keyCode + "</strong> 를 발급해드렸습니다. 로그인 하신 후 비밀번호를 꼭 바꿔주세요.</div><br/>";
+					
+					MailUtil.sendMail(m.getEmail(), subject, msg);
+				
+					return "success";
+				} else {
+					return "updateFail";
+				}
+			} else {
+				return "null";
+			}
+		}
+	
+	
+	
+	
+	
+	
 	// 나의 게시글 조회
 	@GetMapping("/myBoardList")
 	public ModelAndView selectMyBoardList(ModelAndView mv,

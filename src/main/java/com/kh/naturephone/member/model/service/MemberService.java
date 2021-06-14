@@ -35,6 +35,12 @@ public interface MemberService {
 	// 7. 회원 탈퇴 - 비밀번호 확인 (Ajax)
 	int deleteMember(Member m);
 	
+	// 8. 회원 아이디 찾기(Ajax)
+	String findIdSendMail(String findIdEmail);
+
+	
+	// 9. 회원 비밀번호 찾기(Ajax) - update
+	int findPwdSendEmail(Member m);
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 
 	// 1. 나의 게시글 조회
@@ -45,6 +51,10 @@ public interface MemberService {
 	
 	// 2. 나의 댓글 조회
 	List<MyReply> selectMyReplyList();
+
+
+
+
 
 	
 
