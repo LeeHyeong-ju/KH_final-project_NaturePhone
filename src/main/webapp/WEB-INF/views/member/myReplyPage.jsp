@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 게시글</title>
+<title>Insert title here</title>
 <!-- 자바스크립트-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <style>
@@ -45,26 +45,13 @@
 	font-weight: bold;
 }
 
-
-    /* 테이블 */
-    .table{
-        text-align: center;
-        font-size:13px;
-    }
-    td:nth-child(3) {
-        text-align: left;
-    }
-    
-    .nonContent {
-    	text-align : center;
-    	font-size:14px;
-    }
 </style>
+
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	
-    <div class="container">
+	<div class="container">
         <div class="row">
             <div class="col-md-2 rightSpace">
 				<div class="list-group col-md-10 sideBar" style="margin-top: 100px;">
@@ -75,8 +62,7 @@
 								정보</a></li>
 						<li><a href="${ contextPath }/member/myBoardList" class="list-group-item list-group-item-action sideContent">나의
 								게시글</a></li>
-						<li><a href="#"
-							class="list-group-item list-group-item-action sideContent">나의
+						<li><a href="${ contextPath }/member/myReplyList" class="list-group-item list-group-item-action sideContent">나의
 								댓글</a></li>
 					</ul>
 				</div>
@@ -123,7 +109,7 @@
                           <tr>
                             <th scope="col" class="col-1">번호</th>
                             <th scope="col" class="col-2">분류</th>
-                            <th scope="col" class="col-7">제목</th>
+                            <th scope="col" class="col-7">댓글 내용</th>
                             <th scope="col" class="col-2">작성일자</th>
                           </tr>
                         </thead>
@@ -133,8 +119,9 @@
                           <c:forEach items="${ list }" var="n" varStatus="status">
                           <tr>
                             <th scope="row">${ status.count }</th>
+                            
                             <td>${ n.category }</td>
-                            <td>${ n.btitle }</td>
+                            <td>${ n.content }</td>
                             <td>${ n.createDate }</td>
                           </tr>
                            </c:forEach>
@@ -207,8 +194,10 @@
             </div>
         </div>
     </div>
-    
-    <jsp:include page="../common/footer.jsp"/>
+	
+	
+	
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 
 </html>

@@ -64,7 +64,7 @@ span {
 								</th>
 								<td class="input-group">
 									<input type="text" id="id" name="id" class="JoinInput form-control" minlength="4"
-									maxlength="20" placeholder="영문 소문자로 시작, 영문 소문자 또는 숫자를 4~20자 조합해주세요." required>
+									maxlength="10" placeholder="영문 소문자로 시작, 영문 소문자 또는 숫자를 4~10자 조합해주세요." required>
 								</td>
 							</tr>
 							
@@ -107,7 +107,6 @@ span {
 								</td>
 
 							</tr>
-							<tr>
 							<tr>
 								<th scope="row">
 									<span> * </span>
@@ -155,16 +154,16 @@ span {
 							<tr>
 								<th scope="row"><span> * </span><label for="reg_mb_email"
 									class="req">이메일</label></th>
-								<td><input type="hidden" name="email" id="email" >
+								<td>
 
-									<div class="emailselect_wrap input-group">
-										<input type="text" name="email1" id="email1" class="reg_input form-control" maxlength="20">
+									<div class="emailselect_wrap input-group" id="emailDIV">
+										<input type="text" name="email1" id="email1" value="" class="reg_input form-control" maxlength="10" required>
 
 										<p class="SC" style="margin-bottom: 0px; margin-top: 5px;">@</p>
 
-										<input type="text" name="email2" id="email2" class="reg_input form-control" maxlength="20" required readonly>&nbsp 
+										<input type="text" name="email2" id="email2" value="" class="reg_input form-control" maxlength="20" readonly>&nbsp 
 										
-										<select name="email3" id="email3" class="form-select" required onchange="emailAddress(this)">
+										<select name="email3" id="email3" class="form-select" required onchange="emailAddress(this)" >
 											<option value="" selected>선택하세요</option>
 											<option value="1">직접입력</option>
 											<option value="naver.com">naver.com</option>
@@ -172,14 +171,25 @@ span {
 											<option value="nate.com">nate.com</option>
 											<option value="gmail.com">gmail.com</option>
 										</select>
+										&nbsp 
+										<div>
+											<input type="hidden" id="email" name="email">
+                                            <button type="button" class="btn btn-primary" id="joinSendMailBtn" onclick="return joinSendMail()">메일 인증</button>
+                                        </div>
 										
 									</div> 
 								</td>
+								
 							</tr>
-							<tr id="emailOverlap"></tr>
+							<tr id="emailOverLapTr" style="display: none;">
+								<th class='col-3'></th>
+								<td class='input-group' style='padding-top: 0px;'>
+								<span id="emailOverLap"></span>
+								</td>
+							</tr>
 
 						</table>
-						<p style="font-weight:bold; text-align:center;"><i class="fas fa-star" style="color:red;"></i> 주의 : 이메일 인증을 하셔야 로그인이 가능합니다. 정확한 이메일을 적어주세요.</p>
+						<p style="font-weight:bold; text-align:center;"><i class="fas fa-star" style="color:red;"></i> 주의 : 이메일 인증을 하셔야 회원가입이 가능합니다. 정확한 이메일을 적어주세요.</p>
 						
 						<hr>
 						
@@ -187,7 +197,7 @@ span {
 						<div class="row" style="margin: auto;">
 							<a href="" class="btn btn-primary col">취소</a> <span class="col-1"></span>
 							<button class="btn btn-primary col" type="submit" value="회원 가입"
-								id="btn_submit" accesskey="s">가입 하기</button>
+								id="btn_submit" accesskey="s" disabled>가입 하기</button>
 						</div>
 
 					</form>
@@ -197,6 +207,28 @@ span {
 		</div>
 	</div>
 	
+	<!-- Modal -->
+	<form>
+	<div class="modal fade" id="joinSendMailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="joinSendMailModal">메일 인증키 입력창</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	      <input type="text" id="modalInput" class="reg_input form-control" maxlength="10" required>
+	      </div>
+	      <div class="modal-footer">
+<!-- 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button> -->
+	        <button type="button" class="btn btn-primary" id="modalBtn">인증하기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</form>
+	
+	<jsp:include page="../common/footer.jsp"/>
 	<script>
 		// 이메일 주소 선택
 		function emailAddress(e) {
@@ -206,6 +238,7 @@ span {
 
 			if (ea.val() == "1") {
 				email2.attr('readonly', false);
+				email2.attr('required', true); // 
 				email2.val('');
 				
 			} else {
@@ -217,6 +250,16 @@ span {
 		
 		// 아이디 중복 확인 - Ajax
 		$("#id").keyup(function() {
+			
+			// 회원아이디 검사 1 - 4~10자, 영어 대문자 x, 맨앞 숫자 x
+			var idCheck= /^[a-z]+[a-z0-9]{3,9}$/g;
+			if (!idCheck.test(id.value)){ 
+				$('#idOverLapTr').show();
+				$("#idOverlap").text('아이디는 영어 소문자로 시작하는 4~10자 영어 소문자 또는 숫자이어야 합니다.');
+				$("#btn_submit").attr("disabled", "disabled");
+				return false; 
+			} 
+			
 			$.ajax({
 				url : "${ contextPath }/member/idOverlap",
 				type : "POST",
@@ -240,18 +283,113 @@ span {
 			})
 		});
 		
+		// 이메일 중복 확인 - Ajax
+		$("#emailDIV").on('change', function(){
+			var email;
+			var email1 = document.getElementById("email1").value;
+			var email2 = document.getElementById("email2").value;
+			
+			email2 = document.getElementById("email2").value;
+			email = email1 + '@' + email2;
+			document.getElementById("email").value = email;
+			console.log(document.getElementById("email").value);
+			
+			// 이메일 유효성 검사
+			var regType1 = /^[A-Za-z0-9+]{4,12}$/; 
+
+			if(!regType1.test(email1)){
+				$('#emailOverLapTr').show();
+				$("#emailOverLap").text('영문자와 숫자만 사용 가능하며 공백은 허용되지 않습니다.');
+				$("#btn_submit").attr("disabled", "disabled");
+				return false;
+			}
+			
+			$.ajax({
+				url : "${ contextPath }/member/emailOverlap",
+				type : "POST",
+				data : { 
+					email : email
+				},
+				success : function(data){
+					if(data > 0){
+						$('#emailOverLapTr').show();
+						$("#emailOverLap").text('중복된 이메일이 존재합니다.');
+						$("#btn_submit").attr("disabled", "disabled");
+					} else {
+						$("#emailOverLap").text("");
+						$('#emailOverLapTr').hide();
+						$("#btn_submit").removeAttr("disabled");
+					}
+				}
+			})
+		})
 		
+		function joinSendMail(){
+			var email = document.getElementById("email").value;
+			var email1 = document.getElementById("email1").value;
+			if(email1 == ""){
+				alert("이메일을 입력해주세요.")
+				return false;
+			}
+			
+			$.ajax({
+				url : "${ contextPath }/member/joinSendMail",
+				type : "POST",
+				data : {
+					email : email
+				},
+				success : function() {
+					alert("인증 메일이 전송되었습니다.");
+					$("#joinSendMailModal").modal("show");
+				},
+				error : function(){
+					console.log("error code : " + e.status + "\n" + "message : " + e.responseText);
+				}
+			})
+		}
+		
+		$("#modalBtn").on("click", function(){
+			
+			var modalInput = document.getElementById("modalInput").value;
+			
+			if(modalInput != null){
+				$.ajax({
+					type : 'POST',
+					data : { modalInput : modalInput },
+					url: "${ contextPath }/member/keyCheck",
+					dataType: "text",
+					success: function(data) {
+                    	if(data == 'success'){
+                        	$("#joinSendMailModal").modal("hide");
+                        	alert("메일 인증이 완료되었습니다.");
+                        	$("#email1").attr('readonly', true);
+                        	$("#email2").attr('readonly', true);
+                        	$("#email3").attr('disabled', true);
+                        	$("#joinSendMailBtn").attr('disabled', true);
+                        	$("#btn_submit").attr('disabled', false);
+                    	} else if('false'){
+                    		alert("실퍠");
+                    	}
+                    },
+                    error: function(e){
+                        alert("error code : " + e.status + "\n"
+                                + "message : " + e.responseText);
+                    }     
+				});
+				
+				
+				
+			}else {
+				alert("인증키를 입력해주세요");
+			}
+			
+			
+			
+		});
+
 		/*--------- 로그인 폼 유효성 확인 ---------*/
 		function joinFormSubmit(f) {
 			
-			// 회원아이디 검사 1 - 4~10자, 영어 대문자 x, 맨앞 숫자 x
-			var idCheck= /^[a-z]+[a-z0-9]{3,19}$/g;
-			if (!idCheck.test(f.id.value)){ 
-				alert("아이디는 영어 소문자로 시작하는 4~20자 영어 소문자 또는 숫자이어야 합니다."); 
-				f.id.select(); 
-				return false; 
-			}
-
 			// 비밀번호 검사 1 - 일치
 			if (f.pwd.value != f.pwd2.value) {
 				alert("비밀번호가 같지 않습니다.");
@@ -314,9 +452,12 @@ span {
 				hp3.focus();
 				return false;
 			}
+		
+
 			
 		}
 		</script>
+		
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
 		/*--------- 다음 주소 API ---------*/

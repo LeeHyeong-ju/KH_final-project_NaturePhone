@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="messageMapper">
+	<resultMap id="messageResultSet" type="Message">
+		<id property="messageNo" column="MSG_NO"/>
+		<result property="messageTitle" column="MSG_TITLE"/>
+		<result property="messageContent" column="MSG_CONTENT"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="viewStatus" column="VIEW_STATUS"/>
+		<result property="senderNo" column="SENDER_NO"/>
+		<result property="recipientNo" column="RECIPIENT_NO"/>
+		<result property="sStatus" column="SENDER_STATUS"/>
+		<result property="rStatus" column="RECIPIENT_STATUS"/>
+		
+		<result property="userId" column="USER_ID"/>
+		
+		<result property="userStatus" column="STATUS"/>
+		<result property="type" column="MSG_TYPE"/>
+		<result property="deleteDate" column="DELETE_DATE"/>
+	</resultMap>
+	
+	<!-- 1. 게시글 수 카운트 -->
+	<select id="selectListCount" parameterType="Message" resultType="_int">
+		SELECT
+				COUNT(*)
+		FROM
+				MESSAGE_TB A
+        LEFT JOIN    NOTE_TB B
+        ON      A.MSG_NO = B.MSG_NO
+	<choose>
+		<!-- 받은 쪽지함일 때 -->
+    	<when test="type =='받은 쪽지함'">
+    	WHERE RECIPIENT_NO = #{ recipientNo }
+    	AND SENDER_STATUS = 'Y'
+    	</when>
+    	<!-- 보낸 쪽지함일 때 -->
+    	<when test="type =='보낸 쪽지함'">
+		WHERE SENDER_NO = #{ senderNo }
+		AND RECIPIENT_STATUS = 'Y'
+		</when>
+    </choose>
+		
+	</select>
+	
+	<!--  2. 쪽지함 목록 조회 -->
+	<select id="selectList" parameterType="Message" resultMap="messageResultSet">
+		SELECT
+		          A.MSG_NO
+		        , A.MSG_TITLE
+		        , A.MSG_CONTENT
+		        , A.CREATE_DATE
+		        , A.VIEW_STATUS
+		        , A.SENDER_NO
+		        , A.RECIPIENT_NO
+		        , B.USER_ID
+		FROM
+		        MESSAGE_TB A
+	<choose>
+		<!-- 받은 쪽지함일 때 -->
+    	<when test="type =='받은 쪽지함'">
+    	JOIN    MEMBER_TB B
+		ON      A.SENDER_NO = B.USER_NO
+    	WHERE
+        		SENDER_STATUS ='Y'
+		AND     RECIPIENT_NO = #{ recipientNo }
+    	</when>
+    	<!-- 보낸 쪽지함일 때 -->
+    	<when test="type =='보낸 쪽지함'">
+		JOIN    MEMBER_TB B
+		ON      A.RECIPIENT_NO = B.USER_NO
+		WHERE
+		        RECIPIENT_STATUS ='Y'
+		AND     SENDER_NO = #{ senderNo }
+		</when>
+    </choose>
+    ORDER BY
+    			MSG_NO DESC
+	</select>
+	
+	<!-- 3. 쪽지함 상세페이지 -->
+	<select id="selectMessage" parameterType="Message" resultMap="messageResultSet">
+		SELECT    A.MSG_NO
+		        , A.MSG_TITLE
+		        , A.MSG_CONTENT
+		        , A.CREATE_DATE
+		        , A.VIEW_STATUS
+		        , A.SENDER_NO
+		        , A.RECIPIENT_NO
+		        , B.USER_ID
+		        , B.STATUS
+		FROM
+		        MESSAGE_TB A
+		<choose>
+		<!-- 받은 쪽지함일 때 -->
+    	<when test="type =='받은 쪽지함'">
+		LEFT JOIN    MEMBER_TB B
+		ON      A.SENDER_NO = B.USER_NO
+    	WHERE
+        		SENDER_STATUS ='Y'
+		AND     MSG_NO = #{ messageNo }
+		</when>
+		<!-- 보낸 쪽지함일 때 -->
+    	<when test="type =='보낸 쪽지함'">
+    	LEFT JOIN    MEMBER_TB B
+		ON      A.RECIPIENT_NO = B.USER_NO
+    	WHERE
+        		RECIPIENT_STATUS ='Y'
+		AND     MSG_NO = #{ messageNo }
+    	</when>
+		</choose>
+	</select>
+	
+	<!-- 3-1. 받은 쪽지함일 경우 상세 페이지로 들어갈 때 view_status = "Y"로 update -->
+	<update id="updateViewStatus" parameterType="Message">
+		UPDATE
+        		MESSAGE_TB
+		SET
+		        VIEW_STATUS = 'Y'
+		WHERE 
+		        MSG_NO = #{ messageNo }
+		AND		SENDER_STATUS ='Y'
+	</update>
+	
+	<!-- 4. 쪽지함 검색 페이징 처리 -->
+	<select id="searchListCount" parameterType="messageSearch" resultType="_int">
+	<bind name="sv" value="'%'+_parameter.getSearchValue() + '%'"/>
+	SELECT
+		         COUNT(*)
+		FROM
+		        MESSAGE_TB A
+	<choose>
+		<!-- 받은 쪽지함일 때 -->
+    	<when test="type =='받은 쪽지함'">
+    	JOIN    MEMBER_TB B
+		ON      A.SENDER_NO = B.USER_NO
+    	WHERE
+        		SENDER_STATUS ='Y'
+		AND     RECIPIENT_NO = #{ recipientNo }
+		<choose>
+			<when test="searchCondition == 'title'">
+			AND     MSG_TITLE LIKE #{sv}
+			</when>
+			<when test="searchCondition == 'content'">
+			AND     MSG_CONTENT LIKE #{sv}
+			</when>
+			<when test="searchCondition == 'name'">
+			AND     USER_NAME LIKE #{sv}
+			</when>
+			<otherwise>
+			AND (MSG_TITLE LIKE #{sv}
+				 OR  MSG_CONTENT LIKE #{sv}
+				 OR  USER_NAME LIKE #{sv})
+			</otherwise>
+		</choose>
+    	</when>
+    	<!-- 보낸 쪽지함일 때 -->
+    	<when test="type =='보낸 쪽지함'">
+		JOIN    MEMBER_TB B
+		ON      A.RECIPIENT_NO = B.USER_NO
+		WHERE
+		        RECIPIENT_STATUS ='Y'
+		AND     SENDER_NO = #{ senderNo }
+		<choose>
+			<when test="searchCondition == 'title'">
+			AND     MSG_TITLE LIKE #{sv}
+			</when>
+			<when test="searchCondition == 'content'">
+			AND     MSG_CONTENT LIKE #{sv}
+			</when>
+			<when test="searchCondition == 'name'">
+			AND     USER_NAME LIKE #{sv}
+			</when>
+			<otherwise>
+			AND (MSG_TITLE LIKE #{sv}
+				 OR  MSG_CONTENT LIKE #{sv}
+				 OR  USER_NAME LIKE #{sv})
+			</otherwise>
+		</choose>
+		</when>
+    </choose>
+    ORDER BY
+    			MSG_NO DESC
+	</select>
+	
+	
+	<!-- 4-1. 쪽지함 검색 -->
+	<select id="searchList" parameterType="messageSearch" resultMap="messageResultSet">
+	<bind name="sv" value="'%'+_parameter.getSearchValue() + '%'"/>
+	SELECT
+		          A.MSG_NO
+		        , A.MSG_TITLE
+		        , A.MSG_CONTENT
+		        , A.CREATE_DATE
+		        , A.VIEW_STATUS
+		        , A.SENDER_NO
+		        , A.RECIPIENT_NO
+		        , B.USER_ID
+		FROM
+		        MESSAGE_TB A
+	<choose>
+		<!-- 받은 쪽지함일 때 -->
+    	<when test="type =='받은 쪽지함'">
+    	JOIN    MEMBER_TB B
+		ON      A.SENDER_NO = B.USER_NO
+    	WHERE
+        		SENDER_STATUS ='Y'
+		AND     RECIPIENT_NO = #{ recipientNo }
+		<choose>
+			<when test="searchCondition == 'title'">
+			AND     MSG_TITLE LIKE #{sv}
+			</when>
+			<when test="searchCondition == 'content'">
+			AND     MSG_CONTENT LIKE #{sv}
+			</when>
+			<when test="searchCondition == 'name'">
+			AND     USER_ID LIKE #{sv}
+			</when>
+			<otherwise>
+			AND (MSG_TITLE LIKE #{sv}
+				 OR  MSG_CONTENT LIKE #{sv}
+				 OR  USER_ID LIKE #{sv})
+			</otherwise>
+		</choose>
+    	</when>
+    	<!-- 보낸 쪽지함일 때 -->
+    	<when test="type =='보낸 쪽지함'">
+		JOIN    MEMBER_TB B
+		ON      A.RECIPIENT_NO = B.USER_NO
+		WHERE
+		        RECIPIENT_STATUS ='Y'
+		AND     SENDER_NO = #{ senderNo }
+		<choose>
+			<when test="searchCondition == 'title'">
+			AND     MSG_TITLE LIKE #{sv}
+			</when>
+			<when test="searchCondition == 'content'">
+			AND     MSG_CONTENT LIKE #{sv}
+			</when>
+			<when test="searchCondition == 'name'">
+			AND     USER_NAME LIKE #{sv}
+			</when>
+			<otherwise>
+			AND (MSG_TITLE LIKE #{sv}
+				 OR  MSG_CONTENT LIKE #{sv}
+				 OR  USER_ID LIKE #{sv})
+			</otherwise>
+		</choose>
+		</when>
+    </choose>
+    ORDER BY
+    			MSG_NO DESC
+	</select>
+	
+	<!-- 5. 쪽지 삭제 -->
+	<update id="messageDelete" parameterType="hashmap">
+	<choose>
+		<when test="type == '받은 쪽지함'">
+		UPDATE		MESSAGE_TB
+		SET 		SENDER_STATUS = 'N'
+		WHERE 		MSG_NO IN
+		<foreach collection="deleteArray" item="item" index="index" separator="," open="(" close=")">
+		 #{ item }
+		</foreach>
+		</when>
+		
+		<when test="type == '보낸 쪽지함'">
+		UPDATE		MESSAGE_TB
+		SET 		RECIPIENT_STATUS = 'N'
+		WHERE 		MSG_NO IN
+		<foreach collection="deleteArray" item="item" index="index" separator="," open="(" close=")">
+		 #{ item }
+		</foreach>
+		</when>
+	</choose>
+	</update>
+	
+	<!-- 6. 쪽지 삽입 -->
+	<insert id="messageInsert" parameterType="Message">
+	INSERT
+	INTO
+	        MESSAGE_TB
+	VALUES
+	(       
+	          SEQ_MSG_NO.nextval
+	        , #{ messageTitle }	
+	        , #{ messageContent }	
+	        , SYSDATE
+	        , DEFAULT
+	        , #{ senderNo }
+	        , #{ recipientNo }
+	        , DEFAULT
+	        , DEFAULT
+	)
+	</insert>
+	
+</mapper>
