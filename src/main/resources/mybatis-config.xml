@@ -5,38 +5,71 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
-	<!-- settings -->
-	<settings>
-		<!-- 만약에 null로 데이터가 전달 되면 빈칸이 아닌 null로 인식 -->
-		<setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
-	
-	<!-- typeAliases -->
+   <!-- settings -->
+   <settings>
+      <!-- 만약에 null로 데이터가 전달 되면 빈칸이 아닌 null로 인식 -->
+      <setting name="jdbcTypeForNull" value="NULL"/>
+   </settings>
+   
+   <!-- typeAliases -->
 
 
-	<typeAliases>	
-		<typeAlias type="com.kh.naturephone.boardFree.model.vo.Board_TB" alias="Board_TB"/>
-		<typeAlias type="com.kh.naturephone.boardFree.model.vo.B_Att_TB" alias="B_Att_TB"/>						
-		<typeAlias type="com.kh.naturephone.member.model.vo.Member" alias="Member"/>
-		<typeAlias type="com.kh.naturephone.member.model.vo.MyBoard" alias="MyBoard"/>
-		<typeAlias type="com.kh.naturephone.support.model.vo.Phone" alias="Phone"/>
-		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.DealInfo" alias="DealInfo"/>
-		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.BuyerInfo" alias="BuyerInfo"/>
-		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.PaymentInfo" alias="PaymentInfo"/>
-		<typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CalculateInfo" alias="CalculateInfo"/>
-		<typeAlias type="com.kh.naturephone.goods.model.vo.Goods" alias="Goods"/>
-	</typeAliases>
-	
-	<mappers>
+   <typeAliases>   
+      <typeAlias type="com.kh.naturephone.common.Board_TB" alias="Board_TB"/>
+      <typeAlias type="com.kh.naturephone.common.B_Att_TB" alias="B_Att_TB"/>
+      <typeAlias type="com.kh.naturephone.boardSurvey.model.vo.Survey_TB" alias="Survey_TB"/>
+      <typeAlias type="com.kh.naturephone.boardSurvey.model.vo.S_Detail_TB" alias="S_Detail_TB"/>
+      <typeAlias type="com.kh.naturephone.common.Reply_TB" alias="Reply_TB"/>               
+      <typeAlias type="com.kh.naturephone.common.Search" alias="Search"/>
+      
+      <typeAlias type="com.kh.naturephone.notice.model.vo.Reply" alias="Reply"/>
+      <typeAlias type="com.kh.naturephone.support.model.vo.Phone" alias="Phone"/>
+      
+      <typeAlias type="com.kh.naturephone.goods.model.vo.Goods" alias="Goods"/>
+      <typeAlias type="com.kh.naturephone.attachment.model.vo.Attachment" alias="Attachment"/>
+        <typeAlias type="com.kh.naturephone.goods.model.vo.GoodsInfo" alias="GoodsInfo"/>
+                                   
+      <typeAlias type="com.kh.naturephone.member.model.vo.Member" alias="Member"/>
+      <typeAlias type="com.kh.naturephone.member.model.vo.MyBoard" alias="MyBoard"/>
+      <typeAlias type="com.kh.naturephone.message.model.vo.Message" alias="Message"/>
+        <typeAlias type="com.kh.naturephone.message.model.vo.MessageSearch" alias="MessageSearch"/>
+                     
+      <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.DealInfo" alias="DealInfo"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.GoodsAtt" alias="GoodsAtt"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.BuyerInfo" alias="BuyerInfo"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.PaymentInfo" alias="PaymentInfo"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CalculateInfo" alias="CalculateInfo"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.DeliveryInfo" alias="DeliveryInfo"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryInfo" alias="CategoryInfo"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryCount" alias="CategoryCount"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.PeriodInfo" alias="PeriodInfo"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CalendarInfo" alias="CalendarInfo"/>
+        <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.SearchKeyword" alias="SearchKeyword"/>
+        <typeAlias type="com.kh.naturephone.myPage2.interest.model.vo.ItdProduct" alias="ItdProduct"/>
+      
+         
+   </typeAliases>
+   
+   <mappers>
 
-		<mapper resource="mappers/board-mapper.xml"/>		
-		<mapper resource="mappers/sellInfo-mapper.xml"/>
-
-		<mapper resource="mappers/member-mapper.xml"/>
-		<mapper resource="mappers/myList-mapper.xml"/>
-		<mapper resource="mappers/support-mapper.xml"/>
-		<mapper resource="mappers/goods-mapper.xml"/>
-	</mappers>
-	
+      <mapper resource="mappers/boardFree-mapper.xml"/>
+      <mapper resource="mappers/boardMobile-mapper.xml"/>      
+      <mapper resource="mappers/boardSurvey-mapper.xml"/>
+            
+      <mapper resource="mappers/sellInfo-mapper.xml"/>
+      <mapper resource="mappers/itdProduct-mapper.xml"/>
+            
+      <mapper resource="mappers/member-mapper.xml"/>
+      <mapper resource="mappers/myList-mapper.xml"/>
+      <mapper resource="mappers/message-mapper.xml"/>
+            
+      <mapper resource="mappers/support-mapper.xml"/>
+      <mapper resource="mappers/notice-mapper.xml"/>
+            
+      <mapper resource="mappers/goods-mapper.xml"/>
+      
+      
+   </mappers>
+   
 
 </configuration>

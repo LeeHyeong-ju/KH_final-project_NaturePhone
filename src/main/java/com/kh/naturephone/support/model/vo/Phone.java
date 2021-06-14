@@ -36,4 +36,8 @@ public class Phone {
 	private String fileRename;
 	private String filePath;
 	
+	
 }
+
+
+

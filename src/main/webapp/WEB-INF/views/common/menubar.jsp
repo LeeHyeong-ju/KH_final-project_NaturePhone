@@ -149,7 +149,7 @@ scope="application"/>
 						<a href="${ contextPath }"><img src="${ contextPath }/resources/images/logo.png" style="width: 230px;"></a>
 					</div>
 					<ul class="topBotomBordersOut navbar-nav mx-auto text-center">
-						<li class="nav-item"><a class="nav-link" href="#">Market</a></li>
+						<li class="nav-item"><a class="nav-link" href="${ contextPath }/goods/list">Market</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Community</a></li>
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/support/compare">Support</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Service</a></li>
