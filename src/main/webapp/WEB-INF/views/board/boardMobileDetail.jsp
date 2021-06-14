@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -65,18 +66,50 @@
      .cal {
         color: grey;
     }
+      #replyTable {
+	  /*  text-align: center; */
+	    min-width: 550px;
+	    line-height: 2;
+	    border-collapse: collapse;
+	    width: 100%;
+	    border-spacing: 5px;
+  		border-collapse: separate;   
+	   }
+    
+       #replyTable td:nth-child(1)
+	    {
+	      width : 20px;
+	   } 
+	   
+	   #replyTable td:nth-child(3) {
+	      float: right;	
+	   } 	   
+	    .replyWriterArea {
+	       text-align:center;
+	       padding-top : 50px;
+	        width: 100%
+	   } 	     
+	      .replyWriterArea textarea {
+	      width : 600px;
+	      height : 100px;
+	      padding : 10px 10px 14px 10px;
+	      border: solid 1px #dadada;
+	      resize:none;
+	   }
+	   
 </style>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
     <div class="container">
       <div class="row">
           <div class="col-md-2 rightSpace" style="margin-top: 100px;">
               <div class="list-group col-md-10 sideBar">
-                  <ul>
-                      <li class="list-group-item sideTitle">커뮤니티</li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
-                  </ul>
+                   <ul>
+                        <li class="list-group-item sideTitle">커뮤니티</li>
+                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
+                        <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
+                        <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
+                    </ul>
               </div>
           </div>
             <!-- 내용 -->
@@ -86,74 +119,109 @@
              <div class="panel">
              <h5>모바일뉴스</h5>                        
              </div>
-             <div style="border-bottom: 1px #C8C8C8 solid; border-top: 1.5px #C8C8C8 solid; padding: 10px 0px 10px 0px; margin-bottom: 3px;">
-                      	갤럭시Z폴드3, 수납 공간 생기는데...S펜은 별도 구매?</div>
-                <span class="topContent">작성자 : 관리자</span>&nbsp;&nbsp;&nbsp;
-                <span class="topContent">등록일 : 2012.04.23</span>&nbsp;&nbsp;&nbsp;
-                <span class="topContent"> 조회 : 14</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  			<div style="border-bottom: 1px #C8C8C8 solid; border-top: 1.5px #C8C8C8 solid; padding: 10px 0px 10px 0px; margin-bottom: 3px;">
+                      ${ board.btitle }</div>
+                    <span class="topContent">작성자 : ${ board.writer_id }</span>&nbsp;&nbsp;&nbsp;
+                    <span class="topContent">등록일 : ${ board.bcreateDate }</span>&nbsp;&nbsp;&nbsp;
+                    <span class="topContent"> 조회 : ${ board.bcount }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <br><br>
-                <div>동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세
-                                       무궁화 삼천리 화려 강산 대한사람 대한으로 길이 보전하세 남산 위에 저 소나무 철갑을 두른듯 바람서리 불변함은 우리 기상일세
-                                       무궁화 삼천리 화려 강산 대한사람 대한으로 길이 보전하세 가을 하늘 공활한데 높고 구름 없이 밝은 달은 우리 가슴 일편단심일세
-                                       무궁화 삼천리 화려 강산 대한사람 대한으로 길이 보전하세 이 기상과 이 마음으로 충성을 다하여 괴로우나 즐거우나 나라사랑하세
-                                       무궁화 삼천리 화려 강산 대한사람 대한으로 길이 보전하세</div>
-                <br><br>
-                <div style="text-align: center;">
-                <button type="button" class="btn btn-outline-secondary" 
-                                      style="text-align: center;">공감 3</button>
-                </div>
-                <hr>               
-                <span class="topContent"><button>목록으로</button></span>
-                <br><br>                   
-            <!-- 댓글-->
-                <div style="margin-top:10px;padding: 10px 0px 10px 0px;border-bottom: 1px solid #C8C8C8;">                     
-                   <div style="float: left;width: 15%; overflow: hidden;text-align: left;">
-                <br>
-                     <span class="topContent">KH정보교육원</span>
-                <br>
-                     <span class="topContent cal">21.05.31 21:00</span>
-                   </div>                      
-                   <div style="float: left;width: 85%; overflow: hidden;text-align: left;">
-                      <div style="width: 100%; margin-top :25px; ">
-                          <div style="width: 88%; float: left; "> 안녕하세요!!!</div>
-                      </div>           
-                   </div>                       
-                </div>                     
-                    <div style="clear: both; margin-top:10px;padding: 10px 0px 10px 0px;border-bottom: 1px solid #C8C8C8;">
-                        <div style="float: left;width: 15%; overflow: hidden;text-align: left;">
-                        <br>
-                        <span class="topContent">KH정보교육원</span>
-                        <br>
-                        <span class="topContent cal">21.05.31 21:00</span>
-                        </div>                      
-                        <div style="float: left;width: 85%; overflow: hidden;text-align: left;">
-                            <div style="width: 100%; margin-top :25px; ">
-                              <div style="width: 88%; float: left; "> 안녕하세요!!!</div>
-                            </div>           
-                        </div>          
-                    </div>   
-
-                    <div style="margin-top:60px;padding: 10px 0px 10px 0px;">                     
-                        <div style="float: left;width: 15%; overflow: hidden;text-align: left;">
-                        <br>
-                        <span class="topContent">KH정보교육원</span>
-                        <br>
-                        <span class="topContent cal">21.05.31 21:00</span>
-                        </div>                      
-                        <div style="float: left;width: 85%; overflow: hidden;text-align: left;">
-                            <div style="width: 100%; margin-top :25px; ">
-                                <textarea style="width: 88%; float: left; "></textarea>
-                                <span><button style="height: 53px; float: right;">등록</button></span>
-                            </div>           
-                        </div>                       
-                    </div>
-                   <br><br>
-
-                    </div>
-                </div>    
-        </div>
-     </div>
+                    
+                    <span class="topContent"><button>신고</button></span>
+                   
+                    <br><br>
+                    <div>${ board.bcontent }</div>
+                        <br><br>
+                    <div style="text-align: center;"><button type="button" class="btn btn-outline-secondary" 
+                                                      style="text-align: center;">공감 ${ board.brecom }</button></div>
+                    <hr>                                                             
+                   
+                    <c:if test="${ loginUser.id eq board.writer_id }">
+                    <span class="topContent" ><button style="background-color: #C8C8C8;" class="btn" onclick="location.href='${ contextPath }/boardMobile/updatePage?bno=${ board.bno }&page=${ param.page }'">수정하기</button></span>                
+                    <span class="topContent"><button style="background-color: #C8C8C8;" class="btn" onclick="location.href='${ contextPath }/boardMobile/delete?bno=${ board.bno }'">삭제하기</button></span>
+                    </c:if>
+                     <span class="topContent" style="float:right;"><button style="background-color: #C8C8C8;"class="btn" onclick="location.href='${ contextPath }/boardMobile/list?page=${ param.page }'">목록으로</button></span>
+                    <br>                  
+                    
+<!-- 댓글-->	
+		<div class="content">
+			<div class="outer">
+			
+			<br><hr>
+			<div class="replySelectArea">
+			<table id="replyTable">
+				<thead>				
+				</thead>
+				<tbody id="recontent">				
+					<c:if test="${ !empty rlist }">
+						<c:forEach items="${ rlist }" var="r">
+						<tr>
+							<td style="font-size: 22px">${ r.user_id }</td>																			
+							<td style="font-size: 15px">${ r.create_date }&nbsp;&nbsp;
+							<c:if test="${ loginUser.id eq r.user_id }">	
+								<button style=" border: none; margin-bottom:2px;" type="button" class="btn-close" aria-label="Close"></button>
+							</c:if>
+							</td>
+							<td><button style=" border: none;">신고</button></td>											
+						</tr>
+						<tr>						
+							<td colspan="3" style="border-bottom:1px solid #C8C8C8;">${ r.re_content }</td>												
+						</tr>					
+						</c:forEach>				
+					</c:if>
+					<c:if test="${ empty rlist }">
+						<tr>
+							<td colspan="5">작성된 댓글이 없습니다.</td>				
+						</tr>				
+					</c:if>				
+				</tbody>				
+			</table>
+					<div class="replyWriterArea">				
+					<textarea id="replyContent"></textarea>
+					<br><br>
+					<button type="button" class="btn btn-outline-secondary" class="btn" id="addReply">댓글 등록</button>			
+					</div>			
+					</div>		
+				</div>
+			</div> 
+       	<br><br>
+     	</div>
+  	</div>     
+   </div>
+  </div>     
+     <script>
+		$("#addReply").on("click", function(){
+			var re_content = $("#replyContent").val();
+			var b_no = ${ board.bno };
+			
+			$.ajax({
+					url : "${ contextPath }/boardMobile/insertReply",
+					data : { re_content : re_content, b_no : b_no },
+					type : "post",
+					dataType : "json",
+					success : function(data){
+						console.log(data);
+						
+						tableBody = $("#replyTable tbody");
+						tableBody.html("");
+						var html = '';
+						
+						for(i in data){
+							html += '<tr>';
+							html += '<td style="font-size: 22px">'+data[i].user_id+'</td>';
+							html += '<td style="font-size: 15px">'+data[i].create_date+'&nbsp;&nbsp;<button style=" border: none;  margin-bottom:2px;" type="button" class="btn-close" aria-label="Close"></button></td>';
+							html += '<td><button style=" border: none;">신고</button></td>';
+							html += '</tr>';
+							html += '<tr>';							
+							html += '<td colspan="3" style="border-bottom:1px solid #C8C8C8;">'+data[i].re_content+'</td>';										
+							html += '</tr>';			
+						}
+						$("#replyContent").empty();
+						$("#recontent").append(html);
+						$("#replyContent").val("");
+					}		
+			});			
+		});	
+	</script>
 </body>
 </html>

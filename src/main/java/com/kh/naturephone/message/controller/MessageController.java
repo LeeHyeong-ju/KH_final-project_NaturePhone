@@ -1,5 +1,6 @@
 package com.kh.naturephone.message.controller;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,12 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+=======
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class MessageController {
+>>>>>>> c78903c143e51903577b3369b6881a2f926e9336
 
 import com.kh.naturephone.boardFree.model.vo.PageInfo;
 import com.kh.naturephone.common.Pagination;

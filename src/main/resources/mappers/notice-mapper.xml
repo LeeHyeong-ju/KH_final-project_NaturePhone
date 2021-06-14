@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+	<resultMap type="Board_TB" id="noticeResultSet">
+		<id property="bno" column="B_NO"/>
+		<result property ="userNo" column="USER_NO"/>
+		<result property ="writer_id" column="USER_ID"/>
+		<result property ="btitle" column="BTITLE"/>
+		<result property ="bcontent" column="BCONTENT"/>
+		<result property ="category" column="CATEGORY"/>
+		<result property ="bcategory" column="BCATEGORY"/>
+		<result property ="bcount" column="BCOUNT"/>
+		<result property ="brecom" column="BRECOM"/>
+		<result property ="bcreateDate" column="B_CREATE_DATE"/>
+		<result property ="bmodifyDate" column="B_MODIFY_DATE"/>
+		<result property ="bstatus" column="B_STATUS"/>
+		<result property ="brefNo" column="B_REF_NO"/>
+	</resultMap>
+
+	<resultMap type="Reply" id="nReplyResultSet">
+		<id property="reno" column="RE_NO"/>
+		<result property ="userno" column="USER_NO"/>
+		<result property ="writer_id" column="USER_ID"/>
+		<result property ="recontent" column="RE_CONTENT"/>
+		<result property ="createDate" column="CREATE_DATE"/>
+		<result property ="modifyDate" column="MODIFY_DATE"/>
+		<result property ="restatus" column="RE_STATUS"/>
+		<result property ="bno" column="B_NO"/>
+		<result property ="sno" column="S_NO"/>
+	</resultMap>
+	
+	<resultMap type="B_Att_TB" id="nAttResultSet">
+		<id property="bfno" column="BF_NO"/>
+		<result property="bforiginalName" column="BF_ORIGIN_NAME"/>
+		<result property="bfrenameName" column="BF_RENAME_NAME"/>
+		<result property="bffilePath" column="BF_FILEPATH"/>
+		<result property="bfuploadDate" column="BF_UPLOAD_DATE"/>
+		<result property="bfstatus" column="BF_STATUS"/>
+		<result property="bno" column="B_NO"/>
+	</resultMap>
+	
+	<select id="selectNoticeListCount" resultType="_int">
+		SELECT 
+				COUNT(*)
+		  FROM
+				BOARD_TB
+		 WHERE
+				B_STATUS = 'Y'				
+	</select>
+	
+	<select id="selectNoticeList" resultMap="noticeResultSet">
+		SELECT
+				B_NO
+			  , USER_NO
+			  , USER_ID
+			  , BTITLE
+			  , BCONTENT
+			  , CATEGORY
+			  , BCATEGORY
+			  , BCOUNT
+			  , BRECOM
+			  , B_CREATE_DATE
+			  , B_MODIFY_DATE
+			  , B_STATUS
+			  , B_REF_NO
+		 FROM
+				BOARD_TB
+		   JOIN MEMBER_TB USING(USER_NO)
+		WHERE
+				B_STATUS= 'Y'
+	 ORDER BY
+				B_NO DESC		  	
+	</select>
+	
+	<insert id="insertNotice" parameterType="Board_TB">
+		INSERT
+		  INTO BOARD_TB
+		 (
+				B_NO
+			  , USER_NO
+			  , BTITLE
+			  , BCONTENT
+			  , CATEGORY
+			  , BCATEGORY
+			  , BCOUNT
+			  , BRECOM
+			  , B_CREATE_DATE
+			  , B_MODIFY_DATE
+			  , B_STATUS
+			  , B_REF_NO
+		)
+		VALUES
+		(
+			  SEQ_B_NO.NEXTVAL
+			, #{userNo} 
+			, #{btitle}
+			, #{bcontent}
+			, #{category}
+			, DEFAULT
+			, DEFAULT
+			, DEFAULT
+			, SYSDATE
+			, SYSDATE
+			, DEFAULT
+			, DEFAULT
+		)
+	</insert>
+	
+	<insert id="insertNoticeAtt" parameterType="B_Att_TB">
+		INSERT
+		  INTO B_ATT_TB
+		 (
+				BF_NO
+			  , BF_ORIGIN_NAME
+			  , BF_RENAME_NAME
+			  , BF_FILEPATH
+			  , BF_UPLOAD_DATE
+			  , BF_STATUS
+			  , B_NO
+		)
+		VALUES
+		(
+			  SEQ_BF_NO.NEXTVAL
+			, #{bforiginalName} 
+			, #{bfrenameName}
+			, #{bffilePath}
+			, SYSDATE
+			, DEFAULT
+			, SEQ_B_NO.CURRVAL
+		)
+	</insert>
+	
+	<select id="searchList" parameterType="Search" resultMap="noticeResultSet">
+	<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>
+		SELECT
+				B_NO
+			  , USER_NO
+			  , USER_ID
+			  , BTITLE
+			  , BCONTENT
+			  , CATEGORY
+			  , BCATEGORY
+			  , BCOUNT
+			  , BRECOM
+			  , B_CREATE_DATE
+			  , B_MODIFY_DATE
+			  , B_STATUS
+			  , B_REF_NO
+		 FROM
+				BOARD_TB
+		   JOIN MEMBER_TB USING(USER_NO)
+		<where>
+			B_STATUS = 'Y'
+			<choose>
+				<when test="searchCondition == 'title'">
+				AND BTITLE LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+				AND USER_NAME LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'content'">
+				AND BCONTENT LIKE #{sv}
+				</when>
+				<otherwise>
+				AND (USER_NAME LIKE #{sv}
+					OR BTITLE LIKE #{sv}
+					OR BCONTENT LIKE #{sv})
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY B_NO DESC
+	</select>
+	
+	<select id="selectNotice" parameterType="_int" resultMap="noticeResultSet">
+		SELECT
+				B_NO
+			  , USER_NO
+			  , USER_ID
+			  , BTITLE
+			  , BCONTENT
+			  , CATEGORY
+			  , BCATEGORY
+			  , BCOUNT
+			  , BRECOM
+			  , B_CREATE_DATE
+			  , B_MODIFY_DATE
+			  , B_STATUS
+			  , B_REF_NO
+		 FROM
+				BOARD_TB
+		   JOIN MEMBER_TB USING(USER_NO)
+		WHERE
+				B_STATUS= 'Y'
+			AND B_NO = #{bno}	  	
+	</select>
+	
+	<update id="updateReadCount" parameterType="_int">
+		UPDATE
+			BOARD_TB
+		SET
+			BCOUNT = BCOUNT + 1
+		WHERE
+			B_NO = #{bno}
+	</update>
+	
+	<select id="selectReplyList" parameterType="_int" resultMap="nReplyResultSet">
+		SELECT
+			RE_NO
+		  , USER_NO
+		  , USER_ID
+		  , RE_CONTENT
+		  , R.CREATE_DATE
+		  , R.MODIFY_DATE
+		  , RE_STATUS
+		  , B_NO
+		  , S_NO
+		FROM
+			 REPLY_TB R
+		JOIN MEMBER_TB USING(USER_NO)
+		WHERE
+			RE_STATUS = 'Y'
+		AND B_NO = #{bno}
+		ORDER BY RE_NO DESC
+	</select>
+	
+	<select id="selectNoticeAtt" parameterType="_int" resultMap="nAttResultSet">
+		SELECT
+			BF_NO
+		  , BF_ORIGIN_NAME
+		  , BF_RENAME_NAME
+		  , BF_FILEPATH
+		  , BF_UPLOAD_DATE
+		  , BF_STATUS
+		  , B_NO
+		FROM
+			B_ATT_TB
+		WHERE
+			B_NO = #{bno}
+	</select>
+	
+	<update id="updateNotice" parameterType="Board_TB">
+		UPDATE
+			BOARD_TB
+		SET
+			BTITLE = #{btitle}
+		  , BCONTENT = #{bcontent}
+		  , B_MODIFY_DATE = SYSDATE
+		WHERE
+			B_NO = #{bno}
+		AND B_STATUS = 'Y'
+	</update>
+	
+	<update id="updateNoticeAtt" parameterType="B_Att_TB">
+		UPDATE
+			B_ATT_TB
+		SET
+			BF_ORIGIN_NAME = #{bforiginalName}
+		  , BF_RENAME_NAME = #{bfrenameName}
+		  , BF_FILEPATH = #{bffilePath}
+		  , BF_UPLOAD_DATE = SYSDATE
+		WHERE
+			BF_NO = #{bfno}
+	</update>
+	
+	<insert id="insertNoticeAtt2" parameterType="B_Att_TB">
+		INSERT
+		  INTO B_ATT_TB
+		 (
+				BF_NO
+			  , BF_ORIGIN_NAME
+			  , BF_RENAME_NAME
+			  , BF_FILEPATH
+			  , BF_UPLOAD_DATE
+			  , BF_STATUS
+			  , B_NO
+		)
+		VALUES
+		(
+			  SEQ_BF_NO.NEXTVAL
+			, #{bforiginalName} 
+			, #{bfrenameName}
+			, #{bffilePath}
+			, SYSDATE
+			, DEFAULT
+			, #{bno}
+		)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

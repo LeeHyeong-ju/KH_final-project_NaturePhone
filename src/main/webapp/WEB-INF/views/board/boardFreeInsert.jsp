@@ -74,16 +74,17 @@
    
 </style>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
     <div class="container">
       <div class="row">
           <div class="col-md-2 rightSpace" style="margin-top: 100px;">
               <div class="list-group col-md-10 sideBar">
-                  <ul>
-                      <li class="list-group-item sideTitle">커뮤니티</li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
-                  </ul>
+                   <ul>
+                        <li class="list-group-item sideTitle">커뮤니티</li>
+                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
+                        <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
+                        <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
+                    </ul>
               </div>
           </div>
             <!-- 내용 -->
@@ -96,8 +97,10 @@
             <thead>
               <tr>
                 <th scope="col" style="text-align: center; width: 20%; background-color:#F4F4F4;">제목</th>
-                <td><input type="text" name="btitle" style="width: 70%; border: 1px solid  #C8C8C8;"></td>                            
+                <td><input type="text" name="btitle" style="width: 70%; border: 1px solid  #C8C8C8;"></td>
+                                            
               </tr>
+     
             </thead>
             <tbody>
               <tr>
@@ -106,7 +109,7 @@
                   <select class="form-select" name="bcategory" aria-label="Default select example" style="width: 50%; height: 32px; font-size: 13px;">
                     <option selected>분류</option>
                     <option value="일상">일상</option>
-                    <option value="스마트폰">스마트폰</option>
+                    <option value="폰">폰</option>
                     <option value="스포츠">스포츠</option>
                     <option value="기타">기타</option>
                   </select>
@@ -121,13 +124,13 @@
 			<input type="file" name="uploadFile">		
 			<div id="contentImgArea">
 				<img id="content1"> 
-			</div>
-			        
+			</div>			        
             <hr>
             <!-- <button type="button" class="btn btn-secondary">목록으로</button> -->
             <button type="submit" class="btn btn-secondary" style="float: right;">등록</button>            
-            <br><br>
+           
           </form>  
+          <button style="background-color: #C8C8C8;"class="btn btn-secondary" onclick="location.href='${ contextPath }/boardFree/list'">목록으로</button>
         </div>
       </div>     
         </div>

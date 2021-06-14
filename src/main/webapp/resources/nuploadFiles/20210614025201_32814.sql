@@ -1,0 +1,132 @@
+CREATE SEQUENCE SEQ_PRO_NO
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 9999999999
+MINVALUE 1
+NOCYCLE
+CACHE 20;
+
+CREATE SEQUENCE SEQ_B_NO
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 9999999999
+MINVALUE 1
+NOCYCLE
+CACHE 20;
+
+CREATE SEQUENCE SEQ_BF_NO
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 9999999999
+MINVALUE 1
+NOCYCLE
+CACHE 20;
+
+ALTER TABLE GOODS_TB ADD USER_ID VARCHAR(30) NOT NULL;
+COMMIT;
+
+SELECT
+			  PRO_NO
+			, PRO_NAME
+			, MODEL_NAME
+			, CARR_NAME
+			, MAKER
+			, RELEASE_DATE
+			, RELEASE_PRICE
+			, OS
+			, APPEARANCE
+			, DISPLAY
+			, SPEC
+			, CAMERA
+			, BATTERY
+			, COM
+			, POINT
+			, FILE_ORIGIN
+			, FILE_RENAME
+			, FILE_PATH
+		  FROM
+			  PHONE_TB
+	     JOIN PRODUCT_TB USING(PRO_NO)
+		 JOIN CARRIER_TB USING(CARR_NO);
+         
+         
+SELECT 
+				COUNT(*)
+		  FROM
+				BOARD_TB
+		 WHERE
+				B_STATUS = 'Y';
+                
+SELECT
+				B_NO
+			  , USER_NO
+			  , BTITLE
+			  , BCONTENT
+			  , CATEGORY
+			  , BCATEGORY
+			  , BCOUNT
+			  , BRECOM
+			  , B_CREATE_DATE
+			  , B_MODIFY_DATE
+			  , B_STATUS
+			  , B_REF_NO
+		 FROM
+				BOARD_TB
+		WHERE
+				B_STATUS= 'Y'
+	 ORDER BY
+				B_NO DESC;
+
+select seq_b_no.nextval
+from dual;
+
+SELECT
+				B_NO
+			  , USER_NO
+			  , USER_NAME
+			  , BTITLE
+			  , BCONTENT
+			  , CATEGORY
+			  , BCATEGORY
+			  , BCOUNT
+			  , BRECOM
+			  , B_CREATE_DATE
+			  , B_MODIFY_DATE
+			  , B_STATUS
+			  , B_REF_NO
+			  , BF_FILEPATH
+		 FROM
+				BOARD_TB
+		   JOIN MEMBER_TB USING(USER_NO)
+		   left JOIN B_ATT_TB USING(B_NO)
+		WHERE
+				B_STATUS= 'Y'
+	 ORDER BY
+				B_NO DESC;
+         
+SELECT
+			RE_NO
+		  , USER_NO
+		  , USER_NAME
+		  , RE_CONTENT
+		  , R.CREATE_DATE
+		  , R.MODIFY_DATE
+		  , RE_STATUS
+		  , B_NO
+		  , S_NO
+		FROM
+			 REPLY_TB R
+		JOIN MEMBER_TB USING(USER_NO)
+		WHERE
+			RE_STATUS = 'Y'
+		ORDER BY RE_NO DESC;
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
