@@ -55,7 +55,7 @@ public class BoardFreeController {
 				) {
 
 			int listCount = bService.selectListCount();
-			System.out.println(listCount);
+//			System.out.println(listCount);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 			List<Board_TB> list = bService.selectList(pi);			

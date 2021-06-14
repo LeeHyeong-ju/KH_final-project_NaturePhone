@@ -173,12 +173,14 @@
 						</tr>				
 					</c:if>				
 				</tbody>				
-			</table>
+			</table>					
+			<%--  <c:if test="${ !empty loginUser }"> --%>
 					<div class="replyWriterArea">				
 					<textarea id="replyContent"></textarea>
 					<br><br>
 					<button type="button" class="btn btn-outline-secondary" class="btn" id="addReply">댓글 등록</button>			
-					</div>			
+					</div>
+			<%--  </c:if>	 --%>		
 					</div>		
 				</div>
 			</div> 
@@ -189,6 +191,7 @@
   </div>     
      <script>
 		$("#addReply").on("click", function(){
+	
 			var re_content = $("#replyContent").val();
 			var b_no = ${ board.bno };
 			

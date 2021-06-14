@@ -132,7 +132,77 @@
                     <div>${ board.scontent }</div>
                         <br><br>                  
                     <hr>                                                             
+                   <br><br>
                    
+                     <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;">
+                    <div class="row">
+                        <div class="col-2">
+                       1. 삼성
+                        </div>
+                        <div class="col-6">
+                            <div class="progress" style="width: 100%; float: left;">
+                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div style="float: left;">25%</div>
+                            <div style="float: left;">(2명)</div>
+                            <button style="float: left;font-size: 10px;">투표하기</button>
+                        </div>                  
+                    </div>
+                </div>
+
+                <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;">
+                    <div class="row">
+                        <div class="col-2">
+                       2. 갤럭시
+                        </div>
+                        <div class="col-6">
+                            <div class="progress" style="width: 100%; float: left;">
+                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div style="float: left;">25%</div>
+                            <div style="float: left;">(2명)</div>
+                            <button style="float: left;font-size: 10px;">투표하기</button>
+                        </div>                  
+                    </div>
+                </div>
+
+                <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;">
+                    <div class="row">
+                        <div class="col-2">
+                       3. 기타
+                        </div>
+                        <div class="col-6">
+                            <div class="progress" style="width: 100%; float: left;">
+                                <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div style="float: left;">50%</div>
+                            <div style="float: left;">(4명)</div>
+                            <button style="float: left;font-size: 10px;">투표하기</button>
+                        </div>                  
+                    </div>
+                </div> 
+                
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   <hr>
+
                     <c:if test="${ loginUser.id eq board.writer_id }">
                     <span class="topContent" ><button style="background-color: #C8C8C8;" class="btn" onclick="location.href='${ contextPath }/boardSurvey/updatePage?s_no=${ board.s_no }&page=${ param.page }'">수정하기</button></span>                
                     <span class="topContent"><button style="background-color: #C8C8C8;" class="btn" onclick="location.href='${ contextPath }/boardSurvey/delete?s_no=${ board.s_no }'">삭제하기</button></span>
