@@ -8,10 +8,10 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
+@Setter
 @ToString
 public class Search {
-	private String searchCondition;
-	private String searchValue;
+	private String searchCondition;		// 항목(전체, 작성자, 제목, 내용) 
+	private String searchValue;			// 검색 내용
 }
