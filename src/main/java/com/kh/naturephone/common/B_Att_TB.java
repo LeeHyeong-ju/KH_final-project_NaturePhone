@@ -14,12 +14,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class B_Att_TB {
-	private int bfno;
-	private String bforiginalName;
-	private String bfrenameName;
-	private String bffilePath;
-	private Date bfuploadDate;
-	private String bfstatus;
-	private int bno;
+	private int bfno;				// 첨부파일 넘버
+	private String bforiginalName;	// 이미지명(오리지널)
+	private String bfrenameName;	// 이미지명(리네임)
+	private String bffilePath;		// 파일 경로
+	private Date bfuploadDate;		// 업로드일
+	private String bfstatus;		// 상태
+	private int bno;				// 해당 글 번호
 	
 }
