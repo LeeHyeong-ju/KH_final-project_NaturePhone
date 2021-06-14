@@ -103,23 +103,19 @@ span {
 						<li><a href="#"
 							class="list-group-item list-group-item-action sideContent">보낸
 								쪽지함</a></li>
-						<li><a href="#"
-							class="list-group-item list-group-item-action sideContent">보관함</a></li>
-						<li><a href="#"
-							class="list-group-item list-group-item-action sideContent">휴지통</a></li>
 					</ul>
 				</div>
 
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">주문내역</li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/sellInfo/list"
 							class="list-group-item list-group-item-action sideContent">나의
 								판매내역</a></li>
 						<li><a href="#"
 							class="list-group-item list-group-item-action sideContent">나의
 								구매내역</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/itd/list"
 							class="list-group-item list-group-item-action sideContent">관심상품</a></li>
 					</ul>
 				</div>
