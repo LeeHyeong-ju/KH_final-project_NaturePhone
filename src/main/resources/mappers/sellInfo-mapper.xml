@@ -12,6 +12,16 @@
 		<result property="createDate" column="CREATE_DATE"/>
 		<result property="progress" column="PROGRESS"/>
 		<result property="dealWay" column="DEAL_WAY"/>
+		<result property="dealNo" column="DEAL_NO"/>
+	</resultMap>
+	
+	<resultMap type="GoodsAtt" id="attResultSet">
+		<id property="gattNo" column="GDS_ATT_NO"/>
+		<result property="attOrder" column="ATT_ORDER"/>
+		<result property="originName" column="ATT_FILENAME"/>
+		<result property="changeName" column="ATT_RENAME"/>
+		<result property="filePath" column="ATT_FILEPATH"/>
+		<result property="goodsNo" column="GOODS_NO"/>
 	</resultMap>
 	
 	<resultMap type="BuyerInfo" id="buyerInfoResultSet">
@@ -39,6 +49,19 @@
 		<result property="price" column="PRICE"/>		
 	</resultMap>
 	
+	<resultMap type="DeliveryInfo" id="deliveryInfoResultSet">
+		<id property="delNo" column="DEL_NO"/>
+		<result property="company" column="COMPANY"/>
+		<result property="invoice" column="INVOICE"/>
+		<result property="type" column="TYPE"/>
+		<result property="dealNo" column="DEAL_NO"/>
+	</resultMap>
+	
+	<resultMap type="CategoryCount" id="countResultSet">
+		<result property="progressCate" column="PROGRESS"/>
+		<result property="progressCnt" column="COUNT(*)"/>
+	</resultMap>
+	
 	<select id="selectSellInfoList" parameterType="_int" resultMap="dealInfoResultSet">
 		SELECT
 			   GOODS_NO
@@ -47,15 +70,29 @@
 			 , CREATE_DATE
 			 , MODEL_NAME
 			 , PROGRESS
+			 , DEAL_NO
 		  FROM
 		  	   GOODS_TB
 			   JOIN PHONE_TB USING (PRO_NO)
 			   JOIN PRODUCT_TB USING (PRO_NO)
-			   JOIN DEAL_TB USING (GOODS_NO)
+			   JOIN DEAL_TB D USING (GOODS_NO)
 		 WHERE
 		 	   USER_NO = #{userNo}
+		   AND D.STATUS = 'Y'
 	  ORDER BY
-	  		   GOODS_NO DESC
+	  		   DEAL_NO DESC
+	</select>
+	
+	<select id="selectAttList" resultMap="attResultSet">
+		SELECT
+			   GDS_ATT_NO
+			 , ATT_FILENAME
+			 , ATT_RENAME
+			 , GOODS_NO
+		  FROM
+		  	   G_ATT_TB
+		 WHERE
+		 	   ATT_ORDER = 0
 	</select>
 	
 	<select id="selectSellInfo" parameterType="_int" resultMap="dealInfoResultSet">
@@ -67,6 +104,7 @@
 			 , MODEL_NAME
 			 , PROGRESS
 			 , DEAL_WAY
+			 , DEAL_NO
 		  FROM
 		  	   GOODS_TB
 			   JOIN PHONE_TB USING (PRO_NO)
@@ -132,5 +170,208 @@
 		 WHERE
 		 	   GOODS_NO = #{goodsNo}
 	</select>
+	
+	<select id="selectDeliveryInfo" parameterType="_int" resultMap="deliveryInfoResultSet">
+		SELECT
+			   DEL_NO
+			 , COMPANY
+			 , INVOICE
+			 , DEAL_NO
+		  FROM
+		  	   DELIVERY_TB
+			   JOIN DEAL_TB USING (DEAL_NO)
+		 WHERE
+		 	   TYPE = '판매'
+		   AND DEAL_NO = #{dealNo}
+	</select>
+	
+	<select id="selectReDeliveryInfo" parameterType="_int" resultMap="deliveryInfoResultSet">
+		SELECT
+			   DEL_NO
+			 , COMPANY
+			 , INVOICE
+			 , DEAL_NO
+		  FROM
+		  	   DELIVERY_TB
+			   JOIN DEAL_TB USING (DEAL_NO)
+		 WHERE
+		 	   TYPE = '반품'
+		   AND DEAL_NO = #{dealNo}	
+	</select>
+	
+	<select id="selectCategoryList" parameterType="CategoryInfo" resultMap="dealInfoResultSet">
+		SELECT
+			   GOODS_NO
+			 , PRICE
+			 , GOODS_TITLE
+			 , CREATE_DATE
+			 , MODEL_NAME
+			 , PROGRESS
+		  FROM
+		  	   GOODS_TB
+			   JOIN PHONE_TB USING (PRO_NO)
+			   JOIN PRODUCT_TB USING (PRO_NO)
+			   JOIN DEAL_TB D USING (GOODS_NO)
+		 WHERE
+		 	   USER_NO = #{userNo}
+		   AND D.STATUS = 'Y'	   	   
+		   AND PROGRESS = #{category}		
+	  ORDER BY
+	  		   DEAL_NO DESC		
+	</select>
+	
+	<select id="allCnt" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(PROGRESS)
+		  FROM
+		  	   GOODS_TB
+			   JOIN DEAL_TB D USING (GOODS_NO)
+		 WHERE
+		 	   USER_NO = #{userNo}
+		   AND D.STATUS = 'Y'	   
+	</select>
+	
+	<select id="categoryCnt" parameterType="_int" resultMap="countResultSet">
+		SELECT
+			   PROGRESS
+			 , COUNT(*)
+		  FROM
+		  	   GOODS_TB
+			   JOIN DEAL_TB D USING (GOODS_NO)
+		 WHERE
+		 	   USER_NO = #{userNo}
+	  GROUP BY
+	  		   PROGRESS
+	  ORDER BY
+	  		   PROGRESS
+	</select>
+	
+	<select id="selectMonthsList" parameterType="PeriodInfo" resultMap="dealInfoResultSet">
+		SELECT
+			   GOODS_NO
+			 , PRICE, GOODS_TITLE
+			 , CREATE_DATE
+			 , MODEL_NAME
+			 , PROGRESS
+		  FROM
+		  	   GOODS_TB
+			   JOIN PHONE_TB USING (PRO_NO)
+			   JOIN PRODUCT_TB USING (PRO_NO)
+			   JOIN DEAL_TB D USING (GOODS_NO)
+		 WHERE
+		 	   USER_NO = #{userNo}
+		   AND D.STATUS = 'Y'	   
+		<if test="month == 1">
+		   AND MODIFY_DATE BETWEEN SYSDATE-30 AND SYSDATE
+		</if>
+		<if test="month == 3">
+		   AND MODIFY_DATE BETWEEN SYSDATE-91 AND SYSDATE		
+		</if>
+		<if test="month == 6">
+		   AND MODIFY_DATE BETWEEN SYSDATE-181 AND SYSDATE		
+		</if>
+	  ORDER BY
+	  		   DEAL_NO DESC
+	</select>
+	
+	<select id="selectCalendarList" parameterType="CalendarInfo" resultMap="dealInfoResultSet">
+		SELECT
+			   GOODS_NO
+			 , PRICE
+			 , GOODS_TITLE
+			 , CREATE_DATE
+			 , MODEL_NAME
+			 , PROGRESS
+		  FROM
+		  	   GOODS_TB
+			   JOIN PHONE_TB USING (PRO_NO)
+			   JOIN PRODUCT_TB USING (PRO_NO)
+			   JOIN DEAL_TB D USING (GOODS_NO)
+		 WHERE
+		 	   USER_NO = #{userNo}
+		   AND D.STATUS = 'Y'	   
+		   AND MODIFY_DATE BETWEEN #{startDate} AND #{endDate}
+	  ORDER BY
+	  		   DEAL_NO DESC
+	</select>
+	
+	<insert id="insertDeliveryInfo" parameterType="DeliveryInfo">
+		INSERT
+		  INTO DELIVERY_TB
+		(
+			   DEL_NO
+			 , COMPANY
+			 , INVOICE
+			 , TYPE
+			 , DEAL_NO
+		)
+		VALUES
+		(
+			   SEQ_DEL_NO.NEXTVAL
+			 , #{company}
+			 , #{invoice}
+			 , #{type}
+			 , #{dealNo}
+		)
+	</insert>
+	
+	<update id="updateProgressDel" parameterType="_int">
+		UPDATE
+			   DEAL_TB
+		   SET
+		   	   PROGRESS = '배송'
+		 WHERE
+		 	   DEAL_NO = #{dealNo}
+	</update>
+	
+	<update id="updateDeliveryInfo" parameterType="DeliveryInfo">
+		UPDATE
+			   DELIVERY_TB
+		   SET
+		   	   COMPANY = #{company}
+		   	 , INVOICE = #{invoice}
+		 WHERE
+		 	   DEL_NO = #{delNo}
+	</update>
+	
+	<select id="selectSearchList" parameterType="SearchKeyword" resultMap="dealInfoResultSet">
+		SELECT
+			   GOODS_NO
+			 , PRICE
+			 , GOODS_TITLE
+			 , CREATE_DATE
+			 , MODEL_NAME
+			 , PROGRESS
+		  FROM
+		  	   GOODS_TB
+			   JOIN PHONE_TB USING (PRO_NO)
+			   JOIN PRODUCT_TB USING (PRO_NO)
+			   JOIN DEAL_TB D USING (GOODS_NO)
+		 WHERE
+		 	   USER_NO = #{userNo}
+		   AND D.STATUS = 'Y'	   
+		   AND GOODS_TITLE LIKE '%' || #{keyword} || '%'
+	  ORDER BY
+	  		   DEAL_NO DESC
+	</select>
+	
+	<update id="updateCalculateInfo" parameterType="CalculateInfo">
+		UPDATE
+			   GOODS_TB
+		   SET
+		   	   S_BANK = #{sbank}
+		   	 , S_ACCOUNT = #{saccount}
+		 WHERE
+		 	   GOODS_NO = #{goodsNo}
+	</update>
+	
+	<update id="deleteSellInfo" parameterType="_int">
+		UPDATE
+			   DEAL_TB
+		   SET
+		   	   STATUS = 'N'
+		 WHERE
+		 	   DEAL_NO = #{dealNo}
+	</update>
 	
 </mapper>
