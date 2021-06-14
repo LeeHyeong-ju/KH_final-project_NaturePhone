@@ -2,15 +2,13 @@ package com.kh.naturephone.member.model.service;
 
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.member.model.dao.MemberDao;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.member.model.vo.MyBoard;

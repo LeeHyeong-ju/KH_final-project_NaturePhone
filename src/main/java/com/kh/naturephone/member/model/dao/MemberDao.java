@@ -2,7 +2,7 @@ package com.kh.naturephone.member.model.dao;
 
 import java.util.List;
 
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.member.model.vo.MyBoard;
 import com.kh.naturephone.member.model.vo.MyReply;

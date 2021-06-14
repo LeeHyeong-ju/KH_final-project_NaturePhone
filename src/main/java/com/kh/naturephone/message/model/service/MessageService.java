@@ -3,7 +3,7 @@ package com.kh.naturephone.message.model.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.message.model.vo.Message;
 import com.kh.naturephone.message.model.vo.MessageSearch;
 

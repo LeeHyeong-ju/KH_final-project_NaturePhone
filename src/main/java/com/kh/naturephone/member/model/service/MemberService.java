@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.member.model.vo.MyBoard;
 import com.kh.naturephone.member.model.vo.MyReply;

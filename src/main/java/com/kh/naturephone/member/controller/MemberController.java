@@ -23,7 +23,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.member.model.service.MemberService;
 import com.kh.naturephone.member.model.vo.KeyPublish;
