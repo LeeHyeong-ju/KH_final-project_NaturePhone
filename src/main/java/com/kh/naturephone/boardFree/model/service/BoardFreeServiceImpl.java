@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.naturephone.boardFree.model.dao.BoardFreeDao;
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
-import com.kh.naturephone.boardFree.model.vo.B_Att_TB;
-import com.kh.naturephone.boardFree.model.vo.Board_TB;
+import com.kh.naturephone.common.PageInfo;
+import com.kh.naturephone.common.Reply_TB;
+import com.kh.naturephone.common.Search;
+import com.kh.naturephone.common.B_Att_TB;
+import com.kh.naturephone.common.Board_TB;
 
 @Service
 public class BoardFreeServiceImpl implements BoardFreeService{
@@ -36,6 +39,58 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 	public int insertBoardAtt(B_Att_TB att) {
 		
 		return bDao.insertBoardAtt(att);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public Board_TB selectBoard(int bno, boolean flag) {
+		if(flag) bDao.updateReadCount(bno);
+		return bDao.selectBoard(bno);
+	}
+
+
+	@Override
+	public int updateBoard(Board_TB board) {
+		
+		return bDao.updateBoard(board);
+	}
+
+	@Override
+	public int updateBoardAtt(B_Att_TB att) {
+		
+		return bDao.updateBoardAtt(att);
+	}
+
+	@Override
+	public B_Att_TB selectBoardAtt(int bno) {
+		
+		return bDao.selectBoardAtt(bno);
+	}
+
+	@Override
+	public int deleteBoard(int bno) {
+		bDao.deleteBoardAtt(bno);
+		
+		return bDao.deleteBoard(bno);
+	}
+
+	@Override
+	public List<Reply_TB> selectReplyList(int bno) {
+	
+		return bDao.selectReplyList(bno);
+	}
+		
+	@Override
+	public List<Reply_TB> insertReply(Reply_TB r) {
+		
+		bDao.insertReply(r);		
+		return bDao.selectReplyList(r.getB_no());
+	}
+
+	@Override
+	public List<Board_TB> searchList(Search search) {
+		
+		return bDao.searchList(search);
 	}
 
 }

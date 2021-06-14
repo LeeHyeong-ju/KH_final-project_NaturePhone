@@ -150,7 +150,7 @@ scope="application"/>
 					</div>
 					<ul class="topBotomBordersOut navbar-nav mx-auto text-center">
 						<li class="nav-item"><a class="nav-link" href="#">Market</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Community</a></li>
+						<li class="nav-item"><a class="nav-link" href="${ contextPath }/boardMobile/list">Community</a></li>
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/support/compare">Support</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Service</a></li>
 					</ul>

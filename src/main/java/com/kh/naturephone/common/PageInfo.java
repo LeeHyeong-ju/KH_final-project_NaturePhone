@@ -1,6 +1,4 @@
-package com.kh.naturephone.boardFree.model.vo;
-
-import java.sql.Date;
+package com.kh.naturephone.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

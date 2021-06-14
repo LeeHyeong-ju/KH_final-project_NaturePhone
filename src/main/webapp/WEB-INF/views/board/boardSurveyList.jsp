@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -71,25 +73,54 @@
         text-align: left;
     }
     
-    
+     #listTable{
+      text-align:center;
+      width : 100%;
+      min-width : 570px;
+      line-height : 2.5;
+      border-collapse : collapse;
+   }
+    .searchArea {
+	      margin-top : 30px;
+	      padding : 10px;
+	      text-align : center;
+	   }
+	   
+	   .searchArea * {
+	      height : 30px;
+	      vertical-align:middle;
+	      margin:5px;
+	   }
+	   
+	   .searchArea button {
+	      background-color: #4CAF50;
+	      color:white;
+	      width : 100px;
+	      border : none;
+	   }
+	   
+	   .searchArea input[type=search]{
+	      width : 250px;
+	   }
+   
+   
 </style>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
     <div class="container">
         <div class="row">
             <div class="col-md-2 rightSpace" style="margin-top: 100px;">
                 <div class="list-group col-md-10 sideBar">
                     <ul>
                         <li class="list-group-item sideTitle">커뮤니티</li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
+                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
+                        <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
+                        <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
                     </ul>
-                </div>
-               
+                </div>               
             </div>
-            <!-- 내용 -->
-                                 
- <div class="col-md-8 content">
+            <!-- 내용 -->                                 
+            <div class="col-md-8 content">
                 <div class="main-div">
                     <div class="panel">
                         <h5>회원 설문</h5>
@@ -100,119 +131,92 @@
                           <tr>
                             <th scope="col" class="col-1">번호</th>
                             <th scope="col" class="col-1">분류</th>
-                            <th scope="col" class="col-6">제목</th>
+                            <th scope="col" class="col-5">제목</th>
                             <th scope="col" class="col-1">작성자</th>
-                            <th scope="col" class="col-1">참여자</th>
+                            <th scope="col" class="col-1">참가자</th>
                             <th scope="col" class="col-1">조회</th>
-                            <th scope="col" class="col-1">등록일</th>
+                            <th scope="col" class="col-2">등록일</th>
                           </tr>
                         </thead>
-
                         <tbody>
-                          <tr>
-                            <th scope="row">10</th>
-                            <td>대결</td>
-                            <td>갤럭시Z폴드2, 수납공간 생기는데...S펜은 별도 구매?</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
+                        <c:forEach items="${ list }" var="board">
+                          <tr  onclick="selectBoard(${ board.s_no });" style="cursor: pointer">
+                            <th scope="row">${ board.s_no }</th>
+                            <td>${ board.scategory }</td>
+                            <td>${ board.stitle }</td>
+                            <td>${ board.writer_id }</td>
+                            <td>${ board.sparticipant }</td>
+                            <td>${ board.scount }</td>
+                            <td>${ board.s_create_date }</td>
                           </tr>
-                          <tr>
-                            <th scope="row">9</th>
-                            <td>설문</td>
-                            <td>보라색 아이폰 12 살까, 아이폰13 기다릴까</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">8</th>
-                            <td>설문</td>
-                            <td>애플, 개발자용 'ios.아이패드OS 14.6' 베타버전 공개</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">7</th>
-                            <td>설문</td>
-                            <td>애플이 4월 스페셜 이벤트에서 발표하지 않은 신제품은?</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">6</th>
-                            <td>설문</td>
-                            <td>[하나뿐인 지구 1]폐휴대폰의 재탄생... 삼성전자의 자원순환 노력</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">5</th>
-                            <td>대결</td>
-                            <td>노트북도 '갤럭시'미는 삼성... 애플처럼 '연동'생태계 키운다</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">4</th>
-                            <td>대결</td>
-                            <td>애플 VS 페북 갈등 격화... "아이메시지 강화로 왓츠앱과 경쟁"</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>대결</td>
-                            <td>[영상]360도 접히고 S펜도 탑재...'갤럭시 북' 힘주는 삼성</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>대결</td>
-                            <td>"5G폰 대신 LTE폰 샀어요"... LTE로 탈출하는 '리턴족'</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>대결</td>
-                            <td>삼성.'갤21'로 세계 1위 탈환했지만... '중국 빅3' 거센 추격</td>
-                            <td>임경민</td>
-                            <td>3</td>
-                            <td>30</td>
-                            <td>21.04.30</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                          </c:forEach>                          
+                          </tbody>                     
+                     </table> 
+	        <c:if test="${ !empty loginUser }">
+				<div class="btnArea" style="float:right;">
+					<button class="btn" style="background-color: #C8C8C8;" onclick="location.href='${ contextPath }/boardSurvey/write'">글쓰기</button>			
+				</div>
+			</c:if>
+<!--  페이징바 구간 -->
+			 <table id="listTable">
+			    <tr>
+					<td colspan="12">
+					<!-- [이전] -->
+					<c:if test="${ pi.currentPage <= 1 }">
+						[이전] &nbsp;
+					</c:if>
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="before" value="/boardSurvey/list">
+							<c:param name="page" value="${ pi.currentPage -1 }"/>
+						</c:url>
+						<a href="${ before }">[이전]</a>&nbsp;
+					</c:if>					
+					<!-- 페이지 숫자 -->
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<font color ="red" size="4"><b>[ ${ p } ]</b></font>&nbsp;
+						</c:if>
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="pagination" value="/boardSurvey/list">
+								<c:param name="page" value="${ p }"/>
+							</c:url>
+						<a href="${ pagination }">${ p }</a>&nbsp;
+						</c:if>	
+					</c:forEach>					
+					<!-- [다음] -->
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						[다음]
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="/boardSurvey/list">
+							<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+						<a href="${ after }">[다음]</a>
+					</c:if>
+					</td>				
+			   </tr>	                        
+            </table>                         
+            <div class="searchArea">
+				<form action="${ contextPath }/boardSurvey/search" method="get">
+					<select id="searchCondition" name="searchCondition">
+						<option value="all" <c:if test="${ param.searchCondition == 'all' }">selected</c:if>>전체</option>
+						<option value="writer" <c:if test="${ param.searchCondition == 'writer' }">selected</c:if>>작성자</option>
+						<option value="title" <c:if test="${ param.searchCondition == 'title' }">selected</c:if>>제목</option>
+						<option value="content" <c:if test="${ param.searchCondition == 'content' }">selected</c:if>>내용</option>		
+					</select>					
+					<input type="search" name="searchValue" value=" ${ param.searchValue }">
+					<button>검색</button>		
+				</form>
+			</div>	     
 
-                </div>
-            </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+			<script>
+				function selectBoard(s_no){
+					location.href = '${contextPath}/boardSurvey/detail?s_no=' + s_no + '&page=${pi.currentPage}';					
+				}		
+			</script>    
+          </div>           
+        </div>               
+      </div>
+    </div>     
 </body>
 </html>

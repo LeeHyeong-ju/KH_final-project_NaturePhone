@@ -6,7 +6,6 @@
 	<title>Nature Phone</title>
 </head>
 <body>
-	<jsp:include page="common/menubar.jsp"/>
-	<jsp:include page="board/boardFreeInsert.jsp"/>
+	<jsp:include page="common/mainPage.jsp"/>
 </body>
 </html>

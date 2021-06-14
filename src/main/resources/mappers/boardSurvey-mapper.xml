@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardSurveyMapper">
+	<resultMap type="Survey_TB" id="boardResultSet">
+		<id property="s_no" column="S_NO"/>
+		<result property ="userNo" column="USER_NO"/>
+		<result property ="prono" column="PRO_NO"/>
+		<result property ="stitle" column="STITLE"/>
+		<result property ="scontent" column="SCONTENT"/>
+		<result property ="scategory" column="SCATEGORY"/>
+		<result property ="s_create_date" column="S_CREATE_DATE"/>
+		<result property ="s_modify_date" column="S_MODIFY_DATE"/>
+		<result property ="scount" column="SCOUNT"/>
+		<result property ="sparticipant" column="SPARTICIPANT"/>
+		<result property ="s_status" column="S_STATUS"/>
+		<result property ="writer_id" column="USER_ID"/>
+	</resultMap>
+
+<resultMap id="replyResultSet" type="Reply_TB">
+		<id property="re_no" column="RE_NO"/>
+		<result property="user_no" column="USER_NO"/>
+		<result property="re_content" column="RE_CONTENT"/>
+		<result property="create_date" column="CREATE_DATE"/>
+		<result property="modify_date" column="MODIFY_DATE"/>
+		<result property="re_status" column="RE_STATUS"/>
+		<result property="b_no" column="B_NO"/>
+		<result property="s_no" column="S_NO"/>	
+		<result property="user_id" column="USER_ID"/>				
+	</resultMap>
+ 
+ <resultMap id="detailResultSet" type="S_Detail_TB">
+		<id property="de_s_no" column="DE_S_NO"/>
+		<result property="s_no" column="S_NO"/>
+		<result property="de_choice" column="DE_CHOICE"/>
+		<result property="de_person" column="DE_PERSON"/>				
+	</resultMap>
+  
+	<select id="selectListCount" resultType="_int">
+		SELECT 
+				COUNT(*)
+		  FROM
+				SURVEY_TB
+		 WHERE
+				S_STATUS = 'Y'				
+	</select>
+	
+	<select id="selectList" resultMap="boardResultSet">
+		SELECT
+				S_NO
+			  , SURVEY_TB.USER_NO
+			  , PRO_NO
+			  , STITLE
+			  , SCONTENT
+			  , SCATEGORY
+			  , S_CREATE_DATE
+			  , S_MODIFY_DATE
+			  , SCOUNT
+			  , SPARTICIPANT
+			  , S_STATUS
+			  , USER_ID
+		 FROM
+				SURVEY_TB, MEMBER_TB
+ 		WHERE
+ 				SURVEY_TB.USER_NO = MEMBER_TB.USER_NO
+		  AND	S_STATUS= 'Y'
+	 ORDER BY
+				S_NO DESC	   	
+	</select>
+	
+	<insert id="insertBoard" parameterType="Survey_TB">
+		INSERT
+		  INTO SURVEY_TB
+		 (
+			    S_NO
+			  , USER_NO
+			  , PRO_NO
+			  , STITLE
+			  , SCONTENT
+			  , SCATEGORY
+			  , S_CREATE_DATE
+			  , S_MODIFY_DATE
+			  , SCOUNT
+			  , SPARTICIPANT
+			  , S_STATUS
+		)
+		VALUES
+		(
+			  SEQ_S_NO.NEXTVAL
+			, #{userNo} 
+			, #{prono}
+			, #{stitle}
+			, #{scontent}
+			, #{scategory}
+			, SYSDATE
+			, SYSDATE			
+			, DEFAULT
+			, DEFAULT			
+			, DEFAULT
+		)
+	</insert>
+	
+	<insert id="insertBoardDetail" parameterType="S_Detail_TB">
+		INSERT
+		  INTO S_Detail_TB
+		 (
+			    DE_S_NO
+			  , S_NO
+			  , DE_CHOICE
+			  , DE_PERSON			 
+		)
+		VALUES
+		(
+			  SEQ_DE_S_NO.NEXTVAL
+			, SEQ_S_NO.CURRVAL
+			, #{de_choice}
+			, DEFAULT			
+		)
+	</insert>
+	
+<select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
+		SELECT
+				S_NO
+			  , SURVEY_TB.USER_NO
+			  , PRO_NO
+			  , STITLE
+			  , SCONTENT
+			  , SCATEGORY
+			  , S_CREATE_DATE
+			  , S_MODIFY_DATE
+			  , SCOUNT
+			  , SPARTICIPANT
+			  , S_STATUS
+			  , USER_ID
+		FROM	  
+				SURVEY_TB, MEMBER_TB
+ 		WHERE
+ 				SURVEY_TB.USER_NO = MEMBER_TB.USER_NO
+		  AND	S_STATUS= 'Y'
+		  AND	S_NO = #{s_no}
+		
+</select>
+
+
+
+<update id="updateReadCount" parameterType="_int">
+		UPDATE
+				SURVEY_TB
+		   SET
+		   		SCOUNT = SCOUNT + 1
+		 WHERE
+		   		S_NO = #{s_no}			
+	
+	</update>
+
+
+<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
+		SELECT
+				RE_NO
+			  , REPLY_TB.USER_NO
+			  , RE_CONTENT
+			  , REPLY_TB.CREATE_DATE
+			  , REPLY_TB.MODIFY_DATE
+			  , RE_STATUS
+			  , B_NO
+			  , S_NO
+			  , USER_ID
+		 FROM
+		 		REPLY_TB, MEMBER_TB		 		
+		 WHERE
+		 		REPLY_TB.USER_NO = MEMBER_TB.USER_NO
+		   AND	S_NO = #{s_no}			  	
+		   AND  RE_STATUS = 'Y'
+	  ORDER BY
+				RE_NO DESC	
+	</select>
+
+<insert id="insertReply" parameterType="Reply_TB">
+		INSERT INTO
+		REPLY_TB
+		(
+				RE_NO
+			  , USER_NO
+			  , RE_CONTENT
+			  , CREATE_DATE
+			  , MODIFY_DATE
+			  , RE_STATUS
+			  , B_NO
+			  , S_NO
+		)
+	   VALUES
+		(
+			   SEQ_RE_NO.NEXTVAL
+			 , #{user_no}
+			 , #{re_content}
+			 , SYSDATE
+			 , SYSDATE
+			 , DEFAULT 
+			 , NULL
+			 , #{s_no}	  	
+		)
+	</insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 공지사항 검색용 동적 쿼리 -->
+	<select id="searchList" parameterType="Search" resultMap="boardResultSet">
+	<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>	
+		SELECT
+				S_NO
+			  , SURVEY_TB.USER_NO
+			  , PRO_NO
+			  , STITLE
+			  , SCONTENT
+			  , SCATEGORY
+			  , S_CREATE_DATE
+			  , S_MODIFY_DATE
+			  , SCOUNT
+			  , SPARTICIPANT
+			  , S_STATUS
+			  , USER_ID
+		  FROM
+			    SURVEY_TB,  MEMBER_TB
+		 <where>
+				 SURVEY_TB.USER_NO = MEMBER_TB.USER_NO
+		  		AND	S_STATUS = 'Y'    	  	
+				<choose>
+					<when test="searchCondition == 'title'">
+					AND STITLE LIKE #{sv}
+					</when>
+					<when test="searchCondition == 'writer'">
+					AND USER_ID LIKE #{sv}
+					</when>
+					<when test="searchCondition == 'content'">
+					AND SCONTENT LIKE #{sv}
+					</when>
+					<otherwise>
+					AND (USER_ID LIKE #{sv}
+						 OR STITLE LIKE #{sv}
+						 OR SCONTENT LIKE #{sv})
+					</otherwise>
+				</choose>
+		  </where>
+		  ORDER BY S_NO DESC
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
+
+
+

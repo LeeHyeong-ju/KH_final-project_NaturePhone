@@ -73,18 +73,49 @@
         text-align: left;
     }
     
-    
+     #listTable{
+      text-align:center;
+      width : 100%;
+      min-width : 570px;
+      line-height : 2.5;
+      border-collapse : collapse;
+   }
+    .searchArea {
+	      margin-top : 30px;
+	      padding : 10px;
+	      text-align : center;
+	   }
+	   
+	   .searchArea * {
+	      height : 30px;
+	      vertical-align:middle;
+	      margin:5px;
+	   }
+	   
+	   .searchArea button {
+	      background-color: #4CAF50;
+	      color:white;
+	      width : 100px;
+	      border : none;
+	   }
+	   
+	   .searchArea input[type=search]{
+	      width : 250px;
+	   }
+   
+   
 </style>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
     <div class="container">
         <div class="row">
             <div class="col-md-2 rightSpace" style="margin-top: 100px;">
                 <div class="list-group col-md-10 sideBar">
                     <ul>
                         <li class="list-group-item sideTitle">커뮤니티</li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
+                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
+                        <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
+                        <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
                     </ul>
                 </div>               
             </div>
@@ -100,73 +131,87 @@
                           <tr>
                             <th scope="col" class="col-1">번호</th>
                             <th scope="col" class="col-1">분류</th>
-                            <th scope="col" class="col-6">제목</th>
+                            <th scope="col" class="col-5">제목</th>
                             <th scope="col" class="col-1">작성자</th>
                             <th scope="col" class="col-1">공감</th>
                             <th scope="col" class="col-1">조회</th>
-                            <th scope="col" class="col-1">등록일</th>
+                            <th scope="col" class="col-2">등록일</th>
                           </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${ list }" var="board">
-                          <tr onclick="selectBoard(${ board.bno });">
+                          <tr  onclick="selectBoard(${ board.bno });" style="cursor: pointer">
                             <th scope="row">${ board.bno }</th>
                             <td>${ board.bcategory }</td>
                             <td>${ board.btitle }</td>
-                            <td></td> <!--**************************** 작성자 -->
+                            <td>${ board.writer_id }</td>
                             <td>${ board.brecom }</td>
                             <td>${ board.bcount }</td>
                             <td>${ board.bcreateDate }</td>
                           </tr>
-                          </c:forEach>
-                         <!--  페이징바 구간 -->
-						  <tr>
-							<td colspan="12">
-							<!-- [이전] -->
-							<c:if test="${ pi.currentPage <= 1 }">
-								[이전] &nbsp;
-							</c:if>
-							<c:if test="${ pi.currentPage > 1 }">
-								<c:url var="before" value="/boardFree/list">
-									<c:param name="page" value="${ pi.currentPage -1 }"/>
-								</c:url>
-							<a href="${ before }">[이전]</a>&nbsp;
-							</c:if>					
-							<!-- 페이지 숫자 -->
-							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-								<c:if test="${ p eq pi.currentPage }">
-									<font color ="red" size="4"><b>[ ${ p } ]</b></font>&nbsp;
-								</c:if>
-								<c:if test="${ p ne pi.currentPage }">
-									<c:url var="pagination" value="/boardFree/list">
-										<c:param name="page" value="${ p }"/>
-									</c:url>
-								<a href="${ pagination }">${ p }</a>&nbsp;
-								</c:if>	
-							</c:forEach>					
-							<!-- [다음] -->
-							<c:if test="${ pi.currentPage >= pi.maxPage }">
-								[다음]
-							</c:if>
-							<c:if test="${ pi.currentPage < pi.maxPage }">
-								<c:url var="after" value="/boardFree/list">
-									<c:param name="page" value="${ pi.currentPage + 1 }"/>
-								</c:url>
-								<a href="${ after }">[다음]</a>
-							</c:if>
-							</td>				
-						  </tr>	                        
-                        </tbody>                     
-                      </table>                      
-	       <%--  <c:if test="${ !empty loginUser }"> --%>
+                          </c:forEach>                          
+                          </tbody>                     
+                     </table> 
+	        <c:if test="${ !empty loginUser }">
 				<div class="btnArea" style="float:right;">
-					<button class="btn" onclick="location.href='${ contextPath }/boardFree/write'">글쓰기</button>			
+					<button class="btn" style="background-color: #C8C8C8;" onclick="location.href='${ contextPath }/boardFree/write'">글쓰기</button>			
 				</div>
-			<%-- </c:if> --%>	
+			</c:if>
+<!--  페이징바 구간 -->
+			 <table id="listTable">
+			    <tr>
+					<td colspan="12">
+					<!-- [이전] -->
+					<c:if test="${ pi.currentPage <= 1 }">
+						[이전] &nbsp;
+					</c:if>
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="before" value="/boardFree/list">
+							<c:param name="page" value="${ pi.currentPage -1 }"/>
+						</c:url>
+						<a href="${ before }">[이전]</a>&nbsp;
+					</c:if>					
+					<!-- 페이지 숫자 -->
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<font color ="red" size="4"><b>[ ${ p } ]</b></font>&nbsp;
+						</c:if>
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="pagination" value="/boardFree/list">
+								<c:param name="page" value="${ p }"/>
+							</c:url>
+						<a href="${ pagination }">${ p }</a>&nbsp;
+						</c:if>	
+					</c:forEach>					
+					<!-- [다음] -->
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						[다음]
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="/boardFree/list">
+							<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+						<a href="${ after }">[다음]</a>
+					</c:if>
+					</td>				
+			   </tr>	                        
+            </table>                         
+            <div class="searchArea">
+				<form action="${ contextPath }/boardFree/search" method="get">
+					<select id="searchCondition" name="searchCondition">
+						<option value="all" <c:if test="${ param.searchCondition == 'all' }">selected</c:if>>전체</option>
+						<option value="writer" <c:if test="${ param.searchCondition == 'writer' }">selected</c:if>>작성자</option>
+						<option value="title" <c:if test="${ param.searchCondition == 'title' }">selected</c:if>>제목</option>
+						<option value="content" <c:if test="${ param.searchCondition == 'content' }">selected</c:if>>내용</option>		
+					</select>					
+					<input type="search" name="searchValue" value=" ${ param.searchValue }">
+					<button>검색</button>		
+				</form>
+			</div>	     
+
 			<script>
 				function selectBoard(bno){
-					location.href = '${contextPath}/boardFree/detail?bno=' + bno + '&page=${pi.currentPage}';
-					// => 상세페이지 접근 시 기존 page 값도 파라미터로 전달
+					location.href = '${contextPath}/boardFree/detail?bno=' + bno + '&page=${pi.currentPage}';					
 				}		
 			</script>    
           </div>           
