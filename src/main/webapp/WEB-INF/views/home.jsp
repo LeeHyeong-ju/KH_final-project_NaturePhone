@@ -6,6 +6,6 @@
 	<title>Nature Phone</title>
 </head>
 <body>
-	
+  
 </body>
 </html>

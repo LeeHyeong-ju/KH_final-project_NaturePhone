@@ -5,14 +5,13 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
-   <!-- settings -->
-   <settings>
-      <!-- 만약에 null로 데이터가 전달 되면 빈칸이 아닌 null로 인식 -->
-      <setting name="jdbcTypeForNull" value="NULL"/>
-   </settings>
+	<!-- settings -->
+	<settings>
+		<!-- 만약에 null로 데이터가 전달 되면 빈칸이 아닌 null로 인식 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
    
    <!-- typeAliases -->
-
 
    <typeAliases>   
       <typeAlias type="com.kh.naturephone.common.Board_TB" alias="Board_TB"/>
@@ -31,8 +30,8 @@
       <typeAlias type="com.kh.naturephone.goods.model.vo.Goods" alias="Goods"/>
       <typeAlias type="com.kh.naturephone.notice.model.vo.Reply" alias="Reply"/>   
    </typeAliases>
-   
-   <mappers>
+  
+	<mappers>
 
       <mapper resource="mappers/boardFree-mapper.xml"/>
       <mapper resource="mappers/boardMobile-mapper.xml"/>      
@@ -46,5 +45,4 @@
       <mapper resource="mappers/notice-mapper.xml"/>
    </mappers>
    
-
 </configuration>
