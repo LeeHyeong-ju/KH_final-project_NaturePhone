@@ -56,11 +56,6 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.update("memberMapper.deleteMember", m);
 	}
 	
-	// 이메일 인증
-	@Override
-	public int approval_member(Member m) throws Exception{
-		return sqlSession.update("memberMapper.approval_member", m);
-	}
 	
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 

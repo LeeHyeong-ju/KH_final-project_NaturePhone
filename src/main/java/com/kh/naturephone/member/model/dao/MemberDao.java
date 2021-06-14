@@ -30,7 +30,6 @@ public interface MemberDao {
 	// 7. 회원 탈퇴 - 비밀번호 확인 (Ajax)
 	int deleteMember(Member m);
 
-	int approval_member(Member m) throws Exception;
 
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 	

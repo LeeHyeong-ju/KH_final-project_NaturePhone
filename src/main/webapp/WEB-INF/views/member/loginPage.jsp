@@ -95,11 +95,6 @@
           <button type="submit" class="btn btn-primary">Login</button>
           </form>
                 
-          <button class="btn btn-easyLogin">카카오로 로그인</button>
-          <button class="btn btn-easyLogin">네이버로 로그인</button>
-            
-          <br><br>
-          
           <div class="forgot">
           <br>
             <a href="${ contextPath }/member/joinPage">회원가입</a> |

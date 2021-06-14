@@ -157,11 +157,11 @@ span {
 								<td>
 
 									<div class="emailselect_wrap input-group" id="emailDIV">
-										<input type="text" name="email1" id="email1" value="" class="reg_input form-control" maxlength="10">
+										<input type="text" name="email1" id="email1" value="" class="reg_input form-control" maxlength="10" required>
 
 										<p class="SC" style="margin-bottom: 0px; margin-top: 5px;">@</p>
 
-										<input type="text" name="email2" id="email2" value="" class="reg_input form-control" maxlength="20" required readonly>&nbsp 
+										<input type="text" name="email2" id="email2" value="" class="reg_input form-control" maxlength="20" readonly>&nbsp 
 										
 										<select name="email3" id="email3" class="form-select" required onchange="emailAddress(this)" >
 											<option value="" selected>선택하세요</option>
@@ -174,7 +174,7 @@ span {
 										&nbsp 
 										<div>
 											<input type="hidden" id="email" name="email">
-                                            <button type="button" class="btn btn-primary" id="joinSendMailBtn" onclick="joinSendMail()">메일 인증</button>
+                                            <button type="button" class="btn btn-primary" id="joinSendMailBtn" onclick="return joinSendMail()">메일 인증</button>
                                         </div>
 										
 									</div> 
@@ -197,7 +197,7 @@ span {
 						<div class="row" style="margin: auto;">
 							<a href="" class="btn btn-primary col">취소</a> <span class="col-1"></span>
 							<button class="btn btn-primary col" type="submit" value="회원 가입"
-								id="btn_submit" accesskey="s">가입 하기</button>
+								id="btn_submit" accesskey="s" disabled>가입 하기</button>
 						</div>
 
 					</form>
@@ -206,6 +206,28 @@ span {
 
 		</div>
 	</div>
+	
+	<!-- Modal -->
+	<form>
+	<div class="modal fade" id="joinSendMailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="joinSendMailModal">메일 인증키 입력창</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	      <input type="text" id="modalInput" class="reg_input form-control" maxlength="10" required>
+	      </div>
+	      <div class="modal-footer">
+<!-- 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button> -->
+	        <button type="button" class="btn btn-primary" id="modalBtn">인증하기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</form>
+	
 	<jsp:include page="../common/footer.jsp"/>
 	<script>
 		// 이메일 주소 선택
@@ -216,6 +238,7 @@ span {
 
 			if (ea.val() == "1") {
 				email2.attr('readonly', false);
+				email2.attr('required', true); // 
 				email2.val('');
 				
 			} else {
@@ -302,9 +325,66 @@ span {
 		})
 		
 		function joinSendMail(){
+			var email = document.getElementById("email").value;
+			var email1 = document.getElementById("email1").value;
+			if(email1 == ""){
+				alert("이메일을 입력해주세요.")
+				return false;
+			}
 			
+			$.ajax({
+				url : "${ contextPath }/member/joinSendMail",
+				type : "POST",
+				data : {
+					email : email
+				},
+				success : function() {
+					alert("인증 메일이 전송되었습니다.");
+					$("#joinSendMailModal").modal("show");
+				},
+				error : function(){
+					console.log("error code : " + e.status + "\n" + "message : " + e.responseText);
+				}
+			})
 		}
 		
+		$("#modalBtn").on("click", function(){
+			var modalInput = document.getElementById("modalInput").value;
+			
+			if(modalInput != null){
+				$.ajax({
+					type : 'POST',
+					data : { modalInput : modalInput },
+					url: "${ contextPath }/member/keyCheck",
+					dataType: "text",
+					success: function(data) {
+                    	if(data == 'success'){
+                        	$("#joinSendMailModal").modal("hide");
+                        	alert("메일 인증이 완료되었습니다.");
+                        	$("#email1").attr('readonly', true);
+                        	$("#email2").attr('readonly', true);
+                        	$("#email3").attr('disabled', true);
+                        	$("#joinSendMailBtn").attr('disabled', true);
+                        	$("#btn_submit").attr('disabled', false);
+                    	} else if('false'){
+                    		alert("실퍠");
+                    	}
+                    },
+                    error: function(e){
+                        alert("error code : " + e.status + "\n"
+                                + "message : " + e.responseText);
+                    }     
+				});
+				
+				
+				
+			}else {
+				alert("인증키를 입력해주세요");
+			}
+			
+			
+			
+		});
 
 		/*--------- 로그인 폼 유효성 확인 ---------*/
 		function joinFormSubmit(f) {

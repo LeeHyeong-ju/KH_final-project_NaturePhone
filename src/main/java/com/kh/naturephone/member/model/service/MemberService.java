@@ -26,15 +26,6 @@ public interface MemberService {
 	// 4. 회원가입 (DB insert)
 	int insertMember(Member m);
 	
-	// 4-1. 인증 키 생성
-	String create_key() throws Exception;
-	
-	// 4-2. 이메일 발송
-	public void sendEmail(Member m) throws Exception;
-	
-	// 4-3. 메일인증
-	void approval_member(Member m, HttpServletResponse response) throws Exception;
-	
 	// 5. 회원정보 수정
 	int updateMember(Member m);
 	
@@ -54,6 +45,8 @@ public interface MemberService {
 	
 	// 2. 나의 댓글 조회
 	List<MyReply> selectMyReplyList();
+
+	
 
 	
 	
