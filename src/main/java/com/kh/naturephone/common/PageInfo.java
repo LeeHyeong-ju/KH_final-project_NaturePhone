@@ -1,4 +1,4 @@
-package com.kh.naturephone.boardFree.model.vo;
+package com.kh.naturephone.common;
 
 import java.sql.Date;
 

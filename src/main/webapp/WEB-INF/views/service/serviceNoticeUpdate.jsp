@@ -104,7 +104,7 @@
                 <th scope="row" style="text-align: center; background-color:#F4F4F4;" >작성자</th>
                 <td><div style="overflow: hidden;background-color: #ffffff;">
                   <input type="hidden" name="userNo" value="${ loginUser.userNo }">
-                  <input type="text" name="userName" style="border: none;" value="${ loginUser.name }" onfocus="this.blur();" readonly>
+                  <input type="text" name="writer_id" style="border: none;" value="${ loginUser.name }" onfocus="this.blur();" readonly>
                  </div>
                 </td>
               </tr>              

@@ -1,4 +1,4 @@
-package com.kh.naturephone.notice.model.vo;
+package com.kh.naturephone.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,5 +14,4 @@ import lombok.ToString;
 public class Search {
 	private String searchCondition;
 	private String searchValue;
-	private String existFile;
 }

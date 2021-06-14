@@ -13,10 +13,10 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Reply_TB {
+public class Reply {
 	private int reno;
 	private int userno;
-	private String username;
+	private String writer_id;
 	private String recontent;
 	private Timestamp createDate;
 	private Timestamp modifyDate;

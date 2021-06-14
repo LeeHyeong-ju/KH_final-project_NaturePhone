@@ -2,11 +2,11 @@ package com.kh.naturephone.notice.model.dao;
 
 import java.util.List;
 
-import com.kh.naturephone.boardFree.model.vo.B_Att_TB;
-import com.kh.naturephone.boardFree.model.vo.Board_TB;
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
-import com.kh.naturephone.notice.model.vo.Reply_TB;
-import com.kh.naturephone.notice.model.vo.Search;
+import com.kh.naturephone.common.B_Att_TB;
+import com.kh.naturephone.common.Board_TB;
+import com.kh.naturephone.common.PageInfo;
+import com.kh.naturephone.common.Search;
+import com.kh.naturephone.notice.model.vo.Reply;
 
 public interface NoticeDao {
 
@@ -24,7 +24,7 @@ public interface NoticeDao {
 
 	void updateReadCount(int bno);
 
-	List<Reply_TB> selectReplyList(int bno);
+	List<Reply> selectReplyList(int bno);
 
 	B_Att_TB selectNoticeAtt(int bno);
 

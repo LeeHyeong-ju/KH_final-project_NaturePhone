@@ -6,7 +6,7 @@
 	<resultMap type="Board_TB" id="noticeResultSet">
 		<id property="bno" column="B_NO"/>
 		<result property ="userNo" column="USER_NO"/>
-		<result property ="userName" column="USER_NAME"/>
+		<result property ="writer_id" column="USER_ID"/>
 		<result property ="btitle" column="BTITLE"/>
 		<result property ="bcontent" column="BCONTENT"/>
 		<result property ="category" column="CATEGORY"/>
@@ -17,13 +17,12 @@
 		<result property ="bmodifyDate" column="B_MODIFY_DATE"/>
 		<result property ="bstatus" column="B_STATUS"/>
 		<result property ="brefNo" column="B_REF_NO"/>
-		<result property ="bffilePath" column="BF_FILEPATH"/>
 	</resultMap>
 
-	<resultMap type="Reply_TB" id="nReplyResultSet">
+	<resultMap type="Reply" id="nReplyResultSet">
 		<id property="reno" column="RE_NO"/>
 		<result property ="userno" column="USER_NO"/>
-		<result property ="username" column="USER_NAME"/>
+		<result property ="writer_id" column="USER_ID"/>
 		<result property ="recontent" column="RE_CONTENT"/>
 		<result property ="createDate" column="CREATE_DATE"/>
 		<result property ="modifyDate" column="MODIFY_DATE"/>
@@ -55,7 +54,7 @@
 		SELECT
 				B_NO
 			  , USER_NO
-			  , USER_NAME
+			  , USER_ID
 			  , BTITLE
 			  , BCONTENT
 			  , CATEGORY
@@ -66,11 +65,9 @@
 			  , B_MODIFY_DATE
 			  , B_STATUS
 			  , B_REF_NO
-			  , BF_FILEPATH
 		 FROM
 				BOARD_TB
 		   JOIN MEMBER_TB USING(USER_NO)
-		   LEFT JOIN B_ATT_TB USING(B_NO)
 		WHERE
 				B_STATUS= 'Y'
 	 ORDER BY
@@ -140,7 +137,7 @@
 		SELECT
 				B_NO
 			  , USER_NO
-			  , USER_NAME
+			  , USER_ID
 			  , BTITLE
 			  , BCONTENT
 			  , CATEGORY
@@ -151,16 +148,11 @@
 			  , B_MODIFY_DATE
 			  , B_STATUS
 			  , B_REF_NO
-			  , BF_FILEPATH
 		 FROM
 				BOARD_TB
 		   JOIN MEMBER_TB USING(USER_NO)
-		   LEFT JOIN B_ATT_TB USING(B_NO)
 		<where>
 			B_STATUS = 'Y'
-			<if test="existFile != null">
-			AND BF_FILEPATH IS NOT NULL
-			</if>
 			<choose>
 				<when test="searchCondition == 'title'">
 				AND BTITLE LIKE #{sv}
@@ -185,7 +177,7 @@
 		SELECT
 				B_NO
 			  , USER_NO
-			  , USER_NAME
+			  , USER_ID
 			  , BTITLE
 			  , BCONTENT
 			  , CATEGORY
@@ -196,11 +188,9 @@
 			  , B_MODIFY_DATE
 			  , B_STATUS
 			  , B_REF_NO
-			  , BF_FILEPATH
 		 FROM
 				BOARD_TB
 		   JOIN MEMBER_TB USING(USER_NO)
-		   LEFT JOIN B_ATT_TB USING(B_NO)
 		WHERE
 				B_STATUS= 'Y'
 			AND B_NO = #{bno}	  	
@@ -219,7 +209,7 @@
 		SELECT
 			RE_NO
 		  , USER_NO
-		  , USER_NAME
+		  , USER_ID
 		  , RE_CONTENT
 		  , R.CREATE_DATE
 		  , R.MODIFY_DATE

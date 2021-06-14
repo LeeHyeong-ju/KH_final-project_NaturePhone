@@ -131,7 +131,7 @@
                           <tr onclick="selectNotice(${ notice.bno });">
                             <th scope="row">${ notice.bno }</th>
                             <td style="overflow:hidden;">${ notice.btitle }</td>
-                            <td>${ notice.userName }</td>
+                            <td>${ notice.writer_id }</td>
                             <td>${ notice.brecom }</td>
                             <td>${ notice.bcount }</td>
                             <td>${ notice.bcreateDate }</td>

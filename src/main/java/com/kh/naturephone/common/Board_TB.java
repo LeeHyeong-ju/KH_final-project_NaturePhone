@@ -1,4 +1,4 @@
-package com.kh.naturephone.boardFree.model.vo;
+package com.kh.naturephone.common;
 
 import java.sql.Date;
 
@@ -16,7 +16,7 @@ import lombok.ToString;
 public class Board_TB {
 	private int bno;			// 글번호
 	private int userNo;			// 회원번호
-	private String userName;	// 작성자(추가)
+	private String writer_id;	// 작성자
 	private String btitle;		// 제목
 	private String bcontent;	// 내용
 	private String category;	// 게시판 분류(자유,모바일뉴스,공지사항,Q&A)
@@ -27,6 +27,5 @@ public class Board_TB {
 	private Date bmodifyDate;	// 수정일
 	private String bstatus;		// 상태
 	private int brefNo;			// 참조번호
-	private String bffilePath;	// 첨부파일 경로(추가)
 	
 }

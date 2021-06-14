@@ -84,7 +84,7 @@
                     </div>
                     <div style="border-bottom: 1px #C8C8C8 solid; border-top: 1.5px #C8C8C8 solid; padding: 10px 0px 10px 0px; margin-bottom: 3px;">
                     ${ notice.btitle }</div>
-                    <span class="topContent">작성자 : ${ notice.userName }</span>&nbsp;&nbsp;&nbsp;
+                    <span class="topContent">작성자 : ${ notice.writer_id }</span>&nbsp;&nbsp;&nbsp;
                     <span class="topContent">등록일 : ${ notice.bcreateDate }</span>&nbsp;&nbsp;&nbsp;
                     <span class="topContent"> 조회 : ${ notice.bcount }</span>     
                     <span class="topContent" style="float : right;"><button>신고</button></span>
@@ -115,7 +115,7 @@
 	                    <div style="clear: both; margin-top:10px;padding: 10px 0px 10px 0px;border-bottom: 1px solid #C8C8C8;">                     
 	                        <div style="float: left;width: 20%; overflow: hidden;text-align: left;">
 	                        <br>
-	                        <span class="topContent" style="font-size: 13px;">${ reply.username }</span>
+	                        <span class="topContent" style="font-size: 13px;">${ reply.writer_id }</span>
 	                        <br>
 	                        <span class="topContent cal" style="font-size: 12px;">
 	                        	<fmt:formatDate value="${ reply.createDate }" pattern="yy.MM.dd hh:mm"/>

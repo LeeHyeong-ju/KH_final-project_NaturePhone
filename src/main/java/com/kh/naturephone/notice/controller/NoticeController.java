@@ -26,14 +26,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.naturephone.boardFree.model.vo.B_Att_TB;
-import com.kh.naturephone.boardFree.model.vo.Board_TB;
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.B_Att_TB;
+import com.kh.naturephone.common.Board_TB;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.common.Pagination;
+import com.kh.naturephone.common.Search;
 import com.kh.naturephone.notice.model.exception.NoticeException;
 import com.kh.naturephone.notice.model.service.NoticeService;
-import com.kh.naturephone.notice.model.vo.Reply_TB;
-import com.kh.naturephone.notice.model.vo.Search;
+import com.kh.naturephone.notice.model.vo.Reply;
 import com.kh.naturephone.support.controller.SupportController;
 
 @Controller
@@ -194,7 +194,7 @@ public class NoticeController {
 		Board_TB n = nService.selectNotice(bno, !flagbid);
 		
 		// *** Ajax 이후 댓글 처리 ***
-		List<Reply_TB> rlist = nService.selectReplyList(bno);
+		List<Reply> rlist = nService.selectReplyList(bno);
 		
 		if(n != null) {
 			model.addAttribute("notice", n);
@@ -202,7 +202,7 @@ public class NoticeController {
 			model.addAttribute("rlist", rlist);
 			return "service/serviceNoticeDetail";
 		} else {
-			model.addAttribute("msg", "게시글 셍세보기에 실패하였습니다.");
+			model.addAttribute("msg", "게시글 상세보기에 실패하였습니다.");
 			return "common/errorPage";
 		}
 	}
