@@ -84,29 +84,25 @@
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">쪽지함</li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/message/selectList?type=받은 쪽지함"
 							class="list-group-item list-group-item-action sideContent">받은
 								쪽지함</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/message/selectList?type=보낸 쪽지함"
 							class="list-group-item list-group-item-action sideContent">보낸
 								쪽지함</a></li>
-						<li><a href="#"
-							class="list-group-item list-group-item-action sideContent">보관함</a></li>
-						<li><a href="#"
-							class="list-group-item list-group-item-action sideContent">휴지통</a></li>
 					</ul>
 				</div>
 
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">주문내역</li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/sellInfo/list"
 							class="list-group-item list-group-item-action sideContent">나의
 								판매내역</a></li>
 						<li><a href="#"
 							class="list-group-item list-group-item-action sideContent">나의
 								구매내역</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/itd/list"
 							class="list-group-item list-group-item-action sideContent">관심상품</a></li>
 					</ul>
 				</div>
@@ -144,18 +140,75 @@
                            </c:forEach>
                            
                         </tbody>
+                     </table>
+                     
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-center">
+								<!-- 이전 -->
+								<c:if test="${pi.currentPage <= 1 }">
+									<li class="page-item"><a class="page-link"
+										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									</a></li>
+								</c:if>
+								<c:if test="${ pi.currentPage > 1 }">
+									<c:url var="before"
+										value="/member/myBoardList">
+										<c:param name="page" value="${ pi.currentPage -1 }" />
+									</c:url>
+									<a class="page-link" href="${ before }" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+									</a>
+								</c:if>
+	
+								<!-- 페이지 숫자 -->
+								<c:forEach var="p" begin="${ pi.startPage }" end="${pi.endPage }">
+									<c:if test="${ p eq pi.currentPage }">
+										<li class="page-item"><a class="page-link">${ p }</a></li>
+									</c:if>
+									<c:if test="${ p ne pi.currentPage }">
+										<c:url var="pagination"
+											value="/member/myBoardList">
+											<c:param name="page" value="${ p }" />
+										</c:url>
+										<a class="page-link" href="${ pagination }">${ p }</a>
+									</c:if>
+								</c:forEach>
+	
+								<!-- 다음 -->
+								<c:if test="${ pi.currentPage >= pi.maxPage }">
+									<li class="page-item"><a class="page-link"
+										aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+								</c:if>
+								<c:if test="${ pi.currentPage < pi.maxPage }">
+									<c:url var="after"
+										value="/member/myBoardList">
+										<c:param name="page" value="${ pi.currentPage + 1 }" />
+									</c:url>
+									<a class="page-link" href="${ after }" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+									</a>
+								</c:if>
+							</ul>
+						</nav>
+                       
 						</c:when>
 						
 						<c:otherwise>
 							<div class="nonContent">작성하신 글이 존재하지 않습니다.</div>
 						</c:otherwise>
+						
 						</c:choose>
-                      </table>
-
+                      
+                      
+						
+						
                 </div>
             </div>
         </div>
     </div>
+    
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 
 </html>

@@ -129,7 +129,7 @@ scope="application"/>
             <div class="container d-flex flex-wrap">
                 <ul class="nav me-auto"></ul>
                 <ul class="nav">
-                    <li class="topNav"><a href="#" class="nav-link link-dark px-2"><i class="fas fa-envelope"></i></a></li>
+                    <li class="topNav"><a href="${ contextPath }/message/selectList?type=받은 쪽지함" class="nav-link link-dark px-2"><i class="fas fa-envelope"></i></a></li>
                     <li class="topNav"><a href="#" class="nav-link link-dark px-2"><i class="fas fa-shopping-cart"></i></a></li>
                     <li class="topNav"><a href="#" class="nav-link link-dark px-2">${ loginUser.name }님</a></li>
                     <li class="topNav"><a href="${ contextPath }/member/myPage" class="nav-link link-dark px-2">MyPage</a></li>
@@ -149,10 +149,15 @@ scope="application"/>
 						<a href="${ contextPath }"><img src="${ contextPath }/resources/images/logo.png" style="width: 230px;"></a>
 					</div>
 					<ul class="topBotomBordersOut navbar-nav mx-auto text-center">
+<<<<<<< HEAD
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/goods/list">Market</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Community</a></li>
+=======
+						<li class="nav-item"><a class="nav-link" href="#">Market</a></li>
+						<li class="nav-item"><a class="nav-link" href="${ contextPath }/boardMobile/list">Community</a></li>
+>>>>>>> 83f3a9d917f085741e14b226a48246ca63580251
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/support/compare">Support</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Service</a></li>
+						<li class="nav-item"><a class="nav-link" href="${ contextPath }/notice/list">Service</a></li>
 					</ul>
 				</div>
 			</div>

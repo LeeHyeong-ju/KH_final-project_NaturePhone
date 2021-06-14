@@ -88,8 +88,7 @@ span {
 								정보</a></li>
 						<li><a href="${ contextPath }/member/myBoardList" class="list-group-item list-group-item-action sideContent">나의
 								게시글</a></li>
-						<li><a href="#"
-							class="list-group-item list-group-item-action sideContent">나의
+						<li><a href="${ contextPath }/member/myReplyList" class="list-group-item list-group-item-action sideContent">나의
 								댓글</a></li>
 					</ul>
 				</div>
@@ -97,29 +96,25 @@ span {
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">쪽지함</li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/message/selectList?type=받은 쪽지함"
 							class="list-group-item list-group-item-action sideContent">받은
 								쪽지함</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/message/selectList?type=보낸 쪽지함"
 							class="list-group-item list-group-item-action sideContent">보낸
 								쪽지함</a></li>
-						<li><a href="#"
-							class="list-group-item list-group-item-action sideContent">보관함</a></li>
-						<li><a href="#"
-							class="list-group-item list-group-item-action sideContent">휴지통</a></li>
 					</ul>
 				</div>
 
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">주문내역</li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/sellInfo/list"
 							class="list-group-item list-group-item-action sideContent">나의
 								판매내역</a></li>
 						<li><a href="#"
 							class="list-group-item list-group-item-action sideContent">나의
 								구매내역</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/itd/list"
 							class="list-group-item list-group-item-action sideContent">관심상품</a></li>
 					</ul>
 				</div>
@@ -253,7 +248,7 @@ span {
 						<div class="row" style="margin: auto;">
 							<button class="btn btn-primary col" type="button" id="quitOpenBtn" onclick="quitOpenOpen();">회원 탈퇴</button>
 							
-							<span class="col-1"></span>
+							<span class="col-2"></span>
 							
 							<button class="btn btn-primary col" type="submit" id="btn_submit">회원 정보 수정</button>
 						</div>
@@ -263,6 +258,7 @@ span {
 			</div>
 		</div>
 	</div>
+	
 	
 	<!-- 비밀번호 확인 Modal 창 -->
 	<form id="pwdChangeForm" name="pwdChangeForm" action="${ contextPath }/member/pwdupdate" onsubmit="return pwdChangeCheck(this)" method="post">
@@ -291,6 +287,8 @@ span {
 			</div>
 		</div>
 	</form>
+	
+	<jsp:include page="../common/footer.jsp"/>
 	
 	<script>
 	

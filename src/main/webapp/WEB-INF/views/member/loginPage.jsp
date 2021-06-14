@@ -85,21 +85,16 @@
           <form id="Login" action="${ contextPath }/member/login" method="post">
     
           <div class="form-group">   
-            <input class="form-control" id="id" name="id" placeholder="아이디를 입력해주세요.">
+            <input class="form-control" id="id" name="id" placeholder="아이디를 입력해주세요." required>
           </div>
         
           <div class="form-group">
-            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요.">
+            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요." required>
           </div>
                 
           <button type="submit" class="btn btn-primary">Login</button>
           </form>
                 
-          <button class="btn btn-easyLogin">카카오로 로그인</button>
-          <button class="btn btn-easyLogin">네이버로 로그인</button>
-            
-          <br><br>
-          
           <div class="forgot">
           <br>
             <a href="${ contextPath }/member/joinPage">회원가입</a> |
@@ -109,6 +104,7 @@
         </div>
       </div>
     </div>
+    <jsp:include page="../common/footer.jsp"/>
     <script>
     	document.getElementById("searchMemberOpen").onclick = function() {
     		window.open('${ contextPath }/member/searchMemberPage', 'popup2', 'width=800, height=450');

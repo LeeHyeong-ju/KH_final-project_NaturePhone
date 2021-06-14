@@ -14,12 +14,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class DealInfo {
-	private int goodsNo;
+	private int goodsNo;	
 	private int price;
 	private String gtitle;
 	private String modelName;
 	private Date createDate;
 	private String progress;
 	private String dealWay;
+	private int dealNo;
 	
 }

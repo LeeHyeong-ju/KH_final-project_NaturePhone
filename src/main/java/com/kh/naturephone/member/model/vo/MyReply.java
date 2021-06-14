@@ -18,5 +18,6 @@ public class MyReply {
 	private String content;
 	private Date createDate;
 	private String status;
-	
+	private int boardNo;
+	private int survayNo;
 }

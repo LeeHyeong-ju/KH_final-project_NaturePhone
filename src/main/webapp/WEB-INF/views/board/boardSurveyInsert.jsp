@@ -73,42 +73,74 @@
           <div class="col-md-2 rightSpace" style="margin-top: 100px;">
               <div class="list-group col-md-10 sideBar">
                   <ul>
-                      <li class="list-group-item sideTitle">커뮤니티</li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
-                      <li><a href="#" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
-                  </ul>
+                        <li class="list-group-item sideTitle">커뮤니티</li>
+                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
+                        <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
+                        <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
+                    </ul>
               </div>
           </div>
             <!-- 내용 -->
          <div class="col-md-8 content">
         <div class="main-div">
+        <form action="${ contextPath }/boardSurvey/insert" id="writeForm" method="post">
        
-          <h5>모바일뉴스</h5>
+          <h5>회원 설문</h5>
                  
+            <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col" style="text-align: center; width: 20%; background-color:#F4F4F4;">설문 방식</th>
+                <td scope="col">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="option1" id="option1" value="option1" checked>
+                    <label class="form-check-label" for="option1">설문</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="option2" id="option2" value="option2">
+                    <label class="form-check-label" for="option2">대결</label>
+                  </div>              
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" style="text-align: center; background-color:#F4F4F4; border: 1px solid  #C8C8C8;" >제목</th>
+                <td><input type="text" name="stitle" style="width: 70%;"></td>
+              </tr>              
+            </tbody>
+          </table>
+         <textarea name="scontent" style="width: 100%; height: 200px; border: 1px solid  #C8C8C8;"></textarea>
+          <br><br>
+                  
+         
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th scope="col" style="text-align: center; width: 20%; background-color:#F4F4F4;">제목</th>
-                <td><input type="text" style="width: 70%; border: 1px solid  #C8C8C8;"></td>              
-                
+                <th scope="col" rowspan="3" style=" padding-bottom: 50px; text-align: center; width: 20%; background-color:#F4F4F4;">설문 항목</th>
+                <td scope="col">
+                  <input type="text" name="surveytext1" style="width: 70%; margin-bottom: 10px;">
+                  <input type="text" name="surveytext2" style="width: 70%; margin-bottom: 10px;">
+                  <input type="text" name="surveytext3" style="width: 70%;">
+                </td>
               </tr>
             </thead>
-      
-          </table>
-          <textarea style="width: 100%; height: 200px; border: 1px solid  #C8C8C8;"></textarea>
-          <br>
-          <div class="mb-3">
-            <label for="formFileMultiple" class="form-label"></label>
-            <input class="form-control" type="file" id="formFileMultiple" multiple>
-          </div>
-            <hr>
-            <button type="button" class="btn btn-secondary">목록으로</button>
-            <button type="button" class="btn btn-secondary" style="float: right;">등록</button>
-            
-            <br><br>
+          </table> 
+     
+            <hr>            
+            <button type="submit" class="btn btn-secondary" style="float: right;">등록</button>      
+            </form>
+           <button style="background-color: #C8C8C8;"class="btn btn-secondary" onclick="location.href='${ contextPath }/boardSurvey/list'">목록으로</button>
+             
         </div>
       </div>
+      
+      
+      
+      
+      
+      
+      
         </div>
      </div> 
 </body>
