@@ -1,17 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>물품 등록</title>
-
+	<jsp:include page="../common/menubar.jsp"/>
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Sunflower:wght@300&display=swap" rel="stylesheet">
 
+	<!-- 카카오 map API -->	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ccb7bcb96a393aea481ee6d70af017ce"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	ccb7bcb96a393aea481ee6d70af017ce&libraries=services"></script>
     <style>
         body {
           font-family: 'Noto Sans KR', sans-serif;
@@ -78,6 +82,7 @@
         }
 
         .goodsName {
+          margin-right: 30px;
           width: 400px;
         }
 
@@ -211,10 +216,122 @@
           color: blue;
         }
         
+        #telecomArea {
+        	display: inline-block;
+        }
+        
+        #telecomArea label {
+        	margin-right: 10px;
+        	margin-bottom: 8px;
+        }
+        
+        #dealWayp {
+        	font-size: 23px;
+        	margin-bottom: 20px;
+        }
+        
+        .dealWayLabel{
+        	width: 100px;
+        	height: 50px;
+        	line-height: 35px;
+        	margin-right: 20px;
+        }
+        
+        .accountDiv {
+        	
+        	width: 300px;
+        }
+        
+        #accountArea {
+        	display: inline-block;
+        }
+        
+        .accnumDiv {
+        	width: 300px;
+        	
+
+        }
+        
+        #accnumArea {
+        	display: inline-block;
+        }
+        
+        .accountLabel {
+        	background : #56CE7C;
+        	color : white;
+        	border: 2px solid #56CE7C;
+        }
+        
+        .accountSel {
+        	border: 2px solid #56CE7C;
+        }
+        
+        .accnumInput {
+        	border: 2px solid #56CE7C;
+        }
+        
+        .autoComplete {
+          border : 1px black solid;
+          cursor: pointer;
+         
+        }
+        
+        .autop {
+        	display: inline-block;
+        	position: relative;
+        }
+        
+        .name1 {
+        	top: -30px;
+        	left: 20px;       	
+        }
+        
+        .name2 {
+        	left: -10px;      	
+        }
+        
+        .name3 {
+        	left: -55px;
+        	top: 30px;
+        	      	
+        }
+        #autoArea {
+        	margin-left: 95px;
+        	z-index: 100;
+        	position: absolute;
+        	background: white;
+        }
+        
+        .autoImg {
+        	width: 70px; 
+        	height:100px;
+        }
+        
+            .map_wrap {position:relative;width:100%;height:350px;}
+		    .title {font-weight:bold;display:block;}
+		    .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+		    #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+		    .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+		    #clickLatlng{display:none;}
+        
+        #dealp{
+         font-size: 22px;
+         background: #56CE7C;
+         color : white;
+         padding: 10px;
+         border-radius : 8px;
+         font-family: 'Noto Sans KR', sans-serif;
+         padding-top: 5px;
+        }
+        
+        #map{
+        	border:2px solid #56CE7C;
+        }
+        
       </style>
 </head>
 <body>
-	<jsp:include page="../common/menubar.jsp"/>
+	
   <div class="container">
     <div class="row">
         <div class="col-md-2 rightSpace">
@@ -254,6 +371,8 @@
                 <!-- 입력 부분 -->
                 <div id="inputArea">
                 <form action="${ contextPath }/goods/insert" id="insertForm" method="post" enctype="multipart/form-data">
+                	<c:set var="userNo">2</c:set> 
+                	<input type="hidden" value="${ userNo }" name="userNo">
                     <div class="img">
                         <div class="regImg">
                           <div class="input-group mb-3 imgDiv">
@@ -273,47 +392,111 @@
 
                  <hr><br>
 					
-                <div id="infoInput">              
+                <div id="infoInput">   
+                <input type="hidden" name="userNo" value="${ loginUser.userNo }">           
                   <div class="input-group input-group-lg">
                     <span class="input-group-text colorLabel borCol" id="inputGroup-sizing-lg">제 목</span>
-                    <input id="goodsTitle" type="text" class="form-control borCol" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" maxlength="39" name="goodsTitle" required>&nbsp;                                   
+                    <input id="goodsTitle" type="text" class="form-control borCol" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" maxlength="39" name="goodsTitle" required>&nbsp;                               
                   </div>
                   <span class="titleP">/ 40</span><span class="titleP titleSpan">0</span> 
                   <span id="stop"></span>
                   <br><hr><br>
                   <div id="goodsName">
-                  <div class="input-group input-group-lg goodsName">
-                    <span class="input-group-text colorLabel borCol" id="inputGroup-sizing-lg">제품명</span>
-                    <input type="text" class="form-control borCol" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="gphone" required>
+	                  <div class="input-group input-group-lg goodsName">
+	                    <span class="input-group-text colorLabel borCol" id="inputGroup-sizing-lg">제품명</span>
+	                    <input type="text" class="form-control borCol" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="gphone" id="productName" autocomplete="off" required> 
+	                  </div>
+	                  
                   </div>
-                  </div>
-                  <div class="form-check form-check-inline dealChoose">
-                    <input class="form-check-input borCol" type="radio" name="dealWay" id="inlineRadio1" value="안전거래" checked>
-                    <label class="form-check-label " for="inlineRadio1">안전거래</label>
-                  </div>
-                  <div class="form-check form-check-inline dealChoose">
-                    <input class="form-check-input borCol" type="radio" name="dealWay" id="inlineRadio2" value="직거래">
-                    <label class="form-check-label" for="inlineRadio2">직거래</label>
-                  </div>
-                  <br><br><hr><br>
+                  <div id="telecomArea">
+					<input type="radio" class="btn-check" name="carrNo" id="SKT" autocomplete="off" value="1">
+					<label class="btn btn-outline-success" for="SKT">SKT</label>
+					
+					<input type="radio" class="btn-check" name="carrNo" id="KT" autocomplete="off" value="2">
+					<label class="btn btn-outline-success" for="KT">KT</label>
+					
+					<input type="radio" class="btn-check" name="carrNo" id="LGU" autocomplete="off" value="3">
+					<label class="btn btn-outline-success" for="LGU">LGU+</label>
+				  </div>
+				  <div id="autoArea">
+				
+		          
+	               </div>   
+				  
+				  <br><br><hr>
+				  
+				  
+				  <div id="dealWayArea">
+				  
+				  <p id="dealWayp">거래 방식</p>
+				  
+				  <input type="radio" class="btn-check dealWayInput" name="dealWay" id="way1" autocomplete="off" value="안전거래" checked>
+				  <label class="btn btn-outline-success dealWayLabel" for="way1">안전거래</label>
+						
+				  <input type="radio" class="btn-check dealWayInput" name="dealWay" id="way2" autocomplete="off" value="직거래">
+				  <label class="btn btn-outline-success dealWayLabel" for="way2">직거래</label>
+				  </div>
+				  
+                  <br><hr><br>
+   
                   <div class="input-group mb-3 price">
                     <span class="input-group-text colorLabel borCol">물품 가격</span>
                     <input id="goodsPrice" type="number" class="form-control price borCol" aria-label="Dollar amount (with dot and two decimal places)" name="price" required>
                     &nbsp; &nbsp;<span id="won">원</span> 
-                  </div>
-                  <div class="input-group mb-3 price">
+                  </div>     
+                  
+                  <div class="input-group mb-3 price deliveryArea">
                     <span class="input-group-text colorLabel borCol">배송비</span>
                     <input id="deliveryFee" type="number" class="form-control price borCol" aria-label="Dollar amount (with dot and two decimal places)" name="deliveryFee">
                     &nbsp; &nbsp;<span id="won">원</span>
                   </div>
                   <br>
-                  <span class="total">거래 가격 : <span id="totalPrice"></span>&nbsp; &nbsp;</span><img src="${ contextPath }/resources/images/tip.png" class="tip" title="물품가 + 배송비">
+                  <span class="total fee1">거래 가격 : <span id="totalPrice"></span>&nbsp; &nbsp;</span><img src="${ contextPath }/resources/images/tip.png" class="tip fee1" title="물품가 + 배송비">
                   <br>
-                  <span class="total">안전거래 수수료 : <span id="safeFee"></span>&nbsp; &nbsp;</span><img src="${ contextPath }/resources/images/tip.png" class="tip" title="물품가의 5%">
+                  <span class="total fee2">안전거래 수수료 : <span id="safeFee"></span>&nbsp; &nbsp;</span><img src="${ contextPath }/resources/images/tip.png" class="tip fee2" title="물품가의 5%">
                   <br><hr><br>
+                  
+                <div class="mapArea">
+                <span id="dealp">거래 희망 위치</span>
+				<div id="map" style="width:100%;height:350px;"></div>
+				<p><em>지도를 클릭해주세요!</em></p> 
+				<div id="clickLatlng"></div>
+				<input type="hidden" name="dealAdd" id="dealAdd">
+                </div>
+                 
+                  
+                  <br class="mapLine"><hr class="mapLine"><br class="mapLine">
+                  
+                  <div id="accountArea" class="accountZone az1">                 	
+                  	<div class="input-group mb-3 accountDiv">
+	                  	  <label class="input-group-text accountLabel" for="inputGroupSelect01">입금 계좌</label>
+						  <select class="form-select accountSel" id="inputGroupSelect01" name="sbank">
+						    <option selected>은행</option>
+						    <option value="신한">신한</option>
+						    <option value="국민">국민</option>
+						    <option value="우리">우리</option>
+						    <option value="농협">농협</option>
+						    <option value="카카오뱅크">카카오뱅크</option>
+						    <option value="신협">신협</option>
+						    <option value="하나">하나</option>
+						    <option value="기업">기업</option>
+						    <option value="새마을금고">새마을금고</option>
+						  </select>
+					</div>								
+                  </div>
+                  
+                  &nbsp;
+                  
+                  <div id="accnumArea" class="accountZone az1">                 
+	                  <div class="input-group mb-3 accnumDiv">
+							<input type="text" class="form-control accnumInput" placeholder="계좌번호 " aria-label="Username" aria-describedby="basic-addon1" name="saccount">
+					  </div>                           
+                  </div>
+   
+                  <br class="accountZone az3"><hr class="accountZone az3"><br class="accountZone az3">
                   <div class="dateBox">
                     <p class="openDate dateLabel">개통일</p>&nbsp; &nbsp;
-                    <select id="year" class="form-select openDate" aria-label="Default select example">
+                    <select id="year" class="form-select openDate" aria-label="Default select example" name="year">
                       <option value="미확인">미확인</option>
                       <option value="2021년">2021년</option>
                       <option value="2020년">2020년</option>
@@ -321,7 +504,7 @@
                       <option value="2018년">2018년</option>
                       <option value="2017년">2017년</option>
                     </select>&nbsp;
-                    <select id="month" class="form-select openDate" aria-label="Default select example" disabled>
+                    <select id="month" class="form-select openDate" aria-label="Default select example" name="month" disabled>
                       <option value="1월">1월</option>
                       <option value="2월">2월</option>
                       <option value="3월">3월</option>
@@ -335,7 +518,7 @@
                       <option value="11월">11월</option>
                       <option value="12월">12월</option>
                     </select>&nbsp;
-                    <select  id="day" class="form-select openDate" aria-label="Default select example" disabled>
+                    <select  id="day" class="form-select openDate" aria-label="Default select example" name="day" disabled>
                       <option value="1일">1일</option>
                       <option value="2일">2일</option>
                       <option value="3일">3일</option>
@@ -424,6 +607,8 @@
                           - 물품은 <span class="color">14일간 노출</span>되며, 재등록기능을 이용하여 최신글로 등록/수정하실 수 있습니다. (등록된 글은 검색엔진에 노출될 수 있습니다)<br>
                         </div>
                       </div>
+                      
+   
                       <br>
                       <div id="btn">
                       <button type="submit" class="btn btn-success">안전거래 판매등록</button>
@@ -531,12 +716,130 @@
 	     		 
 	     	 };		
 		};
-		
-		
-		
-    	 
+
       };   
-         
+      
+      $("#productName").keyup(function(){
+          let keyword = $("#productName").val();
+          $(".autoComplete").remove();
+          $.ajax({
+  					url : "${ contextPath }/goods/productName",
+            data : {keyword : keyword},
+  					type : "get",
+  					success : function(list){
+  						
+  						
+  						$.each(list, function(index, value){
+  							
+  							
+  								$("#autoArea").append("<div class='autoComplete'>"
+											+ "<img src='${ contextPath }/resources/puploadFiles/" + "20210521000000_2.jpg" + "' class='autoImg'> <p class='autop name1'>" + value.proname + "</p>"
+											+ "<p class='autop name2'>" + value.modelname + "</p>"
+											+ "<p class='autop name3'>" + value.maker + "</p></div>");
+  						
+  							
+  						});
+  						
+  						
+  						 $(".autoComplete").click(function(){
+  				        	 	var productName = $(this).find("p.name2").html();
+  				        	 	$("#productName").val(productName);
+  				        	 	$(".autoComplete").remove();
+  				        	 	
+  				          });
+  						
+  						
+  					},
+  					error : function(e){
+  						$(".autoComplete").remove();
+  					}
+  				})
+        });
+      
+      // 카카오 맵
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = { 
+		        center: new kakao.maps.LatLng(37.498472, 127.032556), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };
+		
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		
+		// 지도를 클릭한 위치에 표출할 마커입니다
+		var marker = new kakao.maps.Marker({ 
+		    // 지도 중심좌표에 마커를 생성합니다 
+		    position: map.getCenter() 
+		}); 
+		// 지도에 마커를 표시합니다
+		marker.setMap(map);
+		
+		// 지도에 클릭 이벤트를 등록합니다
+		// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+		    
+		    // 클릭한 위도, 경도 정보를 가져옵니다 
+		    var latlng = mouseEvent.latLng; 
+		    
+		    // 마커 위치를 클릭한 위치로 옮깁니다
+		    marker.setPosition(latlng);
+		    
+		    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+		    message += '경도는 ' + latlng.getLng() + ' 입니다';
+		    
+		    
+		    document.getElementById('dealAdd').value = latlng.getLat() + "," + latlng.getLng();
+		    console.log($("#dealAdd").val());
+		    var resultDiv = document.getElementById('clickLatlng'); 
+		    resultDiv.innerHTML = message;
+		    
+		});
+		
+		
+		$(function(){
+			
+				if($("input[name=dealWay]:checked").val() == "안전거래"){
+					console.log("안전거래")
+					$(".mapArea").css({"display" : "none"});
+					$(".mapLine").css({"display" : "none"});
+				} 
+				
+				$("input[name=dealWay]").change(function(){
+					if($("input[name=dealWay]:checked").val() == "직거래"){
+						console.log("직거래")
+						$(".mapArea").css({"display" : "block"});
+						$(".mapLine").css({"display" : "block"});
+						$(".deliveryArea").css({"display" : "none"});
+						$(".fee2").css({"display" : "none"});
+						$(".accountZone").css({"display" : "none"});
+					
+					} else {
+						$(".mapArea").css({"display" : "none"});
+						$(".mapLine").css({"display" : "none"});
+						$(".deliveryArea").css({"display" : "flex"});
+						$(".fee2").css({"display" : "inline"});
+						$(".az1").css({"display" : "inline-block"});
+						$(".az2").css({"display" : "inline-block"});
+						$(".az3").css({"display" : "block"});
+					}
+				});
+			
+			
+			
+			
+			
+			
+			
+		});
+		
+		
+		
+		
+		
     </script>
+    
+  
+    
+
+
 </body>
 </html>
