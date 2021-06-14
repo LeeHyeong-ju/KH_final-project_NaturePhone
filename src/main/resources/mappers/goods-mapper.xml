@@ -3,6 +3,58 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodsMapper">
+	<resultMap id="phoneResultSet" type="Phone">
+		<id property="prono" column="PRO_NO"/>
+		<result property="proname" column="PRO_NAME"/>
+		<result property="modelname" column="MODEL_NAME"/>
+		<result property="maker" column="MAKER"/>
+		<result property="fileRename" column="FILE_RENAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+	</resultMap>
+	
+	
+		<!-- 물품 리스트 resultMap -->
+		
+		<!-- 1) Goods resultMap -->
+		<resultMap id="goodsListResultSet" type="map">
+			<id property="goodsNo" column="GOODS_NO"/>
+			<result property="userNo" column="USER_NO"/>
+			<result property="proNo" column="PRO_NO"/>
+			<result property="carrNo" column="CARR_NO"/>
+			<result property="goodsTitle" column="GOODS_TITLE"/>
+			<result property="createDate" column="CREATE_DATE"/>
+			<result property="dealWay" column="DEAL_WAY"/>
+			<result property="condition" column="CONDITION"/>
+			<result property="component" column="COMPONENT"/>
+			<result property="price" column="PRICE"/>
+			<result property="id" column="USER_ID"/>
+			<result property="proname" column="PRO_NAME"/>
+			<result property="modelname" column="MODEL_NAME"/>
+			<result property="maker" column="MAKER"/>
+		</resultMap>
+		
+		<!-- Attachment resultMap -->
+		<resultMap id="attListResultSet" type="Attachment">
+			<id property="gaNo" column="GDS_ATT_NO"/>
+			<result property="goodsNo" column="GOODS_NO"/>
+			<result property="gaOrder" column="ATT_ORDER"/>
+			<result property="gaFileName" column="ATT_FILENAME"/>
+			<result property="gaFilePath" column="ATT_FILEPATH"/>
+			<result property="gaRename" column="ATT_RENAME"/>
+		</resultMap>
+		
+		
+		
+		
+		
+		
+		
+		
+
+	
+	
+	
+	
 	<insert id="insertGoods" parameterType="Goods">
 	INSERT
 	INTO GOODS_TB
@@ -25,11 +77,11 @@
 	  , STATUS
 	  , S_BANK
 	  , S_ACCOUNT
-	  , USER_ID
+	  , OPENDATE
 	)
 	VALUES
 		(
-			#{goodsNo}
+			GOODS_SEQ.NEXTVAL
 	      , #{userNo}
 	      , #{proNo}
 	      , #{carrNo}
@@ -45,11 +97,141 @@
 	      , #{dealAdd}
 	      , #{drctStatus}
 	      , DEFAULT
-	      , '신한'
-	      , '2203123'
-	      , 'id1'
+	      , #{sbank}
+	      , #{saccount}
+	      , #{openDate}
 		)
+		
+		<selectKey keyProperty="goodsNo" resultType="int">
+
+		SELECT
+				GOODS_SEQ.CURRVAL AS GOODS_NO FROM DUAL	
+		
+		</selectKey>
+		
+		
+	
 	</insert>
+ 	<select id="productName" parameterType="string" resultMap="phoneResultSet">
+ 		SELECT 
+ 				PRO_NO
+ 			  , PRO_NAME
+ 			  , MODEL_NAME
+ 			  , MAKER
+ 			  , FILE_RENAME
+ 			  , FILE_PATH
+ 				
+ 		  FROM
+ 		  		PRODUCT_TB
+ 		 WHERE
+ 		 		MODEL_NAME LIKE '%' || #{keyword} || '%' 		
+ 		 
+ 	</select>
+ 	
+ 	<select id="selectPFN" parameterType="string" resultMap="phoneResultSet">
+ 		SELECT 
+ 				PRO_NO
+ 			  , PRO_NAME
+ 			  , MODEL_NAME
+ 			  , MAKER
+ 			  , FILE_RENAME
+ 			  , FILE_PATH
+ 			  
+ 		  FROM
+ 		  		PRODUCT_TB
+ 		 WHERE
+ 		 		MODEL_NAME = #{modelName}
+ 		  	
+ 	</select>
+ 	
+ 	<insert id="insertAtt" parameterType="Attachment">
+ 		INSERT
+ 		  INTO	G_ATT_TB
+ 		  (
+ 		  	GDS_ATT_NO
+ 		  , GOODS_NO
+ 		  , ATT_ORDER
+ 		  , ATT_FILENAME
+ 		  , ATT_FILEPATH
+ 		  , ATT_RENAME
+ 		  )
+ 		  
+ 		  VALUES
+ 		  (
+ 		  	GATT_SEQ.NEXTVAL
+	      , #{goodsNo}
+	      , #{gaOrder}
+	      , #{gaFileName}
+	      , #{gaFilePath}
+	      , #{gaRename}
+ 		  )
+ 	</insert>
+ 	
+ 	<select id="selectGoodsListCount" resultType="_int">
+ 		SELECT
+				COUNT(*)
+		  FROM
+		  		GOODS_TB
+		 WHERE
+		 		STATUS = 'Y'
+ 	</select>
+ 	
+ 	<select id="selectGoodsList" resultMap="goodsListResultSet">
+		SELECT
+				G.GOODS_NO
+			  , G.USER_NO
+			  , G.PRO_NO
+			  , G.CARR_NO
+			  , G.GOODS_TITLE
+			  , G.CREATE_DATE
+			  , G.DEAL_WAY
+			  , G.CONDITION
+			  , G.COMPONENT
+			  , G.PRICE
+			  , G.DELIVERY_FEE
+              , P.PRO_NAME
+              , P.MODEL_NAME
+              , P.MAKER
+              , M.USER_ID
+		  FROM
+		  		GOODS_TB G JOIN PRODUCT_TB P ON G.PRO_NO = P.PRO_NO JOIN MEMBER_TB M ON G.USER_NO = M.USER_NO
+		 WHERE
+		  		G.STATUS = 'Y'  
+	  ORDER BY
+	 			G.GOODS_NO DESC
+ 	
+ 	</select>
+ 	
+ 	<select id="selectAttList" resultMap="attListResultSet">
+ 		SELECT
+ 				GDS_ATT_NO
+ 			  , GOODS_NO
+ 			  , ATT_ORDER
+ 			  , ATT_FILENAME
+ 			  , ATT_FILEPATH
+ 			  , ATT_RENAME
+ 			  
+ 	    FROM
+ 	    		G_ATT_TB
+ 	    		
+ 	</select>
+ 	
+ 	<select id="selectPhoneNameList" parameterType="_int" resultMap="phoneResultSet">
+ 		SELECT
+ 		        PRO_NO
+ 			  , PRO_NAME
+ 			  , MODEL_NAME
+ 			  , MAKER
+ 			  , FILE_RENAME
+ 			  , FILE_PATH
+ 			 			  
+ 	    FROM
+ 	    		PRODUCT_TB
+ 	   WHERE
+ 	   			PRO_NO = #{proNo}
+ 	    		
+ 	</select>
+ 	
 
 
 </mapper>
