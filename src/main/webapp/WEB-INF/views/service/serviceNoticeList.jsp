@@ -90,6 +90,10 @@
    .searchArea input[type=search]{
       width : 250px;
    }
+   
+   tbody > tr:hover {
+   	  cursor : pointer;
+   }
 </style>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
@@ -115,16 +119,15 @@
                         <thead class="table-light">
                           <tr>
                             <th scope="col" class="col-1">번호</th>
-                            <th scope="col" class="col-4">제목</th>
+                            <th scope="col" class="col-5">제목</th>
                             <th scope="col" class="col-1">작성자</th>
                             <th scope="col" class="col-1">공감</th>
                             <th scope="col" class="col-1">조회</th>
                             <th scope="col" class="col-2">등록일</th>
-                            <th scope="col" class="col-1">파일</th>
                           </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${ list }" var="notice">
+                          <c:forEach items="${ list }" var="notice">
                           <tr onclick="selectNotice(${ notice.bno });">
                             <th scope="row">${ notice.bno }</th>
                             <td style="overflow:hidden;">${ notice.btitle }</td>
@@ -132,14 +135,11 @@
                             <td>${ notice.brecom }</td>
                             <td>${ notice.bcount }</td>
                             <td>${ notice.bcreateDate }</td>
-                            <td>
-							<c:if test="${ !empty notice.bffilePath }">
-								<img src="${ contextPath }/resources/images/fileicon.png" width="20">
-							</c:if>
-							</td>
                           </tr>
-                          </c:forEach>
-                         <!--  페이징바 구간 -->
+                          </c:forEach>             
+                        </tbody>
+                        <tfoot>
+                          <!--  페이징바 구간 -->
 						  <tr>
 							<td colspan="12">
 							<!-- [이전] -->
@@ -175,9 +175,10 @@
 								<a href="${ after }">[다음]</a>
 							</c:if>
 							</td>				
-						  </tr>	                        
-                        </tbody>                     
-                      </table>                      
+						  </tr>
+                        </tfoot>                     
+                      </table>
+                                            
 	        <c:if test="${ !empty loginUser && loginUser.grade eq '관리자' }">
 				<div class="btnArea" style="float:right;">
 					<button class="btn" onclick="location.href='${ contextPath }/notice/write'">글쓰기</button>			
@@ -193,14 +194,12 @@
 					<option value="content" <c:if test="${ param.searchCondition == 'content' }">selected</c:if>>내용</option>
 				</select>
 				<input type="search" name="searchValue" value="${ param.searchValue }">
-				<label for="existFile">첨부파일</label>
-				<input type="checkbox" id="existFile" name="existFile" <c:if test="${ !empty param.existFile }">checked</c:if>>
 				<button>검색</button>
 			</form>
 		</div>
 			
 			<script>
-				function selectnotice(bno){
+				function selectNotice(bno){
 					location.href = '${contextPath}/notice/detail?bno=' + bno + '&page=${pi.currentPage}';
 				}		
 			</script>    

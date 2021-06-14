@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -81,79 +83,63 @@
                         <h5>공지사항</h5>                        
                     </div>
                     <div style="border-bottom: 1px #C8C8C8 solid; border-top: 1.5px #C8C8C8 solid; padding: 10px 0px 10px 0px; margin-bottom: 3px;">
-                      갤럭시Z폴드3, 수납 공간 생기는데...S펜은 별도 구매?</div>
-                    <span class="topContent">작성자 : 이형주</span>&nbsp;&nbsp;&nbsp;
-                    <span class="topContent">등록일 : 2012.04.23</span>&nbsp;&nbsp;&nbsp;
-                    <span class="topContent"> 조회 : 14</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    
-                    <span class="topContent"><button>신고</button></span>
-                   
-                    <br><br>
-                    <div>동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세
-                        무궁화 삼천리 화려 강산 대한사람 대한으로 길이 보전하세 남산 위에 저 소나무 철갑을 두른듯 바람서리 불변함은 우리 기상일세
-                        무궁화 삼천리 화려 강산 대한사람 대한으로 길이 보전하세 가을 하늘 공활한데 높고 구름 없이 밝은 달은 우리 가슴 일편단심일세
-                        무궁화 삼천리 화려 강산 대한사람 대한으로 길이 보전하세 이 기상과 이 마음으로 충성을 다하여 괴로우나 즐거우나 나라사랑하세
-                        무궁화 삼천리 화려 강산 대한사람 대한으로 길이 보전하세 접기</div>
-                        <br><br>
+                    ${ notice.btitle }</div>
+                    <span class="topContent">작성자 : ${ notice.userName }</span>&nbsp;&nbsp;&nbsp;
+                    <span class="topContent">등록일 : ${ notice.bcreateDate }</span>&nbsp;&nbsp;&nbsp;
+                    <span class="topContent"> 조회 : ${ notice.bcount }</span>     
+                    <span class="topContent" style="float : right;"><button>신고</button></span>
+                    <div style="padding-top : 30px; min-height : 200px;">${ notice.bcontent }</div>
                     <div style="text-align: center;"><button type="button" class="btn btn-outline-secondary" 
-                                                      style="text-align: center;">공감 3</button></div>
+                                                      style="text-align: center;">공감 ${ notice.brecom }</button></div>
                     <hr>               
-                    <span class="topContent"><button>목록으로</button></span>
-                    <br><br>                   
+                    <span class="topContent">
+                    	<button type="button" onclick="location.href='${contextPath}/notice/list?page=${ param.page }'">목록으로</button>
+                    	<c:if test="${ !empty loginUser && loginUser.grade eq '관리자' }">
+                    		<button type="button" style="float:right;" onclick="location.href='${contextPath}/notice/delete?bno=${ notice.bno }'">삭제</button>
+                    		<button type="button" style="float:right;" onclick="location.href='${contextPath}/notice/updatePage?bno=${ notice.bno }&page=${ param.page }'">수정</button>
+                    	</c:if>
+                    </span>
+                    <br><br>      
                     
-                        <!-- 댓글-->
-                   
-                    <div style="margin-top:10px;padding: 10px 0px 10px 0px;border-bottom: 1px solid #C8C8C8;">                     
-                        <div style="float: left;width: 15%; overflow: hidden;text-align: left;">
-                        <br>
-                        <span class="topContent">KH정보교육원</span>
-                        <br>
-                        <span class="topContent cal">21.05.31 21:00</span>
-                        </div>                      
-                        <div style="float: left;width: 85%; overflow: hidden;text-align: left;">
-                            <div style="width: 100%; margin-top :25px; ">
-                                <div style="width: 88%; float: left; "> 안녕하세요!!!</div>
-                            </div>           
-                        </div>                       
-                    </div>                     
-
-                    <div style="clear: both; margin-top:10px;padding: 10px 0px 10px 0px;border-bottom: 1px solid #C8C8C8;">
-                        <div style="float: left;width: 15%; overflow: hidden;text-align: left;">
-                        <br>
-                        <span class="topContent">KH정보교육원</span>
-                        <br>
-                        <span class="topContent cal">21.05.31 21:00</span>
-                        </div>                      
-                        <div style="float: left;width: 85%; overflow: hidden;text-align: left;">
-                            <div style="width: 100%; margin-top :25px; ">
-                              <div style="width: 88%; float: left; "> 안녕하세요!!!</div>
-                            </div>           
-                        </div>          
-                    </div>   
-
-                    <div style="margin-top:60px;padding: 10px 0px 10px 0px;">                     
-                        <div style="float: left;width: 15%; overflow: hidden;text-align: left;">
-                        <br>
-                        <span class="topContent">KH정보교육원</span>
-                        <br>
-                        <span class="topContent cal">21.05.31 21:00</span>
-                        </div>                      
-                        <div style="float: left;width: 85%; overflow: hidden;text-align: left;">
-                            <div style="width: 100%; margin-top :25px; ">
-                                <textarea style="width: 88%; float: left; "></textarea>
-                                <span><button style="height: 53px; float: right;">등록</button></span>
-                            </div>           
-                        </div>                       
-                    </div>
-                   <br><br>
-
-                    </div>
-                </div>    
-         
-         
-             
+                    <div style="clear: both; width: 85%; overflow: hidden; text-align: left; margin: auto;">
+                         <div style="width: 100%; margin-top :25px; ">
+                             <textarea style="width: 88%; float: left; "></textarea>
+                             <span>
+                             	<button type="button" style="height: 53px; float: right;" onclick="location.href='${contextPath}/notice/insertReply'">등록</button>
+                             </span>
+                         </div>           
+                   	</div>             
+                    
+                    <c:if test="${ !empty rlist }">
+                    	<c:forEach items="${ rlist }" var="reply">
+	                    <div style="clear: both; margin-top:10px;padding: 10px 0px 10px 0px;border-bottom: 1px solid #C8C8C8;">                     
+	                        <div style="float: left;width: 20%; overflow: hidden;text-align: left;">
+	                        <br>
+	                        <span class="topContent" style="font-size: 13px;">${ reply.username }</span>
+	                        <br>
+	                        <span class="topContent cal" style="font-size: 12px;">
+	                        	<fmt:formatDate value="${ reply.createDate }" pattern="yy.MM.dd hh:mm"/>
+	                        </span>
+	                        </div>                      
+	                        <div style="float: left;width: 80%; overflow: hidden;text-align: left;">
+	                            <div style="width: 100%; margin-top :25px; ">
+	                                <div style="width: 88%; float: left; font-size: 14px;">${ reply.recontent }</div>
+	                            </div>           
+	                        </div>                       
+	                    </div>
+                   	 	</c:forEach>
+                    </c:if>
+                    <c:if test="${ empty rlist }">
+                    	<div style="clear: both; margin-top:10px;padding: 10px 0px 10px 0px;border-bottom: 1px solid #C8C8C8;">                     
+	                        <div style="float: left;width: 100%; overflow: hidden;text-align: left;">
+	                            <div style="width: 100%; margin-top :25px;">
+	                                <p style="text-align: center;">작성 된 댓글이 없습니다.</p>
+	                            </div>           
+	                        </div>                      
+	                    </div>
+                    </c:if>
+                </div>
+            </div>   
         </div>
      </div>
 </body>

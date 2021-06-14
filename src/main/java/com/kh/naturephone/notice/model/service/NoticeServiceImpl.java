@@ -53,4 +53,24 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<Reply_TB> selectReplyList(int bno) {
 		return nDao.selectReplyList(bno);
 	}
+
+	@Override
+	public B_Att_TB selectNoticeAtt(int bno) {
+		return nDao.selectNoticeAtt(bno);
+	}
+
+	@Override
+	public int updateNotice(Board_TB n) {
+		return nDao.updateNotice(n);
+	}
+
+	@Override
+	public int updateNoticeAtt(B_Att_TB na) {
+		return nDao.updateNoticeAtt(na);
+	}
+
+	@Override
+	public int insertNoticeAtt(B_Att_TB na, int bno) {
+		return nDao.insertNoticeAtt(na, bno);
+	}
 }

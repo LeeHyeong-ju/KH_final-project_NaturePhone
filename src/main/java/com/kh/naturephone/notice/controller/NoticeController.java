@@ -206,6 +206,76 @@ public class NoticeController {
 			return "common/errorPage";
 		}
 	}
+	
+	@GetMapping("/updatePage")
+	public String updatePageView(int bno, Model model) {
+		// 조회수 증가 없이 bid로 조회한 Board 객체 리턴
+		Board_TB n = nService.selectNotice(bno, false);
+		B_Att_TB na = nService.selectNoticeAtt(bno);
+		
+		model.addAttribute("notice", n);
+		
+		if(na != null) {
+			model.addAttribute("file", na);
+		}
+		
+		return "service/serviceNoticeUpdate";
+	}
+	
+	@PostMapping("/update")
+	public String boardUpdate(Board_TB n,
+							  B_Att_TB na,
+							  @RequestParam(value="uploadFile") MultipartFile file,
+							  HttpServletRequest request) throws NoticeException {
+		int result = 0;
+		
+		if(!file.getOriginalFilename().equals("")) {
+			
+			int result1 = 0;
+			
+			String renameFileName = saveFile(file, request);
+			
+			if(renameFileName != null){
+				if(na.getBfrenameName() != null) {
+					deleteFile(na.getBfrenameName(), request);
+					
+					na.setBforiginalName(file.getOriginalFilename());
+					na.setBfrenameName(renameFileName);
+					na.setBffilePath("/nuploadFiles/" + file.getOriginalFilename());
+					
+					result1 = nService.updateNoticeAtt(na);
+				} else {
+					na.setBforiginalName(file.getOriginalFilename());
+					na.setBfrenameName(renameFileName);
+					na.setBffilePath("/nuploadFiles/" + file.getOriginalFilename());
+					
+					result1 = nService.insertNoticeAtt(na, n.getBno());
+				}
+				
+				if(result1 > 0) {
+					result = nService.updateNotice(n);
+				} else {
+					throw new NoticeException("파일 업로드에 실패하였습니다.");
+				}
+			}
+		}
+		else {
+			result = nService.updateNotice(n);
+		}
+		
+		if(result > 0) {
+			return "redirect:/notice/detail?bno=" + n.getBno();
+		} else {
+			throw new NoticeException("게시글 수정에 실패하였습니다.");
+		}
+	}
+
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\nuploadFiles";
+		File f = new File(savePath + "\\" + fileName);
+		if(f.exists()) f.delete();
+	}
 }
 
 

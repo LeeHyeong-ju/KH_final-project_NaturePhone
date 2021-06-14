@@ -22,13 +22,24 @@
 
 	<resultMap type="Reply_TB" id="nReplyResultSet">
 		<id property="reno" column="RE_NO"/>
-		<result property ="userNo" column="USER_NO"/>
+		<result property ="userno" column="USER_NO"/>
+		<result property ="username" column="USER_NAME"/>
 		<result property ="recontent" column="RE_CONTENT"/>
 		<result property ="createDate" column="CREATE_DATE"/>
 		<result property ="modifyDate" column="MODIFY_DATE"/>
 		<result property ="restatus" column="RE_STATUS"/>
 		<result property ="bno" column="B_NO"/>
 		<result property ="sno" column="S_NO"/>
+	</resultMap>
+	
+	<resultMap type="B_Att_TB" id="nAttResultSet">
+		<id property="bfno" column="BF_NO"/>
+		<result property="bforiginalName" column="BF_ORIGIN_NAME"/>
+		<result property="bfrenameName" column="BF_RENAME_NAME"/>
+		<result property="bffilePath" column="BF_FILEPATH"/>
+		<result property="bfuploadDate" column="BF_UPLOAD_DATE"/>
+		<result property="bfstatus" column="BF_STATUS"/>
+		<result property="bno" column="B_NO"/>
 	</resultMap>
 	
 	<select id="selectNoticeListCount" resultType="_int">
@@ -208,20 +219,84 @@
 		SELECT
 			RE_NO
 		  , USER_NO
+		  , USER_NAME
 		  , RE_CONTENT
-		  , CREATE_DATE
-		  , MODIFY_DATE
+		  , R.CREATE_DATE
+		  , R.MODIFY_DATE
 		  , RE_STATUS
 		  , B_NO
 		  , S_NO
 		FROM
-			REPLY_TB
+			 REPLY_TB R
+		JOIN MEMBER_TB USING(USER_NO)
 		WHERE
 			RE_STATUS = 'Y'
 		AND B_NO = #{bno}
 		ORDER BY RE_NO DESC
 	</select>
 	
+	<select id="selectNoticeAtt" parameterType="_int" resultMap="nAttResultSet">
+		SELECT
+			BF_NO
+		  , BF_ORIGIN_NAME
+		  , BF_RENAME_NAME
+		  , BF_FILEPATH
+		  , BF_UPLOAD_DATE
+		  , BF_STATUS
+		  , B_NO
+		FROM
+			B_ATT_TB
+		WHERE
+			B_NO = #{bno}
+	</select>
+	
+	<update id="updateNotice" parameterType="Board_TB">
+		UPDATE
+			BOARD_TB
+		SET
+			BTITLE = #{btitle}
+		  , BCONTENT = #{bcontent}
+		  , B_MODIFY_DATE = SYSDATE
+		WHERE
+			B_NO = #{bno}
+		AND B_STATUS = 'Y'
+	</update>
+	
+	<update id="updateNoticeAtt" parameterType="B_Att_TB">
+		UPDATE
+			B_ATT_TB
+		SET
+			BF_ORIGIN_NAME = #{bforiginalName}
+		  , BF_RENAME_NAME = #{bfrenameName}
+		  , BF_FILEPATH = #{bffilePath}
+		  , BF_UPLOAD_DATE = SYSDATE
+		WHERE
+			BF_NO = #{bfno}
+	</update>
+	
+	<insert id="insertNoticeAtt2" parameterType="B_Att_TB">
+		INSERT
+		  INTO B_ATT_TB
+		 (
+				BF_NO
+			  , BF_ORIGIN_NAME
+			  , BF_RENAME_NAME
+			  , BF_FILEPATH
+			  , BF_UPLOAD_DATE
+			  , BF_STATUS
+			  , B_NO
+		)
+		VALUES
+		(
+			  SEQ_BF_NO.NEXTVAL
+			, #{bforiginalName} 
+			, #{bfrenameName}
+			, #{bffilePath}
+			, SYSDATE
+			, DEFAULT
+			, #{bno}
+		)
+	</insert>
 </mapper>
 
 

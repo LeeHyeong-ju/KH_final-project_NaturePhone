@@ -59,4 +59,25 @@ public class NoticeDaoImpl implements NoticeDao {
 	public List<Reply_TB> selectReplyList(int bno) {
 		return sqlSession.selectList("noticeMapper.selectReplyList", bno);
 	}
+
+	@Override
+	public B_Att_TB selectNoticeAtt(int bno) {
+		return sqlSession.selectOne("noticeMapper.selectNoticeAtt", bno);
+	}
+
+	@Override
+	public int updateNotice(Board_TB n) {
+		return sqlSession.update("noticeMapper.updateNotice", n);
+	}
+
+	@Override
+	public int updateNoticeAtt(B_Att_TB na) {
+		return sqlSession.update("noticeMapper.updateNoticeAtt", na);
+	}
+
+	@Override
+	public int insertNoticeAtt(B_Att_TB na, int bno) {
+		na.setBno(bno);
+		return sqlSession.insert("noticeMapper.insertNoticeAtt2", na);
+	}
 }

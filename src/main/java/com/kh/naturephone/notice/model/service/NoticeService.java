@@ -23,5 +23,13 @@ public interface NoticeService {
 	Board_TB selectNotice(int bno, boolean flag);
 
 	List<Reply_TB> selectReplyList(int bno);
+
+	B_Att_TB selectNoticeAtt(int bno);
+
+	int updateNotice(Board_TB n);
+
+	int updateNoticeAtt(B_Att_TB na);
+
+	int insertNoticeAtt(B_Att_TB na, int bno);
 	
 }
