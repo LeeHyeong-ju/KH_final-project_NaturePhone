@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itdProductMapper">
+
+	<resultMap type="ItdProduct" id="itdProdResultSet">
+		<id property="itdNo" column="ITD_NO"/>		
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="productName" column="PRO_NAME"/>
+		<result property="modelName" column="MODEL_NAME"/>
+		<result property="maker" column="MAKER"/>
+		<result property="carrName" column="CARR_NAME"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+
+	<select id="selectItdProdList" parameterType="_int" resultMap="itdProdResultSet">
+		SELECT
+			   ITD_NO
+			 , MAKER
+			 , CARR_NAME
+			 , PRO_NAME
+			 , MODEL_NAME
+			 , ENROLL_DATE
+			 , USER_NO
+		  FROM
+		  	   INTERESTED_TB
+			   JOIN PRODUCT_TB USING (PRO_NO)
+			   JOIN CARRIER_TB USING (CARR_NO)
+		 WHERE
+		 	   STATUS = 'Y'
+		   AND USER_NO = #{userNo}
+	  ORDER BY
+	  		   ENROLL_DATE DESC
+	</select>
+	
+</mapper>
