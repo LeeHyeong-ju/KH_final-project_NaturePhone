@@ -33,7 +33,6 @@
         margin: 10px auto 30px;
         max-width: 850px;
         padding: 50px 70px 70px 71px;
-        width: 800px;
     }
     .rightSpace a {
         color: rgb(7, 7, 7) !important;

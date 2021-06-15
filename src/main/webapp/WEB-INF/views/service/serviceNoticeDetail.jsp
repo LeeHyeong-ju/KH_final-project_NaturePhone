@@ -118,7 +118,6 @@
                     <span class="topContent">작성자 : ${ notice.writer_id }</span>&nbsp;&nbsp;&nbsp;
                     <span class="topContent">등록일 : ${ notice.bcreateDate }</span>&nbsp;&nbsp;&nbsp;
                     <span class="topContent"> 조회 : ${ notice.bcount }</span>     
-                    <span class="topContent" style="float : right;"><button>신고</button></span>
                     <div style="padding-top : 30px; min-height : 200px;">${ notice.bcontent }</div>
                     <div style="text-align: center;"><button type="button" class="btn btn-outline-secondary" 
                                                       style="text-align: center;">공감 ${ notice.brecom }</button></div>
@@ -132,8 +131,6 @@
                     </span>
                     <br><br>      
                     
-                    
-                    
                     <div class="replySelectArea">
 					<table id="replyTable">
 						<tbody id="recontent">				
@@ -141,9 +138,11 @@
 								<c:forEach items="${ rlist }" var="r">
 								<tr>
 									<td style="font-size: 17px">${ r.writer_id }</td>																			
-									<td style="font-size: 12px"><fmt:formatDate value="${ r.createDate }" pattern="yy.MM.dd hh:mm"/>&nbsp;&nbsp;
+									<td style="font-size: 12px">
+									<fmt:formatDate value="${ r.createDate }" pattern="yy.MM.dd hh:mm"/>&nbsp;&nbsp;
+									<input type="hidden" class="reno" value="${ r.reno }">
 									<c:if test="${ loginUser.id eq r.writer_id }">	
-										<button style=" border: none; margin-bottom:2px;" type="button" class="btn-close" aria-label="Close"></button>
+										<button style=" border: none; margin-bottom:2px;" type="button" class="btn-close" aria-label="Close" onclick="replyDelete(this);"></button>
 									</c:if>
 									</td>
 									<td><button style=" border: none;">신고</button></td>											
@@ -175,6 +174,7 @@
 		$("#addReply").on("click", function(){
 			var recontent = $("#replyContent").val();
 			var bno = ${ notice.bno };
+			var loginUser_id = '${ loginUser.id }';
 			
 			$.ajax({
 					url : "${ contextPath }/notice/insertReply",
@@ -191,8 +191,12 @@
 						for(i in data){
 							html += '<tr>';
 							html += '<td style="font-size: 17px">'+data[i].writer_id+'</td>';
-							html += '<td style="font-size: 12px">'+data[i].createDate+'&nbsp;&nbsp;<button style=" border: none;  margin-bottom:2px;" type="button" class="btn-close" aria-label="Close"></button></td>';
-							html += '<td><button style=" border: none;">신고</button></td>';
+							html += '<td style="font-size: 12px">'+data[i].createDate+'&nbsp;&nbsp;';
+							html += '<input type="hidden" class="reno" value="'+data[i].reno+'">';
+							if(loginUser_id == data[i].writer_id){
+								html += '<button style=" border: none;  margin-bottom:2px;" type="button" class="btn-close" aria-label="Close" onclick="replyDelete(this);"></button>';
+							}
+							html += '</td><td><button style=" border: none;">신고</button></td>';
 							html += '</tr>';
 							html += '<tr>';							
 							html += '<td colspan="3" style="border-bottom:1px solid #C8C8C8;">'+data[i].recontent+'</td>';										
@@ -204,6 +208,40 @@
 					}	
 			});			
 		});	
+		
+		/* $(".btn-close").on("click", function(){
+			var reno = $(this).prev().val();
+			var bno = ${ notice.bno };
+			var title = $(this).parent('td').parent('tr');
+			var content = $(this).parent('td').parent('tr').next();
+			
+			$.ajax({
+					url : "${ contextPath }/notice/deleteReply",
+					data : { reno : reno, bno : bno },
+					type : "post",
+					success : function(data){
+						title.remove();
+						content.remove();
+					}	
+			});			
+		});	 */
+		
+		function replyDelete(obj){
+			var reno = $(obj).prev().val();
+			var bno = ${ notice.bno };
+			var title = $(obj).parent('td').parent('tr');
+			var content = $(obj).parent('td').parent('tr').next();
+			
+			$.ajax({
+					url : "${ contextPath }/notice/deleteReply",
+					data : { reno : reno, bno : bno },
+					type : "post",
+					success : function(data){
+						title.remove();
+						content.remove();
+					}	
+			});
+		}
 	</script>
 	<jsp:include page="../common/footer.jsp"/>
 </body>

@@ -126,38 +126,6 @@
       </div>     
         </div>
      </div>
-     
-      <!-- <script>
-      // 파일 첨부 시 이벤트 설정
-      $(function(){
-         $("[type=file]").change(function(){
-            loadImg(this);
-         });
-      });
-      
-      function loadImg(element){
-           if(element.files && element.files[0]){          
-            var reader = new FileReader();
-            reader.onload = function(e){               
-               var selector;
-               var size;
-               
-               switch(element.name){              
-               case "contentImg1" :
-                  selector = "#content1";
-                  size = {width : "250px", height : "150px", border : "solid 1px #dadada"};
-                  break;
-               case "contentImg2" :
-                  selector = "#content2";
-                  size = {width : "250px", height : "150px", border : "solid 1px #dadada"};
-                  break;
-               }               
-               $(selector).attr("src", e.target.result).css(size);
-            }
-         reader.readAsDataURL(element.files[0]);            
-         }
-      }   
-   </script>  -->  
    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

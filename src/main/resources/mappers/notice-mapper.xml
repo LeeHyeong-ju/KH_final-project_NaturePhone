@@ -332,6 +332,44 @@
 			 , NULL	  	
 		)
 	</insert>
+	
+	<update id="deleteReply" parameterType="Reply">
+		UPDATE
+			   REPLY_TB
+		   SET
+			   RE_STATUS = 'N'	   
+		 WHERE
+			   B_NO = #{bno}
+		 AND   RE_NO = #{reno}
+	</update>
+	
+	<select id="searchNoticeListCount" parameterType="Search" resultType="_int">
+		<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>
+		SELECT
+				COUNT(*)
+		 FROM
+				BOARD_TB
+		   JOIN MEMBER_TB USING(USER_NO)
+		<where>
+			B_STATUS = 'Y'
+			<choose>
+				<when test="searchCondition == 'title'">
+				AND BTITLE LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+				AND USER_NAME LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'content'">
+				AND BCONTENT LIKE #{sv}
+				</when>
+				<otherwise>
+				AND (USER_NAME LIKE #{sv}
+					OR BTITLE LIKE #{sv}
+					OR BCONTENT LIKE #{sv})
+				</otherwise>
+			</choose>
+		</where>
+	</select>
 </mapper>
 
 

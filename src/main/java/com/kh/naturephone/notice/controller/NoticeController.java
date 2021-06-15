@@ -143,13 +143,25 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/search")
-	public String noticeSearch(@ModelAttribute Search search,
-							   Model model) {
+	public ModelAndView noticeSearch(@ModelAttribute Search search,
+							   ModelAndView mv,
+							   @RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 		
-		List<Board_TB> searchList = nService.searchList(search);
-		model.addAttribute("list", searchList);
+		int listCount = nService.searchListCount(search);
 		
-		return "service/serviceNoticeList";
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		List<Board_TB> searchList = nService.searchList(search, pi);
+		
+		if(searchList != null) {
+			mv.addObject("list", searchList);
+			mv.addObject("pi", pi);
+			mv.setViewName("service/serviceNoticeList");
+		} else {
+			mv.addObject("msg", "게시글 전체 조회에 실패했습니다.");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	@GetMapping("/detail")
@@ -312,7 +324,15 @@ public class NoticeController {
 						.setDateFormat("yy.MM.dd hh:mm")
 						.create();
 				
-			return gson.toJson(rlist);
+		return gson.toJson(rlist);
+	}
+	
+	@PostMapping(value="/deleteReply")
+	public @ResponseBody String deleteReply(Reply r) {
+		
+		int result = nService.deleteReply(r);
+				
+		return Integer.toString(result);
 	}
 }
 
