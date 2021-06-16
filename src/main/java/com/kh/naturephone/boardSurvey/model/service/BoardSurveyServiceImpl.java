@@ -87,6 +87,18 @@ public class BoardSurveyServiceImpl implements BoardSurveyService{
 		return bDao.selectBoardDetail(s_no);
 	}
 
+	@Override
+	public int surveyVote(int de_s_no) {
+		
+		return bDao.surveyVote(de_s_no);
+	}
+
+	@Override
+	public List<S_Detail_TB> selectDetail(int de_s_no) {
+		
+		return bDao.selectDetail(de_s_no);
+	}
+
 
 
 }

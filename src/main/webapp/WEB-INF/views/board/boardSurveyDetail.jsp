@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -132,74 +132,52 @@
                     <div>${ board.scontent }</div>
                         <br><br>                  
                     <hr>                                                             
-                   <br><br>
-                   
-                     <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;">
-                    <div class="row">
+                   <br>
+                   <!-- 첫 번째 선택지 -->
+                     <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;"><br>
+                    	<div class="row">
                         <div class="col-2">
-                     ${ sDetail0.de_choice }
+                     	${ sDetail0.de_choice }
                         </div>
                         <div class="col-6">
                             <div class="progress" style="width: 100%; float: left;">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width: <fmt:formatNumber type="number" pattern="00.0" maxFractionDigits="1" 
+                            			value="${ sDetail0.de_person / (sDetail0.de_person + sDetail1.de_person) *100 }"/>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div style="float: left;">25%</div>
-                            <div style="float: left;">(2명)</div>
-                            <button style="float: left;font-size: 10px;">투표하기</button>
+                            <div style="float: left;"><fmt:formatNumber type="number" pattern="00.0" maxFractionDigits="1" 
+                            		value="${ sDetail0.de_person / (sDetail0.de_person + sDetail1.de_person) *100 }"/>%</div>&nbsp;
+
+                            <div style="float: left;">(${ sDetail0.de_person}명)</div>
+                            <button id="de_s_no" type="button" onclick="location.href='${ contextPath }/boardSurvey/surveyVote?de_s_no= ${ sDetail0.de_s_no }'" 
+                       			class="btn btn-outline-secondary" style="text-align: center;font-size: 10px;">투표하기</button>
                         </div>                  
                     </div>
-                </div>
-
-                <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;">
+                </div><br>
+ 				<!-- 두 번째 선택지 -->
+                <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;"><br>
                     <div class="row">
                         <div class="col-2">
                       ${ sDetail1.de_choice }
                         </div>
                         <div class="col-6">
                             <div class="progress" style="width: 100%; float: left;">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width: <fmt:formatNumber type="number" pattern="00.0" maxFractionDigits="1" 
+                            			value="${ sDetail1.de_person / (sDetail0.de_person + sDetail1.de_person) *100 }"/>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div style="float: left;">25%</div>
-                            <div style="float: left;">(2명)</div>
-                            <button style="float: left;font-size: 10px;">투표하기</button>
+                            <div style="float: left;"><fmt:formatNumber type="number" pattern="00.0" maxFractionDigits="1" 
+                            		value="${ sDetail1.de_person / (sDetail0.de_person + sDetail1.de_person) *100 }"/>%</div>
+                            <div style="float: left;">(${sDetail1.de_person }명)</div>&nbsp;
+                            <button id="de_s_no" type="button" onclick="location.href='${ contextPath }/boardSurvey/surveyVote?de_s_no= ${ sDetail1.de_s_no }'" 
+                       			 class="btn btn-outline-secondary" style="text-align: center;font-size: 10px;">투표하기</button>
                         </div>                  
                     </div>
                 </div>
 
-                <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;">
-                    <div class="row">
-                        <div class="col-2">
-                       3. 기타
-                        </div>
-                        <div class="col-6">
-                            <div class="progress" style="width: 100%; float: left;">
-                                <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div style="float: left;">50%</div>
-                            <div style="float: left;">(4명)</div>
-                            <button style="float: left;font-size: 10px;">투표하기</button>
-                        </div>                  
-                    </div>
-                </div> 
-                
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
+
                    
                    <hr>
 

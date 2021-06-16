@@ -36,6 +36,10 @@ public interface BoardSurveyDao {
 
 	List<S_Detail_TB> selectBoardDetail(int s_no);
 
+	int surveyVote(int de_s_no);
+
+	List<S_Detail_TB> selectDetail(int de_s_no);
+
 	
 
 

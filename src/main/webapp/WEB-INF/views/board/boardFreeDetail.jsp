@@ -329,7 +329,6 @@
                   tableBody = $("#replyTable tbody");
                   tableBody.html("");
                   var html = '';
-               
                   for(i in data){
                       html += '<tr>';
                       html += '<td style="font-size: 22px">'+data[i].user_id+'</td>';
