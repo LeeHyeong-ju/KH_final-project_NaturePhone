@@ -108,6 +108,18 @@ public class BoardFreeDaoImpl implements BoardFreeDao{
 
 	}
 
+	@Override
+	public int recommend(int bno) {
+		
+		return sqlSession.update("boardFreeMapper.recommend", bno);
+	}
+
+	@Override
+	public int deleteReply(Reply_TB r) {
+	
+		return sqlSession.update("boardFreeMapper.deleteReply", r);
+	}
+
 	
 	
 	

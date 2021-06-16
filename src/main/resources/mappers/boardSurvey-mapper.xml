@@ -101,23 +101,7 @@
 		)
 	</insert>
 	
-	<insert id="insertBoardDetail" parameterType="S_Detail_TB">
-		INSERT
-		  INTO S_Detail_TB
-		 (
-			    DE_S_NO
-			  , S_NO
-			  , DE_CHOICE
-			  , DE_PERSON			 
-		)
-		VALUES
-		(
-			  SEQ_DE_S_NO.NEXTVAL
-			, SEQ_S_NO.CURRVAL
-			, #{de_choice}
-			, DEFAULT			
-		)
-	</insert>
+	
 	
 <select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
 		SELECT
@@ -202,12 +186,38 @@
 		)
 	</insert>
 
+<insert id="insertBoardDetail" parameterType="S_Detail_TB">
+		INSERT
+		  INTO S_Detail_TB
+		 (
+			    DE_S_NO
+			  , S_NO
+			  , DE_CHOICE
+			  , DE_PERSON			 
+		)
+		VALUES
+		(
+			  SEQ_DE_S_NO.NEXTVAL
+			, SEQ_S_NO.CURRVAL
+			, #{de_choice}
+			, DEFAULT			
+		)
+	</insert>
 
-
-
-
-
-
+<select id="selectBoardDetail" parameterType="_int" resultMap="detailResultSet">
+		SELECT
+				DE_S_NO
+			  , S_Detail_TB.S_NO
+			  , DE_CHOICE
+			  , DE_PERSON	
+		 FROM
+		 		S_Detail_TB, Survey_TB		 		
+		 WHERE
+		 		S_Detail_TB.S_NO = Survey_TB.S_NO
+		   AND	S_Detail_TB.S_NO = #{s_no}			  	
+	  ORDER BY
+				DE_S_NO DESC	
+	</select>
 
 
 

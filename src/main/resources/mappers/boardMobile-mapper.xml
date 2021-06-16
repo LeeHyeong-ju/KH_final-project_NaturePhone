@@ -43,21 +43,19 @@
 		<result property="bno" column="B_NO"/>	
 	</resultMap>
  
- 
- 
- 
- 
 	<select id="selectListCount" resultType="_int">
-		SELECT 
+	 	SELECT 
 				COUNT(*)
 		  FROM
 				BOARD_TB
 		 WHERE
-				B_STATUS = 'Y'				
+				B_STATUS = 'Y' 
+		   AND  CATEGORY = '뉴스'
+		   						
 	</select>
 	
 	<select id="selectList" resultMap="boardResultSet">
-		SELECT
+		 SELECT
 				B_NO
 			  , BOARD_TB.USER_NO
 			  , BTITLE
@@ -76,10 +74,11 @@
  		WHERE
  				BOARD_TB.USER_NO = MEMBER_TB.USER_NO
 		  AND	B_STATUS= 'Y'
+		  AND   CATEGORY = '뉴스'	
 	 ORDER BY
 				B_NO DESC	   	
 	</select>
-	
+														
 	<insert id="insertBoard" parameterType="Board_TB">
 		INSERT
 		  INTO BOARD_TB
@@ -159,6 +158,7 @@
  				BOARD_TB.USER_NO = MEMBER_TB.USER_NO
 		  AND   B_STATUS= 'Y'		  
 		  AND	B_NO = #{bno}
+		  AND	CATEGORY= '뉴스'
 		
 </select>
 
@@ -282,7 +282,7 @@
 		)
 	</insert>
 
-<!-- 공지사항 검색용 동적 쿼리 -->
+
 	<select id="searchList" parameterType="Search" resultMap="boardResultSet">
 	<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>	
 		SELECT

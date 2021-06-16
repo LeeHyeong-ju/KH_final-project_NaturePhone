@@ -93,4 +93,16 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 		return bDao.searchList(search);
 	}
 
+	@Override
+	public int recommend(int bno) {
+		
+		return bDao.recommend(bno);
+	}
+
+	@Override
+	public int deleteReply(Reply_TB r) {
+		
+		return bDao.deleteReply(r);
+	}
+
 }

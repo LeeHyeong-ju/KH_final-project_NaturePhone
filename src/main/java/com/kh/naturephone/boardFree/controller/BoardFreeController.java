@@ -55,7 +55,7 @@ public class BoardFreeController {
 				) {
 
 			int listCount = bService.selectListCount();
-			System.out.println(listCount);
+			//System.out.println(listCount);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 			List<Board_TB> list = bService.selectList(pi);			
@@ -91,7 +91,7 @@ public class BoardFreeController {
 			Member loginUser = (Member)session.getAttribute("loginUser");
 				board.setCategory("자유");
 				board.setUserNo(loginUser.getUserNo());
-				System.out.println("board: " + board);
+				//System.out.println("board: " + board);
 				int result = bService.insertBoard(board);
 				
 				if(result > 0) {	
@@ -209,7 +209,7 @@ public class BoardFreeController {
 		@GetMapping("/updatePage")
 		public String updatePageView(int bno, Model model) {
 			Board_TB board = bService.selectBoard(bno, false);
-			System.out.println(board);
+			//System.out.println(board);
 			model.addAttribute("board", board);
 			return "board/boardFreeUpdate";
 		}
@@ -299,7 +299,7 @@ public class BoardFreeController {
 					
 				return gson.toJson(rlist);
 		}	
-	
+							
 		// 검색기능
 		@GetMapping("/search")
 		public String noticeSearch(@ModelAttribute Search search,
@@ -313,5 +313,42 @@ public class BoardFreeController {
 		}
 	
 	
+		
+		
+		//게시물 추천 관련 메소드
+	    @RequestMapping("/recommend")
+	    public String recommend (@RequestParam int bno) {	      
+	        int result = bService.recommend(bno);
+	        if(result > 0) {		        
+	        	return "redirect:/boardFree/detail?bno=" + bno;
+	        } else {
+				throw new BoardFreeException("공감 클릭에 실패했습니다.");	
+			}	   
+	    }
+		
+		// 댓글 삭제
+		  @PostMapping(value="/deleteReply") 
+		  public @ResponseBody String deleteReply(Reply_TB r) {
+//		  System.out.println("r : " + r);
+		  int result = bService.deleteReply(r);
+//		  System.out.println(result);
+		  return Integer.toString(result); }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 }

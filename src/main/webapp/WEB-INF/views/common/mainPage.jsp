@@ -17,51 +17,51 @@
     background: #ffffff none repeat scroll 0 0;
     border-radius: 2px;
     margin: 10px auto 30px;
-    width: 1000px;
-    padding: 5px 140px 250px 0px;
+    width: 1300px;
+    padding: 15px 0px 180px 0px;
   }
   /* 내용 */
   .content {
-    /* border: 1px solid red; */
+    border: 1px; 
   }
   .col-6 {
     font-size: 11px;
   }
   .carousel-item active {
-  	width: 80%;
-  	height: 50px;
-  	}
+     width: 80%;
+     height: 50px;
+     }
 </style>
 <body>
 <jsp:include page="../common/menubar.jsp"/>
   <div class="container">
     <div class="row">
-      <div class="col-md-2"></div>
+     
       <!-- 내용 -->
-      <div class="col-md-8 content">
+      <div class="col-md-12 content">
         <div class="main-div">  
         
-		  <div  id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-		  <div class="carousel-inner">
-		    <div style="width: 100%; height: 260px;" class="carousel-item active" data-bs-interval="4000">
-		      <img src="${contextPath}/resources/images/s1.jpg" class="d-block w-100" alt="...">
-		    </div>
-		    <div style="width: 100%; height: 260px;"class="carousel-item" data-bs-interval="4000">
-		      <img src="${contextPath}/resources/images/iphone.png" class="d-block w-100" alt="...">
-		    </div>
-		    <div style="width: 100%; height: 260px;"class="carousel-item" data-bs-interval="4000">
-		      <img src="${contextPath}/resources/images/apple.jpg" class="d-block w-100" alt="...">
-		    </div>
-		  </div>
-		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		    <span class="visually-hidden">Previous</span>
-		  </button>
-		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		    <span class="visually-hidden">Next</span>
-		  </button>
-		</div>
+        <div  id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div style="width: 100%; height: 260px;" class="carousel-item active" data-bs-interval="4000">
+            <img src="${contextPath}/resources/images/s1.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div style="width: 100%; height: 260px;"class="carousel-item" data-bs-interval="4000">
+            <img src="${contextPath}/resources/images/iphone.png" class="d-block w-100" alt="...">
+          </div>
+          <div style="width: 100%; height: 260px;"class="carousel-item" data-bs-interval="4000">
+            <img src="${contextPath}/resources/images/apple.jpg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
           <br><br>
             <div class="row row-cols-auto" >
               
@@ -138,7 +138,7 @@
                   </tbody>
                 </table>
               </div>
-		</div>
+      </div>
         </div>
       </div>
     </div>

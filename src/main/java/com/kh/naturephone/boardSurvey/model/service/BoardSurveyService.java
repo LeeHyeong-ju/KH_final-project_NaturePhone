@@ -36,6 +36,13 @@ public interface BoardSurveyService {
 	List<Reply_TB> insertReply(Reply_TB r);
 	// 10. 리스트 키워드 검색
 	List<Survey_TB> searchList(Search search);
+	// 11. 디테일 받아오기
+	List<S_Detail_TB> selectBoardDetail(int s_no);
+
+
+
+
+
 	
 	
 

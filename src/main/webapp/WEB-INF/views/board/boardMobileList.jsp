@@ -150,11 +150,11 @@
                           
                              </tbody>          
                       </table>
- 				<c:if test="${ loginUser.id eq 'admin' }">
+ 				<%-- <c:if test="${ loginUser.id eq 'admin' }"> --%>
 				<div class="btnArea" style="float:right;">
 					<button class="btn" style="background-color: #C8C8C8;" onclick="location.href='${ contextPath }/boardMobile/write'">글쓰기</button>			
 				</div>
-			</c:if>
+		<%-- 	</c:if> --%>
   <!--  페이징바 구간 -->
 						 <table id="listTable">
 						  <tr>
@@ -224,5 +224,6 @@
 
                 </div>
             </div>
+   <jsp:include page="../common/footer.jsp"/>           
 </body>
 </html>

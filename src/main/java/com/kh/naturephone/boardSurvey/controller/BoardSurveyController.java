@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.common.Reply_TB;
 import com.kh.naturephone.common.Search;
 import com.kh.naturephone.member.model.vo.Member;
+import com.kh.naturephone.message.model.vo.Message;
 
 @Controller
 @RequestMapping("/boardSurvey")
@@ -79,30 +81,32 @@ public class BoardSurveyController {
 	public String boardInsert(Survey_TB board,
 							  S_Detail_TB sDetail,
 							@RequestParam("surveytext1") String surveytext1,
-							@RequestParam("surveytext2") String surveytext2,
-							@RequestParam("surveytext3") String surveytext3,
+							@RequestParam("surveytext2") String surveytext2,					
 							Model model, 
 							HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		board.setUserNo(loginUser.getUserNo());
-		sDetail.setDe_choice(surveytext1 + "," + surveytext2 + "," + surveytext3);
-		board.setProno(1); 
-		board.setScategory("설문");
-
-				int result = bService.insertBoard(board);
+					
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			board.setUserNo(loginUser.getUserNo());
+			board.setScategory("설문");
+			board.setProno(1); 
+			
+			int result = bService.insertBoard(board);
+			
+			  sDetail.setDe_choice(surveytext1);
+			  int result1 = bService.insertBoardDetail(sDetail);
+			
+			  sDetail.setDe_choice(surveytext2);
+			  int result2 = bService.insertBoardDetail(sDetail);
 				
-				int result1 = bService.insertBoardDetail(sDetail);
-				if(result > 0) {	
-					if(result1 > 0) {
+
+				if((result&result1&result2) > 0) {	
+
 					return "redirect:/boardSurvey/list";
-				} else {
-					throw new BoardSurveyException("게시글 등록에 실패했습니다.");	
-				}										
+										
 				} else {
 					throw new BoardSurveyException("게시글 등록에 실패했습니다.");	
 				}	
 	}
-			
 	// 게시글 상세 페이지
 		@GetMapping("/detail")
 		public String boardDetail(int s_no,
@@ -142,18 +146,24 @@ public class BoardSurveyController {
 			} catch (UnsupportedEncodingException e) {						
 				e.printStackTrace();
 			}
-			
-			// flagbno가 true면 읽은 게시글, false면 읽지 않은 게시글
-			// !flagbno를 전달하여 true면 조회수 증가 필요, false면 조회수 증가 불필요
+
 			Survey_TB board = bService.selectBoard(s_no, !flagbno);
-			//System.out.println("board : " + board);
+
+			List<S_Detail_TB> sDetail= bService.selectBoardDetail(s_no);
+			sDetail.get(0);
+			sDetail.get(1);
+			
+			System.out.println("1" + sDetail.get(0));
+			System.out.println("2" + sDetail.get(1));
+		
 			
 			List<Reply_TB> rlist = bService.selectReplyList(s_no);
-			//System.out.println("rlist : " + rlist);
+			System.out.println("rlist : " + rlist);
 			if(board != null) {
 				model.addAttribute("board", board);
-
 				model.addAttribute("rlist", rlist);
+				model.addAttribute("sDetail0", sDetail.get(0));
+				model.addAttribute("sDetail1", sDetail.get(1));
 				return "board/boardSurveyDetail";
 			} else {
 				model.addAttribute("msg", "게시글 상세보기 실패했습니다.");

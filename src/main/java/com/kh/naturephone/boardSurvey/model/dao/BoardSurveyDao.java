@@ -32,5 +32,11 @@ public interface BoardSurveyDao {
 
 	List<Survey_TB> searchList(Search search);
 
+	void insertBoardDetail(String surveytext1);
+
+	List<S_Detail_TB> selectBoardDetail(int s_no);
+
+	
+
 
 }
