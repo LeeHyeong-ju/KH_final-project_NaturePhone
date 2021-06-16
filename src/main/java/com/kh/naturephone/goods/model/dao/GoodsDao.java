@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.naturephone.attachment.model.vo.Attachment;
 import com.kh.naturephone.common.PageInfo;
+import com.kh.naturephone.goods.model.vo.Deal;
 import com.kh.naturephone.goods.model.vo.Goods;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.support.model.vo.Phone;
@@ -30,6 +31,8 @@ public interface GoodsDao {
 	Goods selectDetailGoods(int goodsNo);
 
 	Member selectMember(int userNo);
+
+	int insertDeal(Deal d);
 
 	
 	

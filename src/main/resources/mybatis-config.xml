@@ -26,6 +26,7 @@
       <typeAlias type="com.kh.naturephone.goods.model.vo.Goods" alias="Goods"/>
       <typeAlias type="com.kh.naturephone.attachment.model.vo.Attachment" alias="Attachment"/>
       <typeAlias type="com.kh.naturephone.goods.model.vo.GoodsInfo" alias="GoodsInfo"/>
+      <typeAlias type="com.kh.naturephone.goods.model.vo.Deal" alias="Deal"/>
                                             
       <typeAlias type="com.kh.naturephone.member.model.vo.Member" alias="Member"/>
       <typeAlias type="com.kh.naturephone.member.model.vo.MyBoard" alias="MyBoard"/>

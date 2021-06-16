@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,6 +33,7 @@ import com.kh.naturephone.attachment.model.vo.Attachment;
 import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.goods.model.service.GoodsService;
+import com.kh.naturephone.goods.model.vo.Deal;
 import com.kh.naturephone.goods.model.vo.Goods;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.support.model.vo.Phone;
@@ -39,6 +41,7 @@ import com.kh.naturephone.support.model.vo.Phone;
 
 @Controller
 @RequestMapping("/goods")
+@SessionAttributes({"msg"})
 public class GoodsController {
 	@Autowired
 	private GoodsService gService;
@@ -227,6 +230,26 @@ public class GoodsController {
 		model.addAttribute("g", g);
 		
 		return "goods/goodsPay";
+	}
+	
+	@PostMapping("/dealInsert")
+	public String dealInsert(Deal d,
+							 Model model) {
+		
+		System.out.println(d);
+		
+		int result = gService.insertDeal(d);
+		
+		
+		
+		if(result > 0) {
+			model.addAttribute("msg", "구매 신청 완료. 금액을 입금해주세요");
+			return "redirect:/goods/detail?goodsNo=" + d.getGoodsNo();
+		} else {
+			model.addAttribute("msg", "구매신청 실패");		
+			return "common/errorPage";
+		}
+		
 	}
 	
 	

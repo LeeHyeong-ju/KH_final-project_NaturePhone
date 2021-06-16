@@ -278,6 +278,37 @@
  	    WHERE
  	    		USER_NO = #{ userNo }
  	</select>
+ 	
+ 	<insert id="insertDeal" parameterType="Deal">
+ 		INSERT INTO DEAL_TB
+ 		(
+ 			DEAL_NO
+ 		  , BUYER_NO
+ 		  , ADDRESS
+ 		  , PHONE
+ 		  , REQUEST
+ 		  , FINISH_DATE
+ 		  , B_BANK
+ 		  , B_ACCOUNT
+ 		  , PROGRESS
+ 		  , GOODS_NO
+ 		  , STATUS		
+ 		)
+ 		VALUES
+ 		(
+ 			DEAL_SEQ.NEXTVAL
+ 		  , #{ buyerNo }
+ 		  , #{ address }
+ 		  , #{ phone }
+ 		  , #{ request }
+          , SYSDATE
+          , #{ bbank }	
+          , #{ baccount }
+          , '구매신청'
+          , #{ goodsNo }
+          , 'Y'
+ 		)
+ 	</insert>
 
 
 </mapper>

@@ -18,6 +18,8 @@
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script>
+
 <jsp:include page="../common/menubar.jsp"/>
 <style>
         /* 사이드 바*/
@@ -140,6 +142,7 @@
                         </table>
                     </div>
                     <br><br>
+                    
                     <form method="post" action="${ contextPath }/goods/dealInsert">
                     <div class="buyerInfo">
                         <table class="table">
@@ -151,11 +154,11 @@
                             <tbody>
                               <tr>
                                 <th scope="row" class="phoneTh">핸드폰 번호</th>
-                                <td><input type="text" name="phone"> &nbsp; - 없이</td>
+                                <td><input type="text" name="phone" value="${ loginUser.phone }"> &nbsp; - 없이</td>
                               </tr>
                               <tr>
                                 <th scope="row">이메일 주소</th>
-                                <td><input type="text"></td>
+                                <td><input type="text" name="email" value="${ loginUser.email }"></td>
                               </tr>
                             </tbody>
                           </table>
@@ -173,19 +176,19 @@
                             <tbody>
                               <tr>
                                 <th scope="row" class="phoneTh">수령자명</th>
-                                <td>${ loginUser.name }</td>
+                                <td>${ loginUser.name }<input type="hidden" name="buyerNo" value="${ loginUser.userNo }"></td>
                               </tr>
                               <tr>
                                 <th scope="row">휴대폰 번호</th>
-                                <td>${ loginUser.phone }</td>
+                                <td>${ loginUser.phone }<input type="hidden" value="${ loginUser.phone }"></td>
                               </tr>
                               <tr>
                                 <th scope="row">배송지 정보</th>
-                                <td>${ loginUser.address }</td>
+                                <td>${ loginUser.address }<input type="hidden" name="address" value="${ loginUser.address }"></td>
                               </tr>
                               <tr>
                                 <th scope="row">배송 요청사항</th>
-                                <td><textarea class="request"></textarea></td>
+                                <td><textarea class="request" name="request"></textarea></td>
                               </tr>
                             </tbody>
                           </table>
@@ -199,21 +202,25 @@
                             <tbody>
                               <tr>
                                 <th scope="row" class="phoneTh">환불계좌</th>
-                                <td>은행명 : <input type="text"></td><td>계좌번호: <input type="text"></td>
+                                <td>은행명 : <input type="text" name="bbank"></td><td>계좌번호: <input type="text" name="baccount"></td>
                               </tr>
                             </tbody>
                           </table>
                     </div>
                     <div class="totalPrice">
+                    	<span>결제 계좌 : KH은행 123-456789-012</span>
                         <span>결재금액 : </span>
-                        <span class="totalPriceSpan">${ g.price + g.deliveryFee }</span>
+                        <span class="totalPriceSpan">${ g.price + g.deliveryFee }
+                        	<input type="hidden" name="totalPrice" value="${ g.price + g.deliveryFee }">
+                        	<input type="hidden" name="goodsNo" value="${ g.goodsNo }">
+                        </span>
                         <span class="totalPriceSpan">원</span>
                     </div>
                     <br>
                     <br>
                     
                     <div>
-                        <button type="submit" class="btn btn-success doPay">결제하기</button>
+                        <button type="submit" class="btn btn-success doPay">구매 신청</button>
                     </div>
 					</form>
                 </div>
