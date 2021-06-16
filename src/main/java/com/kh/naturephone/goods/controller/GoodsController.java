@@ -33,6 +33,7 @@ import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.goods.model.service.GoodsService;
 import com.kh.naturephone.goods.model.vo.Goods;
+import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.support.model.vo.Phone;
 
 
@@ -177,6 +178,8 @@ public class GoodsController {
 		List<Attachment> attList = gService.selectAttList();
 		
 		
+		// System.out.println(list.get(0));
+		
 		if(list.get(0) != null) {
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
@@ -188,6 +191,42 @@ public class GoodsController {
 			mv.setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	@GetMapping("/detail")
+	public String goodsDetail(int goodsNo,
+							  Model model) {
+		
+		Goods g = gService.selectDetailGoods(goodsNo);
+		
+		int proNo = g.getProNo();
+		int userNo = g.getUserNo();
+		
+		Phone p = gService.selectPhoneNameList(proNo);
+		
+		// 물품 등록자 아이디 조회
+		Member m = gService.selectMember(userNo);
+		
+		// 물품, 제품, 판매자 정보 
+		model.addAttribute("g", g);
+		model.addAttribute("p", p);
+		model.addAttribute("m", m);
+		
+		return "goods/goodsDetail";
+	}
+	
+	@GetMapping("/order")
+	public String goodsOrder(int goodsNo,
+							  Model model) {
+		
+		Goods g = gService.selectDetailGoods(goodsNo);
+		int proNo = g.getProNo();
+		Phone p = gService.selectPhoneNameList(proNo);
+		
+		model.addAttribute("p", p);
+		model.addAttribute("g", g);
+		
+		return "goods/goodsPay";
 	}
 	
 	

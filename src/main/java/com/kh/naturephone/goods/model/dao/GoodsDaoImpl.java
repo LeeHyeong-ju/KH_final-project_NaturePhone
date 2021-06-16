@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.naturephone.attachment.model.vo.Attachment;
 import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.goods.model.vo.Goods;
+import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.support.model.vo.Phone;
 
 @Repository
@@ -88,6 +89,18 @@ public class GoodsDaoImpl implements GoodsDao{
 
 		
 		return phoneName;
+	}
+
+	@Override
+	public Goods selectDetailGoods(int goodsNo) {
+		return sqlSession.selectOne("goodsMapper.selectDetailGoods", goodsNo);
+	}
+
+	
+	@Override
+	public Member selectMember(int userNo) {
+		
+		return sqlSession.selectOne("goodsMapper.selectMember", userNo);
 	}
 
 
