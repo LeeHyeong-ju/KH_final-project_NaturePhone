@@ -131,9 +131,9 @@
 
 								<tbody>
 
-									<c:forEach items="${ list }" var="n" varStatus="status">
+									<c:forEach items="${ list }" var="n">
 										<tr style="cursor: pointer;" onclick="goBoard(${ n.boardNo }, '${ n.category }');" >
-											<th scope="row">${ status.count }</th>
+											<th scope="row">${ n.rownum }</th>
 											<td>${ n.category }</td>
 											<td>${ n.btitle }</td>
 											<td>${ n.createDate }</td>
