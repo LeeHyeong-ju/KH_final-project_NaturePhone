@@ -17,6 +17,12 @@ public class ItdProdDaoImpl implements ItdProdDao{
 	@Override
 	public List<ItdProduct> selectItdProdList(int userNo) {
 		return sqlSession.selectList("itdProductMapper.selectItdProdList", userNo);
+	}
+
+	// 관심상품 내역 삭제
+	@Override
+	public int deleteInterest(int itdNo) {
+		return sqlSession.update("itdProductMapper.deleteInterest", itdNo);
 	}	
 
 }

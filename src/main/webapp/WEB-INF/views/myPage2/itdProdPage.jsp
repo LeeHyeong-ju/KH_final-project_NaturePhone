@@ -120,13 +120,13 @@
 				<div class="main-div">				
 					<!-- 작성 부분 -->		
 					<div class="outer" id="infoOuter">
-						<form action="">
+						<form action="" method="get" id="itdInputForm">
 						<div id="headerArea">
 							<b>관심상품</b>
 							<hr>
 							<div id="searchArea">
 								<h6>모델명</h6>
-								<input type="text" class="form-control form-control-sm" placeholder="모델명을 입력해 주세요" id="searchInput">
+								<input type="text" class="form-control form-control-sm" placeholder="제품명을 입력해 주세요" id="searchInput" name="">
 								<button type="button" class="btn btn-secondary btn-sm" id="insertBtn" onclick="">등록</button>
 							</div>
 						</div>
@@ -142,6 +142,12 @@
 									<th class="table-secondary"></th>
 								</tr>
 								
+								<c:if test="${ itdProdList.isEmpty() }">
+								<tr>
+									<td colspan="6">지금 관심상품을 등록해 보세요 :)</td>
+								</tr>
+								</c:if>
+								
 								<c:forEach items="${ itdProdList }" var="ip">
 								<tr>
 									<td>${ ip.maker }</td>
@@ -151,11 +157,10 @@
 									<td>${ ip.enrollDate }</td>
 									<td>
 										<button class="btn btn-secondary btn-sm" onclick="">물품확인</button> &nbsp;&nbsp;
-										<button class="btn btn-light btn-sm" onclick="">삭제</button>
+										<button class="btn btn-light btn-sm" onclick="deleteItd(${ip.itdNo})">삭제</button>
 									</td>									
 								</tr>	
-								</c:forEach>
-							
+								</c:forEach>						
 							</table>
 						</div>
 					</div>					
@@ -166,7 +171,16 @@
 	</div>
 	
 	<!-- footer -->
-	<jsp:include page="../common/footer.jsp"/>	
+	<jsp:include page="../common/footer.jsp"/>
+	
+	<script>
+		function deleteItd(itdNo){
+			var yn = confirm("정말 삭제하시겠습니까?");
+			if(yn == true){
+				location.href = '${contextPath}/itd/delete?itdNo=' + itdNo;
+			}
+		}
+	</script>	
 
 <!-- 부트스트랩 5.0 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
