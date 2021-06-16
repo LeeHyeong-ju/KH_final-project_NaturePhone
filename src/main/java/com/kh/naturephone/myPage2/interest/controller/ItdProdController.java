@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.naturephone.member.model.vo.Member;
+import com.kh.naturephone.myPage2.interest.model.exception.ItdProdException;
 import com.kh.naturephone.myPage2.interest.model.service.ItdProdService;
 import com.kh.naturephone.myPage2.interest.model.vo.ItdProduct;
 
@@ -37,10 +38,20 @@ public class ItdProdController {
 		}		
 	}
 	
+	// 관심상품 내역 삭제
+	@GetMapping("/delete")
+	public String interestDelete(int itdNo) {
+		int result = ipService.deleteInterest(itdNo);
+		
+		if(result > 0) {
+			return "redirect:/itd/list";
+		} else {
+			throw new ItdProdException("관심상품 삭제에 실패하였습니다.");
+		}
+	}
 	
 	// 관심상품 검색
-	// 관심상품 등록
-	// 관심상품 삭제
+	// 관심상품 등록	
 	// 물품페이지 연결
 	
 	
