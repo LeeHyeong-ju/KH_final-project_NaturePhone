@@ -21,7 +21,7 @@ public class BoardMobileDaoImpl implements BoardMobileDao{
 
 	   @Override
 	   public int selectListCount() {
-
+		   
 		   return sqlSession.selectOne("boardMobileMapper.selectListCount");
 	   }
 
