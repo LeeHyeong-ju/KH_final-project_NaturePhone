@@ -148,6 +148,7 @@ scope="application"/>
 					<div class="logo form-control">
 						<a href="${ contextPath }"><img src="${ contextPath }/resources/images/logo.png" style="width: 230px;"></a>
 					</div>
+					
 					<ul class="topBotomBordersOut navbar-nav mx-auto text-center">
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/goods/list">Market</a></li>						
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/boardMobile/list">Community</a></li>
