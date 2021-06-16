@@ -168,7 +168,7 @@
 					<ul>
 						<li class="list-group-item sideTitle">주문내역</li>
 						<li><a href="${ contextPath }/sellInfo/list" class="list-group-item list-group-item-action sideContent">나의 판매내역</a></li>
-						<li><a href="#" class="list-group-item list-group-item-action sideContent">나의 구매내역</a></li>
+						<li><a href="${ contextPath }/buyInfo/list" class="list-group-item list-group-item-action sideContent">나의 구매내역</a></li>
 						<li><a href="${ contextPath }/itd/list" class="list-group-item list-group-item-action sideContent">관심상품</a></li>
 					</ul>
 				</div>
@@ -205,8 +205,8 @@
 						
 						<c:if test="${ sellInfo.progress == '반품요청' }">
 						<div id="returnBtnArea">
-							<button type="button" class="btn btn-secondary btn-sm">반품승인</button> &nbsp;&nbsp;
-							<button type="button" class="btn btn-secondary btn-sm">반품거부</button>
+							<button type="button" class="btn btn-secondary btn-sm" onclick="returnApproval(${sellInfo.dealNo});">반품승인</button> &nbsp;&nbsp;
+							<button type="button" class="btn btn-secondary btn-sm" onclick="returnRefusal(${sellInfo.dealNo})">반품거부</button>
 						</div>	
 						</c:if>						
 						<br><br><br>																		
@@ -523,7 +523,25 @@
 	</div>
 	
 	<!-- footer -->
-	<jsp:include page="../common/footer.jsp"/>	
+	<jsp:include page="../common/footer.jsp"/>
+	
+	<script>
+		function returnApproval(dealNo){
+			var yn = confirm("반품 승인 시 자동으로 환불이 진행됩니다.\n승인하시겠습니까?");
+			if(yn == true){
+				location.href = '${contextPath}/sellInfo/refundUpdate?dealNo=' + dealNo + '&goodsNo=${sellInfo.goodsNo}';
+			}
+		}
+	</script>
+	
+	<script>
+		function returnRefusal(dealNo){
+			var yn = confirm("반품 거부를 진행하시겠습니까?");
+			if(yn == true){
+				location.href = '${contextPath}/sellInfo/holdUpdate?dealNo=' + dealNo + '&goodsNo=${sellInfo.goodsNo}';
+			}
+		}
+	</script>	
 
 <!-- 부트스트랩 5.0 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
