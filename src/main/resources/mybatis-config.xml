@@ -65,6 +65,7 @@
                   
       <mapper resource="mappers/support-mapper.xml"/>
       <mapper resource="mappers/notice-mapper.xml"/>
+      <mapper resource="mappers/admin-mapper.xml"/>
                   
       <mapper resource="mappers/goods-mapper.xml"/>
    </mappers>   

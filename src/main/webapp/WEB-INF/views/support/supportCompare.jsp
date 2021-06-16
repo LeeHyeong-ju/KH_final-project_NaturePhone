@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -146,8 +147,36 @@
 		color:white;
 	}
 	.compare-info-view > p {
+		font-size:20px;
+		font-weight:bold;
+		margin-top:10px;
+		margin-bottom:5px;
+		color:gray;
+	}
+	.compare-info-view {
+		width:800px;
+	}
+	.compare-info-view > table {
+		width:100%;
+		border-style:double;
+	}
+	.compare-info-view th {
 		font-size:14px;
 		font-weight:bold;
+		color:black;
+		width:14%;
+		border:1px solid lightgray;
+		padding-left : 5px;
+	}
+	.compare-info-view td {
+		width: calc(86% / ${fn:length(clist)});
+		height:40px;
+		border:1px solid lightgray;
+		padding-left : 10px;
+	}
+	.compare-info-view hr {
+		border:1.5px solid #434C53;
+		margin-top:5px; 
 	}
 </style>
 </head>
@@ -179,8 +208,9 @@
 	          </tr>
 	        </table>
 	        
-	        <div class="compare-info-view">
+	        <div class="compare-info-view" style="display:${display};">
 				<p>스펙</p>
+				<hr>
 				<table>
 					<tr>
 					<th>이미지</th>
@@ -226,6 +256,7 @@
 					</tr>
 				</table>
 				<p>외형</p>
+				<hr>
 				<table>
 					<tr>
 					<th>주요재질</th>
@@ -261,75 +292,324 @@
 					</tr>
 				</table>
 				<p>디스플레이</p>
+				<hr>
 				<table>
 					<tr>
 					<th>액정크기(인치)</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
-							<td>${ a }</td>
+						<c:forTokens items="${ c.display }" delims="_" var="d" begin="0" end="0">
+							<td>${ d }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
 					<tr>
 					<th>화면 해상도</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
-							<td>${ a }</td>
+						<c:forTokens items="${ c.display }" delims="_" var="d" begin="1" end="1">
+							<td>${ d }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
 					<tr>
 					<th>Pixel/Inch</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
-							<td>${ a }</td>
+						<c:forTokens items="${ c.display }" delims="_" var="d" begin="2" end="2">
+							<td>${ d }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
 					<tr>
 					<th>화면 타입</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
-							<td>${ a }</td>
+						<c:forTokens items="${ c.display }" delims="_" var="d" begin="3" end="3">
+							<td>${ d }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
 					<tr>
 					<th>화면 폭</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
-							<td>${ a }</td>
+						<c:forTokens items="${ c.display }" delims="_" var="d" begin="4" end="4">
+							<td>${ d }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
 					<tr>
 					<th>화면 높이</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
-							<td>${ a }</td>
+						<c:forTokens items="${ c.display }" delims="_" var="d" begin="5" end="5">
+							<td>${ d }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
 				</table>
 				<p>성능</p>
+				<hr>
 				<table>
-					
+					<tr>
+					<th>AP</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.spec }" delims="_" var="s" begin="0" end="0">
+							<td>${ s }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>CPU</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.spec }" delims="_" var="s" begin="1" end="1">
+							<td>${ s }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>CPU 코어</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.spec }" delims="_" var="s" begin="2" end="2">
+							<td>${ s }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>CPU 클럭</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.spec }" delims="_" var="s" begin="3" end="3">
+							<td>${ s }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>GPU</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.spec }" delims="_" var="s" begin="4" end="4">
+							<td>${ s }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>메모리(RAM)</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.spec }" delims="_" var="s" begin="5" end="5">
+							<td>${ s }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>내장메모리</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.spec }" delims="_" var="s" begin="6" end="6">
+							<td>${ s }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>외장메모리</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.spec }" delims="_" var="s" begin="7" end="7">
+							<td>${ s }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
 				</table>
 				<p>카메라</p>
+				<hr>
 				<table>
-					
+					<tr>
+					<th>카메라 센서</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.camera }" delims="_" var="cm" begin="0" end="0">
+							<td>${ cm }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>카메라 조리개</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.camera }" delims="_" var="cm" begin="1" end="1">
+							<td>${ cm }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>Flash</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.camera }" delims="_" var="cm" begin="2" end="2">
+							<td>${ cm }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>사진촬영 해상도</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.camera }" delims="_" var="cm" begin="3" end="3">
+							<td>${ cm }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>동영상녹화 해상도</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.camera }" delims="_" var="cm" begin="4" end="4">
+							<td>${ cm }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>동영상녹화 프레임</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.camera }" delims="_" var="cm" begin="5" end="5">
+							<td>${ cm }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>전면 해상도</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.camera }" delims="_" var="cm" begin="6" end="6">
+							<td>${ cm }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>전면 동영상 해상도</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.camera }" delims="_" var="cm" begin="7" end="7">
+							<td>${ cm }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>전면 비디오 프레임</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.camera }" delims="_" var="cm" begin="8" end="8">
+							<td>${ cm }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
 				</table>
 				<p>배터리</p>
+				<hr>
 				<table>
-					
+					<tr>
+					<th>카메라 특징</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.battery }" delims="_" var="b" begin="0" end="0">
+							<td>${ b }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>배터리(mAH)</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.battery }" delims="_" var="b" begin="1" end="1">
+							<td>${ b }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>배터리타입</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.battery }" delims="_" var="b" begin="2" end="2">
+							<td>${ b }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>배터리 특징</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.battery }" delims="_" var="b" begin="3" end="3">
+							<td>${ b }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>무선 충전</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.battery }" delims="_" var="b" begin="4" end="4">
+							<td>${ b }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
 				</table>
 				<p>통신</p>
+				<hr>
 				<table>
-					
+					<tr>
+					<th>대기 시간</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.com }" delims="_" var="co" begin="0" end="0">
+							<td>${ co }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>통신규격</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.com }" delims="_" var="co" begin="1" end="1">
+							<td>${ co }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>WiFi</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.com }" delims="_" var="co" begin="2" end="2">
+							<td>${ co }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>블루투스 버전</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.com }" delims="_" var="co" begin="3" end="3">
+							<td>${ co }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
 				</table>
 				<p>특징</p>
+				<hr>
 				<table>
-					
+					<tr>
+					<th>USB 버전</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.point }" delims="_" var="p" begin="0" end="0">
+							<td>${ p }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>생체인식</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.point }" delims="_" var="p" begin="1" end="1">
+							<td>${ p }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>모바일결제</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.point }" delims="_" var="p" begin="2" end="2">
+							<td>${ p }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>인증</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.point }" delims="_" var="p" begin="3" end="3">
+							<td>${ p }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>기타</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.point }" delims="_" var="p" begin="4" end="4">
+							<td>${ p }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
 				</table>
 	  		</div>
 	      </div>
@@ -509,7 +789,7 @@
 			
 			$(document).on("click", "#submit", function(e){
 				var proNums = [];
-				var obj = $(e.target).parent().siblings();
+				var obj = $(e.currentTarget).parent().siblings();
 				
 				for(var i = 0; i < 4; i++){
 					var value = obj.eq(i).children('input').val();
@@ -522,20 +802,6 @@
 			});
 		});
 	</script>
+	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
