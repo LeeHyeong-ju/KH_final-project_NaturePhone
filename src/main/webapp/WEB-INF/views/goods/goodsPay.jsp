@@ -151,7 +151,7 @@
                             <tbody>
                               <tr>
                                 <th scope="row" class="phoneTh">핸드폰 번호</th>
-                                <td><input type="text" name=""> &nbsp; - 없이</td>
+                                <td><input type="text" name="phone"> &nbsp; - 없이</td>
                               </tr>
                               <tr>
                                 <th scope="row">이메일 주소</th>
