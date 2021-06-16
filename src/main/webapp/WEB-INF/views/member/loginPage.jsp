@@ -39,8 +39,8 @@
   text-decoration:none;
 }
 .login-form  .btn.btn-primary {
-  background: #f0ad4e none repeat scroll 0 0;
-  border-color: #f0ad4e;
+  background: #198754 none repeat scroll 0 0;
+  border-color: #198754;
   color: #ffffff;
   font-size: 14px;
   width: 100%;
@@ -92,7 +92,7 @@
             <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요." required>
           </div>
                 
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" class="btn btn-primary">로그인 하기</button>
           </form>
                 
           <div class="forgot">

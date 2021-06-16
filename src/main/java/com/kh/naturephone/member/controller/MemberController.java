@@ -176,7 +176,7 @@ public class MemberController {
 		int result = mService.insertMember(m);
 
 		if (result > 0) {
-			rd.addFlashAttribute("msg", "회원 가입이 성공적으로 이루어졌습니다. 이메일 인증을 진행하신 후 로그인해주세요!");
+			rd.addFlashAttribute("msg", "회원 가입이 성공적으로 이루어졌습니다. 로그인 해주세요!");
 			return "redirect:/";
 		} else {
 			model.addAttribute("msg", "회원 가입에 실패하였습니다.");
@@ -306,7 +306,7 @@ public class MemberController {
 				if(result > 0) {
 					
 					// 회원가입 메일 내용
-					subject = "Nature Phone "+ searchId +"님 새로운 비밀번호를 발급해드립니다.";
+					subject = "Nature Phone 새로운 비밀번호를 발급해드립니다.";
 					msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 					msg += "<div style='font-size: 130%'>";
 					msg += "새로운 비밀번호 <strong>";

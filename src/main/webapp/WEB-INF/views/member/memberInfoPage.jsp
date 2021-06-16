@@ -142,7 +142,7 @@ span {
 							<tr>
 								<th scope="row"><label for="userPwd" class="req">비밀번호</label></th>
 								<td>
-									<button type="button" class="btn btn-primary" id="pwdChangeBtn">비밀번호 변경</button>
+									<button type="button" class="btn btn-success" id="pwdChangeBtn">비밀번호 변경</button>
 								</td>
 							<tr>
 							
@@ -218,7 +218,7 @@ span {
 										<input type="text" name="postcode" id="postcode" value="${ addr1 }"
 											class="reg_input form-control" placeholder="우편번호" required readonly>&nbsp
 										<div>
-											<input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+											<input type="button" class="btn btn-success" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 										</div>
 									</div> 
 									<input type="text" name="address1" id="address1" class="reg_input form-control" value="${ addr2 }" placeholder="주소" readonly required> 
@@ -246,11 +246,11 @@ span {
 						</table>
 						<br>
 						<div class="row" style="margin: auto;">
-							<button class="btn btn-primary col" type="button" id="quitOpenBtn" onclick="quitOpenOpen();">회원 탈퇴</button>
+							<button class="btn btn-secondary col" type="button" id="quitOpenBtn" onclick="quitOpenOpen();">회원 탈퇴</button>
 							
 							<span class="col-2"></span>
 							
-							<button class="btn btn-primary col" type="submit" id="btn_submit">회원 정보 수정</button>
+							<button class="btn btn-success col" type="submit" id="btn_submit">회원 정보 수정</button>
 						</div>
 
 					</form>

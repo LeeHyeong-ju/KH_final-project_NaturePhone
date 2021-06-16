@@ -158,7 +158,7 @@
                         <button class="btn btn-primary col-5 mx-auto" type="button" style="font-size: 13px;" onclick="window.history.back()">이전으로</button>
                     <c:if test="${ detailMessage.type eq '받은 쪽지함' }">
                         <span class="col-2"></span>
-                        <button class="btn btn-primary col-5" id="sendBtn" data-bs-toggle="modal" type="button" style="font-size: 13px;" onclick="return userStatusCK()">답장하기</button>
+                        <button class="btn btn-primary col-5" data-bs-toggle="modal" type="button" style="font-size: 13px;" onclick="return userStatusCK()">답장하기</button>
                     </c:if>  
                     </div>
                     

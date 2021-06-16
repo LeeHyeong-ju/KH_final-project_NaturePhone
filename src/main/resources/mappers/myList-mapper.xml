@@ -5,6 +5,7 @@
 <mapper namespace="myListMapper">
 	<resultMap type="MyBoard" id="myListResultSet">
 		<id property="boardNo" column="B_NO"/>
+		<result property="rownum" column="ROWNUM"/>
 		<result property="userNo" column="USER_NO"/>
 		<result property="btitle" column="BTITLE"/>
 		<result property="category" column="CATEGORY"/>
@@ -14,7 +15,9 @@
 	
 	
 	<select id="selectMyBoardList" parameterType="_int" resultMap="myListResultSet">
-		SELECT
+		 SELECT ROWNUM, B.*
+        FROM
+        (SELECT
 				  B_NO
 				, BTITLE
 				, CATEGORY
@@ -24,17 +27,50 @@
 		WHERE
 				USER_NO = #{ userNo }
 		AND		B_STATUS = 'Y'
-		ORDER BY
-				B_NO DESC
+		
+        UNION
+        
+        SELECT 
+                  S_NO
+                , STITLE
+                , SCATEGORY
+                , S_CREATE_DATE
+        FROM
+                SURVEY_TB
+        WHERE
+				USER_NO = #{ userNo }
+		AND		S_STATUS = 'Y'
+        
+        ORDER BY B_CREATE_DATE DESC
+        ) B
 	</select>
 	<select id="selectListCount" parameterType="_int" resultType="_int">
-		SELECT
-				COUNT(*)
+		SELECT COUNT(*)
+        FROM
+        (SELECT
+				  B_NO
+				, BTITLE
+				, CATEGORY
+				, B_CREATE_DATE
 		FROM
-				BOARD_TB
+				  BOARD_TB
 		WHERE
 				USER_NO = #{ userNo }
 		AND		B_STATUS = 'Y'
+		
+        UNION
+        
+        SELECT 
+                  S_NO
+                , STITLE
+                , SCATEGORY
+                , S_CREATE_DATE
+        FROM
+                SURVEY_TB
+        WHERE
+				USER_NO = #{ userNo }
+		AND		S_STATUS = 'Y'
+        )
 		
 	</select>
 </mapper>
