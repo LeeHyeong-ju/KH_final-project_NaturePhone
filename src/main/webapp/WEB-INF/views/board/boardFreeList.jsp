@@ -195,7 +195,7 @@
 					</c:if>
 					</td>				
 			   </tr>	                        
-            </table>                         
+            </table>                          
             <div class="searchArea">
 				<form action="${ contextPath }/boardFree/search" method="get">
 					<select id="searchCondition" name="searchCondition">
