@@ -41,8 +41,10 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public List<Board_TB> searchList(Search search) {
-		return sqlSession.selectList("noticeMapper.searchList", search);
+	public List<Board_TB> searchList(Search search, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("noticeMapper.searchList", search, rowBounds);
 	}
 
 	@Override
@@ -79,5 +81,30 @@ public class NoticeDaoImpl implements NoticeDao {
 	public int insertNoticeAtt(B_Att_TB na, int bno) {
 		na.setBno(bno);
 		return sqlSession.insert("noticeMapper.insertNoticeAtt2", na);
+	}
+
+	@Override
+	public int deleteNotice(int bno) {
+		return sqlSession.update("noticeMapper.deleteNotice", bno);
+	}
+
+	@Override
+	public void deleteNoticeAtt(int bno) {
+		sqlSession.update("noticeMapper.deleteNoticeAtt", bno);
+	}
+
+	@Override
+	public void insertNoticeReply(Reply r) {
+		sqlSession.insert("noticeMapper.insertNoticeReply", r);
+	}
+
+	@Override
+	public int deleteReply(Reply r) {
+		return sqlSession.update("noticeMapper.deleteReply", r);
+	}
+
+	@Override
+	public int searchListCount(Search search) {
+		return sqlSession.selectOne("noticeMapper.searchNoticeListCount", search);
 	}
 }

@@ -70,6 +70,7 @@
 		   JOIN MEMBER_TB USING(USER_NO)
 		WHERE
 				B_STATUS= 'Y'
+		AND		CATEGORY = '공지'
 	 ORDER BY
 				B_NO DESC		  	
 	</select>
@@ -287,6 +288,88 @@
 			, #{bno}
 		)
 	</insert>
+	
+	<update id="deleteNotice" parameterType="_int">
+		UPDATE
+			   BOARD_TB
+		   SET
+			   B_STATUS = 'N'	   
+		 WHERE
+			   B_NO = #{bno}
+	</update>
+
+	<update id="deleteNoticeAtt" parameterType="_int">
+		UPDATE
+			   B_Att_TB
+		   SET
+			   BF_STATUS = 'N'	   
+		 WHERE
+			   B_NO = #{bno}
+	</update>
+	
+	<insert id="insertNoticeReply" parameterType="Reply">
+		INSERT INTO
+		REPLY_TB
+		(
+				RE_NO
+			  , USER_NO
+			  , RE_CONTENT
+			  , CREATE_DATE
+			  , MODIFY_DATE
+			  , RE_STATUS
+			  , B_NO
+			  , S_NO
+		)
+	   VALUES
+		(
+			   SEQ_RE_NO.NEXTVAL
+			 , #{userno}
+			 , #{recontent}
+			 , SYSDATE
+			 , SYSDATE
+			 , DEFAULT 
+			 , #{bno}
+			 , NULL	  	
+		)
+	</insert>
+	
+	<update id="deleteReply" parameterType="Reply">
+		UPDATE
+			   REPLY_TB
+		   SET
+			   RE_STATUS = 'N'	   
+		 WHERE
+			   B_NO = #{bno}
+		 AND   RE_NO = #{reno}
+	</update>
+	
+	<select id="searchNoticeListCount" parameterType="Search" resultType="_int">
+		<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>
+		SELECT
+				COUNT(*)
+		 FROM
+				BOARD_TB
+		   JOIN MEMBER_TB USING(USER_NO)
+		<where>
+			B_STATUS = 'Y'
+			<choose>
+				<when test="searchCondition == 'title'">
+				AND BTITLE LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+				AND USER_NAME LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'content'">
+				AND BCONTENT LIKE #{sv}
+				</when>
+				<otherwise>
+				AND (USER_NAME LIKE #{sv}
+					OR BTITLE LIKE #{sv}
+					OR BCONTENT LIKE #{sv})
+				</otherwise>
+			</choose>
+		</where>
+	</select>
 </mapper>
 
 

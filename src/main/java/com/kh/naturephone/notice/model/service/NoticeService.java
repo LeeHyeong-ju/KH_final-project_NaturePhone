@@ -18,7 +18,7 @@ public interface NoticeService {
 
 	int insertNoticeAtt(B_Att_TB att);
 
-	List<Board_TB> searchList(Search search);
+	List<Board_TB> searchList(Search search, PageInfo pi);
 	
 	Board_TB selectNotice(int bno, boolean flag);
 
@@ -31,5 +31,13 @@ public interface NoticeService {
 	int updateNoticeAtt(B_Att_TB na);
 
 	int insertNoticeAtt(B_Att_TB na, int bno);
+
+	int deleteNotice(int bno);
+
+	List<Reply> insertNoticeReply(Reply r);
+
+	int deleteReply(Reply r);
+
+	int searchListCount(Search search);
 	
 }

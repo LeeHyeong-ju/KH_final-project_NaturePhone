@@ -1,11 +1,14 @@
 package com.kh.naturephone.support.controller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +50,21 @@ public class SupportController {
 						.create();
 		
 		return gson.toJson(plist);
+	}
+	
+	@GetMapping("/compareInfo")
+	public String supportCompareInfo(int[] proNums, Model model) {
+		List<Integer> pnos = Arrays.stream(proNums).boxed().collect(Collectors.toList());
+		
+		List<Phone> clist = sService.selectCompareInfo(pnos);
+		
+		if(clist != null) {
+			model.addAttribute("clist", clist);
+			return "support/supportCompare";
+		} else {
+			model.addAttribute("msg", "게시글 상세보기에 실패하였습니다.");
+			return "common/errorPage";
+		}
 	}
 
 }

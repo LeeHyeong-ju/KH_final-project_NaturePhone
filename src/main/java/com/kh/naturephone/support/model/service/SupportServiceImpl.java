@@ -17,5 +17,10 @@ public class SupportServiceImpl implements SupportService {
 	public List<Phone> selectPhoneList(Phone p) {
 		return sDao.selectPhoneList(p);
 	}
+
+	@Override
+	public List<Phone> selectCompareInfo(List<Integer> pnos) {
+		return sDao.selectCompareInfo(pnos);
+	}
 	
 }

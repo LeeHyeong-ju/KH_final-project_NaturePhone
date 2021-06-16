@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,13 +60,18 @@
 	  text-align : center;
 	  background : white;
 	  color : gray;
-	  border : 1.5px solid gray;
+	  border : none;
 	  border-radius : 15px;
 	}
 	
-	.submit {
-	  width : 100px;
-	  height : 100px;
+	.phone-select-button > img {
+		width : 100%;
+		height : auto;
+	}
+	
+	#submit {
+	  width : 88px;
+	  height : 88px;
 	  text-align : center;
 	  background : white;
 	  border-radius : 15px;
@@ -127,6 +133,22 @@
 	.phone-info:hover {
 		cursor : pointer;
 	}
+	.clearBtn {
+		width:35%; 
+		height:15%; 
+		font-size:10px; 
+		font-weight:bold;
+		display:block; 
+		margin:auto;
+		border:0.5px solid lightgray;
+		border-radius:5px;
+		background:#56CE7C;
+		color:white;
+	}
+	.compare-info-view > p {
+		font-size:14px;
+		font-weight:bold;
+	}
 </style>
 </head>
 <body>
@@ -146,16 +168,170 @@
 	    <!-- 내용 -->
 	    <div class="col-md-8 content">
 	      <div class="main-div">
-	        <h4>기종 선택</h4>
+	        <h5>기종 선택</h5>
 	        <table id="phone-select-table">
 	          <tr>
-	              <th><button class="phone-select-button">+<br>기종 선택</button></th>
-	              <th><button class="phone-select-button">+<br>기종 선택</button></th>
-	              <th><button class="phone-select-button">+<br>기종 선택</button></th>
-	              <th><button class="phone-select-button">+<br>기종 선택</button></th>
-	              <th><button class="submit">비교 결과<br>출력</button></th>
+	              <th><button class="phone-select-button"><img src="${ contextPath }/resources/images/compareBtn.png"></button></th>
+	              <th><button class="phone-select-button"><img src="${ contextPath }/resources/images/compareBtn.png"></button></th>
+	              <th><button class="phone-select-button"><img src="${ contextPath }/resources/images/compareBtn.png"></button></th>
+	              <th><button class="phone-select-button"><img src="${ contextPath }/resources/images/compareBtn.png"></button></th>
+	              <th><button id="submit">비교 결과<br>출력</button></th>
 	          </tr>
 	        </table>
+	        
+	        <div class="compare-info-view">
+				<p>스펙</p>
+				<table>
+					<tr>
+					<th>이미지</th>
+					<c:forEach items="${ clist }" var="c">
+						<td><img src="${contextPath}${ c.filePath }/${ c.fileRename }"></td>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>제품명</th>
+					<c:forEach items="${ clist }" var="c">
+						<td><p>${ c.proname }</p></td>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>모델명</th>
+					<c:forEach items="${ clist }" var="c">
+						<td><p>${ c.modelname }</p></td>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>제조사</th>
+					<c:forEach items="${ clist }" var="c">
+						<td><p>${ c.maker }</p></td>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>출시일</th>
+					<c:forEach items="${ clist }" var="c">
+						<td>${ c.releaseDate }</td>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>출고가</th>
+					<c:forEach items="${ clist }" var="c">
+						<td>${ c.releasePrice }</td>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>출시 OS</th>
+					<c:forEach items="${ clist }" var="c">
+						<td>${ c.os }</td>
+					</c:forEach>
+					</tr>
+				</table>
+				<p>외형</p>
+				<table>
+					<tr>
+					<th>주요재질</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" begin="0" end="0">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>크기(WxHxD,mm)</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" begin="1" end="1">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>무게</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" begin="2" end="2">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>연결단자</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+				</table>
+				<p>디스플레이</p>
+				<table>
+					<tr>
+					<th>액정크기(인치)</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>화면 해상도</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>Pixel/Inch</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>화면 타입</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>화면 폭</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>화면 높이</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+				</table>
+				<p>성능</p>
+				<table>
+					
+				</table>
+				<p>카메라</p>
+				<table>
+					
+				</table>
+				<p>배터리</p>
+				<table>
+					
+				</table>
+				<p>통신</p>
+				<table>
+					
+				</table>
+				<p>특징</p>
+				<table>
+					
+				</table>
+	  		</div>
 	      </div>
 	    </div>
 	  </div>
@@ -242,6 +418,13 @@
 					"position": "absolute"
 				}).show();
 			});
+			
+			$(document).mouseup(function(e){
+				  var popupLayer = $(".popupLayer");
+				  if(popupLayer.has(e.target).length === 0){
+					  popupLayer.hide();
+				  }
+			});
 	
 			$("input[name=radio-type]").click(function(){
 				$("input[name=radio-type]").removeAttr("checked");
@@ -288,8 +471,9 @@
 												   .text(data[i].carrname);
 								maker = $("<p class='maker'>").attr("style", "display:inline; font-size:14px;")
 												.text(" / " + data[i].maker);
+								prono = $("<input type='hidden' name='prono' class='prono'>").val(data[i].prono);
 								
-								indiv.append(proname, modelname, carrname, maker);
+								indiv.append(proname, modelname, carrname, maker, prono);
 								div.append(img, indiv);
 								body.append(div);
 							}
@@ -302,11 +486,39 @@
 			});
 			
 			$(document).on("click", '.phone-info', function(){
-				var thumbnail = $(this).children(".thumbnail").attr("src");
-				img = $("<img>").attr("src", thumbnail);
-				alert(img);
+				$(eobj).nextAll().remove();
 				
+				var thumbnail = $(this).children(".thumbnail").attr("src");
+				$(eobj).children('img').attr("src", thumbnail).css({"width" : "80%", "height" : "80%"});
+				
+				clearBtn = $("<button class='clearBtn'>취소</button>");
+				
+				prono = $(this).children(".phone-info-in").children(".prono").val();
+				selectValue = $("<input type='hidden' name='prono' class='prono'>").val(prono);
+				
+				$(eobj).parent().append(clearBtn, selectValue);
 				$(this).parent().parent().parent().parent().hide();
+			});
+			
+			$(document).on("click", ".clearBtn", function(e){
+				var obj = $(e.currentTarget).parent().children().eq(0);
+				$(obj).nextAll().remove();
+				var img = "${ contextPath }/resources/images/compareBtn.png";
+				$(obj).children('img').attr("src", img).css({"width" : "100%", "height" : "auto"});
+			});
+			
+			$(document).on("click", "#submit", function(e){
+				var proNums = [];
+				var obj = $(e.target).parent().siblings();
+				
+				for(var i = 0; i < 4; i++){
+					var value = obj.eq(i).children('input').val();
+					if(value != undefined){
+						proNums.push(value);
+					}
+				}
+				
+				location.href="${contextPath}/support/compareInfo?proNums=" + proNums;
 			});
 		});
 	</script>

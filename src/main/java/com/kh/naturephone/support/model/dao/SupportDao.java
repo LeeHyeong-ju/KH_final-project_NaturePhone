@@ -8,4 +8,6 @@ public interface SupportDao {
 
 	List<Phone> selectPhoneList(Phone p);
 
+	List<Phone> selectCompareInfo(List<Integer> pnos);
+
 }

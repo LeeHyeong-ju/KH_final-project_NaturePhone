@@ -38,8 +38,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<Board_TB> searchList(Search search) {
-		return nDao.searchList(search);
+	public List<Board_TB> searchList(Search search, PageInfo pi) {
+		return nDao.searchList(search, pi);
 	}
 
 	@Override
@@ -72,5 +72,29 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int insertNoticeAtt(B_Att_TB na, int bno) {
 		return nDao.insertNoticeAtt(na, bno);
+	}
+
+	@Override
+	public int deleteNotice(int bno) {
+		nDao.deleteNoticeAtt(bno);
+		
+		return nDao.deleteNotice(bno);
+	}
+
+	@Override
+	public List<Reply> insertNoticeReply(Reply r) {
+		nDao.insertNoticeReply(r);
+		
+		return nDao.selectReplyList(r.getBno());
+	}
+
+	@Override
+	public int deleteReply(Reply r) {
+		return nDao.deleteReply(r);
+	}
+
+	@Override
+	public int searchListCount(Search search) {
+		return nDao.searchListCount(search);
 	}
 }
