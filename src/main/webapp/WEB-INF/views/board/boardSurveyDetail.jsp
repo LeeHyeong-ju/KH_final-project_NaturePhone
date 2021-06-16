@@ -137,7 +137,7 @@
                      <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;">
                     <div class="row">
                         <div class="col-2">
-                       1. 삼성
+                     ${ sDetail0.de_choice }
                         </div>
                         <div class="col-6">
                             <div class="progress" style="width: 100%; float: left;">
@@ -155,7 +155,7 @@
                 <div class="container" style="border-top: 1px solid #C8C8C8; padding-top: 20px; padding-bottom: 20px;">
                     <div class="row">
                         <div class="col-2">
-                       2. 갤럭시
+                      ${ sDetail1.de_choice }
                         </div>
                         <div class="col-6">
                             <div class="progress" style="width: 100%; float: left;">
@@ -209,7 +209,7 @@
                     </c:if>
                      <span class="topContent" style="float:right;"><button style="background-color: #C8C8C8;"class="btn" onclick="location.href='${ contextPath }/boardSurvey/list?page=${ param.page }'">목록으로</button></span>
                     <br>                  
-<!-- 댓글-->	
+<!-- 댓글-->	  
 		<div class="content">
 			<div class="outer">
 			
@@ -291,6 +291,6 @@
 			});			
 		});	
 	</script>
-
+  <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

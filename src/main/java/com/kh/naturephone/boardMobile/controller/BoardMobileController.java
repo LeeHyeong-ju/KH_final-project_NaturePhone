@@ -49,21 +49,21 @@ import com.kh.naturephone.member.model.vo.Member;
 public class BoardMobileController {
 	
 	@Autowired
-	private BoardMobileService bService;
+	private BoardMobileService mService;
 		
 	@GetMapping("/list")
 	public ModelAndView boardList(ModelAndView mv,
 				@RequestParam(value="page", required=false, defaultValue="1") int currentPage
 				) {
 
-			int listCount = bService.selectListCount();
-			
+			int listCount = mService.selectListCount();
+			System.out.println("listcount : " + listCount);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-			List<Board_TB> list = bService.selectList(pi);			
+			List<Board_TB> list = mService.selectList(pi);			
 						
 			//System.out.println(pi);
-			//System.out.println("list : " + list);
+			System.out.println("list : " + list);
 			
 			if(list != null) {
 				mv.addObject("list", list);
@@ -91,10 +91,10 @@ public class BoardMobileController {
 							  HttpServletRequest request,
 							  HttpSession session) {
 			Member loginUser = (Member)session.getAttribute("loginUser");
-				board.setCategory("모바일");
+				board.setCategory("뉴스");
 				board.setUserNo(loginUser.getUserNo());
 //				System.out.println(board);
-				int result = bService.insertBoard(board);
+				int result = mService.insertBoard(board);
 				
 				if(result > 0) {	
 					
@@ -108,7 +108,7 @@ public class BoardMobileController {
 							att.setBfrenameName(bfrenameName);
 							att.setBffilePath("/bfuploadFiles/"+file.getOriginalFilename());
 //							System.out.println(att);
-							int result1 = bService.insertBoardAtt(att);
+							int result1 = mService.insertBoardAtt(att);
 //							System.out.println("result1 : " + result1);
 							if(result1 > 0) {
 								return "redirect:/boardMobile/list";
@@ -191,10 +191,10 @@ public class BoardMobileController {
 			
 			// flagbno가 true면 읽은 게시글, false면 읽지 않은 게시글
 			// !flagbno를 전달하여 true면 조회수 증가 필요, false면 조회수 증가 불필요
-			Board_TB board = bService.selectBoard(bno, !flagbno);
+			Board_TB board = mService.selectBoard(bno, !flagbno);
 			//System.out.println("board : " + board);
 			
-			List<Reply_TB> rlist = bService.selectReplyList(bno);
+			List<Reply_TB> rlist = mService.selectReplyList(bno);
 			//System.out.println("rlist : " + rlist);
 			if(board != null) {
 				model.addAttribute("board", board);
@@ -210,7 +210,7 @@ public class BoardMobileController {
 		// 게시글 수정 페이지로 이동
 		@GetMapping("/updatePage")
 		public String updatePageView(int bno, Model model) {
-			Board_TB board = bService.selectBoard(bno, false);
+			Board_TB board = mService.selectBoard(bno, false);
 			System.out.println(board);
 			model.addAttribute("board", board);
 			return "board/boardMobileUpdate";
@@ -222,7 +222,7 @@ public class BoardMobileController {
 								  @RequestParam(value="uploadFile") MultipartFile file,
 								  HttpServletRequest request) {
 			
-			int result = bService.updateBoard(board);
+			int result = mService.updateBoard(board);
 			
 			if(result > 0) {
 										
@@ -241,7 +241,7 @@ public class BoardMobileController {
 					att.setBffilePath("/bfuploadFiles/"+file.getOriginalFilename());
 					att.setBno(board.getBno());
 					System.out.println(att);
-					int result1 = bService.updateBoardAtt(att);
+					int result1 = mService.updateBoardAtt(att);
 					System.out.println("result1 : " + result1);					
 					if(result1 > 0) {
 						return "redirect:/boardMobile/list";
@@ -268,12 +268,12 @@ public class BoardMobileController {
 		@RequestMapping("/delete")
 		public String boardDelete(int bno, HttpServletRequest request) {
 			
-			B_Att_TB att =  bService.selectBoardAtt(bno);
+			B_Att_TB att =  mService.selectBoardAtt(bno);
 			System.out.println("att : " + att);
 			if(att.getBfrenameName() != null) {
 				deleteFile(att.getBfrenameName(), request);				
 			}				
-			int result = bService.deleteBoard(bno);
+			int result = mService.deleteBoard(bno);
 					
 			if(result > 0) {		
 				return "redirect:/boardMobile/list";
@@ -291,7 +291,7 @@ public class BoardMobileController {
 			int userno = loginUser.getUserNo();
 			r.setUser_no(userno);
 			//System.out.println( "userno : " + userno);
-			List<Reply_TB> rlist = bService.insertReply(r);
+			List<Reply_TB> rlist = mService.insertReply(r);
 				
 			System.out.println("list : " + rlist);	 
 			// 날짜 포맷하기 위해 GsonBuilder를 이용해서 Gson 객체 생성
@@ -307,7 +307,7 @@ public class BoardMobileController {
 		public String noticeSearch(@ModelAttribute Search search,
 								   Model model) {
 			
-			List<Board_TB> searchList = bService.searchList(search);
+			List<Board_TB> searchList = mService.searchList(search);
 			System.out.println(searchList);
 			model.addAttribute("list", searchList);
 					

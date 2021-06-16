@@ -149,13 +149,9 @@ scope="application"/>
 						<a href="${ contextPath }"><img src="${ contextPath }/resources/images/logo.png" style="width: 230px;"></a>
 					</div>
 					<ul class="topBotomBordersOut navbar-nav mx-auto text-center">
-<<<<<<< HEAD
-						<li class="nav-item"><a class="nav-link" href="${ contextPath }/goods/list">Market</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Community</a></li>
-=======
-						<li class="nav-item"><a class="nav-link" href="#">Market</a></li>
+
+						<li class="nav-item"><a class="nav-link" href="${ contextPath }/goods/list">Market</a></li>						
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/boardMobile/list">Community</a></li>
->>>>>>> 83f3a9d917f085741e14b226a48246ca63580251
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/support/compare">Support</a></li>
 						<li class="nav-item"><a class="nav-link" href="${ contextPath }/notice/list">Service</a></li>
 					</ul>

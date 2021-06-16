@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.message.model.dao.MessageDao;
 import com.kh.naturephone.message.model.vo.Message;
 import com.kh.naturephone.message.model.vo.MessageSearch;

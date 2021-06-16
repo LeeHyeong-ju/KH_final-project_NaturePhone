@@ -81,4 +81,12 @@ public class BoardSurveyServiceImpl implements BoardSurveyService{
 		return bDao.searchList(search);
 	}
 
+	@Override
+	public List<S_Detail_TB> selectBoardDetail(int s_no) {
+	
+		return bDao.selectBoardDetail(s_no);
+	}
+
+
+
 }
