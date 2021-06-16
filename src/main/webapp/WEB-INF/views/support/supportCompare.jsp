@@ -262,7 +262,54 @@
 				</table>
 				<p>디스플레이</p>
 				<table>
-					
+					<tr>
+					<th>액정크기(인치)</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>화면 해상도</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>Pixel/Inch</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>화면 타입</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>화면 폭</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>화면 높이</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.display }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
 				</table>
 				<p>성능</p>
 				<table>
