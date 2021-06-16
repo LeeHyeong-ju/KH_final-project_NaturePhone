@@ -38,6 +38,10 @@ public interface BoardFreeDao {
 
 	List<Board_TB> searchList(Search search);
 
+	int recommend(int bno);
+
+	int deleteReply(Reply_TB r);
+
 	
 
 }

@@ -39,8 +39,15 @@ public interface BoardFreeService {
 	
 	// 9. 댓글 입력
 	List<Reply_TB> insertReply(Reply_TB r);
+	
 	// 10. 리스트 키워드 검색
 	List<Board_TB> searchList(Search search);
+	
+	// 11. 공감
+	int recommend(int bno);
+	
+	// 12. 댓글 삭제
+	int deleteReply(Reply_TB r);
 	
 	
 
