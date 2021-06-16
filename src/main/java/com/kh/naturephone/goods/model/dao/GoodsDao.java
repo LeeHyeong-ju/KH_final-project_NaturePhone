@@ -7,6 +7,7 @@ import com.kh.naturephone.attachment.model.vo.Attachment;
 import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.goods.model.vo.Goods;
 import com.kh.naturephone.goods.model.vo.GoodsInfo;
+import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.support.model.vo.Phone;
 
 public interface GoodsDao {
@@ -26,6 +27,10 @@ public interface GoodsDao {
 	List<Attachment> selectAttList();
 
 	Phone selectPhoneNameList(int proNo);
+
+	Goods selectDetailGoods(int goodsNo);
+
+	Member selectMember(int userNo);
 
 	
 	
