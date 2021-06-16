@@ -139,6 +139,14 @@
     
 </head>
 <body>
+	
+	<c:if test="${ !empty msg }">
+		<script>alert('${msg}');</script>
+		<c:remove var="msg"/>
+	</c:if>
+		
+		
+		
 	 <div class="container">
     <div class="row">
         <div class="col-md-2 rightSpace">
@@ -233,6 +241,9 @@
     	function orderPage(goodsNo){
     		location.href = '${contextPath}/goods/order?goodsNo=' + goodsNo;   		
     	}
+    	
+    	
+    	
     </script>
     
     
