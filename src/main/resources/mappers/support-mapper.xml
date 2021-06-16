@@ -58,6 +58,30 @@
 		 	</if>
 		 </where>
 	</select>
+	
+	<select id="selectCompareInfo" parameterType="_int" resultMap="compareResultSet">
+		SELECT
+			  PRO_NO
+			, PRO_NAME
+			, MODEL_NAME
+			, MAKER
+			, RELEASE_DATE
+			, RELEASE_PRICE
+			, OS
+			, APPEARANCE
+			, DISPLAY
+			, SPEC
+			, CAMERA
+			, BATTERY
+			, COM
+			, POINT
+			, FILE_ORIGIN
+			, FILE_RENAME
+			, FILE_PATH
+		  FROM
+			  PRODUCT_TB
+         WHERE PRO_NO = #{pno}
+	</select>
 </mapper>
 
 

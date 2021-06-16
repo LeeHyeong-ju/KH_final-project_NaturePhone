@@ -8,4 +8,6 @@ public interface SupportService {
 
 	List<Phone> selectPhoneList(Phone p);
 
+	List<Phone> selectCompareInfo(List<Integer> pnos);
+
 }

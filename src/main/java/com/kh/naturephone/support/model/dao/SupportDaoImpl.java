@@ -1,5 +1,6 @@
 package com.kh.naturephone.support.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,6 +17,18 @@ public class SupportDaoImpl implements SupportDao {
 	@Override
 	public List<Phone> selectPhoneList(Phone p) {
 		return sqlSession.selectList("supportMapper.selectPhoneList", p);
+	}
+
+	@Override
+	public List<Phone> selectCompareInfo(List<Integer> pnos) {
+		List<Phone> infoes = new ArrayList<>();
+		
+		for(Integer pno : pnos) {
+			Phone p = sqlSession.selectOne("supportMapper.selectCompareInfo", pno);
+			infoes.add(p);
+		}
+		
+		return infoes;
 	}
 	
 }
