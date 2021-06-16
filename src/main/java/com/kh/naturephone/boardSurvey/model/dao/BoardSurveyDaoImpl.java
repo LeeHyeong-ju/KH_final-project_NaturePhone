@@ -34,13 +34,13 @@ public class BoardSurveyDaoImpl implements BoardSurveyDao{
 
 	@Override
 	public int insertBoard(Survey_TB board) {
-		System.out.println("dao :" + board);
+
 		return sqlSession.insert("boardSurveyMapper.insertBoard", board);
 	}
 
 	@Override
 	public int insertBoardDetail(S_Detail_TB sDetail) {
-		System.out.println("dao :" + sDetail);
+
 		return sqlSession.insert("boardSurveyMapper.insertBoardDetail", sDetail);
 	}
 	
@@ -90,9 +90,28 @@ public class BoardSurveyDaoImpl implements BoardSurveyDao{
 
 	}
 
+	@Override
+	public void insertBoardDetail(String surveytext1) {
+		
+		sqlSession.insert("boardSurveyMapper.insertBoardDetail", surveytext1);
+		
+	}
+
+	@Override
+	public List<S_Detail_TB> selectBoardDetail(int s_no) {
+	
+		
+		return sqlSession.selectList("boardSurveyMapper.selectBoardDetail", s_no);
+	}
+
+
+
+
+	}
+
 	
 	
 	
-}
+
 
 
