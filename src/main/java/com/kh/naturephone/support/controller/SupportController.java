@@ -28,7 +28,9 @@ public class SupportController {
 	private static final Logger logger = LoggerFactory.getLogger(SupportController.class);
 	
 	@GetMapping("/compare")
-	public String supportCompareView() {
+	public String supportCompareView(Model model) {
+		String display = "none";
+		model.addAttribute("display", display);
 		return "support/supportCompare";
 	}
 	
@@ -57,9 +59,11 @@ public class SupportController {
 		List<Integer> pnos = Arrays.stream(proNums).boxed().collect(Collectors.toList());
 		
 		List<Phone> clist = sService.selectCompareInfo(pnos);
+		String display = "block";
 		
 		if(clist != null) {
 			model.addAttribute("clist", clist);
+			model.addAttribute("display", display);
 			return "support/supportCompare";
 		} else {
 			model.addAttribute("msg", "게시글 상세보기에 실패하였습니다.");
