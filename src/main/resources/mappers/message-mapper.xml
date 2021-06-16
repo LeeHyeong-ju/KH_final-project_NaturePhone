@@ -146,12 +146,12 @@
 			AND     MSG_CONTENT LIKE #{sv}
 			</when>
 			<when test="searchCondition == 'name'">
-			AND     USER_NAME LIKE #{sv}
+			AND     USER_ID LIKE #{sv}
 			</when>
 			<otherwise>
 			AND (MSG_TITLE LIKE #{sv}
 				 OR  MSG_CONTENT LIKE #{sv}
-				 OR  USER_NAME LIKE #{sv})
+				 OR  USER_ID LIKE #{sv})
 			</otherwise>
 		</choose>
     	</when>
@@ -170,12 +170,12 @@
 			AND     MSG_CONTENT LIKE #{sv}
 			</when>
 			<when test="searchCondition == 'name'">
-			AND     USER_NAME LIKE #{sv}
+			AND     USER_ID LIKE #{sv}
 			</when>
 			<otherwise>
 			AND (MSG_TITLE LIKE #{sv}
 				 OR  MSG_CONTENT LIKE #{sv}
-				 OR  USER_NAME LIKE #{sv})
+				 OR  USER_ID LIKE #{sv})
 			</otherwise>
 		</choose>
 		</when>
@@ -239,7 +239,7 @@
 			AND     MSG_CONTENT LIKE #{sv}
 			</when>
 			<when test="searchCondition == 'name'">
-			AND     USER_NAME LIKE #{sv}
+			AND     USER_ID LIKE #{sv}
 			</when>
 			<otherwise>
 			AND (MSG_TITLE LIKE #{sv}
