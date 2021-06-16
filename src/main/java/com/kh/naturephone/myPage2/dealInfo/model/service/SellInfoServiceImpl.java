@@ -141,6 +141,18 @@ public class SellInfoServiceImpl implements SellInfoService{
 	@Override
 	public int deleteSellInfo(int dealNo) {
 		return siDao.deleteSellInfo(dealNo);
+	}
+
+	// 거래진행상태 '환불예정'으로 변경
+	@Override
+	public int updateProcessRefund(int dealNo) {
+		return siDao.updateProcessRefund(dealNo);
+	}
+
+	// 거래진행상태 '반품보류'로 변경
+	@Override
+	public int updateProcessHold(int dealNo) {
+		return siDao.updateProcessHold(dealNo);
 	}	
 
 }

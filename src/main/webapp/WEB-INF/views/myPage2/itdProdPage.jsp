@@ -109,7 +109,7 @@
 					<ul>
 						<li class="list-group-item sideTitle">주문내역</li>
 						<li><a href="${ contextPath }/sellInfo/list" class="list-group-item list-group-item-action sideContent">나의 판매내역</a></li>
-						<li><a href="#" class="list-group-item list-group-item-action sideContent">나의 구매내역</a></li>
+						<li><a href="${ contextPath }/buyInfo/list" class="list-group-item list-group-item-action sideContent">나의 구매내역</a></li>
 						<li><a href="${ contextPath }/itd/list" class="list-group-item list-group-item-action sideContent">관심상품</a></li>
 					</ul>
 				</div>

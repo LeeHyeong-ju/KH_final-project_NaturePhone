@@ -74,6 +74,12 @@ public interface SellInfoService {
 	int updateCalculateInfo(CalculateInfo c);
 
 	// 판매내역 삭제
-	int deleteSellInfo(int dealNo);		
+	int deleteSellInfo(int dealNo);
+
+	// 거래진행상태 '환불예정'으로 변경
+	int updateProcessRefund(int dealNo);
+
+	// 거래진행상태 '반품보류'로 변경
+	int updateProcessHold(int dealNo);		
 	
 }
