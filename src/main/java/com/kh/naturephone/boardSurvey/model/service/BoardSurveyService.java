@@ -38,6 +38,10 @@ public interface BoardSurveyService {
 	List<Survey_TB> searchList(Search search);
 	// 11. 디테일 받아오기
 	List<S_Detail_TB> selectBoardDetail(int s_no);
+	// 12. 투표하기 +1하기
+	int surveyVote(int de_s_no);
+	// 13. 투표한 리스트 가져오기
+	List<S_Detail_TB> selectDetail(int de_s_no);
 
 
 

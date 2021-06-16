@@ -104,6 +104,18 @@ public class BoardSurveyDaoImpl implements BoardSurveyDao{
 		return sqlSession.selectList("boardSurveyMapper.selectBoardDetail", s_no);
 	}
 
+	@Override
+	public int surveyVote(int de_s_no) {
+		
+		return sqlSession.update("boardSurveyMapper.surveyVote", de_s_no);
+	}
+
+	@Override
+	public List<S_Detail_TB> selectDetail(int de_s_no) {
+		
+		return sqlSession.selectList("boardSurveyMapper.selectDetail", de_s_no);
+	}
+
 
 
 

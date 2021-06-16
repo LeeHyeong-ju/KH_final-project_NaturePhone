@@ -219,10 +219,29 @@
 				DE_S_NO DESC	
 	</select>
 
+<update id="surveyVote" parameterType="_int">
+		UPDATE
+				S_Detail_TB
+		   SET
+		   		DE_PERSON = DE_PERSON + 1
+		 WHERE
+		   		DE_S_NO = #{de_s_no}			
+	
+	</update>
 
-
-
-
+<select id="selectDetail" parameterType="_int" resultMap="detailResultSet">
+		SELECT
+				DE_S_NO
+			  , S_NO
+			  , DE_CHOICE
+			  , DE_PERSON	
+		 FROM
+		 		S_Detail_TB	 		
+		 WHERE
+		   	    DE_S_NO = #{de_s_no}			  	
+	  ORDER BY
+				DE_S_NO DESC	
+	</select>
 
 
 
