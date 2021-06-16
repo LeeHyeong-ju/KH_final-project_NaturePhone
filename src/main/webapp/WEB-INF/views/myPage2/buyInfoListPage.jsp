@@ -27,7 +27,7 @@
 		});
 	});
 </script>
-<title>나의 판매내역</title>
+<title>나의 구매내역</title>
 <style>
 	/* 사이드바 css */
 	#Container {
@@ -198,28 +198,28 @@
 							<table id="processCategoryTable">
 								<tr>
 									<td>
-										<div><img src="${contextPath}/resources/images/icon/book.png" onclick="location.href='${contextPath}/sellInfo/list'"></div>
-										<div onclick="location.href='${contextPath}/sellInfo/list'">${ allCnt }<br>전체</div>
+										<div><img src="${contextPath}/resources/images/icon/book.png" onclick="location.href='${contextPath}/buyInfo/list'"></div>
+										<div onclick="location.href='${contextPath}/buyInfo/list'">0<br>전체</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/package.png" onclick="sortList('배송준비(결제완료)');"></div>
-										<div onclick="sortList('배송준비(결제완료)');">${cntList.get(5).progressCnt}<br>배송준비</div>
+										<div onclick="sortList('배송준비(결제완료)');">0<br>배송준비</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/airplane.png" onclick="sortList('배송');"></div>
-										<div onclick="sortList('배송');">${cntList.get(4).progressCnt}<br>배송중</div>
+										<div onclick="sortList('배송');">0<br>배송중</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/calculator.png" onclick="sortList('구매결정완료');"></div>
-										<div onclick="sortList('구매결정완료');">${cntList.get(1).progressCnt}<br>구매결정완료</div>
+										<div onclick="sortList('구매결정완료');">0<br>구매결정완료</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/return.png" onclick="sortList('반품요청');"></div>
-										<div onclick="sortList('반품요청');">${cntList.get(3).progressCnt}<br>반품요청</div>
+										<div onclick="sortList('반품요청');">0<br>반품요청</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/checked.png" onclick="sortList('거래완료');"></div>
-										<div onclick="sortList('거래완료');">${cntList.get(0).progressCnt}<br>거래완료</div>
+										<div onclick="sortList('거래완료');">0<br>거래완료</div>
 									</td>
 								</tr>	
 							</table>
@@ -254,7 +254,7 @@
 								<button type="button" class="btn btn-outline-secondary btn-sm" id="datePickerBtn">검색</button>
 								</form>
 							</div>
-							<form action="${ contextPath }/sellInfo/searchList" method="get" id="searchForm">													
+							<form action="${ contextPath }/buyInfo/searchList" method="get" id="searchForm">													
 							<div id="searchArea" class="input-group mb-3">			
 								<input type="text" class="form-control form-control-sm" placeholder="제목으로 검색" id="searchInput" name="keyword" required>
 								<button type="submit" class="btn btn-outline-secondary btn-sm">검색</button>							
@@ -267,44 +267,44 @@
 						<div id="listArea">
 							<table id="listTable" class="table">
 								<tr>
-									<th colspan="2" class="table-secondary">나의 판매내역</th>
+									<th colspan="2" class="table-secondary">나의 구매내역</th>
 									<th class="table-secondary">진행상태</th>
 								</tr>
 								
-								<c:if test="${ sellInfoList.isEmpty() }">
+								<c:if test="${ buyInfoList.isEmpty() }">
 								<tr>
 									<td colspan="3">지금 거래를 시작해 보세요 :)</td>
 								</tr>									
 								</c:if>
-								<c:forEach items="${ sellInfoList }" var="si">								
+								<c:forEach items="${ buyInfoList }" var="bi">								
 								<tr>
 									<td>
 										<div>
-											물품번호<br>${ si.goodsNo }<br><br>
-											<b><fmt:formatNumber value="${ si.price }" groupingUsed="true"/>원</b>																						
+											물품번호<br>${ bi.goodsNo }<br><br>
+											<b><fmt:formatNumber value="${ bi.price }" groupingUsed="true"/>원</b>																						
 										</div>                       
 									</td>
 									<td>
 										<c:forEach items="${ attList }" var="att">
-										<c:if test="${ si.goodsNo == att.goodsNo }">
-											<img src="${ contextPath }/resources/guploadFiles/${ att.changeName }" onclick="toGoodsDetail(${si.goodsNo});">
+										<c:if test="${ bi.goodsNo == att.goodsNo }">
+											<img src="${ contextPath }/resources/guploadFiles/${ att.changeName }" onclick="toGoodsDetail(${bi.goodsNo});">
 										</c:if>
 										</c:forEach>										
 										<div id="infoTd2">
-											<b id="goodsTitle" onclick="toGoodsDetail(${si.goodsNo});">${ si.gtitle }</b><br><br>
-											${ si.modelName }<br>
-											${ si.createDate }
+											<b id="goodsTitle" onclick="toGoodsDetail(${bi.goodsNo});">${ bi.gtitle }</b><br><br>
+											${ bi.modelName }<br>
+											${ bi.createDate }
 										</div>                       
 									</td>
 									<td>
 										<div id="infoTd3">
-											${ si.progress }
+											${ bi.progress }
 										</div>
 										<div>
-											<c:if test="${ si.progress == '거래완료' }">
-											<button type="button" class="btn btn-secondary btn-sm" onclick="deleteSellInfo(${si.dealNo});">내역삭제</button>
+											<c:if test="${ bi.progress == '거래완료' }">
+											<button type="button" class="btn btn-secondary btn-sm" onclick="deleteBuyInfo(${bi.dealNo});">내역삭제</button>
 											</c:if>
-											<button type="button" class="btn btn-secondary btn-sm" onclick="selectSellInfo(${si.goodsNo});">상세보기</button>											
+											<button type="button" class="btn btn-secondary btn-sm" onclick="selectBuyInfo(${bi.goodsNo});">상세보기</button>											
 										</div>                                             
 									</td>
 								</tr>
@@ -330,8 +330,8 @@
 	
 	
 	<script>
-		function selectSellInfo(goodsNo){
-			location.href = '${contextPath}/sellInfo/detail?goodsNo=' + goodsNo;
+		function selectBuyInfo(goodsNo){
+			location.href = '${contextPath}/buyInfo/detail?goodsNo=' + goodsNo;
 		}
 	</script>
 	
@@ -354,7 +354,7 @@
 	<script>
 		$(function(){
 			$("select[name='category']").change(function(){
-				$("#categoryForm").attr("action", "${ contextPath }/sellInfo/sortList");
+				$("#categoryForm").attr("action", "${ contextPath }/buyInfo/sortList");
 				$("#categoryForm").submit();
 			});
 		});
@@ -362,13 +362,13 @@
 	
 	<script>
 		function sortList(processCategory){
-			location.href = '${contextPath}/sellInfo/sortList?category=' + processCategory;
+			location.href = '${contextPath}/buyInfo/sortList?category=' + processCategory;
 		}
 	</script>
 	
 	<script>
 		function monthsBtnList(monthBtnNo){
-			location.href = '${contextPath}/sellInfo/months?m=' + monthBtnNo;
+			location.href = '${contextPath}/buyInfo/months?m=' + monthBtnNo;
 		}
 	</script>
 	
@@ -378,7 +378,7 @@
 				if($('#date1').datepicker("getDate") == null || $('#date2').datepicker("getDate") == null){
 					alert("날짜를 선택해 주세요.");
 				} else{
-					$("#datePickerForm").attr("action", "${ contextPath }/sellInfo/calendar");
+					$("#datePickerForm").attr("action", "${ contextPath }/buyInfo/calendar");
 					$("#datePickerForm").submit();
 				}
 			});
@@ -402,10 +402,10 @@
 	</script>
 	
 	<script>
-		function deleteSellInfo(dealNo){
+		function deleteBuyInfo(dealNo){
 			var yn = confirm("삭제 이후 복구가 불가능합니다.\n정말 삭제하시겠습니까?");
 			if(yn == true){
-				location.href = '${contextPath}/sellInfo/delete?dealNo=' + dealNo;
+				location.href = '${contextPath}/buyInfo/delete?dealNo=' + dealNo;
 			}			
 		}
 	</script>	

@@ -44,6 +44,7 @@
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.PeriodInfo" alias="PeriodInfo"/>
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CalendarInfo" alias="CalendarInfo"/>
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.SearchKeyword" alias="SearchKeyword"/>
+      <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.ReturnInfo" alias="ReturnInfo"/>
       <typeAlias type="com.kh.naturephone.myPage2.interest.model.vo.ItdProduct" alias="ItdProduct"/>
    </typeAliases>
    
@@ -53,6 +54,7 @@
       <mapper resource="mappers/boardSurvey-mapper.xml"/>
             
       <mapper resource="mappers/sellInfo-mapper.xml"/>
+      <mapper resource="mappers/buyInfo-mapper.xml"/>
       <mapper resource="mappers/itdProduct-mapper.xml"/>
 
       <mapper resource="mappers/member-mapper.xml"/>

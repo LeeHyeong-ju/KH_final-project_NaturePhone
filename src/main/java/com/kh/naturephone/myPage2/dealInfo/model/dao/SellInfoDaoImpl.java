@@ -141,6 +141,18 @@ public class SellInfoDaoImpl implements SellInfoDao{
 	@Override
 	public int deleteSellInfo(int dealNo) {
 		return sqlSession.update("sellInfoMapper.deleteSellInfo", dealNo);
+	}
+
+	// 거래진행상태 '환불예정'으로 변경
+	@Override
+	public int updateProcessRefund(int dealNo) {
+		return sqlSession.update("sellInfoMapper.updateProcessRefund", dealNo);
+	}
+
+	// 거래진행상태 '반품보류'로 변경
+	@Override
+	public int updateProcessHold(int dealNo) {
+		return sqlSession.update("sellInfoMapper.updateProcessHold", dealNo);
 	}			
 
 }
