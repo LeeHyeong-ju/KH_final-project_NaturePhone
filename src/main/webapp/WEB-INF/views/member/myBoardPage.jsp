@@ -76,7 +76,7 @@
 						<li><a href="${ contextPath }/member/myBoardList"
 							class="list-group-item list-group-item-action sideContent">나의
 								게시글</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/member/myReplyList"
 							class="list-group-item list-group-item-action sideContent">나의
 								댓글</a></li>
 					</ul>

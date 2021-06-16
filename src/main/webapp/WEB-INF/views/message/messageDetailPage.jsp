@@ -71,7 +71,7 @@
 								정보</a></li>
 						<li><a href="${ contextPath }/member/myBoardList" class="list-group-item list-group-item-action sideContent">나의
 								게시글</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/member/myReplyList"
 							class="list-group-item list-group-item-action sideContent">나의
 								댓글</a></li>
 					</ul>
@@ -86,10 +86,6 @@
 						<li><a href="${ contextPath }/message/selectList?type=보낸 쪽지함"
 							class="list-group-item list-group-item-action sideContent">보낸
 								쪽지함</a></li>
-						<li><a href="${ contextPath }/message/selectList?type=보관함"
-							class="list-group-item list-group-item-action sideContent">보관함</a></li>
-						<li><a href="${ contextPath }/message/selectList?type=휴지통"
-							class="list-group-item list-group-item-action sideContent">휴지통</a></li>
 					</ul>
 				</div>
 
@@ -155,10 +151,10 @@
                     </table>
                     
                     <div class="row" style="margin :auto;">
-                        <button class="btn btn-primary col-5 mx-auto" type="button" style="font-size: 13px;" onclick="window.history.back()">이전으로</button>
+                        <button class="btn btn-secondary col-5 mx-auto" type="button" style="font-size: 13px;" onclick="window.history.back()">이전으로</button>
                     <c:if test="${ detailMessage.type eq '받은 쪽지함' }">
                         <span class="col-2"></span>
-                        <button class="btn btn-primary col-5" data-bs-toggle="modal" type="button" style="font-size: 13px;" onclick="return userStatusCK()">답장하기</button>
+                        <button class="btn btn-success col-5" data-bs-toggle="modal" type="button" style="font-size: 13px;" onclick="return userStatusCK()">답장하기</button>
                     </c:if>  
                     </div>
                     

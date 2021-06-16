@@ -73,13 +73,20 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public List<MyReply> selectMyReplyList() {
-		return sqlSession.selectList("myListMapper.selectMyReplyList");
+	public int selectListCount(int userNo) {
+		return sqlSession.selectOne("myListMapper.selectListCount", userNo);
 	}
 
 	@Override
-	public int selectListCount(int userNo) {
-		return sqlSession.selectOne("myListMapper.selectListCount", userNo);
+	public List<MyReply> selectMyReplyList(int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("myListMapper.selectMyReplyList", userNo, rowBounds);
+	}
+
+	@Override
+	public int selectReplyListCount(int userNo) {
+		return sqlSession.selectOne("myListMapper.selectReplyListCount", userNo);
 	}
 
 	

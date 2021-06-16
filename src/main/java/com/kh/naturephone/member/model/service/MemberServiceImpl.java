@@ -87,8 +87,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<MyReply> selectMyReplyList() {
-		return mDao.selectMyReplyList();
+	public List<MyReply> selectMyReplyList(int userNo, PageInfo pi) {
+		return mDao.selectMyReplyList(userNo, pi);
+	}
+
+	@Override
+	public int selectReplyListCount(int userNo) {
+		return mDao.selectReplyListCount(userNo);
 	}
 
 	

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>나의 댓글</title>
 <!-- 자바스크립트-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <style>
@@ -44,7 +44,19 @@
 	font-size: 14px;
 	font-weight: bold;
 }
-
+/* 테이블 */
+    .table{
+        text-align: center;
+        font-size:13px;
+    }
+    td:nth-child(3) {
+        text-align: left;
+    }
+    
+    .nonContent {
+       text-align : center;
+       font-size:14px;
+    }
 </style>
 
 </head>
@@ -119,7 +131,7 @@
 								<tbody>
 
 									<c:forEach items="${ list }" var="n" varStatus="status">
-										<tr>
+										<tr style="cursor: pointer;" onclick="goBoard(${ n.boardNo }, '${ n.category }');">
 											<th scope="row">${ status.count }</th>
 
 											<td>${ n.category }</td>

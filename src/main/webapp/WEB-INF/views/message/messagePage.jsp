@@ -80,7 +80,7 @@
 								정보</a></li>
 						<li><a href="${ contextPath }/member/myBoardList" class="list-group-item list-group-item-action sideContent">나의
 								게시글</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/member/myReplyList"
 							class="list-group-item list-group-item-action sideContent">나의
 								댓글</a></li>
 					</ul>
@@ -136,7 +136,7 @@
 							</select>
 							<input type="search" class="form-control" name="searchValue" style="width:100px;" value="${ param.searchValue }" required>
 							<input type="hidden" name="type" value="${ message.type }">
-							<button class="btn btn-primary btn-sm">검색</button>
+							<button class="btn btn-success btn-sm">검색</button>
 						</div>
 						
 						</form>
@@ -177,7 +177,7 @@
 
 						<tbody>
 							<c:forEach items="${ list }" var="m">
-								<tr onclick="selectMessage(${ m.messageNo });">
+								<tr class="recipientTableTr" onclick="selectMessage(${ m.messageNo });" style="cursor: pointer;">
 								<c:choose>
 		                        	<c:when test="${ message.type eq '받은 쪽지함' }">
 		                        		<th scope="row" onclick="event.cancelBubble=true">
@@ -279,7 +279,7 @@
 							</nav>
 						</div>
 						<div class="col">
-							<button type="button" id="delectMessageBtn" class="btn btn-primary btn-sm" onclick="deleteMessage()">삭제하기</button>
+							<button type="button" id="delectMessageBtn" class="btn btn-secondary btn-sm" onclick="deleteMessage()">삭제하기</button>
 						</div>
 					</div>
 				</div>
@@ -354,7 +354,6 @@
         		ckArr.push(chk);
         	})
         		
-        	
         	// 쪽지가 선택 되지 않았을 때
         	if(ckArr.length == 0){
         		alert("삭제할 쪽지를 선택해주세요.");
@@ -388,13 +387,10 @@
 	        	} else {	
 	        		location.reload(true);
 	        	}
-        		
         	}
-        	
     	}
     	
     	
-		
 		
     
     	

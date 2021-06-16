@@ -46,11 +46,14 @@ public interface MemberService {
 	// 1. 나의 게시글 조회
 	List<MyBoard> selectMyBoardList(int userNo, PageInfo pi);
 	
-	// 1-1. 페이징 처리 
+	// 1-1. 게시글 페이징 처리 
 	int selectListCount(int userNo);
 	
 	// 2. 나의 댓글 조회
-	List<MyReply> selectMyReplyList();
+	List<MyReply> selectMyReplyList(int userNo, PageInfo pi);
+
+	// 2-1. 댓글 페이징 처리
+	int selectReplyListCount(int userNo);
 
 
 
