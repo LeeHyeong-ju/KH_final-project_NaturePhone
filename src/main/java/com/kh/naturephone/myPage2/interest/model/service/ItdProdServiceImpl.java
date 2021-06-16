@@ -19,4 +19,10 @@ public class ItdProdServiceImpl implements ItdProdService{
 		return ipDao.selectItdProdList(userNo);
 	}
 
+	// 관심상품 내역 삭제
+	@Override
+	public int deleteInterest(int itdNo) {
+		return ipDao.deleteInterest(itdNo);
+	}
+
 }

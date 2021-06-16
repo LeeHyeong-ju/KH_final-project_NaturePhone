@@ -34,4 +34,13 @@
 	  		   ENROLL_DATE DESC
 	</select>
 	
+	<update id="deleteInterest" parameterType="_int">
+		UPDATE
+			   INTERESTED_TB
+		   SET
+		   	   STATUS = 'N'
+		 WHERE
+		 	   ITD_NO = #{itdNo}
+	</update>
+	
 </mapper>

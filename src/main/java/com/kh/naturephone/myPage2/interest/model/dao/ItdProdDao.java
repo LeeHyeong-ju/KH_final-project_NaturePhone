@@ -8,5 +8,8 @@ public interface ItdProdDao {
 
 	// 관심상품 리스트 조회
 	List<ItdProduct> selectItdProdList(int userNo);
+
+	// 관심상품 내역 삭제
+	int deleteInterest(int itdNo);
 	
 }
