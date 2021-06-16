@@ -230,8 +230,32 @@
 					<tr>
 					<th>주요재질</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.appearance }" delims="_" var="a">
-							<td><c:out value="${ a }"/></td>
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" varStatus="status">
+							<td><c:if test="${ status.index eq 0 }">${ a }</c:if></td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>크기(WxHxD,mm)</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" varStatus="status">
+							<td><c:if test="${ status.index eq 1 }">${ a }</c:if></td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>무게</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" varStatus="status">
+							<td><c:if test="${ status.index eq 2 }">${ a }</c:if></td>
+						</c:forTokens>
+					</c:forEach>
+					</tr>
+					<tr>
+					<th>연결단자</th>
+					<c:forEach items="${ clist }" var="c">
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" varStatus="status">
+							<td><c:if test="${ status.index eq 3 }">${ a }</c:if></td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
