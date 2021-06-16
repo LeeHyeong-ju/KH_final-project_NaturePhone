@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.naturephone.attachment.model.vo.Attachment;
-import com.kh.naturephone.boardFree.model.vo.PageInfo;
+import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.goods.model.dao.GoodsDao;
 import com.kh.naturephone.goods.model.vo.Goods;
+import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.support.model.vo.Phone;
 
 @Service
@@ -76,6 +77,20 @@ public class GoodsServiceImpl implements GoodsService{
 	public Phone selectPhoneNameList(int proNo) {
 
 		return gDao.selectPhoneNameList(proNo);
+	}
+
+	// 상세보기 위해 물품 select
+	@Override
+	public Goods selectDetailGoods(int goodsNo) {
+		
+		return gDao.selectDetailGoods(goodsNo);
+	}
+
+
+	@Override
+	public Member selectMember(int userNo) {
+
+		return gDao.selectMember(userNo);
 	}
 
 

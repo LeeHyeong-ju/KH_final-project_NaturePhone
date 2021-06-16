@@ -7,6 +7,8 @@
 		<id property="prono" column="PRO_NO"/>
 		<result property="proname" column="PRO_NAME"/>
 		<result property="modelname" column="MODEL_NAME"/>
+		<result property="carrname" column="com"/>
+		<result property="modelname" column="MODEL_NAME"/>
 		<result property="maker" column="MAKER"/>
 		<result property="fileRename" column="FILE_RENAME"/>
 		<result property="filePath" column="FILE_PATH"/>
@@ -43,18 +45,38 @@
 			<result property="gaRename" column="ATT_RENAME"/>
 		</resultMap>
 		
+		<!-- 전체 물품 조회 resultMap -->
+		<resultMap id="goodsDetailResultSet" type="Goods">
+			<id property="goodsNo" column="GOODS_NO"/>
+			<result property="userNo" column="USER_NO"/>
+			<result property="proNo" column="PRO_NO"/>
+			<result property="carrNo" column="CARR_NO"/>
+			<result property="goodsTitle" column="GOODS_TITLE"/>
+			<result property="content" column="G_CONTENT"/>
+			<result property="createDate" column="CREATE_DATE"/>
+			<result property="modifyDate" column="MODIFY_DATE"/>
+			<result property="dealWay" column="DEAL_WAY"/>
+			<result property="condition" column="CONDITION"/>
+			<result property="component" column="COMPONENT"/>
+			<result property="price" column="PRICE"/>
+			<result property="deliveryFee" column="DELIVERY_FEE"/>
+			<result property="dealAdd" column="DELIVERY_ADD"/>
+			<result property="drctStatus" column="DRCT_STATUS"/>
+			<result property="status" column="STATUS"/>
+			<result property="sbank" column="S_BANK"/>
+			<result property="saccount" column="S_ACCOUNT"/>
+			<result property="openDate" column="OPENDATE"/>
+		</resultMap>
 		
+		<!-- 게시글 작성자 조회 resultMap -->
+		<resultMap id="goodsMemberResultSet" type="Member">
+			<id property="userNo" column="USER_NO"/>
+			<result property="grade" column="USER_GRADE"/>
+			<result property="id" column="USER_ID"/>
+			<result property="name" column="USER_NAME"/>
+			<result property="createDate" column="CREATE_DATE"/>
+		</resultMap>
 		
-		
-		
-		
-		
-		
-
-	
-	
-	
-	
 	<insert id="insertGoods" parameterType="Goods">
 	INSERT
 	INTO GOODS_TB
@@ -117,6 +139,7 @@
  				PRO_NO
  			  , PRO_NAME
  			  , MODEL_NAME
+ 			  , COM
  			  , MAKER
  			  , FILE_RENAME
  			  , FILE_PATH
@@ -221,6 +244,7 @@
  		        PRO_NO
  			  , PRO_NAME
  			  , MODEL_NAME
+ 			  , COM
  			  , MAKER
  			  , FILE_RENAME
  			  , FILE_PATH
@@ -232,6 +256,28 @@
  	    		
  	</select>
  	
+ 	<select id="selectDetailGoods" parameterType="_int" resultMap="goodsDetailResultSet">
+ 		SELECT
+ 				*
+ 		 FROM
+ 		 		GOODS_TB
+ 		WHERE
+ 				GOODS_NO = #{ goodsNo }
+
+ 	</select>
+ 	
+ 	<select id="selectMember" parameterType="_int" resultMap="goodsMemberResultSet">
+ 		SELECT
+ 				USER_NO
+ 			  , USER_GRADE
+ 			  , USER_ID
+ 			  , USER_NAME
+ 			  , CREATE_DATE
+ 		 FROM
+ 		 		MEMBER_TB
+ 	    WHERE
+ 	    		USER_NO = #{ userNo }
+ 	</select>
 
 
 </mapper>

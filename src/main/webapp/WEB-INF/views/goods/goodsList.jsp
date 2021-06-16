@@ -113,6 +113,31 @@
     	width: 200px;
     	height: 150px;
     }
+    
+    .pagingTd{
+    	text-align: center;
+    	padding: 30px;
+    }
+    
+    .pagingbar {
+    	height: 50px;
+    	border-bottom: none 0px white;
+    	padding: 30px;
+    }
+   
+   .textTd {
+	   text-align: center;
+	   margin : 10px;
+	   display: inline-block;
+	   
+   }
+   
+   .price { 
+   		display: inline-block;
+   		float: right;
+   }
+    
+
 
 
 </style>
@@ -123,27 +148,10 @@
             <div class="col-md-2 rightSpace">
                 <div class="list-group col-md-10 sideBar">
                     <ul>
-                        <li class="list-group-item sideTitle">마이페이지</li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">회원 정보</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">나의 게시글</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">나의 댓글</a></li>
-                    </ul>
-                </div>
-                <div class="list-group col-md-10 sideBar">
-                    <ul>
-                        <li class="list-group-item sideTitle">쪽지함</li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">받은 쪽지함</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">보낸 쪽지함</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">보관함</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">휴지통</a></li>
-                    </ul>
-                </div>
-                <div class="list-group col-md-10 sideBar">
-                    <ul>
-                        <li class="list-group-item sideTitle">주문내역</li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">나의 판매내역</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">나의 구매내역</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">관심상품</a></li>
+                        <li class="list-group-item sideTitle">Market</li>
+                        <li><a href="${ contextPath }/goods/list" class="list-group-item list-group-item-action sideContent">물품 검색</a></li>
+                        <li><a href="${ contextPath }/goods/ginsertpage" class="list-group-item list-group-item-action sideContent">물품 등록</a></li>
+                        <li><a href="#" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
                     </ul>
                 </div>
             </div>
@@ -217,7 +225,7 @@
 					<br><hr><br>
                     <div class="listArea">
                         <div class="table-responsive">
-							  <table class="table align-middle goodsTable">
+							  <table class="table align-top goodsTable">
 							    <thead>
 							      <tr>
 							       	<th colspan="6">총 물품 수 : ${ pi.listCount }건 </th>
@@ -227,20 +235,64 @@
 							    	<c:forEach items="${ list }" var="g" varStatus="status">
 							    		<c:forEach items="${ attList }" var="a">
 							    			<c:if test="${ g.goodsNo eq a.goodsNo && a.gaOrder eq 1}">
-							    				 <tr class="listTr">
+							    				 <tr class="listTr" onclick="goodsDatail(${ g.goodsNo });">
 											      	<td class="align-bottom" colspan="2"><img src="${ contextPath }/resources/guploadFiles/${ a.gaRename }" class="thumbnail"></td>
-											        <td class="align-bottom" colspan="2" width="100%">
-											         
-											        ${ g.goodsTitle }
-											        
-											        
+											        <td class="align-middle" colspan="2" width="100%">
+											         	<div class="textTd">${ g.goodsTitle }</div>
+											         	<br>
+											         	<div class="textTd">${ phoneNameList[status.index].proname } ${ phoneNameList[status.index].modelname }</div>
+
+											         	<div class="textTd price">${ g.condition } &nbsp; ${ g.component }</div>
+											         	<br>		
+											         	<div class="textTd price">${ g.price }원</div>
+											         	<div class="textTd">${ g.createDate }</div>																		        
 											        </td>
 											     </tr>
+											     
+											     
 							    			 </c:if>
 							    		</c:forEach>
-								     
+								     	
 									</c:forEach>
-							      
+							      		<!-- 페이징 바 구간 -->
+							      		
+										<tr class="pagingbar">
+										
+											<td colspan="6" class="pagingTd">
+											<!-- [이전] -->
+											<c:if test="${ pi.currentPage <= 1 }">
+												[이전] &nbsp;
+											</c:if>
+											<c:if test="${ pi.currentPage > 1 }">
+												<c:url var="before" value="/goods/list">
+													<c:param name="page" value="${ pi.currentPage - 1 }"/>
+												</c:url>
+												<a href="${ before }">[이전]</a> &nbsp;
+											</c:if>
+											<!-- 페이지 숫자 -->
+											<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+												<c:if test="${ p eq pi.currentPage }">
+													<font color="red" size="4"><b>[ ${ p } ]</b></font>
+												</c:if>
+												<c:if test="${ p ne pi.currentPage }">
+													<c:url var="pagination" value="/goods/list">
+														<c:param name="page" value="${ p }"/>
+													</c:url>
+													<a href="${ pagination }">${ p }</a> &nbsp;
+												</c:if>
+											</c:forEach>
+											<!-- [다음] -->	
+											<c:if test="${ pi.currentPage >= pi.maxPage }">
+												[다음]
+											</c:if>
+											<c:if test="${ pi.currentPage < pi.maxPage }">
+												<c:url var="after" value="/goods/list">
+													<c:param name="page" value="${ pi.currentPage + 1 }"/>
+												</c:url>
+												<a href="${ after }">[다음]</a>
+											</c:if>
+											</td>
+										</tr>
 							    </tbody>
 							  </table>
 							</div>
@@ -261,7 +313,15 @@
            
             
         });
+        
+        function goodsDatail(goodsNo){
+        	location.href = '${contextPath}/goods/detail?goodsNo=' + goodsNo + '&page=${ pi.currentPage }';
+        }
+        
+        
 
     </script>
+    
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

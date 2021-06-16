@@ -336,30 +336,13 @@
     <div class="row">
         <div class="col-md-2 rightSpace">
             <div class="list-group col-md-10 sideBar">
-                <ul>
-                    <li class="list-group-item sideTitle">마이페이지</li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">회원 정보</a></li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">나의 게시글</a></li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">나의 댓글</a></li>
-                </ul>
-            </div>
-            <div class="list-group col-md-10 sideBar">
-                <ul>
-                    <li class="list-group-item sideTitle">쪽지함</li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">받은 쪽지함</a></li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">보낸 쪽지함</a></li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">보관함</a></li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">휴지통</a></li>
-                </ul>
-            </div>
-            <div class="list-group col-md-10 sideBar">
-                <ul>
-                    <li class="list-group-item sideTitle">주문내역</li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">나의 판매내역</a></li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">나의 구매내역</a></li>
-                    <li><a href="#" class="list-group-item list-group-item-action sideContent">관심상품</a></li>
-                </ul>
-            </div>
+                    <ul>
+                        <li class="list-group-item sideTitle">Market</li>
+                        <li><a href="${ contextPath }/goods/list" class="list-group-item list-group-item-action sideContent">물품 검색</a></li>
+                        <li><a href="${ contextPath }/goods/ginsertpage" class="list-group-item list-group-item-action sideContent">물품 등록</a></li>
+                        <li><a href="#" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
+                    </ul>
+                </div>         
         </div>
 
           <!-- 내용 -->
@@ -562,7 +545,7 @@
                       </div>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input status" type="radio" name="condition" id="status2" value="상">
-                        <label class="form-check-label" for="status2">상 (새제품 수준/무흡집)</label>
+                        <label class="form-check-label" for="status2">상 (새제품 수준/무흠집)</label>
                       </div>
                       <div class="form-check form-check-inline">
                         <input class="form-check-input status" type="radio" name="condition" id="status3" value="중">
@@ -838,7 +821,7 @@
     </script>
     
   
-    
+    <jsp:include page="../common/footer.jsp"/>
 
 
 </body>
