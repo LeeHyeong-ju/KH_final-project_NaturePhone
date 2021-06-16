@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kh.naturephone.boardFree.model.exception.BoardFreeException;
 import com.kh.naturephone.boardSurvey.model.exception.BoardSurveyException;
 import com.kh.naturephone.boardSurvey.model.service.BoardSurveyService;
 import com.kh.naturephone.boardSurvey.model.vo.S_Detail_TB;
@@ -60,7 +61,7 @@ public class BoardSurveyController {
 			if(list != null) {
 				mv.addObject("list", list);
 				mv.addObject("pi", pi);
-				
+			
 				mv.setViewName("board/boardSurveyList");
 			} else {
 				mv.addObject("msg", "게시글 전체 조회에 실패했습니다.");
@@ -238,6 +239,40 @@ public class BoardSurveyController {
 			return "board/boardSurveyList";
 		}
 	
-	
+
+		// 투표하기(+1)
+	    @RequestMapping("/surveyVote")
+	    public String recommend (@RequestParam int de_s_no,
+	    						Model model) {	      
+	        int result = bService.surveyVote(de_s_no);
+	        
+	        if(result > 0) {
+	        	List<S_Detail_TB> sDetail= bService.selectDetail(de_s_no);
+	        	System.out.println("sDetail : " + sDetail);
+	        	if(sDetail != null) {
+					model.addAttribute("sDetail", sDetail);
+					return "redirect:/boardSurvey/detail?s_no=" + sDetail.get(0).getS_no();
+	        	} else {	        		
+	        	}
+	        	return "redirect:/boardSurvey/detail?s_no=" + sDetail.get(0).getS_no();
+	        } else {
+				throw new BoardSurveyException("투표하기에 실패했습니다.");	
+			}	   
+	    }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 }
