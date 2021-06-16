@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -231,32 +230,32 @@
 					<tr>
 					<th>주요재질</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.appearance }" delims="_" var="a" varStatus="status">
-							<td><c:if test="${ status.index eq 0 }">${ a }</c:if></td>
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" begin="0" end="0">
+							<td>${ a }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
 					<tr>
 					<th>크기(WxHxD,mm)</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.appearance }" delims="_" var="a" varStatus="status">
-							<td><c:if test="${ status.index eq 1 }">${ a }</c:if></td>
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" begin="1" end="1">
+							<td>${ a }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
 					<tr>
 					<th>무게</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.appearance }" delims="_" var="a" varStatus="status">
-							<td><c:if test="${ status.index eq 2 }">${ a }</c:if></td>
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" begin="2" end="2">
+							<td>${ a }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
 					<tr>
 					<th>연결단자</th>
 					<c:forEach items="${ clist }" var="c">
-						<c:forTokens items="${ c.appearance }" delims="_" var="a" varStatus="status">
-							<td><c:if test="${ status.index eq 3 }">${ a }</c:if></td>
+						<c:forTokens items="${ c.appearance }" delims="_" var="a" begin="3" end="3">
+							<td>${ a }</td>
 						</c:forTokens>
 					</c:forEach>
 					</tr>
