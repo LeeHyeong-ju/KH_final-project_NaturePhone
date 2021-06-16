@@ -378,19 +378,25 @@
       function userReportBtn(division, userid, userno, postNo){
          
          if('${ loginUser.id }' != userid) {
-           document.getElementById("suspenctName").innerText = userid;
-         document.getElementById("suspect").value = userno;
-         
-         if(division == 'board'){   // board에서 들어온 신고일때 게시판 번호
-            document.getElementById("boardNo").value = postNo;
-            document.getElementById("replyNo").value = 0;
-            $("#userReport").modal("show");
-            
-         } else if(division == 'reply'){ // reply에서 들어온 신고일때 댓글 번호
-            document.getElementById("replyNo").value = postNo;
-            document.getElementById("boardNo").value = 0;
-            $("#userReport").modal("show");
-         }
+        	 
+        	 if(userno == 1){
+	 	        	alert("관리자는 신고할 수 없습니다.");
+	 		        return false;	
+	 	      	}
+        	 
+           	document.getElementById("suspenctName").innerText = userid;
+         	document.getElementById("suspect").value = userno;
+	         
+	         if(division == 'board'){   // board에서 들어온 신고일때 게시판 번호
+	            document.getElementById("boardNo").value = postNo;
+	            document.getElementById("replyNo").value = 0;
+	            $("#userReport").modal("show");
+	            
+	         } else if(division == 'reply'){ // reply에서 들어온 신고일때 댓글 번호
+	            document.getElementById("replyNo").value = postNo;
+	            document.getElementById("boardNo").value = 0;
+	            $("#userReport").modal("show");
+	         }
          } else {
             alert("자기 자신은 신고할 수 없습니다.");
            return false;
