@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reportMapper">
+	<resultMap id="reportResultSet" type="Report">
+		<id property="reportNo" column="REPORT_NO"/>
+		<result property="reportType" column="R_TYPE"/>
+		<result property="reportContent" column="R_CONTENT"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="reporter" column="REPORTER"/>
+		<result property="suspect" column="SUSPECT"/>
+		
+		<result property="boardNo" column="B_NO"/>
+		<result property="surveyNo" column="S_NO"/>
+		<result property="replyNo" column="RE_NO"/>
+		<result property="goodsNo" column="GOODS_NO"/>
+		<result property="goodsReplyNo" column="REPLY_NO"/>
+	</resultMap>
+	
+	<insert id="reportInsert" parameterType="Report">
+	INSERT
+	INTO	REPORT_TB
+	(
+			  REPORT_NO
+			, R_TYPE
+			, R_CONTENT
+			, CREATE_DATE
+			, STATUS
+			, REPORTER
+			, SUSPECT
+	<choose>	
+	<when test="boardNo gt 0">
+			, B_NO
+	)
+	VALUES
+	(
+			  SEQ_REPORT_NO.NEXTVAL
+			, #{ reportType }
+			, #{ reportContent }
+			, SYSDATE
+			, DEFAULT
+			, #{ reporter }
+			, #{ suspect }
+			, #{ boardNo }
+	)
+	</when>
+	<when test="surveyNo gt 0">
+			, S_NO
+	)
+	VALUES
+	(
+			  SEQ_REPORT_NO.NEXTVAL
+			, #{ reportType }
+			, #{ reportContent }
+			, SYSDATE
+			, DEFAULT
+			, #{ reporter }
+			, #{ suspect }
+			, #{ surveyNo }
+	)
+	</when>
+	<when test="replyNo gt 0">
+			, RE_NO
+	)
+	VALUES
+	(
+			  SEQ_REPORT_NO.NEXTVAL
+			, #{ reportType }
+			, #{ reportContent }
+			, SYSDATE
+			, DEFAULT
+			, #{ reporter }
+			, #{ suspect }		
+			, #{ replyNo }
+	)
+	</when>
+	<when test="goodsNo gt 0">
+			, GOODS_NO
+	)
+	VALUES
+	(
+			  SEQ_REPORT_NO.NEXTVAL
+			, #{ reportType }
+			, #{ reportContent }
+			, SYSDATE
+			, DEFAULT
+			, #{ reporter }
+			, #{ suspect }		
+			, #{ goodsNo }
+	)
+	</when>
+	<when test="goodsReplyNo gt 0">
+			, REPLY_NO
+	)
+	VALUES
+	(
+			  SEQ_REPORT_NO.NEXTVAL
+			, #{ reportType }
+			, #{ reportContent }
+			, SYSDATE
+			, DEFAULT
+			, #{ reporter }
+			, #{ suspect }
+			, #{ goodsReplyNo }
+	)
+	</when>
+	</choose>
+	</insert>
+	
+	
+</mapper>

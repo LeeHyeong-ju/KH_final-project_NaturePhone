@@ -58,7 +58,10 @@
     .btn{
       font-size: 13px;
     }
-
+.nonContent {
+    	text-align : center;
+    	font-size:14px;
+    }
 
 </style>
 
@@ -111,7 +114,8 @@
 			</div>
 			
             <!-- 내용 -->
-            
+            <c:choose>
+            <c:when test="${ !empty list }">
              <div class="col-md-8 content">
 				<div class="main-div">
 					<div class="panel row">
@@ -282,6 +286,21 @@
 				
 				
 			</div>
+			</c:when>
+				<c:otherwise>
+					<div class="col-md-8 content">
+						<div class="main-div">
+							<div class="panel">
+                        		<h5>${ message.type }</h5>
+                        		<hr>
+                    		</div>
+                    		<br><br>
+							<div class="nonContent">쪽지가 없습니다.</div>
+						</div>
+					</div>
+
+				</c:otherwise>
+			</c:choose>
         </div>
     </div>
    
