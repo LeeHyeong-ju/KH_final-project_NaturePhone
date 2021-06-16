@@ -39,6 +39,7 @@ public class SellInfoController {
 		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		
 		List<DealInfo> sellInfoList = siService.selectSellInfoList(userNo);
+		
 		// 사진 조회
 		List<GoodsAtt> attList = siService.selectAttList();
 		
@@ -68,7 +69,6 @@ public class SellInfoController {
 		CalculateInfo ci = siService.selectCalculateInfo(goodsNo);
 		DeliveryInfo di = siService.selectDeliveryInfo(bi.getDealNo());
 		DeliveryInfo rdi = siService.selectReDeliveryInfo(bi.getDealNo());
-		System.out.println("반품 베송정보 : " + rdi);
 		
 		if(si != null) {
 			model.addAttribute("sellInfo", si);
@@ -126,6 +126,7 @@ public class SellInfoController {
 		PeriodInfo period = new PeriodInfo(userNo, m);
 		
 		List<DealInfo> sellInfoList = siService.selectMonthsList(period);
+		
 		// 사진 조회
 		List<GoodsAtt> attList = siService.selectAttList();
 		
@@ -152,6 +153,7 @@ public class SellInfoController {
 		CalendarInfo calendar = new CalendarInfo(userNo, date1, date2);
 		
 		List<DealInfo> sellInfoList = siService.selectCalendarList(calendar);
+		
 		// 사진 조회
 		List<GoodsAtt> attList = siService.selectAttList();
 		
@@ -205,6 +207,7 @@ public class SellInfoController {
 		SearchKeyword word = new SearchKeyword(userNo, keyword);
 		
 		List<DealInfo> sellInfoList = siService.selectSearchList(word);
+		
 		// 사진 조회
 		List<GoodsAtt> attList = siService.selectAttList();
 		
@@ -245,6 +248,30 @@ public class SellInfoController {
 			return "redirect:/sellInfo/list";
 		} else {
 			throw new DealInfoException("판매내역 삭제에 실패하였습니다.");
+		}
+	}
+	
+	// 거래진행상태 '환불예정'으로 변경
+	@GetMapping("/refundUpdate")
+	public String processRefundUpdate(int dealNo, int goodsNo) {
+		int result = siService.updateProcessRefund(dealNo);
+		
+		if(result > 0) {
+			return "redirect:/sellInfo/detail?goodsNo=" + goodsNo;
+		} else {
+			throw new DealInfoException("반품승인에 실패하였습니다.");
+		}
+	}
+	
+	// 거래진행상태 '반품보류'로 변경
+	@GetMapping("/holdUpdate")
+	public String processHoldUpdate(int dealNo, int goodsNo) {
+		int result = siService.updateProcessHold(dealNo);
+		
+		if(result > 0) {
+			return "redirect:/sellInfo/detail?goodsNo=" + goodsNo;
+		} else {
+			throw new DealInfoException("반품거부에 실패하였습니다.");
 		}
 	}
 	

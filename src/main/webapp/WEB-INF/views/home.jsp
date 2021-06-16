@@ -5,7 +5,7 @@
 <head>
    <title>Nature Phone</title>
 </head>
-<body>
+<body>	
    <jsp:include page="common/mainPage.jsp"/>
 </body>
 </html>
