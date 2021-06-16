@@ -133,7 +133,7 @@
                             <div class="input-group input-group-sm mb-3">
                                 <input type="email" class="form-control" id="findIdEmail"
                                     placeholder="회원가입 시 기입하신 이메일 주소를 정확하게 입력해 주세요.">&nbsp;
-                                <button id="findIdBtn" class="btn btn-primary btn-sm">확인</button>
+                                <button id="findIdBtn" class="btn btn-success btn-sm">확인</button>
                             </div>
                         </div>
                         
@@ -145,7 +145,7 @@
                             <div class="input-group input-group-sm mb-3">
                                 <input type="email" class="form-control" id="findPwdEmail"
                                     placeholder="회원가입 시 기입하신 이메일 주소를 정확하게 입력해 주세요.">&nbsp;
-                                <button id="findPwdBtn" class="btn btn-primary btn-sm">확인</button>
+                                <button id="findPwdBtn" class="btn btn-success btn-sm">확인</button>
                             </div>
                         </div>
                     </div>

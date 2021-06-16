@@ -400,11 +400,11 @@
       /* 댓글 삭제*/
       
         function replyDelete(obj){
-    	   var re_no = $(obj).prev().val();
+          var re_no = $(obj).prev().val();
            var b_no = ${ board.bno };
            var title = $(obj).parent('td').parent('tr');
            var content = $(obj).parent('td').parent('tr').next();
-    	   
+          
            $.ajax({
                url : "${ contextPath }/boardFree/deleteReply",
                data : { re_no : re_no, b_no : b_no },
