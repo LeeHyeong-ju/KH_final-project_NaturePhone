@@ -94,9 +94,9 @@
 						</div>
 						<br>
 						<div class="row" style="margin: auto;">
-							<button class="btn btn-primary col" type="button" id="pwCheckModelOpen">탈퇴 하기</button>
+							<button class="btn btn-success col" type="button" id="pwCheckModelOpen">탈퇴 하기</button>
 							<span class="col-1"></span>
-							<button type="button" class="btn btn-primary col" id="closeQuit">취소</button>
+							<button type="button" class="btn btn-secondary col" id="closeQuit">취소</button>
 						</div>
 					</div>
 				</div>
@@ -118,7 +118,7 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">취소</button>
-								<button type="button" class="btn btn-primary" id="quitSubmit">탈퇴하기</button>
+								<button type="button" class="btn btn-success" id="quitSubmit">탈퇴하기</button>
 							</div>
 						</div>
 					</div>

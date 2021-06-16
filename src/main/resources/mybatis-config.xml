@@ -31,6 +31,7 @@
       <typeAlias type="com.kh.naturephone.member.model.vo.MyBoard" alias="MyBoard"/>
       <typeAlias type="com.kh.naturephone.message.model.vo.Message" alias="Message"/>
       <typeAlias type="com.kh.naturephone.message.model.vo.MessageSearch" alias="MessageSearch"/>
+      <typeAlias type="com.kh.naturephone.report.model.vo.Report" alias="Report"/>
       
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.DealInfo" alias="DealInfo"/>
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.GoodsAtt" alias="GoodsAtt"/>
@@ -59,6 +60,7 @@
       <mapper resource="mappers/member-mapper.xml"/>
       <mapper resource="mappers/myList-mapper.xml"/>
       <mapper resource="mappers/message-mapper.xml"/>
+      <mapper resource="mappers/report-mapper.xml"/>
                   
       <mapper resource="mappers/support-mapper.xml"/>
       <mapper resource="mappers/notice-mapper.xml"/>

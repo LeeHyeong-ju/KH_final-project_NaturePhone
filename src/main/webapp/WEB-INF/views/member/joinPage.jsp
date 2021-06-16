@@ -143,7 +143,7 @@ span {
 										<input type="text" name="postcode" id="postcode"
 											class="reg_input form-control" placeholder="우편번호" required readonly>&nbsp
 										<div>
-											<input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+											<input type="button" class="btn btn-success" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 										</div>
 									</div> 
 									<input type="text" name="address1" id="address1" class="reg_input form-control" placeholder="주소" readonly required> 
@@ -174,7 +174,7 @@ span {
 										&nbsp 
 										<div>
 											<input type="hidden" id="email" name="email">
-                                            <button type="button" class="btn btn-primary" id="joinSendMailBtn" onclick="return joinSendMail()">메일 인증</button>
+                                            <button type="button" class="btn btn-success" id="joinSendMailBtn" onclick="return joinSendMail()">메일 인증</button>
                                         </div>
 										
 									</div> 
@@ -195,8 +195,8 @@ span {
 						
 						<br>
 						<div class="row" style="margin: auto;">
-							<a href="" class="btn btn-primary col">취소</a> <span class="col-1"></span>
-							<button class="btn btn-primary col" type="submit" value="회원 가입"
+							<a href="" class="btn btn-secondary col">취소</a> <span class="col-1"></span>
+							<button class="btn btn-success col" type="submit" value="회원 가입"
 								id="btn_submit" accesskey="s" disabled>가입 하기</button>
 						</div>
 
@@ -256,7 +256,6 @@ span {
 			if (!idCheck.test(id.value)){ 
 				$('#idOverLapTr').show();
 				$("#idOverlap").text('아이디는 영어 소문자로 시작하는 4~10자 영어 소문자 또는 숫자이어야 합니다.');
-				$("#btn_submit").attr("disabled", "disabled");
 				return false; 
 			} 
 			
@@ -270,11 +269,9 @@ span {
 					if (data == 1) {
 						$('#idOverLapTr').show();
 						$("#idOverlap").text('중복된 아이디가 존재합니다.');
-						$("#btn_submit").attr("disabled", "disabled");
 					} else {
 						$("#idOverlap").text("");
 						$('#idOverLapTr').hide();
-						$("#btn_submit").removeAttr("disabled");
 					}
 				},
 				error : function(e){
@@ -300,7 +297,6 @@ span {
 			if(!regType1.test(email1)){
 				$('#emailOverLapTr').show();
 				$("#emailOverLap").text('영문자와 숫자만 사용 가능하며 공백은 허용되지 않습니다.');
-				$("#btn_submit").attr("disabled", "disabled");
 				return false;
 			}
 			
@@ -314,11 +310,9 @@ span {
 					if(data > 0){
 						$('#emailOverLapTr').show();
 						$("#emailOverLap").text('중복된 이메일이 존재합니다.');
-						$("#btn_submit").attr("disabled", "disabled");
 					} else {
 						$("#emailOverLap").text("");
 						$('#emailOverLapTr').hide();
-						$("#btn_submit").removeAttr("disabled");
 					}
 				}
 			})

@@ -7,6 +7,5 @@
 </head>
 <body>	
    <jsp:include page="common/mainPage.jsp"/>
-
 </body>
 </html>
