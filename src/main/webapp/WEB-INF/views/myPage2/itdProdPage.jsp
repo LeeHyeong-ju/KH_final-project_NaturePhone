@@ -130,8 +130,8 @@
 							<b>관심상품</b>
 							<hr>
 							<div id="searchArea">
-								<h6>제품명</h6>
-								<input type="text" class="form-control form-control-sm" placeholder="제품명을 입력해 주세요" id="searchInput" name="keyword">
+								<h6>모델명</h6>
+								<input type="text" class="form-control form-control-sm" placeholder="모델명을 입력해 주세요" id="searchInput" name="keyword">
 								<button type="submit" class="btn btn-secondary btn-sm" id="insertBtn">등록</button>
 							</div>
 						</div>
