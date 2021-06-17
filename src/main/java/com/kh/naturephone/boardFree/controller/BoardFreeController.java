@@ -268,7 +268,7 @@ public class BoardFreeController {
 			
 			B_Att_TB att =  bService.selectBoardAtt(bno);
 			System.out.println("att : " + att);
-			if(att.getBfrenameName() != null) {
+			if(att != null) {
 				deleteFile(att.getBfrenameName(), request);				
 			}				
 			int result = bService.deleteBoard(bno);

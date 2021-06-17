@@ -119,7 +119,7 @@
 			        
             <hr>
             <button type="button" class="btn btn-secondary" onclick="history.back()">목록으로</button>
-            <button type="submit" class="btn btn-secondary" style="float: right;">등록</button>            
+            <button type="submit" class="btn btn-success" style="float: right;">등록</button>            
             <br><br>
           </form>  
         </div>

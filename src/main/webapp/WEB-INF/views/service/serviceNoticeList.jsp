@@ -80,10 +80,9 @@
    }
    
    .searchArea button {
-      background-color: #56CE7C;
-      color:white;
-      width : 100px;
+      width : 75px;
       border : none;
+      border-radius:5px;
    }
    
    .searchArea input[type=search]{
@@ -192,7 +191,7 @@
 					<option value="content" <c:if test="${ param.searchCondition == 'content' }">selected</c:if>>내용</option>
 				</select>
 				<input type="search" name="searchValue" value="${ param.searchValue }">
-				<button>검색</button>
+				<button class="btn-success">검색</button>
 			</form>
 		</div>
 			

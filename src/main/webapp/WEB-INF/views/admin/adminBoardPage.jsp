@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리페이지-회원관리</title>
+<title>관리페이지-게시글관리</title>
 <!-- 자바스크립트-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <style>
@@ -59,6 +59,12 @@
        text-align : center;
        font-size:14px;
     }
+    .panel h5,select{
+   		display:inline;
+    }
+    #board-category-select {
+    	float:right;
+    }
 </style>
 </head>
 <body>
@@ -100,37 +106,39 @@
             <div class="col-md-8 content">
                 <div class="main-div">
                     <div class="panel">
-                        <h5>회원 관리</h5>
+                        <h5>게시글 관리</h5>
+                        <select id="board-category-select">
+                        	<option value="자유" <c:if test="${ cg eq '자유' }">selected</c:if>>자유게시판</option>
+                        	<option value="뉴스" <c:if test="${ cg eq '뉴스' }">selected</c:if>>모바일뉴스</option>
+                        	<option value="공지" <c:if test="${ cg eq '공지' }">selected</c:if>>공지사항</option>
+                        	<option value="질문" <c:if test="${ cg eq '질문' }">selected</c:if>>Q&A</option>
+                        	<option value="설문" <c:if test="${ cg eq '설문' }">selected</c:if>>회원설문</option>
+                        </select>
                         <hr>
                     </div>
                     <c:set var="no" value="0"/>
                     <c:choose>
-                    <c:when test="${ !empty mlist }">
+                    <c:when test="${ !empty blist }">
                     <table class="table table-hover">
                         <thead class="table-light">
                           <tr>
                             <th scope="col" class="col-1">번호</th>
-                            <th scope="col" class="col-3">회원명</th>
-                            <th scope="col" class="col-3">가입일자</th>
-                            <th scope="col" class="col-3">등급변경</th>
-                            <th scope="col" class="col-2">탈퇴</th>
+                            <th scope="col" class="col-2">작성자</th>
+                            <th scope="col" class="col-5">제목</th>
+                            <th scope="col" class="col-2">작성일</th>
+                            <th scope="col" class="col-2">삭제처리</th>
                           </tr>
                         </thead>
 
                         <tbody>
-                          <c:forEach items="${ mlist }" var="m" varStatus="status">
+                          <c:forEach items="${ blist }" var="b" varStatus="status">
                           <tr>
-                            <th scope="row" onclick="memberDetail(${ m.userNo });">${ m.userNo }</th>
-                            <td onclick="memberDetail(${ m.userNo });">${ m.name }</td>
-                            <td onclick="memberDetail(${ m.userNo });">${ m.createDate }</td>
-                            <td>
-                            	<select id="member-grade-select" style="border-radius:5px; border:1px solid lightgray; height:25px;">
-                            		<option <c:if test="${ m.grade eq '일반회원' }">selected</c:if>>일반회원</option>
-                            		<option <c:if test="${ m.grade eq '블랙회원' }">selected</c:if>>블랙회원</option>
-                            	</select>
-                            </td>
+                            <th scope="row" onclick="boardDetail(${ b.bno });">${ b.bno }</th>
+                            <td onclick="boardDetail(${ b.bno });">${ b.writer_id }</td>
+                            <td onclick="boardDetail(${ b.bno });">${ b.btitle }</td>
+                            <td onclick="boardDetail(${ b.bno });">${ b.bcreateDate }</td>
                             <td><button type="button" class="btn-secondary" style="width:45px; height:25px; border-radius:5px; border:none; font-size:13px;"
-                            	onclick="location.href='${contextPath}/admin/memberQuit?userNo=' + ${ m.userNo }">탈퇴</button></td>
+                            	onclick="boardDelete(${ b.bno });">삭제</button></td>
                           </tr>
                            </c:forEach>
                         </tbody>
@@ -146,7 +154,7 @@
                         </c:if>
                         <c:if test="${ pi.currentPage > 1 }">
                            <c:url var="before"
-                              value="/admin/memberList">
+                              value="/admin/boardList?category=${ cg }">
                               <c:param name="page" value="${ pi.currentPage -1 }" />
                            </c:url>
                            <a class="page-link" href="${ before }" aria-label="Previous">
@@ -161,7 +169,7 @@
                            </c:if>
                            <c:if test="${ p ne pi.currentPage }">
                               <c:url var="pagination"
-                                 value="/admin/memberList">
+                                 value="/admin/boardList?category=${ cg }">
                                  <c:param name="page" value="${ p }" />
                               </c:url>
                               <a class="page-link" href="${ pagination }">${ p }</a>
@@ -176,7 +184,7 @@
                         </c:if>
                         <c:if test="${ pi.currentPage < pi.maxPage }">
                            <c:url var="after"
-                              value="/admin/memberList">
+                              value="/admin/boardList?category=${ cg }">
                               <c:param name="page" value="${ pi.currentPage + 1 }" />
                            </c:url>
                            <a class="page-link" href="${ after }" aria-label="Next">
@@ -187,7 +195,7 @@
                   </nav>
                   </c:when>
                   <c:otherwise>
-                     <div class="nonContent">회원정보가 존재하지 않습니다.</div>
+                     <div class="nonContent">게시글이 존재하지 않습니다.</div>
                   </c:otherwise>
                   </c:choose>
                 </div>
@@ -197,32 +205,27 @@
     
     <script>
     	$(function(){
-    		$("#member-grade-select").on("change", function(e){
-    			target = $(e.target);
-    			var grade = target.val();
-    			var userNo = target.parent().siblings('th').html();
-    			
-    			$.ajax({
-					url : "${ contextPath }/admin/memberGrade",
-					data : { grade : grade, userNo : userNo },
-					type : "post",
-					success : function(result){
-						if(result == 1){
-							alert("회원 등급이 변경되었습니다.");
-						}
-						else if(result == 0){
-							alert("회원 등급 변경에 실패하였습니다.");
-							target.val(grade).prop("selected", false);
-						}
-					},
-					error : function(e){
-						console.log(e);
-					}
-				});
+    		$("#board-category-select").on("change", function(e){
+    			var category = $(e.target).val();
+    			location.href="${contextPath}/admin/boardList?category=" + category;
     		});
     	});
-    	function memberDetail(userNo){
-			location.href = '${contextPath}/admin/memberDetail?userNo=' + userNo;
+    	function boardDetail(bno){
+    		var category = '${ cg }';
+    		
+    		switch(category){
+    		case "자유": location.href="${contextPath}/boardFree/detail?bno=" + bno; break;
+    		case "뉴스": location.href="${contextPath}/boardMobile/detail?bno=" + bno; break;
+    		case "공지": location.href="${contextPath}/notice/detail?bno=" + bno; break;
+    		case "설문": location.href="${contextPath}/boardSurvey/detail?s_no=" + bno; break;
+    		case "질문": break;
+    		default: alert("게시글 상세조회에 실패하였습니다.");
+    		}
+		}
+    	function boardDelete(bno){
+    		var category = '${ cg }';
+    		
+    		location.href="${contextPath}/admin/boardDelete?bno=" + bno + "&category=" + category;
 		}
     </script>
     

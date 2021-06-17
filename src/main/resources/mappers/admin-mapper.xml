@@ -22,6 +22,31 @@
 		<result property="quitContent" column="QUIT_CONTENT"/>
 	</resultMap>
 	
+	<resultMap type="Board_TB" id="adminBoardResultSet">
+		<id property="bno" column="B_NO"/>
+		<result property ="userNo" column="USER_NO"/>
+		<result property ="writer_id" column="USER_ID"/>
+		<result property ="btitle" column="BTITLE"/>
+		<result property ="bcontent" column="BCONTENT"/>
+		<result property ="category" column="CATEGORY"/>
+		<result property ="bcategory" column="BCATEGORY"/>
+		<result property ="bcount" column="BCOUNT"/>
+		<result property ="brecom" column="BRECOM"/>
+		<result property ="bcreateDate" column="B_CREATE_DATE"/>
+		<result property ="bmodifyDate" column="B_MODIFY_DATE"/>
+		<result property ="bstatus" column="B_STATUS"/>
+		<result property ="brefNo" column="B_REF_NO"/>
+	</resultMap>
+	
+	<resultMap type="Board_TB" id="adminSurveyResultSet">
+		<id property="bno" column="S_NO"/>
+		<result property ="userNo" column="USER_NO"/>
+		<result property ="btitle" column="STITLE"/>
+		<result property ="bcreateDate" column="S_CREATE_DATE"/>
+		<result property ="bstatus" column="S_STATUS"/>
+		<result property ="writer_id" column="USER_ID"/>
+	</resultMap>
+	
 	<select id="selectMemberListCount" resultType="_int">
 		SELECT
 			  COUNT(*)
@@ -55,6 +80,117 @@
 		WHERE
         		STATUS = 'Y'
 		AND     USER_GRADE != '관리자'
+	</select>
+	
+	<update id="quitMember" parameterType="_int">
+		UPDATE
+			  MEMBER_TB
+		   SET
+		   	  STATUS = 'N'
+		 WHERE
+		 	  USER_NO = #{userNo}
+	</update>
+	
+	<update id="updateMemberGrade" parameterType="Member">
+		UPDATE
+			  MEMBER_TB
+		   SET
+		   	  <choose>
+		   	  	<when test="grade == '일반회원'">
+		   	  		USER_GRADE = '일반회원'
+		   	  	</when>
+		   	  	<otherwise>
+		   	  		USER_GRADE = '블랙회원'
+		   	  	</otherwise>
+		   	  </choose>
+		 WHERE
+		 	  USER_NO = #{userNo}
+	</update>
+	
+	<select id="selectMemberInfo" parameterType="_int" resultMap="adminMemberResultSet">
+		SELECT 
+          		  USER_NO
+		        , TOKEN
+		        , USER_GRADE
+		        , USER_ID
+		        , USER_PWD
+		        , USER_NAME
+		        , PHONE
+		        , ADDRESS
+		        , APPROVAL_KEY
+		        , APPROVAL_STATUS
+		        , EMAIL
+		        , CREATE_DATE
+		        , MODIFY_DATE
+		        , STATUS
+		        , QUIT_TYPE
+		        , QUIT_CONTENT
+		FROM 
+        		MEMBER_TB
+		WHERE
+        		STATUS = 'Y'
+        	AND USER_NO = #{userNo}
+	</select>
+	
+	<select id="selectBoardListCount" parameterType="String" resultType="_int">
+		SELECT 
+				COUNT(*)
+		  FROM
+				BOARD_TB
+		 WHERE
+				B_STATUS = 'Y'
+			AND CATEGORY = #{category}
+	</select>
+	
+	<select id="selectBoardList" parameterType="String" resultMap="adminBoardResultSet">
+		SELECT
+				B_NO
+			  , USER_NO
+			  , USER_ID
+			  , BTITLE
+			  , BCONTENT
+			  , CATEGORY
+			  , BCATEGORY
+			  , BCOUNT
+			  , BRECOM
+			  , B_CREATE_DATE
+			  , B_MODIFY_DATE
+			  , B_STATUS
+			  , B_REF_NO
+		 FROM
+				BOARD_TB
+		   JOIN MEMBER_TB USING(USER_NO)
+		WHERE
+				B_STATUS= 'Y'
+		AND		CATEGORY = #{category}
+	 ORDER BY
+				B_NO DESC
+	</select>
+	
+	<select id="selectSurveyListCount" resultType="_int">
+		SELECT 
+				COUNT(*)
+		  FROM
+				SURVEY_TB
+		 WHERE
+				S_STATUS = 'Y'
+	</select>
+	
+	<select id="selectSurveyList" resultMap="adminSurveyResultSet">
+		SELECT
+				S_NO
+			  , SURVEY_TB.USER_NO
+			  , STITLE
+			  , S_CREATE_DATE
+			  , S_STATUS
+			  , USER_ID
+		 FROM
+				SURVEY_TB, MEMBER_TB
+ 		WHERE
+ 				SURVEY_TB.USER_NO = MEMBER_TB.USER_NO
+		  AND	S_STATUS= 'Y'
+	 ORDER BY
+				S_NO DESC
 	</select>
 </mapper>
 
