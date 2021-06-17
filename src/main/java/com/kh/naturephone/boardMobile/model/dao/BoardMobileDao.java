@@ -36,7 +36,13 @@ public interface BoardMobileDao {
 
 	void insertReply(Reply_TB r);
 
-	List<Board_TB> searchList(Search search);
+	int recommend(int bno);
+
+	int deleteReply(Reply_TB r);
+
+	int searchListCount(Search search);
+
+	List<Board_TB> searchList(Search search, PageInfo pi);
 
 	
 

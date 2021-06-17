@@ -21,7 +21,7 @@ public class BoardMobileDaoImpl implements BoardMobileDao{
 
 	   @Override
 	   public int selectListCount() {
-		   
+
 		   return sqlSession.selectOne("boardMobileMapper.selectListCount");
 	   }
 
@@ -101,11 +101,29 @@ public class BoardMobileDaoImpl implements BoardMobileDao{
 		
 	}
 
-	@Override
-	public List<Board_TB> searchList(Search search) {
-		
-		return sqlSession.selectList("boardMobileMapper.searchList", search);
 
+	@Override
+	public int recommend(int bno) {
+		
+		return sqlSession.update("boardMobileMapper.recommend", bno);
+	}
+
+	@Override
+	public int deleteReply(Reply_TB r) {
+	
+		return sqlSession.update("boardMobileMapper.deleteReply", r);
+	}
+
+	@Override
+	public int searchListCount(Search search) {
+		return sqlSession.selectOne("boardMobileMapper.searchFreeListCount", search);
+	}
+
+	@Override
+	public List<Board_TB> searchList(Search search, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("boardMobileMapper.searchList", search, rowBounds);
 	}
 
 	

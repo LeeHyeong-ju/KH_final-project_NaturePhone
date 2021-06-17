@@ -81,7 +81,7 @@
               <div class="list-group col-md-10 sideBar">
                    <ul>
                         <li class="list-group-item sideTitle">커뮤니티</li>
-                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
+                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">모바일 뉴스</a></li>
                         <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
                         <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
                     </ul>
@@ -91,8 +91,8 @@
                 <div class="col-md-8 content">
         <div class="main-div">
        <form action="${ contextPath }/boardMobile/update" id="writeForm" method="post" enctype="multipart/form-data">
-          <h5>모바일뉴스</h5>
-                 
+          <h5><b>모바일뉴스</b></h5>
+             <hr>    
           <table class="table table-bordered">
             <thead>
               <tr>
