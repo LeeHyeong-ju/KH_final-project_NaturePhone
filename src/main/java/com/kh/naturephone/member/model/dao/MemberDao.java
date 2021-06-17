@@ -45,7 +45,10 @@ public interface MemberDao {
 	int selectListCount(int userNo);
 	
 	// 2. 나의 게시글 조회
-	List<MyReply> selectMyReplyList();
+	List<MyReply> selectMyReplyList(int userNo, PageInfo pi);
+	
+	// 2-1. 댓글 페이징 처리
+	int selectReplyListCount(int userNo);
 
 
 

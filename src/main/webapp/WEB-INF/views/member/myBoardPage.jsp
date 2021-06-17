@@ -74,9 +74,9 @@
 							class="list-group-item list-group-item-action sideContent">회원
 								정보</a></li>
 						<li><a href="${ contextPath }/member/myBoardList"
-							class="list-group-item list-group-item-action sideContent">나의
+							class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">나의
 								게시글</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/member/myReplyList"
 							class="list-group-item list-group-item-action sideContent">나의
 								댓글</a></li>
 					</ul>
@@ -115,7 +115,7 @@
 					<div class="col-md-8 content">
 						<div class="main-div">
 							<div class="panel">
-								<h5>나의 게시글</h5>
+								<h5><b>나의 게시글</b></h5>
 								<hr>
 							</div>
 							<table class="table table-hover">
@@ -164,7 +164,7 @@
 									<c:forEach var="p" begin="${ pi.startPage }"
 										end="${pi.endPage }">
 										<c:if test="${ p eq pi.currentPage }">
-											<li class="page-item"><a class="page-link">${ p }</a></li>
+											<li class="page-item active"><a class="page-link">${ p }</a></li>
 										</c:if>
 										<c:if test="${ p ne pi.currentPage }">
 											<c:url var="pagination" value="/member/myBoardList">

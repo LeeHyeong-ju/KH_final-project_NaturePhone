@@ -51,7 +51,7 @@ span {
 			<div class="col-md-8 content">
 				<div class="main-div">
 					<div class="panel">
-						<h5>회원 가입</h5>
+						<h5><b>회원 가입</b></h5>
 						<hr>
 					</div>
 
@@ -220,7 +220,6 @@ span {
 	      <input type="text" id="modalInput" class="reg_input form-control" maxlength="10" required>
 	      </div>
 	      <div class="modal-footer">
-<!-- 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button> -->
 	        <button type="button" class="btn btn-primary" id="modalBtn">인증하기</button>
 	      </div>
 	    </div>
@@ -310,9 +309,11 @@ span {
 					if(data > 0){
 						$('#emailOverLapTr').show();
 						$("#emailOverLap").text('중복된 이메일이 존재합니다.');
+						$('#joinSendMailBtn').attr("disabled", true);
 					} else {
 						$("#emailOverLap").text("");
 						$('#emailOverLapTr').hide();
+						$('#joinSendMailBtn').attr("disabled", false);
 					}
 				}
 			})
@@ -321,7 +322,8 @@ span {
 		function joinSendMail(){
 			var email = document.getElementById("email").value;
 			var email1 = document.getElementById("email1").value;
-			if(email1 == ""){
+			var email2 = document.getElementById("email2").value;
+			if(email1 == "" || email2 == ""){
 				alert("이메일을 입력해주세요.")
 				return false;
 			}
@@ -362,7 +364,7 @@ span {
                         	$("#joinSendMailBtn").attr('disabled', true);
                         	$("#btn_submit").attr('disabled', false);
                     	} else if('false'){
-                    		alert("실퍠");
+                    		alert("메일보내기에 실패하였습니다. 이메일을 다시 확인해주세요.");
                     	}
                     },
                     error: function(e){

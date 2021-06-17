@@ -3,7 +3,7 @@
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myListMapper">
-	<resultMap type="MyBoard" id="myListResultSet">
+	<resultMap type="MyBoard" id="myBoardListResultSet">
 		<id property="boardNo" column="B_NO"/>
 		<result property="rownum" column="ROWNUM"/>
 		<result property="userNo" column="USER_NO"/>
@@ -13,9 +13,19 @@
 		<result property="bstatus" column="B_STATUS"/>
 	</resultMap>
 	
+	<resultMap type="MyReply" id="myReplyListResultSet">
+		<id property="replyNo" column="RE_NO"/>
+		<result property="rownum" column="ROWNUM"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="content" column="RE_CONTENT"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="category" column="CATEGORY"/>
+		<result property="boardNo" column="B_NO"/>
+	</resultMap>
 	
-	<select id="selectMyBoardList" parameterType="_int" resultMap="myListResultSet">
-		 SELECT ROWNUM, B.*
+	
+	<select id="selectMyBoardList" parameterType="_int" resultMap="myBoardListResultSet">
+		SELECT ROWNUM, B.*
         FROM
         (SELECT
 				  B_NO
@@ -71,6 +81,82 @@
 				USER_NO = #{ userNo }
 		AND		S_STATUS = 'Y'
         )
+	</select>
+	
+	<select id="selectMyReplyList" parameterType="_int" resultMap="myReplyListResultSet">
+		SELECT 
+				ROWNUM, REPLY.*
+        FROM
+        (SELECT
+				  A.RE_NO
+				, A.USER_NO
+				, A.RE_CONTENT
+				, A.CREATE_DATE
+                , A.B_NO
+                , B.CATEGORY
+		FROM
+				REPLY_TB A
+        JOIN    BOARD_TB B
+        ON      A.B_NO  = B.B_NO  
+		WHERE
+				A.USER_NO = #{ userNo }
+		AND		A.RE_STATUS = 'Y'
 		
+        UNION
+        
+        SELECT 
+                  A.RE_NO
+				, A.USER_NO
+				, A.RE_CONTENT
+				, A.CREATE_DATE
+                , A.S_NO
+                , C.SCATEGORY
+        FROM    
+                REPLY_TB A
+        JOIN    SURVEY_TB C
+        ON      A.S_NO  = C.S_NO  
+		WHERE
+				A.USER_NO = #{ userNo }
+		AND		A.RE_STATUS = 'Y'
+        
+        ORDER BY CREATE_DATE DESC
+        ) REPLY
+	</select>
+	
+	<select id="selectReplyListCount" parameterType="_int" resultType="_int">
+	SELECT COUNT(*)
+        FROM
+        (SELECT
+				  A.RE_NO
+				, A.USER_NO
+				, A.RE_CONTENT
+				, A.CREATE_DATE
+                , A.B_NO
+                , B.CATEGORY
+		FROM
+				REPLY_TB A
+        JOIN    BOARD_TB B
+        ON      A.B_NO  = B.B_NO  
+		WHERE
+				A.USER_NO = 3
+		AND		A.RE_STATUS = 'Y'
+		
+        UNION
+        
+        SELECT 
+                  A.RE_NO
+				, A.USER_NO
+				, A.RE_CONTENT
+				, A.CREATE_DATE
+                , A.S_NO
+                , C.SCATEGORY
+        FROM    
+                REPLY_TB A
+        JOIN    SURVEY_TB C
+        ON      A.S_NO  = C.S_NO  
+		WHERE
+				A.USER_NO = 3
+		AND		A.RE_STATUS = 'Y'
+        )
 	</select>
 </mapper>

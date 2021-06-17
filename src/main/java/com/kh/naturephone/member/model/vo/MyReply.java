@@ -13,11 +13,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MyReply {
+	private int rownum;
 	private int replyNo;
 	private int userNo;
 	private String content;
 	private Date createDate;
-	private String status;
+	private String category;
 	private int boardNo;
-	private int survayNo;
 }

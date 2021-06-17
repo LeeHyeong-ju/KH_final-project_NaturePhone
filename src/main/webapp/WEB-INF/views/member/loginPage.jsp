@@ -79,7 +79,7 @@
       <div class="login-form">
         <div class="main-div">
           <div class="panel">
-            <h2>회원 로그인</h2>
+            <h2><b>회원 로그인</b></h2>
             <hr>
           </div>
           <form id="Login" action="${ contextPath }/member/login" method="post">

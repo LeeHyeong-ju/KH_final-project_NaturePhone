@@ -201,7 +201,8 @@
 						if(data == 'success'){
                     		alert("메일이 전송되었습니다. 아이디를 확인하시고 로그인해주세요.");
 						} else {
-							alert("가입하지 않으셨습니다. 회원가입을 해주세요.");
+							alert("가입하지 않은 계정입니다. 회원가입을 해주세요");
+							window.close();
 						}
                     },
                     error: function(){

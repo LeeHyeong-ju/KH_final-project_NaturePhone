@@ -31,6 +31,7 @@
                                             
       <typeAlias type="com.kh.naturephone.member.model.vo.Member" alias="Member"/>
       <typeAlias type="com.kh.naturephone.member.model.vo.MyBoard" alias="MyBoard"/>
+      <typeAlias type="com.kh.naturephone.member.model.vo.MyReply" alias="MyReply"/>
       <typeAlias type="com.kh.naturephone.message.model.vo.Message" alias="Message"/>
       <typeAlias type="com.kh.naturephone.message.model.vo.MessageSearch" alias="MessageSearch"/>
       <typeAlias type="com.kh.naturephone.report.model.vo.Report" alias="Report"/>
