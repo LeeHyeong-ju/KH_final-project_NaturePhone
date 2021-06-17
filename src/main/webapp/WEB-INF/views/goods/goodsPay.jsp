@@ -93,7 +93,7 @@
                         <li class="list-group-item sideTitle">Market</li>
                         <li><a href="${ contextPath }/goods/list" class="list-group-item list-group-item-action sideContent">물품 검색</a></li>
                         <li><a href="${ contextPath }/goods/ginsertpage" class="list-group-item list-group-item-action sideContent">물품 등록</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
+                        <li><a href="${ contextPath }/goods/cartPage" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
                     </ul>
                 </div>         
         </div>
@@ -102,7 +102,7 @@
             <div class="col-md-8 content">
                 <div class="main-div">
                     <div class="orderTitle">
-                        <h4>물품 주문</h4>
+                        <h5><b>물품 주문</b></h5>
                     </div>
                     <br><br>
                     <div class="orderGoods">
@@ -110,7 +110,7 @@
                             <thead>
                                 <tr>
                                     <th colspan="5">
-                                        	구매물품
+                                        	<b>구매물품</b>
                                     </th>
                                 </tr>
                             </thead>

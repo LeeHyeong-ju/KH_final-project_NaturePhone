@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.naturephone.attachment.model.vo.Attachment;
 import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.goods.model.dao.GoodsDao;
+import com.kh.naturephone.goods.model.vo.Cart;
 import com.kh.naturephone.goods.model.vo.Deal;
 import com.kh.naturephone.goods.model.vo.Goods;
 import com.kh.naturephone.member.model.vo.Member;
@@ -100,6 +101,29 @@ public class GoodsServiceImpl implements GoodsService{
 		
 		return gDao.insertDeal(d);
 	}
+
+
+	@Override
+	public int insertCart(int goodsNo, int userNo) {
+		
+		return gDao.insertCart(goodsNo, userNo);
+	}
+
+
+	@Override
+	public List<Cart> selecteCart(int userNo) {
+
+		return gDao.selectCart(userNo);
+	}
+
+
+	@Override
+	public Goods selectGoods(int gn) {
+		
+		return gDao.selectGoods(gn);
+	}
+
+
 
 
 
