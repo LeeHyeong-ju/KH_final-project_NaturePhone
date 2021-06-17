@@ -42,7 +42,6 @@
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CalculateInfo" alias="CalculateInfo"/>
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.DeliveryInfo" alias="DeliveryInfo"/>
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryInfo" alias="CategoryInfo"/>
-      <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryCount" alias="CategoryCount"/>
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.PeriodInfo" alias="PeriodInfo"/>
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.CalendarInfo" alias="CalendarInfo"/>
       <typeAlias type="com.kh.naturephone.myPage2.dealInfo.model.vo.SearchKeyword" alias="SearchKeyword"/>

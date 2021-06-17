@@ -84,8 +84,8 @@
 		text-align: center;
 	}
 	#toListBtn {
-		width: 70px;
-		margin-top: 80px;
+		width: 100px;
+		margin-bottom: 50px;
 	}
 	
 	#calInfoTable {
@@ -357,7 +357,7 @@
 								<tr>
 									<td><fmt:formatNumber value="${ payInfo.price }" groupingUsed="true"/>원</td>
 									<td>${ payInfo.dealWay }</td>
-									<td>카드결제</td>
+									<td>계좌이체</td>
 									<td><fmt:formatNumber value="${ payInfo.deliveryFee }" groupingUsed="true"/>원</td>
 									<td><fmt:formatNumber value="${ payInfo.price + payInfo.deliveryFee }" groupingUsed="true"/>원</td>
 								</tr>               
@@ -403,6 +403,7 @@
 								</tr>
 							</table>							
 						</div>
+						<br><br><br>
 						</c:if>
 						<c:if test="${ sellInfo.progress == '거래완료' }">
 						<div id="calInfoArea">
@@ -439,10 +440,11 @@
 								</tr>
 							</table>							
 						</div>
+						<br><br><br>
 						</c:if>
 						
 						<div id="toListArea">
-							<button type="button" class="btn btn-secondary btn-sm" id="toListBtn" onclick="location.href='${ contextPath }/sellInfo/list'">목록</button>
+							<button type="button" class="btn btn-success btn-sm" id="toListBtn" onclick="location.href='${ contextPath }/sellInfo/list'">목록</button>
 						</div>       
 					</div>
 					
