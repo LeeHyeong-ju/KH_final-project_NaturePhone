@@ -7,9 +7,11 @@
 	<resultMap type="ItdProduct" id="itdProdResultSet">
 		<id property="itdNo" column="ITD_NO"/>		
 		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="productNo" column="PRO_NO"/>
 		<result property="productName" column="PRO_NAME"/>
 		<result property="modelName" column="MODEL_NAME"/>
 		<result property="maker" column="MAKER"/>
+		<result property="carrNo" column="CARR_NO"/>
 		<result property="carrName" column="CARR_NAME"/>
 		<result property="userNo" column="USER_NO"/>
 	</resultMap>
@@ -18,7 +20,6 @@
 		SELECT
 			   ITD_NO
 			 , MAKER
-			 , CARR_NAME
 			 , PRO_NAME
 			 , MODEL_NAME
 			 , ENROLL_DATE
@@ -26,7 +27,6 @@
 		  FROM
 		  	   INTERESTED_TB
 			   JOIN PRODUCT_TB USING (PRO_NO)
-			   JOIN CARRIER_TB USING (CARR_NO)
 		 WHERE
 		 	   STATUS = 'Y'
 		   AND USER_NO = #{userNo}
@@ -42,5 +42,51 @@
 		 WHERE
 		 	   ITD_NO = #{itdNo}
 	</update>
+	
+	<select id="selectItdProd" parameterType="string" resultMap="itdProdResultSet">
+		SELECT
+			   PRO_NO
+			 , MAKER
+			 , PRO_NAME
+			 , MODEL_NAME
+		  FROM
+		  	   PRODUCT_TB
+		 WHERE
+		 	   MODEL_NAME = #{keyword}
+	</select>
+	
+	<insert id="insertInterestProd" parameterType="ItdProduct">
+		INSERT
+		  INTO INTERESTED_TB
+		(
+			   ITD_NO
+			 , ENROLL_DATE
+			 , STATUS
+			 , USER_NO
+			 , PRO_NO
+			 , CARR_NO
+		)
+		VALUES
+		(
+			   SEQ_ITD_NO.NEXTVAL
+			 , SYSDATE
+			 , DEFAULT
+			 , #{userNo}
+			 , #{productNo}
+			 , #{carrNo}
+		)
+	</insert>
+	
+	<select id="selectSearchProdList" parameterType="string" resultMap="itdProdResultSet">
+		SELECT
+			   PRO_NO
+			 , MAKER
+			 , PRO_NAME
+			 , MODEL_NAME
+		  FROM
+		  	   PRODUCT_TB
+		 WHERE
+		 	   PRO_NAME LIKE '%' || #{keyword} || '%'
+	</select>
 	
 </mapper>

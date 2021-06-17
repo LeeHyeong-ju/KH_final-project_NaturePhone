@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.BuyerInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CalculateInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CalendarInfo;
-import com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryCount;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.DealInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.DeliveryInfo;
@@ -89,12 +88,6 @@ public class SellInfoDaoImpl implements SellInfoDao{
 		return sqlSession.selectOne("sellInfoMapper.allCnt", userNo);
 	}
 
-	// 나의 판매내역 카테고리별 count
-	@Override
-	public List<CategoryCount> categoryCnt(int userNo) {
-		return sqlSession.selectList("sellInfoMapper.categoryCnt", userNo);
-	}
-
 	// 나의 판매내역 기간별 리스트 조회 (1, 3, 6개월)
 	@Override
 	public List<DealInfo> selectMonthsList(PeriodInfo period) {
@@ -153,6 +146,36 @@ public class SellInfoDaoImpl implements SellInfoDao{
 	@Override
 	public int updateProcessHold(int dealNo) {
 		return sqlSession.update("sellInfoMapper.updateProcessHold", dealNo);
+	}
+
+	// 카테고리별 count(배송준비)
+	@Override
+	public int preparedCnt(int userNo) {
+		return sqlSession.selectOne("sellInfoMapper.preparedCnt", userNo);
+	}
+
+	// 카테고리별 count(배송중)
+	@Override
+	public int deliveryCnt(int userNo) {
+		return sqlSession.selectOne("sellInfoMapper.deliveryCnt", userNo);
+	}
+
+	// 카테고리별 count(구매결정완료)
+	@Override
+	public int decisionCnt(int userNo) {
+		return sqlSession.selectOne("sellInfoMapper.decisionCnt", userNo);
+	}
+
+	// 카테고리별 count(반품요청)
+	@Override
+	public int returnCnt(int userNo) {
+		return sqlSession.selectOne("sellInfoMapper.returnCnt", userNo);
+	}
+
+	// 카테고리별 count(거래완료)
+	@Override
+	public int finishedCnt(int userNo) {
+		return sqlSession.selectOne("sellInfoMapper.finishedCnt", userNo);
 	}			
 
 }

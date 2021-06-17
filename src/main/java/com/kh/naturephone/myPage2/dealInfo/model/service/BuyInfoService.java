@@ -72,5 +72,23 @@ public interface BuyInfoService {
 
 	// 거래진행상태 '구매결정완료'로 변경
 	int updateProcessDecision(int dealNo);
+
+	// 나의 구매내역 전체 count
+	int allCnt(int userNo);
+
+	// 카테고리별 count(배송준비)
+	int preparedCnt(int userNo);
+
+	// 카테고리별 count(배송중)
+	int deliveryCnt(int userNo);
+
+	// 카테고리별 count(구매결정완료)
+	int decisionCnt(int userNo);
+
+	// 카테고리별 count(반품요청)
+	int returnCnt(int userNo);
+
+	// 카테고리별 count(거래완료)
+	int finishedCnt(int userNo);
 	
 }

@@ -15,10 +15,12 @@ import lombok.ToString;
 @ToString
 public class ItdProduct {
 	private int itdNo;
-	private Date enrollDate;	
+	private Date enrollDate;
+	private int productNo;
 	private String productName;
 	private String modelName;
 	private String maker;
+	private int carrNo;
 	private String carrName;
 	private int userNo;
 

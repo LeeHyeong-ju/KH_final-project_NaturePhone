@@ -93,8 +93,8 @@
 		text-align: center;
 	}
 	#toListBtn {
-		width: 70px;
-		margin-top: 80px;
+		width: 100px;
+		margin-bottom: 50px;
 	}
 	
 	/* modal */	
@@ -390,7 +390,7 @@
 						<br><br><br><br>
 						
 						<div id="toListArea">
-							<button type="button" class="btn btn-secondary btn-sm" id="toListBtn" onclick="location.href='${ contextPath }/buyInfo/list'">목록</button>
+							<button type="button" class="btn btn-success btn-sm" id="toListBtn" onclick="location.href='${ contextPath }/buyInfo/list'">목록</button>
 						</div>       
 					</div>
 					

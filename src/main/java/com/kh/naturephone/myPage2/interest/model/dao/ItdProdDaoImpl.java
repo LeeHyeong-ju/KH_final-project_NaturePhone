@@ -23,6 +23,24 @@ public class ItdProdDaoImpl implements ItdProdDao{
 	@Override
 	public int deleteInterest(int itdNo) {
 		return sqlSession.update("itdProductMapper.deleteInterest", itdNo);
+	}
+
+	// 선택한 상품 정보 조회
+	@Override
+	public ItdProduct selectItdProd(String keyword) {
+		return sqlSession.selectOne("itdProductMapper.selectItdProd", keyword);
+	}
+
+	// 조회된 상품 등록
+	@Override
+	public int insertInterestProd(ItdProduct p) {
+		return sqlSession.insert("itdProductMapper.insertInterestProd", p);
+	}
+
+	// 검색한 상품 리스트 조회
+	@Override
+	public List<ItdProduct> selectSearchProdList(String keyword) {
+		return sqlSession.selectList("itdProductMapper.selectSearchProdList", keyword);
 	}	
 
 }

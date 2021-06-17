@@ -59,13 +59,13 @@
 	
 	<select id="selectBuyInfoList" parameterType="_int" resultMap="dealInfoResultSet">
 		SELECT
-			   GOODS_NO
+			   DISTINCT DEAL_NO
+			 , GOODS_NO
 			 , PRICE
 			 , GOODS_TITLE
 			 , CREATE_DATE
 			 , MODEL_NAME
 			 , PROGRESS
-			 , DEAL_NO
 		  FROM
 		  	   GOODS_TB
 			   JOIN PHONE_TB USING (PRO_NO)
@@ -92,7 +92,7 @@
 	
 	<select id="selectBuyInfo" parameterType="_int" resultMap="dealInfoResultSet">
 		SELECT
-			   GOODS_NO
+			   DISTINCT GOODS_NO
 			 , PRICE
 			 , GOODS_TITLE
 			 , CREATE_DATE
@@ -200,7 +200,8 @@
 	
 	<select id="selectCategoryList" parameterType="CategoryInfo" resultMap="dealInfoResultSet">
 		SELECT
-			   GOODS_NO
+			   DISTINCT DEAL_NO
+			 , GOODS_NO
 			 , PRICE
 			 , GOODS_TITLE
 			 , CREATE_DATE
@@ -221,7 +222,8 @@
 	
 	<select id="selectMonthsList" parameterType="PeriodInfo" resultMap="dealInfoResultSet">
 		SELECT
-			   GOODS_NO
+			   DISTINCT DEAL_NO
+			 , GOODS_NO
 			 , PRICE, GOODS_TITLE
 			 , CREATE_DATE
 			 , MODEL_NAME
@@ -249,7 +251,8 @@
 	
 	<select id="selectCalendarList" parameterType="CalendarInfo" resultMap="dealInfoResultSet">
 		SELECT
-			   GOODS_NO
+			   DISTINCT DEAL_NO
+			 , GOODS_NO
 			 , PRICE
 			 , GOODS_TITLE
 			 , CREATE_DATE
@@ -270,7 +273,8 @@
 	
 	<select id="selectSearchList" parameterType="SearchKeyword" resultMap="dealInfoResultSet">
 		SELECT
-			   GOODS_NO
+			   DISTINCT DEAL_NO
+			 , GOODS_NO
 			 , PRICE
 			 , GOODS_TITLE
 			 , CREATE_DATE
@@ -364,6 +368,77 @@
 		   	   PROGRESS = '구매결정완료'
 		 WHERE
 		 	   DEAL_NO = #{dealNo}
-	</update>			
+	</update>
+	
+	<select id="allCnt" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(PROGRESS)
+		  FROM
+		  	   DEAL_TB D
+			   JOIN GOODS_TB USING (GOODS_NO)
+		 WHERE
+		 	   BUYER_NO = #{userNo}
+		   AND D.STATUS = 'Y'	   
+	</select>
+	
+	<select id="preparedCnt" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   DEAL_TB D
+			   JOIN GOODS_TB USING (GOODS_NO)
+		 WHERE
+		 	   BUYER_NO = #{userNo}
+		   AND D.STATUS = 'Y'
+		   AND PROGRESS = '배송준비(결제완료)'
+	</select>
+	
+	<select id="deliveryCnt" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   DEAL_TB D
+			   JOIN GOODS_TB USING (GOODS_NO)
+		 WHERE
+		 	   BUYER_NO = #{userNo}
+		   AND D.STATUS = 'Y'
+		   AND PROGRESS = '배송'	
+	</select>
+	
+	<select id="decisionCnt" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   DEAL_TB D
+			   JOIN GOODS_TB USING (GOODS_NO)
+		 WHERE
+		 	   BUYER_NO = #{userNo}
+		   AND D.STATUS = 'Y'
+		   AND PROGRESS = '구매결정완료'	
+	</select>
+	
+	<select id="returnCnt" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   DEAL_TB D
+			   JOIN GOODS_TB USING (GOODS_NO)
+		 WHERE
+		 	   BUYER_NO = #{userNo}
+		   AND D.STATUS = 'Y'
+		   AND PROGRESS = '반품요청'	
+	</select>
+	
+	<select id="finishedCnt" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   DEAL_TB D
+			   JOIN GOODS_TB USING (GOODS_NO)
+		 WHERE
+		 	   BUYER_NO = #{userNo}
+		   AND D.STATUS = 'Y'
+		   AND PROGRESS = '거래완료'	
+	</select>					
 	
 </mapper>

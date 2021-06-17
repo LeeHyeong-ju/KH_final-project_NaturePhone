@@ -10,6 +10,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- Autocomplete -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <title>나의 판매내역</title>
 <style>
 	/* 사이드바 css */
@@ -53,7 +57,7 @@
 	
 	b{
 		margin-left: 50px;
-		font-size: 1.2em;
+		font-size: 1.5em;
 	}
 	
 	#searchArea{
@@ -79,6 +83,7 @@
 	#interestlistTable{
 		text-align: center;
 		vertical-align: middle;
+		margin-bottom: 150px;
 	}	
 </style>
 </head>
@@ -110,7 +115,7 @@
 						<li class="list-group-item sideTitle">주문내역</li>
 						<li><a href="${ contextPath }/sellInfo/list" class="list-group-item list-group-item-action sideContent">나의 판매내역</a></li>
 						<li><a href="${ contextPath }/buyInfo/list" class="list-group-item list-group-item-action sideContent">나의 구매내역</a></li>
-						<li><a href="${ contextPath }/itd/list" class="list-group-item list-group-item-action sideContent">관심상품</a></li>
+						<li><a href="${ contextPath }/itd/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">관심상품</a></li>
 					</ul>
 				</div>
 			</div>
@@ -120,22 +125,22 @@
 				<div class="main-div">				
 					<!-- 작성 부분 -->		
 					<div class="outer" id="infoOuter">
-						<form action="" method="get" id="itdInputForm">
+						<form action="${ contextPath }/itd/insert" method="get" id="itdInputForm" onsubmit="checkKeyword();">
 						<div id="headerArea">
 							<b>관심상품</b>
 							<hr>
 							<div id="searchArea">
-								<h6>모델명</h6>
-								<input type="text" class="form-control form-control-sm" placeholder="제품명을 입력해 주세요" id="searchInput" name="">
-								<button type="button" class="btn btn-secondary btn-sm" id="insertBtn" onclick="">등록</button>
+								<h6>제품명</h6>
+								<input type="text" class="form-control form-control-sm" placeholder="제품명을 입력해 주세요" id="searchInput" name="keyword">
+								<button type="submit" class="btn btn-secondary btn-sm" id="insertBtn">등록</button>
 							</div>
 						</div>
 						</form>
+						
 						<div id="BodyArea">
 							<table class="table" id="interestlistTable">
 								<tr>
 									<th class="table-secondary">제조사</th>
-									<th class="table-secondary">통신사</th>
 									<th class="table-secondary">제품명</th>
 									<th class="table-secondary">모델명</th>
 									<th class="table-secondary">등록일</th>
@@ -144,23 +149,22 @@
 								
 								<c:if test="${ itdProdList.isEmpty() }">
 								<tr>
-									<td colspan="6">지금 관심상품을 등록해 보세요 :)</td>
+									<td colspan="5">지금 관심상품을 등록해 보세요 :)</td>
 								</tr>
 								</c:if>
 								
 								<c:forEach items="${ itdProdList }" var="ip">
 								<tr>
 									<td>${ ip.maker }</td>
-									<td>${ ip.carrName }</td>
 									<td>${ ip.productName }</td>
 									<td>${ ip.modelName }</td>
 									<td>${ ip.enrollDate }</td>
 									<td>
-										<button class="btn btn-secondary btn-sm" onclick="">물품확인</button> &nbsp;&nbsp;
-										<button class="btn btn-light btn-sm" onclick="deleteItd(${ip.itdNo})">삭제</button>
+										<button class="btn btn-secondary btn-sm" onclick="toSearchGoodsList(${ip.itdNo});">물품확인</button> &nbsp;&nbsp;
+										<button class="btn btn-light btn-sm" onclick="deleteItd(${ip.itdNo});">삭제</button>
 									</td>									
 								</tr>	
-								</c:forEach>						
+								</c:forEach>					
 							</table>
 						</div>
 					</div>					
@@ -173,12 +177,42 @@
 	<!-- footer -->
 	<jsp:include page="../common/footer.jsp"/>
 	
+	
 	<script>
 		function deleteItd(itdNo){
 			var yn = confirm("정말 삭제하시겠습니까?");
 			if(yn == true){
 				location.href = '${contextPath}/itd/delete?itdNo=' + itdNo;
 			}
+		}
+	</script>
+	
+	<script>
+		function toSearchGoodsList(itdNo){
+			console.log(itdNo);
+			location.href = '${contextPath}/'; // 해당 모델이 검색된 물품 페이지로 연결
+		}
+	</script>
+	
+	<script>
+		$(function(){
+			var phoneList = ["A1778", "SM-N960N", "A2403", "SM-G988N"];
+			
+			$("#searchInput").autocomplete({
+				source: phoneList,
+				select: function(event, ui){
+					console.log(ui.item);
+				},
+				focus: function(event, ui){
+					return false;
+				}
+			});
+		});
+	</script>
+	
+	<script>
+		function checkKeyword(){ // 모델명 체크
+			var keyword = $("#searchInput").val();
 		}
 	</script>	
 

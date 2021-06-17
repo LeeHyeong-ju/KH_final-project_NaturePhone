@@ -43,10 +43,22 @@ public class BuyInfoController {
 		List<GoodsAtt> attList = biService.selectAttList();
 		
 		// 카테고리별 count
+		int allCnt = biService.allCnt(userNo);
+		int preparedCnt = biService.preparedCnt(userNo);
+		int deliveryCnt = biService.deliveryCnt(userNo);
+		int decisionCnt = biService.decisionCnt(userNo);
+		int returnCnt = biService.returnCnt(userNo);
+		int finishedCnt = biService.finishedCnt(userNo);
 		
 		if(buyInfoList != null) {
 			model.addAttribute("buyInfoList", buyInfoList);
 			model.addAttribute("attList", attList);
+			model.addAttribute("allCnt", allCnt);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/buyInfoListPage";
 		} else {
 			model.addAttribute("msg", "나의 구매내역 조회에 실패하였습니다.");
@@ -96,12 +108,24 @@ public class BuyInfoController {
 		// 사진 조회
 		List<GoodsAtt> attList = biService.selectAttList();
 		
-		// 카테고리별 count		
+		// 카테고리별 count
+		int allCnt = biService.allCnt(userNo);
+		int preparedCnt = biService.preparedCnt(userNo);
+		int deliveryCnt = biService.deliveryCnt(userNo);
+		int decisionCnt = biService.decisionCnt(userNo);
+		int returnCnt = biService.returnCnt(userNo);
+		int finishedCnt = biService.finishedCnt(userNo);
 		
 		if(buyInfoList != null) {
 			model.addAttribute("buyInfoList", buyInfoList);
 			model.addAttribute("attList", attList);
 			model.addAttribute("cateInfo", category);
+			model.addAttribute("allCnt", allCnt);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/buyInfoListPage";
 		} else {
 			model.addAttribute("msg", "카테고리별 내역 조회에 실패하였습니다.");
@@ -121,10 +145,22 @@ public class BuyInfoController {
 		List<GoodsAtt> attList = biService.selectAttList();
 		
 		// 카테고리별 count
+		int allCnt = biService.allCnt(userNo);
+		int preparedCnt = biService.preparedCnt(userNo);
+		int deliveryCnt = biService.deliveryCnt(userNo);
+		int decisionCnt = biService.decisionCnt(userNo);
+		int returnCnt = biService.returnCnt(userNo);
+		int finishedCnt = biService.finishedCnt(userNo);
 		
 		if(buyInfoList != null) {
 			model.addAttribute("buyInfoList", buyInfoList);
 			model.addAttribute("attList", attList);
+			model.addAttribute("allCnt", allCnt);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/buyInfoListPage";
 		} else {
 			model.addAttribute("msg", "기간별 내역 조회에 실패하였습니다.");
@@ -144,10 +180,22 @@ public class BuyInfoController {
 		List<GoodsAtt> attList = biService.selectAttList();
 		
 		// 카테고리별 count
+		int allCnt = biService.allCnt(userNo);
+		int preparedCnt = biService.preparedCnt(userNo);
+		int deliveryCnt = biService.deliveryCnt(userNo);
+		int decisionCnt = biService.decisionCnt(userNo);
+		int returnCnt = biService.returnCnt(userNo);
+		int finishedCnt = biService.finishedCnt(userNo);
 				
 		if(buyInfoList != null) {
 			model.addAttribute("buyInfoList", buyInfoList);
 			model.addAttribute("attList", attList);
+			model.addAttribute("allCnt", allCnt);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/buyInfoListPage";
 		} else {
 			model.addAttribute("msg", "기간별 내역 조회에 실패하였습니다.");
@@ -167,10 +215,22 @@ public class BuyInfoController {
 		List<GoodsAtt> attList = biService.selectAttList();
 		
 		// 카테고리별 count
+		int allCnt = biService.allCnt(userNo);
+		int preparedCnt = biService.preparedCnt(userNo);
+		int deliveryCnt = biService.deliveryCnt(userNo);
+		int decisionCnt = biService.decisionCnt(userNo);
+		int returnCnt = biService.returnCnt(userNo);
+		int finishedCnt = biService.finishedCnt(userNo);
 		
 		if(buyInfoList != null) {
 			model.addAttribute("buyInfoList", buyInfoList);
 			model.addAttribute("attList", attList);
+			model.addAttribute("allCnt", allCnt);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/buyInfoListPage";
 		} else {
 			model.addAttribute("msg", "나의 구매내역 검색에 실패하였습니다.");
