@@ -65,6 +65,9 @@
     #board-category-select {
     	float:right;
     }
+    .panel > h5 {
+		font-weight:bold;
+	}
 </style>
 </head>
 <body>
@@ -91,7 +94,7 @@
                   <li><a href="${ contextPath }/admin/memberList"
                     class="list-group-item list-group-item-action sideContent">회원 관리</a></li>
                   <li><a href="${ contextPath }/admin/boardList" 
-                  	class="list-group-item list-group-item-action sideContent">게시글 관리</a></li>
+                  	class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">게시글 관리</a></li>
                   <li><a href="${ contextPath }/admin/reportList"
                     class="list-group-item list-group-item-action sideContent">신고 관리</a></li>
                   <li><a href="${ contextPath }/admin/phoneInfoInsert"

@@ -92,6 +92,9 @@
      border: solid 1px #dadada;
      resize:none;
    }
+   .main-div h5 {
+		font-weight:bold;
+	}
 </style>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
@@ -101,7 +104,7 @@
               <div class="list-group col-md-10 sideBar">
                   <ul>
                         <li class="list-group-item sideTitle">고객센터</li>
-                        <li><a href="${ contextPath }/notice/list" class="list-group-item list-group-item-action sideContent">공지사항</a></li>
+                        <li><a href="${ contextPath }/notice/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">공지사항</a></li>
                         <li><a href="${ contextPath }/qna/list" class="list-group-item list-group-item-action sideContent">Q&A</a></li>
                     </ul>
               </div>
@@ -124,10 +127,10 @@
                     <div style="padding-top : 30px; min-height : 200px;">${ notice.bcontent }</div>
                     <hr>               
                     <span class="topContent">
-                    	<button type="button" class="btn btn-secondary" onclick="location.href='${contextPath}/notice/list?page=${ param.page }'">목록으로</button>
+                    	<button type="button" class="btn btn-secondary btn-sm" style="float:right;" onclick="location.href='${contextPath}/notice/list?page=${ param.page }'">목록으로</button>
                     	<c:if test="${ !empty loginUser && loginUser.grade eq '관리자' }">
-                    		<button type="button" class="btn btn-success" style="float:right;" onclick="location.href='${contextPath}/notice/delete?bno=${ notice.bno }'">삭제</button>
-                    		<button type="button" class="btn btn-success" style="float:right; margin-right: 10px;" onclick="location.href='${contextPath}/notice/updatePage?bno=${ notice.bno }&page=${ param.page }'">수정</button>
+                    		<button type="button" class="btn btn-success btn-sm" style="float:left; margin-right: 10px;" onclick="location.href='${contextPath}/notice/updatePage?bno=${ notice.bno }&page=${ param.page }'">수정</button>
+                    		<button type="button" class="btn btn-success btn-sm" style="float:left;" onclick="location.href='${contextPath}/notice/delete?bno=${ notice.bno }'">삭제</button>
                     	</c:if>
                     </span>
                     <br><br>      
@@ -149,7 +152,7 @@
 									<c:if test="${ !empty loginUser }">
 									<td>
 										<i class="far fa-envelope" style="cursor: pointer" onclick="return setUser('${r.writer_id}',${r.userno })"></i>
-										<button class="btn-secondary" style="font-size: 12px; width:40px; height: 25px; border: none; border-radius:5px;" 
+										<button class="btn-warning" style="font-size: 12px; width:40px; height: 25px; border: none; border-radius:5px;" 
 											onclick="return userReportBtn('reply', '${r.writer_id}',${r.userno }, ${r.reno })">신고</button>
 									</td>
 									</c:if>											

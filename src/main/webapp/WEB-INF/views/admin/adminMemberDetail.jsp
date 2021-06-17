@@ -64,6 +64,9 @@ span {
 .rightSpace a {
 	color: rgb(7, 7, 7) !important;
 }
+.panel > h5 {
+	font-weight:bold;
+}
 </style>
 </head>
 <body>
@@ -90,7 +93,7 @@ span {
 	               <ul>
 	                  <li class="list-group-item sideTitle">관리페이지</li>
 	                  <li><a href="${ contextPath }/admin/memberList"
-	                    class="list-group-item list-group-item-action sideContent">회원 관리</a></li>
+	                    class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">회원 관리</a></li>
 	                  <li><a href="${ contextPath }/admin/boardList" 
 	                  	class="list-group-item list-group-item-action sideContent">게시글 관리</a></li>
 	                  <li><a href="${ contextPath }/admin/reportList"
