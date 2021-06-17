@@ -47,7 +47,8 @@
 		  FROM
 				BOARD_TB
 		 WHERE
-				B_STATUS = 'Y'				
+				B_STATUS = 'Y'
+			AND	CATEGORY = '공지'				
 	</select>
 	
 	<select id="selectNoticeList" resultMap="noticeResultSet">
