@@ -87,16 +87,17 @@
                      
           <h5><b>회원설문</b></h5>
             <hr>
-            <form action="${ contextPath }/boardSurvey/insert" id="writeForm" method="post">                  
+            
+            <form action="${ contextPath }/boardSurvey/update" id="writeForm" method="post">                  
 	            <table class="table table-bordered"> 
 	            <tbody>
 	              <tr>
 	                <th scope="row" style="text-align: center; background-color:#F4F4F4; border: 1px solid  #C8C8C8;" >제목</th>
-	                <td><input type="text" name="stitle" style="width: 70%;"></td>
+	                <td><input type="text" name="stitle" value="${ board.stitle }" required style="width: 70%;"></td>
 	              </tr>              
 	            </tbody>
 	          </table>
-	         <textarea name="scontent" style="width: 100%; height: 200px; border: 1px solid  #C8C8C8;"></textarea>
+	         <textarea name="scontent" required style="width: 100%; height: 200px; border: 1px solid  #C8C8C8;">${ board.scontent }</textarea>
 	          <br><br>
 	         
 	          <table class="table table-bordered">
@@ -112,8 +113,8 @@
 	          </table>
             <hr>            
 
-           <button type="submit" class="btn btn-success btn-sm" style="float: right;">등록</button>  
-           <button class="btn btn-secondary btn-sm" onclick="location.href='${ contextPath }/boardSurvey/list'">목록으로</button> 
+           <button class="btn" type="button" onclick="location.href='${ contextPath }/boardSurvey/list?page=${ param.page }'">목록으로</button>
+            <button type="submit" class="btn btn-secondary" style="float: right;">수정하기</button>             
         </form>                
         </div>
       </div>	

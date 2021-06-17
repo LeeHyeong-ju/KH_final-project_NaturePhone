@@ -39,7 +39,7 @@ import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.common.Reply_TB;
 import com.kh.naturephone.common.Search;
 import com.kh.naturephone.member.model.vo.Member;
-
+import com.kh.naturephone.notice.model.exception.NoticeException;
 import com.kh.naturephone.boardFree.model.exception.BoardFreeException;
 
 @Controller
@@ -191,12 +191,12 @@ public class BoardFreeController {
 			// !flagbno를 전달하여 true면 조회수 증가 필요, false면 조회수 증가 불필요
 			Board_TB board = bService.selectBoard(bno, !flagbno);
 			//System.out.println("board : " + board);
-			
+			B_Att_TB att =  bService.selectBoardAtt(bno);
 			List<Reply_TB> rlist = bService.selectReplyList(bno);
 			//System.out.println("rlist : " + rlist);
 			if(board != null) {
 				model.addAttribute("board", board);
-
+				model.addAttribute("att", att);
 				model.addAttribute("rlist", rlist);
 				return "board/boardFreeDetail";
 			} else {
@@ -213,49 +213,78 @@ public class BoardFreeController {
 			model.addAttribute("board", board);
 			return "board/boardFreeUpdate";
 		}
-		
-		// 게시글 수정
+				
+			
 		@PostMapping("/update")
 		public String boardUpdate(Board_TB board,
+								  B_Att_TB att,
 								  @RequestParam(value="uploadFile") MultipartFile file,
-								  HttpServletRequest request) {
+								  HttpServletRequest request) throws BoardFreeException {
+			int result = 0;
 			
-			int result = bService.updateBoard(board);
-			
-			if(result > 0) {
-										
 			if(!file.getOriginalFilename().equals("")) {
-			
-				B_Att_TB att = new B_Att_TB();
-				if(att.getBfrenameName() != null) {
-					deleteFile(att.getBfrenameName(), request);
-				}
 				
-				String bfrenameName = saveFile(file, request);
-			
-				if(bfrenameName != null) {
-					att.setBforiginalName(file.getOriginalFilename());
-					att.setBfrenameName(bfrenameName);
-					att.setBffilePath("/bfuploadFiles/"+file.getOriginalFilename());
-					att.setBno(board.getBno());
-					System.out.println(att);
-					int result1 = bService.updateBoardAtt(att);
-					System.out.println("result1 : " + result1);					
-					if(result1 > 0) {
-						return "redirect:/boardFree/list";
+				int result1 = 0;
+				
+				String renameFileName = saveFile(file, request);
+				
+				if(renameFileName != null){
+					if(att.getBfrenameName() != null) {
+						deleteFile(att.getBfrenameName(), request);
+						
+						att.setBforiginalName(file.getOriginalFilename());
+						att.setBfrenameName(renameFileName);
+						att.setBffilePath("/bfuploadFiles/" + file.getOriginalFilename());
+						
+						result1 = bService.updateBoardAtt(att);
 					} else {
-						throw new BoardFreeException("이미지 등록에 실패했습니다.");
-					}	
-
+						att.setBforiginalName(file.getOriginalFilename());
+						att.setBfrenameName(renameFileName);
+						att.setBffilePath("/bfuploadFiles/" + file.getOriginalFilename());
+						
+						result1 = bService.insertFreeAtt(att, board.getBno());
+					}
+					
+					if(result1 > 0) {
+						result = bService.updateBoard(board);
+					} else {
+						throw new BoardFreeException("파일 업로드에 실패하였습니다.");
 					}
 				}
-					return "redirect:/boardFree/detail?bno=" + board.getBno();
-			} else {
-				throw new BoardFreeException("게시글 수정에 실패했습니다.");
+			}
+			else {
+				result = bService.updateBoard(board);
 			}
 			
-		}		
-			
+			if(result > 0) {
+				return "redirect:/boardFree/detail?bno=" + board.getBno();
+			} else {
+				throw new BoardFreeException("게시글 수정에 실패하였습니다.");
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		public void deleteFile(String fileName, HttpServletRequest request) {
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			String savePath = root + "\\bfuploadFiles";
@@ -264,20 +293,22 @@ public class BoardFreeController {
 		}
 	
 		@RequestMapping("/delete")
-		public String boardDelete(int bno, HttpServletRequest request) {
+		public String boardDelete(int bno, HttpServletRequest request){
 			
 			B_Att_TB att =  bService.selectBoardAtt(bno);
 			System.out.println("att : " + att);
-			if(att.getBfrenameName() != null) {
+			if(att != null) {
 				deleteFile(att.getBfrenameName(), request);				
-			}				
+			} 
+			System.out.println("bno : " + bno);
 			int result = bService.deleteBoard(bno);
 					
 			if(result > 0) {		
 				return "redirect:/boardFree/list";
 			} else {
 				throw new BoardFreeException("게시글 삭제에 실패했습니다.");
-			}	
+			}
+			
 		}
 	
 		// 댓글 작성
@@ -294,26 +325,35 @@ public class BoardFreeController {
 			System.out.println("list : " + rlist);	 
 			// 날짜 포맷하기 위해 GsonBuilder를 이용해서 Gson 객체 생성
 			Gson gson = new GsonBuilder()
-							.setDateFormat("yyyy-MM-dd")
+							.setDateFormat("yy.MM.dd hh:mm")
 							.create();
 					
 				return gson.toJson(rlist);
 		}	
 							
-		// 검색기능
+		// 리스트 키워드 검색
 		@GetMapping("/search")
-		public String noticeSearch(@ModelAttribute Search search,
-								   Model model) {
+		public ModelAndView noticeSearch(@ModelAttribute Search search,
+								   ModelAndView mv,
+								   @RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 			
-			List<Board_TB> searchList = bService.searchList(search);
-			System.out.println(searchList);
-			model.addAttribute("list", searchList);
-					
-			return "board/boardFreeList";
+			int listCount = bService.searchListCount(search);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			List<Board_TB> searchList = bService.searchList(search, pi);
+			
+
+			if(searchList != null) {
+				mv.addObject("list", searchList);
+				mv.addObject("pi", pi);				
+				mv.setViewName("board/boardFreeList");
+			} else {
+				mv.addObject("msg", "게시글 전체 조회에 실패했습니다.");
+				mv.setViewName("common/errorPage");
+			}
+			return mv;
 		}
-	
-	
-		
 		
 		//게시물 추천 관련 메소드
 	    @RequestMapping("/recommend")
@@ -334,21 +374,6 @@ public class BoardFreeController {
 //		  System.out.println(result);
 		  return Integer.toString(result); }
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	
 }

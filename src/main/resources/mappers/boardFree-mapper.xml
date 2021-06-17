@@ -136,6 +136,31 @@
 		)
 	</insert>
 
+<insert id="insertFreeAtt" parameterType="B_Att_TB">
+		INSERT
+		  INTO B_ATT_TB
+		 (
+				BF_NO
+			  , BF_ORIGIN_NAME
+			  , BF_RENAME_NAME
+			  , BF_FILEPATH
+			  , BF_UPLOAD_DATE
+			  , BF_STATUS
+			  , B_NO
+		)
+		VALUES
+		(
+			  SEQ_BF_NO.NEXTVAL
+			, #{bforiginalName} 
+			, #{bfrenameName}
+			, #{bffilePath}
+			, SYSDATE
+			, DEFAULT
+			, SEQ_B_NO.CURRVAL
+		)
+	</insert>
+
+ 
 <select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
 		SELECT
 				B_NO
@@ -160,8 +185,6 @@
 		
 </select>
 
-
-
 <update id="updateReadCount" parameterType="_int">
 		UPDATE
 				BOARD_TB
@@ -181,9 +204,7 @@
 			  , BCATEGORY = #{bcategory}	
 		      ,	B_MODIFY_DATE = SYSDATE
 		WHERE
-		        B_NO = #{bno}
-	
-	
+		        B_NO = #{bno}	
 	</update>
 
 <update id="updateBoardAtt" parameterType="B_Att_TB">
@@ -196,11 +217,25 @@
 			  , BF_FILEPATH = #{bffilePath}
 			  , BF_UPLOAD_DATE = SYSDATE
 		WHERE
-		        B_NO = #{bno}
-			
+		        B_NO = #{bno}			
 	</update>
 
 <select id="selectBoardAtt" parameterType="_int" resultMap="AttResultSet">
+		SELECT
+				BF_NO
+			  , BF_ORIGIN_NAME
+			  , BF_RENAME_NAME
+			  , BF_FILEPATH
+			  , BF_UPLOAD_DATE
+			  , BF_STATUS
+			  , B_NO
+		  FROM
+		  		B_Att_TB
+		 WHERE
+		 		B_NO = #{bno}
+	</select>
+
+<select id="selectAttList" parameterType="_int" resultMap="AttResultSet">
 		SELECT
 				BF_NO
 			  , BF_ORIGIN_NAME
@@ -300,7 +335,8 @@
 			    BOARD_TB,  MEMBER_TB
 		 <where>
 				 BOARD_TB.USER_NO = MEMBER_TB.USER_NO
-		  		AND	B_STATUS= 'Y'    	  	
+		  		AND	B_STATUS= 'Y'
+		  		AND  CATEGORY = '자유'    	  	
 				<choose>
 					<when test="searchCondition == 'title'">
 					AND BTITLE LIKE #{sv}
@@ -340,21 +376,33 @@
        AND  RE_NO = #{re_no}
    </update>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+<select id="searchFreeListCount" parameterType="Search" resultType="_int">
+		<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>
+		SELECT
+				COUNT(*)
+		 FROM
+				BOARD_TB
+		   JOIN MEMBER_TB USING(USER_NO)
+		<where>
+			B_STATUS = 'Y'
+			AND  CATEGORY = '자유'
+			<choose>
+				<when test="searchCondition == 'title'">
+				AND BTITLE LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'writer'">
+				AND USER_NAME LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'content'">
+				AND BCONTENT LIKE #{sv}
+				</when>
+				<otherwise>
+				AND (USER_NAME LIKE #{sv}
+					OR BTITLE LIKE #{sv}
+					OR BCONTENT LIKE #{sv})
+				</otherwise>
+			</choose>
+		</where>
+	</select>
 
 </mapper>
-
-
-

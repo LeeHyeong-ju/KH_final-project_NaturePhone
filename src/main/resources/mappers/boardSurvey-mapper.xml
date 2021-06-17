@@ -244,7 +244,25 @@
 	</select>
 
 
+<update id="deleteBoard" parameterType="_int">
+		UPDATE
+			   SURVEY_TB
+		   SET
+			   S_STATUS = 'N'	   
+		 WHERE
+			   S_NO = #{s_no}
+	</update>
 
+<update id="updateBoard" parameterType="Survey_TB">
+		UPDATE
+			    SURVEY_TB
+		SET
+				STITLE = #{Stitle}
+			  , SCONTENT = #{Scontent}	
+		      ,	B_MODIFY_DATE = SYSDATE
+		WHERE
+		        S_NO = #{s_no}	
+	</update>
 
 
 
