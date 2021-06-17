@@ -1,13 +1,9 @@
 package com.kh.naturephone.boardSurvey.controller;
 
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -29,18 +25,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.kh.naturephone.boardFree.model.exception.BoardFreeException;
 import com.kh.naturephone.boardSurvey.model.exception.BoardSurveyException;
 import com.kh.naturephone.boardSurvey.model.service.BoardSurveyService;
 import com.kh.naturephone.boardSurvey.model.vo.S_Detail_TB;
 import com.kh.naturephone.boardSurvey.model.vo.Survey_TB;
 import com.kh.naturephone.common.PageInfo;
-
 import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.common.Reply_TB;
 import com.kh.naturephone.common.Search;
 import com.kh.naturephone.member.model.vo.Member;
-import com.kh.naturephone.message.model.vo.Message;
 
 @Controller
 @RequestMapping("/boardSurvey")
