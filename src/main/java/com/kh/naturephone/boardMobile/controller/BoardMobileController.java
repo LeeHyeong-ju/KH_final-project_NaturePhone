@@ -270,7 +270,7 @@ public class BoardMobileController {
 			
 			B_Att_TB att =  mService.selectBoardAtt(bno);
 			System.out.println("att : " + att);
-			if(att.getBfrenameName() != null) {
+			if(att != null) {
 				deleteFile(att.getBfrenameName(), request);				
 			}				
 			int result = mService.deleteBoard(bno);
