@@ -18,7 +18,6 @@ import com.kh.naturephone.myPage2.dealInfo.model.service.SellInfoService;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.BuyerInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CalculateInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CalendarInfo;
-import com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryCount;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.DealInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.DeliveryInfo;
@@ -45,13 +44,21 @@ public class SellInfoController {
 		
 		// 카테고리별 count
 		int allCnt = siService.allCnt(userNo);
-		List<CategoryCount> cntList = siService.categoryCnt(userNo);
-		
+		int preparedCnt = siService.preparedCnt(userNo);
+		int deliveryCnt = siService.deliveryCnt(userNo);
+		int decisionCnt = siService.decisionCnt(userNo);
+		int returnCnt = siService.returnCnt(userNo);
+		int finishedCnt = siService.finishedCnt(userNo);
+				
 		if(sellInfoList != null) {
 			model.addAttribute("sellInfoList", sellInfoList);
 			model.addAttribute("attList", attList);
 			model.addAttribute("allCnt", allCnt);
-			model.addAttribute("cntList", cntList);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/sellInfoListPage";
 		} else {
 			model.addAttribute("msg", "나의 판매내역 조회에 실패하였습니다.");
@@ -104,14 +111,22 @@ public class SellInfoController {
 		
 		// 카테고리별 count
 		int allCnt = siService.allCnt(userNo);
-		List<CategoryCount> cntList = siService.categoryCnt(userNo);
+		int preparedCnt = siService.preparedCnt(userNo);
+		int deliveryCnt = siService.deliveryCnt(userNo);
+		int decisionCnt = siService.decisionCnt(userNo);
+		int returnCnt = siService.returnCnt(userNo);
+		int finishedCnt = siService.finishedCnt(userNo);
 		
 		if(sellInfoList != null) {
 			model.addAttribute("sellInfoList", sellInfoList);
 			model.addAttribute("attList", attList);
 			model.addAttribute("cateInfo", category);
 			model.addAttribute("allCnt", allCnt);
-			model.addAttribute("cntList", cntList);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/sellInfoListPage";
 		} else {
 			model.addAttribute("msg", "카테고리별 내역 조회에 실패하였습니다.");
@@ -132,13 +147,21 @@ public class SellInfoController {
 		
 		// 카테고리별 count
 		int allCnt = siService.allCnt(userNo);
-		List<CategoryCount> cntList = siService.categoryCnt(userNo);
+		int preparedCnt = siService.preparedCnt(userNo);
+		int deliveryCnt = siService.deliveryCnt(userNo);
+		int decisionCnt = siService.decisionCnt(userNo);
+		int returnCnt = siService.returnCnt(userNo);
+		int finishedCnt = siService.finishedCnt(userNo);
 		
 		if(sellInfoList != null) {
 			model.addAttribute("sellInfoList", sellInfoList);
 			model.addAttribute("attList", attList);
 			model.addAttribute("allCnt", allCnt);
-			model.addAttribute("cntList", cntList);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/sellInfoListPage";
 		} else {
 			model.addAttribute("msg", "기간별 내역 조회에 실패하였습니다.");
@@ -159,13 +182,21 @@ public class SellInfoController {
 		
 		// 카테고리별 count
 		int allCnt = siService.allCnt(userNo);
-		List<CategoryCount> cntList = siService.categoryCnt(userNo);
+		int preparedCnt = siService.preparedCnt(userNo);
+		int deliveryCnt = siService.deliveryCnt(userNo);
+		int decisionCnt = siService.decisionCnt(userNo);
+		int returnCnt = siService.returnCnt(userNo);
+		int finishedCnt = siService.finishedCnt(userNo);
 				
 		if(sellInfoList != null) {
 			model.addAttribute("sellInfoList", sellInfoList);
 			model.addAttribute("attList", attList);
 			model.addAttribute("allCnt", allCnt);
-			model.addAttribute("cntList", cntList);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/sellInfoListPage";
 		} else {
 			model.addAttribute("msg", "기간별 내역 조회에 실패하였습니다.");
@@ -213,13 +244,21 @@ public class SellInfoController {
 		
 		// 카테고리별 count
 		int allCnt = siService.allCnt(userNo);
-		List<CategoryCount> cntList = siService.categoryCnt(userNo);
+		int preparedCnt = siService.preparedCnt(userNo);
+		int deliveryCnt = siService.deliveryCnt(userNo);
+		int decisionCnt = siService.decisionCnt(userNo);
+		int returnCnt = siService.returnCnt(userNo);
+		int finishedCnt = siService.finishedCnt(userNo);
 		
 		if(sellInfoList != null) {
 			model.addAttribute("sellInfoList", sellInfoList);
 			model.addAttribute("attList", attList);
 			model.addAttribute("allCnt", allCnt);
-			model.addAttribute("cntList", cntList);
+			model.addAttribute("preparedCnt", preparedCnt);
+			model.addAttribute("deliveryCnt", deliveryCnt);
+			model.addAttribute("decisionCnt", decisionCnt);
+			model.addAttribute("returnCnt", returnCnt);
+			model.addAttribute("finishedCnt", finishedCnt);
 			return "myPage2/sellInfoListPage";
 		} else {
 			model.addAttribute("msg", "나의 판매내역 검색에 실패하였습니다.");

@@ -137,4 +137,40 @@ public class BuyInfoDaoImpl implements BuyInfoDao{
 		return sqlSession.update("buyInfoMapper.updateProcessDecision", dealNo);
 	}
 
+	// 나의 구매내역 전체 count
+	@Override
+	public int allCnt(int userNo) {
+		return sqlSession.selectOne("buyInfoMapper.allCnt", userNo);
+	}
+
+	// 카테고리별 count(배송준비)
+	@Override
+	public int preparedCnt(int userNo) {
+		return sqlSession.selectOne("buyInfoMapper.preparedCnt", userNo);
+	}
+
+	// 카테고리별 count(배송중)
+	@Override
+	public int deliveryCnt(int userNo) {
+		return sqlSession.selectOne("buyInfoMapper.deliveryCnt", userNo);
+	}
+
+	// 카테고리별 count(구매결정완료)
+	@Override
+	public int decisionCnt(int userNo) {
+		return sqlSession.selectOne("buyInfoMapper.decisionCnt", userNo);
+	}
+
+	// 카테고리별 count(반품요청)
+	@Override
+	public int returnCnt(int userNo) {
+		return sqlSession.selectOne("buyInfoMapper.returnCnt", userNo);
+	}
+
+	// 카테고리별 count(거래완료)
+	@Override
+	public int finishedCnt(int userNo) {
+		return sqlSession.selectOne("buyInfoMapper.finishedCnt", userNo);
+	}
+
 }
