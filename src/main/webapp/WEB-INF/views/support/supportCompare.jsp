@@ -178,6 +178,9 @@
 		border:1.5px solid #434C53;
 		margin-top:5px; 
 	}
+	.main-div > h5 {
+		font-weight:bold;
+	}
 </style>
 </head>
 <body>
@@ -189,7 +192,7 @@
 	      <div class="list-group col-md-10 sideBar">
 	        <ul>
 	        	<li class="list-group-item sideTitle">편의기능</li>
-	        	<li><a href="${ contextPath }/support/compare" class="list-group-item list-group-item-action sideContent">스펙 비교</a></li>
+	        	<li><a href="${ contextPath }/support/compare" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">스펙 비교</a></li>
 	        	<li><a href="${ contextPath }/support/quote" class="list-group-item list-group-item-action sideContent">중고폰 시세</a></li>
 	        </ul>
 	      </div>
