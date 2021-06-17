@@ -198,7 +198,7 @@
 	      </div>
 	    </div>
 	    <!-- 내용 -->
-	    <div class="col-md-8 content">
+	    <div class="col-md-8 content" style="min-height:500px;">
 	      <div class="main-div">
 	        <h5>기종 선택</h5>
 	        <table id="phone-select-table">

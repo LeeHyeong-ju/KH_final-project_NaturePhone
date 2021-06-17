@@ -354,8 +354,8 @@
                 <!-- 입력 부분 -->
                 <div id="inputArea">
                 <form action="${ contextPath }/goods/insert" id="insertForm" method="post" enctype="multipart/form-data">
-                	<c:set var="userNo">2</c:set> 
-                	<input type="hidden" value="${ userNo }" name="userNo">
+                	<%-- <c:set var="userNo">2</c:set> 
+                	<input type="hidden" value="${ userNo }" name="userNo"> --%>
                     <div class="img">
                         <div class="regImg">
                           <div class="input-group mb-3 imgDiv">

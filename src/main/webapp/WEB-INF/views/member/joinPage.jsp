@@ -364,7 +364,7 @@ span {
                         	$("#joinSendMailBtn").attr('disabled', true);
                         	$("#btn_submit").attr('disabled', false);
                     	} else if('false'){
-                    		alert("메일보내기에 실패하였습니다. 이메일을 다시 확인해주세요.");
+                    		alert("인증키가 일치하지 않습니다. 이메일을 다시 확인해주세요.");
                     	}
                     },
                     error: function(e){
