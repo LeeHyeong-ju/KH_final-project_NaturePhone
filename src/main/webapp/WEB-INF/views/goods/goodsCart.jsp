@@ -80,7 +80,11 @@
 
         .selectedPay {
             float: right;
-        }   
+        }
+        
+        .cartTh{
+        	text-align : center;
+        }
     </style>
     
     
@@ -112,26 +116,25 @@
                     <br>
                     <table class="table cartTable">
                         <thead>
-                            <tr><td colspan="6"></td></tr>
-                        </thead>
-                        
-	                          <tr>
-	                            <td scope="row"><input class="cartCk" type="checkbox"></td>
-	                            <td>sm-12345</td>
-	                            <td>핸드폰 팝니다</td>
-	                            <td class="priceTd">200000</td>
-	                            <td>id</td>
-	                            <td>03-12</td>
-	                          </tr>
-                          
-                          <tr class="cartRow">
-                            <td scope="row"><input type="checkbox"></td>
-                            <td>sm-12345</td>
-                            <td>핸드폰 팝니다</td>
-                            <td class="priceTd">200000</td>
-                            <td>id</td>
-                            <td>03-12</td>
-                          </tr>                       
+						    <tr class="cartTh">
+						      <th scope="col">선택</th>
+						      <th scope="col">제품명</th>
+						      <th scope="col">제목</th>
+						      <th scope="col">가격</th>
+						      <th scope="col">판매자</th>
+						      <th scope="col">등록날짜</th>
+						    </tr>
+						 </thead>
+                        	  <c:forEach items="${ cList }" var="c" varStatus="status">
+	                        	  	<tr class="cartTh">
+			                            <td scope="row"><input class="cartCk" type="checkbox"></td>
+			                            <td>${ p[status.index].modelname }</td>
+			                            <td>${ g[status.index].goodsTitle }</td>
+			                            <td class="priceTd">${ g[status.index].price + g[status.index].deliveryFee }</td>
+			                            <td>id</td>
+			                            <td>${ g[status.index].createDate }</td>
+		                          </tr>
+                        	  </c:forEach>                     
                       </table>
                         <br>
                       <div class="totalPrice">

@@ -68,7 +68,7 @@ public class GoodsController {
 		g.setOpenDate(openDate); // 개통일 저장
 		// System.out.println(g.getUserNo());
 
-		
+		System.out.println(g);
 		
 
 		int insertReslut = gService.insertGoods(g); 
@@ -76,10 +76,10 @@ public class GoodsController {
 		
 		
 		
-	
+		// 다중 이미지 파일 업로드
 		int length = files.length;
 		String[] renameFileName = new String[length];		
-		// 이미지 파일 첨부 
+		
 		for(int i = 0; i < length; i++) {
 			Attachment att = new Attachment();
 			if(!files[i].getOriginalFilename().equals("")) {			
@@ -96,7 +96,6 @@ public class GoodsController {
 			
 			// 첨부이미지 정보 DB insert
 			gService.insertAtt(att);
-			
 			
 		}
 		
@@ -262,17 +261,32 @@ public class GoodsController {
 		int userNo = loginUser.getUserNo();
 		
 		List<Cart> cList = gService.selecteCart(userNo);
+		List<Goods> g = new ArrayList<Goods>();
+		List<Phone> p = new ArrayList<Phone>();
 		
-		for(Cart c : cList) {
+		for(int i = 0; i < cList.size(); i++) {			
+			Cart c = cList.get(i);
 			int gn = c.getGoodsNo();
-			Goods g = gService.selectGoods(gn);
-			System.out.println(g);
-			int pn = g.getProNo();
-			Phone p = gService.selectPhoneNameList(pn);
+			Goods gg = gService.selectGoods(gn);
+			
+			// 물품에서 작성자 아이디 가져오기
+			
+			
+			g.add(gg);
+			int pn = gg.getProNo();
+			Phone pp = gService.selectPhoneNameList(pn);
+			p.add(pp);
 		}
 		
+		System.out.println(cList);
+		System.out.println(p);
+		System.out.println(g);
+		
 		if(cList != null) {
+			model.addAttribute("g", g);
+			model.addAttribute("p", p);
 			model.addAttribute("cList", cList);
+			
 		}
 		return "goods/goodsCart";
 		
@@ -287,7 +301,7 @@ public class GoodsController {
 		int result = gService.insertCart(goodsNo, userNo);
 		
 		if(result > 0) {
-			return "redirect:/goods/cartPage";			
+			return "redirect:/goods/cartPage";		
 		} else {
 			return "common/errorPage";
 		}

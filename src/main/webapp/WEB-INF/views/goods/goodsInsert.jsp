@@ -354,8 +354,6 @@
                 <!-- 입력 부분 -->
                 <div id="inputArea">
                 <form action="${ contextPath }/goods/insert" id="insertForm" method="post" enctype="multipart/form-data">
-                	<c:set var="userNo">2</c:set> 
-                	<input type="hidden" value="${ userNo }" name="userNo">
                     <div class="img">
                         <div class="regImg">
                           <div class="input-group mb-3 imgDiv">
@@ -676,12 +674,12 @@
     });
       
       
-      
+   	  // 다중 이미지 파일 업로드
       function loadImg(element){
     	  var imgList = element.files;
     	  $("#imgDiv").empty();
   
-    	  // 반복문
+    	
 		for(var i = 0; i < imgList.length; i++) {
 		
 			if(imgList && imgList[i]){		
@@ -709,29 +707,24 @@
   					url : "${ contextPath }/goods/productName",
             data : {keyword : keyword},
   					type : "get",
-  					success : function(list){
+  					success : function(list){						
   						
-  						
-  						$.each(list, function(index, value){
-  							
+  						$.each(list, function(index, value){ 							
   							
   								$("#autoArea").append("<div class='autoComplete'>"
 											+ "<img src='${ contextPath }/resources/puploadFiles/" + "20210521000000_2.jpg" + "' class='autoImg'> <p class='autop name1'>" + value.proname + "</p>"
 											+ "<p class='autop name2'>" + value.modelname + "</p>"
-											+ "<p class='autop name3'>" + value.maker + "</p></div>");
-  						
+											+ "<p class='autop name3'>" + value.maker + "</p></div>");  						
   							
   						});
-  						
-  						
+  										
   						 $(".autoComplete").click(function(){
   				        	 	var productName = $(this).find("p.name2").html();
   				        	 	$("#productName").val(productName);
   				        	 	$(".autoComplete").remove();
   				        	 	
   				          });
-  						
-  						
+  												
   					},
   					error : function(e){
   						$(".autoComplete").remove();
@@ -763,7 +756,7 @@
 		    // 클릭한 위도, 경도 정보를 가져옵니다 
 		    var latlng = mouseEvent.latLng; 
 		    
-		    // 마커 위치를 클릭한 위치로 옮깁니다
+		    // 마커 위치를 클릭한 위치로W 옮깁니다
 		    marker.setPosition(latlng);
 		    
 		    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
