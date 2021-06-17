@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -97,7 +97,14 @@
           padding : 10px 10px 14px 10px;
           border: solid 1px #dadada;
           resize:none;
-      }  
+      } 
+       .thumbnailImgArea {
+      text-align:center;
+   }
+   .thumbnailImg {
+      width:500px;
+      height:250px;
+   } 
 </style>
 <body>
 <jsp:include page="../common/menubar.jsp"/>
@@ -108,7 +115,7 @@
                    <ul>
                         <li class="list-group-item sideTitle">커뮤니티</li>
                         <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
-                        <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
+                        <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">자유게시판</a></li>
                         <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
                     </ul>
               </div>
@@ -117,7 +124,8 @@
          <div class="col-md-8 content">
              <div class="main-div">
                     <div class="panel">
-                        <h5>자유게시판</h5>                        
+                        <h5><b>자유게시판</b></h5>
+                                               
                     </div>
                     <div style="border-bottom: 1px #C8C8C8 solid; border-top: 1.5px #C8C8C8 solid; padding: 10px 0px 10px 0px; margin-bottom: 3px;">
                       [${ board.bcategory }]&nbsp;&nbsp;${ board.btitle }</div>
@@ -131,11 +139,18 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
                    <c:if test="${ !empty loginUser && board.userNo != 1}">                  
-                    <span class="topContent"><button class="btn" style="background-color: #C8C8C8;" onclick="return userReportBtn('board', '${board.writer_id}',${board.userNo }, ${board.bno })">신고</button></span>
+                    <span class="topContent"><button class="btn btn-warning btn-sm" onclick="return userReportBtn('board', '${board.writer_id}',${board.userNo }, ${board.bno })">신고</button></span>
                     </c:if>
                     <br><br>
                     <div>${ board.bcontent }</div>
                         <br><br>
+                     <c:if test="${!empty att.bfrenameName  }">
+                      <div class="thumbnailImgArea">
+			              <img class="thumbnailImg"
+			               src="${contextPath}/resources/bfuploadFiles/${att.bfrenameName}">
+			          </div>
+			         </c:if>     
+						<br><br>
                     <div style="text-align: center;">
                        <button id="brecom" type="button" onclick="location.href='${ contextPath }/boardFree/recommend?bno=${ board.bno }'" 
                        class="btn btn-outline-secondary" style="text-align: center;">공감 ${ board.brecom }</button>                                             
@@ -143,10 +158,10 @@
                     <hr>                                                             
                    
                     <c:if test="${ loginUser.id eq board.writer_id }">
-                    <span class="topContent" ><button style="background-color: #C8C8C8;" class="btn" onclick="location.href='${ contextPath }/boardFree/updatePage?bno=${ board.bno }&page=${ param.page }'">수정하기</button></span>                
-                    <span class="topContent"><button style="background-color: #C8C8C8;" class="btn" onclick="location.href='${ contextPath }/boardFree/delete?bno=${ board.bno }'">삭제하기</button></span>
+                    <span class="topContent" ><button class="btn btn-success btn-sm" onclick="location.href='${ contextPath }/boardFree/updatePage?bno=${ board.bno }&page=${ param.page }'">수정하기</button></span>                
+                    <span class="topContent"><button class="btn btn-success btn-sm" onclick="location.href='${ contextPath }/boardFree/delete?bno=${ board.bno }'">삭제하기</button></span>
                     </c:if>
-                     <span class="topContent" style="float:right;"><button style="background-color: #C8C8C8;"class="btn" onclick="location.href='${ contextPath }/boardFree/list?page=${ param.page }'">목록으로</button></span>
+                     <span class="topContent" style="float:right;"><button  class="btn btn-secondary btn-sm" onclick="location.href='${ contextPath }/boardFree/list?page=${ param.page }'">목록으로</button></span>
                     <br>                  
 <!-- 댓글-->   
       <div class="content">
@@ -162,7 +177,9 @@
                   <c:forEach items="${ rlist }" var="r">
                   <tr>
                      <td style="font-size: 22px">${ r.user_id }</td>
-                     <td style="font-size: 15px">${ r.create_date }&nbsp;&nbsp;
+                     <td style="font-size: 15px">
+                     <fmt:formatDate value="${ r.create_date }" pattern="yy.MM.dd hh:mm"/>&nbsp;&nbsp;
+                     
                      <input type="hidden" class="re_no" value="${r.re_no }">
                      <c:if test="${ loginUser.id eq r.user_id }">   
                         <button style=" border: none; margin-bottom:2px;" type="button" class="btn-close" aria-label="Close" onclick="replyDelete(this);"></button>
@@ -171,7 +188,7 @@
                      <c:if test="${ !empty loginUser }">
                      <td>
                         <i class="far fa-envelope" style="cursor: pointer" onclick="return setUser('${r.user_id}',${r.user_no })"></i>
-                        <button style=" border: none;" onclick="return userReportBtn('reply', '${r.user_id}',${r.user_no }, ${r.re_no })">신고</button>
+                        <button class="btn btn-warning btn-sm" style=" border: none;" onclick="return userReportBtn('reply', '${r.user_id}',${r.user_no }, ${r.re_no })">신고</button>
                      </td>  
                      </c:if>                               
                   </tr>

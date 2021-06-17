@@ -101,12 +101,6 @@ public class BoardFreeDaoImpl implements BoardFreeDao{
 		
 	}
 
-	@Override
-	public List<Board_TB> searchList(Search search) {
-		
-		return sqlSession.selectList("boardFreeMapper.searchList", search);
-
-	}
 
 	@Override
 	public int recommend(int bno) {
@@ -118,6 +112,31 @@ public class BoardFreeDaoImpl implements BoardFreeDao{
 	public int deleteReply(Reply_TB r) {
 	
 		return sqlSession.update("boardFreeMapper.deleteReply", r);
+	}
+
+	@Override
+	public int searchListCount(Search search) {
+		return sqlSession.selectOne("boardFreeMapper.searchFreeListCount", search);
+	}
+
+	@Override
+	public List<Board_TB> searchList(Search search, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("boardFreeMapper.searchList", search, rowBounds);
+	}
+
+	@Override
+	public int insertFreeAtt(B_Att_TB att, int bno) {
+		
+		att.setBno(bno);
+		return sqlSession.insert("boardFreeMapper.insertFreeAtt", att);
+	}
+
+	@Override
+	public List<B_Att_TB> selectAttList(int bno) {
+		
+		return sqlSession.selectList("boardFreeMapper.selectAttList", bno);
 	}
 
 	

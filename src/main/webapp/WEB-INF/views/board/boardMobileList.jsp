@@ -109,7 +109,7 @@
                 <div class="list-group col-md-10 sideBar">
                      <ul>
                         <li class="list-group-item sideTitle">커뮤니티</li>
-                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
+                        <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">모바일 뉴스</a></li>
                         <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
                         <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
                     </ul>
@@ -121,7 +121,7 @@
               <div class="col-md-8 content">
                 <div class="main-div">
                     <div class="panel">
-                        <h5>모바일뉴스</h5>
+                         <h5><b>모바일뉴스</b></h5>
                         <hr>
                     </div>
                     <table class="table table-hover">
@@ -150,11 +150,11 @@
                           
                              </tbody>          
                       </table>
- 				<%-- <c:if test="${ loginUser.id eq 'admin' }"> --%>
+ 				 <c:if test="${ loginUser.id eq 'admin' }">
 				<div class="btnArea" style="float:right;">
-					<button class="btn" style="background-color: #C8C8C8;" onclick="location.href='${ contextPath }/boardMobile/write'">글쓰기</button>			
+					<button class="btn btn-secondary btn-sm" onclick="location.href='${ contextPath }/boardMobile/write'">글쓰기</button>			
 				</div>
-		<%-- 	</c:if> --%>
+		 	</c:if> 
   <!--  페이징바 구간 -->
 						 <table id="listTable">
 						  <tr>
@@ -196,7 +196,7 @@
                        </table>  
                        
                      <div class="searchArea">
-				<form action="${ contextPath }/boardFree/search" method="get">
+				<form action="${ contextPath }/boardMobile/search" method="get">
 					<select id="searchCondition" name="searchCondition">
 						<option value="all" <c:if test="${ param.searchCondition == 'all' }">selected</c:if>>전체</option>
 						<option value="writer" <c:if test="${ param.searchCondition == 'writer' }">selected</c:if>>작성자</option>
@@ -204,7 +204,7 @@
 						<option value="content" <c:if test="${ param.searchCondition == 'content' }">selected</c:if>>내용</option>		
 					</select>					
 					<input type="search" name="searchValue" value=" ${ param.searchValue }">
-					<button>검색</button>		
+					<button class="btn btn-success btn-sm">검색</button>		
 				</form>
 			</div>	     
 
