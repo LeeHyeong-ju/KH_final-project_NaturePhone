@@ -87,7 +87,7 @@
 		  FROM
 		  	   G_ATT_TB
 		 WHERE
-		 	   ATT_ORDER = 0
+		 	   ATT_ORDER = 1
 	</select>
 	
 	<select id="selectSellInfo" parameterType="_int" resultMap="dealInfoResultSet">
