@@ -149,9 +149,9 @@
                 <div class="list-group col-md-10 sideBar">
                     <ul>
                         <li class="list-group-item sideTitle">Market</li>
-                        <li><a href="${ contextPath }/goods/list" class="list-group-item list-group-item-action sideContent">물품 검색</a></li>
+                        <li><a href="${ contextPath }/goods/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">물품 검색</a></li>
                         <li><a href="${ contextPath }/goods/ginsertpage" class="list-group-item list-group-item-action sideContent">물품 등록</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
+                        <li><a href="${ contextPath }/goods/cartPage" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
                     </ul>
                 </div>
             </div>

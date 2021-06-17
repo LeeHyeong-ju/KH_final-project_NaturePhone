@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.naturephone.attachment.model.vo.Attachment;
 import com.kh.naturephone.common.PageInfo;
+import com.kh.naturephone.goods.model.vo.Cart;
 import com.kh.naturephone.goods.model.vo.Deal;
 import com.kh.naturephone.goods.model.vo.Goods;
 import com.kh.naturephone.member.model.vo.Member;
@@ -33,6 +34,12 @@ public interface GoodsService {
 	Member selectMember(int userNo);
 
 	int insertDeal(Deal d);
+
+	int insertCart(int goodsNo, int userNo);
+
+	List<Cart> selecteCart(int userNo);
+
+	Goods selectGoods(int gn);
 
 	
 

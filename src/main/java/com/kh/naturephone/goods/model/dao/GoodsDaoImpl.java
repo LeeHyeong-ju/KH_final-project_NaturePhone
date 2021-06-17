@@ -1,5 +1,6 @@
 package com.kh.naturephone.goods.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.naturephone.attachment.model.vo.Attachment;
 import com.kh.naturephone.common.PageInfo;
+import com.kh.naturephone.goods.model.vo.Cart;
 import com.kh.naturephone.goods.model.vo.Deal;
 import com.kh.naturephone.goods.model.vo.Goods;
 import com.kh.naturephone.member.model.vo.Member;
@@ -108,6 +110,26 @@ public class GoodsDaoImpl implements GoodsDao{
 	@Override
 	public int insertDeal(Deal d) {
 		return sqlSession.insert("goodsMapper.insertDeal", d);
+	}
+
+	@Override
+	public int insertCart(int goodsNo, int userNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("gn", goodsNo);
+		map.put("un", userNo);
+		return sqlSession.insert("goodsMapper.insertCart", map);
+	}
+
+	@Override
+	public List<Cart> selectCart(int userNo) {
+		
+		return sqlSession.selectList("goodsMapper.selectCart", userNo);
+	}
+
+	@Override
+	public Goods selectGoods(int gn) {
+		
+		return sqlSession.selectOne("goodsMapper.selectGoods", gn);
 	}
 
 
