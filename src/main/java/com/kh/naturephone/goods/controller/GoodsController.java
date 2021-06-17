@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,6 +34,7 @@ import com.kh.naturephone.attachment.model.vo.Attachment;
 import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.goods.model.service.GoodsService;
+import com.kh.naturephone.goods.model.vo.Cart;
 import com.kh.naturephone.goods.model.vo.Deal;
 import com.kh.naturephone.goods.model.vo.Goods;
 import com.kh.naturephone.member.model.vo.Member;
@@ -247,6 +249,46 @@ public class GoodsController {
 			return "redirect:/goods/detail?goodsNo=" + d.getGoodsNo();
 		} else {
 			model.addAttribute("msg", "구매신청 실패");		
+			return "common/errorPage";
+		}
+		
+	}
+	
+	@GetMapping("/cartPage")
+	public String cartPage(@SessionAttribute("loginUser") Member loginUser,
+						   Model model) {
+		// System.out.println(loginUser);
+		
+		int userNo = loginUser.getUserNo();
+		
+		List<Cart> cList = gService.selecteCart(userNo);
+		
+		for(Cart c : cList) {
+			int gn = c.getGoodsNo();
+			Goods g = gService.selectGoods(gn);
+			System.out.println(g);
+			int pn = g.getProNo();
+			Phone p = gService.selectPhoneNameList(pn);
+		}
+		
+		if(cList != null) {
+			model.addAttribute("cList", cList);
+		}
+		return "goods/goodsCart";
+		
+	}
+	
+	@GetMapping("/insertCart")
+	public String insertCart(@SessionAttribute("loginUser") Member loginUser,
+							 int goodsNo,
+							 Model model) {
+		int userNo = loginUser.getUserNo();
+
+		int result = gService.insertCart(goodsNo, userNo);
+		
+		if(result > 0) {
+			return "redirect:/goods/cartPage";			
+		} else {
 			return "common/errorPage";
 		}
 		

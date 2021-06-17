@@ -339,8 +339,8 @@
                     <ul>
                         <li class="list-group-item sideTitle">Market</li>
                         <li><a href="${ contextPath }/goods/list" class="list-group-item list-group-item-action sideContent">물품 검색</a></li>
-                        <li><a href="${ contextPath }/goods/ginsertpage" class="list-group-item list-group-item-action sideContent">물품 등록</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
+                        <li><a href="${ contextPath }/goods/ginsertpage" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">물품 등록</a></li>
+                        <li><a href="${ contextPath }/goods/cartPage" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
                     </ul>
                 </div>         
         </div>
@@ -349,7 +349,7 @@
           <div class="col-md-8 content">
             <div class="main-div">
                 <!-- 타이틀 -->
-                <div id="regPageTitle"><h2>&nbsp;물품 등록</h2></div>
+                <div id="regPageTitle"><h5>&nbsp;물품 등록</h5></div>
                 <hr>
                 <!-- 입력 부분 -->
                 <div id="inputArea">

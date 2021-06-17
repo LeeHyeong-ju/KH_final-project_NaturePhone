@@ -155,7 +155,7 @@
                         <li class="list-group-item sideTitle">Market</li>
                         <li><a href="${ contextPath }/goods/list" class="list-group-item list-group-item-action sideContent">물품 검색</a></li>
                         <li><a href="${ contextPath }/goods/ginsertpage" class="list-group-item list-group-item-action sideContent">물품 등록</a></li>
-                        <li><a href="#" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
+                        <li><a href="${ contextPath }/goods/cartPage" class="list-group-item list-group-item-action sideContent">장바구니</a></li>
                     </ul>
                 </div>         
         </div>
@@ -192,7 +192,7 @@
                     <br>
                     
                     <div class="buttonDiv">
-                        <button type="button" class="btn btn-success">장바구니 담기</button>
+                        <button type="button" class="btn btn-success" onclick="insertCart(${ g.goodsNo });">장바구니 담기</button>
                         &nbsp;
                         <button type="button" class="btn btn-success" onclick="orderPage(${ g.goodsNo });">구매하기</button>
                         
@@ -233,14 +233,15 @@
     </div>
     
     <script>
-    
-    
-		
-	
-    
+
     	function orderPage(goodsNo){
     		location.href = '${contextPath}/goods/order?goodsNo=' + goodsNo;   		
     	}
+    	
+    	function insertCart(goodsNo){
+    		location.href = '${contextPath}/goods/insertCart?goodsNo=' + goodsNo;
+    	}
+    	
     	
     	
     	
