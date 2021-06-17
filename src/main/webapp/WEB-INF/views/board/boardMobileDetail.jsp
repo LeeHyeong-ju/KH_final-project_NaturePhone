@@ -128,7 +128,7 @@
                                               
                     </div>
                     <div style="border-bottom: 1px #C8C8C8 solid; border-top: 1.5px #C8C8C8 solid; padding: 10px 0px 10px 0px; margin-bottom: 3px;">
-                      [${ board.bcategory }]&nbsp;&nbsp;${ board.btitle }</div>
+                     ${ board.btitle }</div>
                     
                     <span class="topContent">작성자 : ${ board.writer_id }</span>
                     <c:if test="${ !empty loginUser }">

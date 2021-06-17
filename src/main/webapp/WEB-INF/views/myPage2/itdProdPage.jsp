@@ -196,7 +196,7 @@
 	
 	<script>
 		$(function(){
-			var phoneList = ["A1778", "SM-N960N", "A2403", "SM-G988N"];
+			var phoneList = ["SM-A325N", "A2407 128GB"];
 			
 			$("#searchInput").autocomplete({
 				source: phoneList,
