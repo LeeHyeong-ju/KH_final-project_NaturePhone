@@ -399,7 +399,7 @@
 	
 	<script>
 		function toGoodsDetail(goodsNo){
-			location.href = '${contextPath}/goods/detail?goodsNo=' + goodsNo; // 해당 물품 게시글로 연결
+			location.href = '${contextPath}/goods/detail?goodsNo=' + goodsNo;
 		}
 	</script>
 	
