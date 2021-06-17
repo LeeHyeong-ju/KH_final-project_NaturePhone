@@ -359,7 +359,6 @@
     		var ckArr = [];					
         	$("input[name=checkRow]:checked").each(function(){
         		var chk = $(this).val();
-        		console.log(chk);
         		ckArr.push(chk);
         	})
         		
@@ -371,8 +370,6 @@
         	} else{
         		// 정말 삭제할 것인지 확인
 	        	if(confirm("선택 된 쪽지를 삭제하시겠습니까?") == true){
-	        		console.log(ckArr);
-	        		console.log(type);
 	        		$.ajax({
 	        			type : 'POST',
 	        			url : "${ contextPath }/message/delete",
