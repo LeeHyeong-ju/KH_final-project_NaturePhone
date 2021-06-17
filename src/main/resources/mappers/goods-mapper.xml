@@ -314,7 +314,7 @@
           , SYSDATE
           , #{ bbank }	
           , #{ baccount }
-          , '구매신청'
+          , '배송준비(결제완료)'
           , #{ goodsNo }
           , 'Y'
  		)
