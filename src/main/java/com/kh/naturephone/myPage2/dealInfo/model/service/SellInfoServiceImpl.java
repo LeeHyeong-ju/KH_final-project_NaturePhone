@@ -9,7 +9,6 @@ import com.kh.naturephone.myPage2.dealInfo.model.dao.SellInfoDao;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.BuyerInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CalculateInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CalendarInfo;
-import com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryCount;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.DealInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.DeliveryInfo;
@@ -89,12 +88,6 @@ public class SellInfoServiceImpl implements SellInfoService{
 		return siDao.allCnt(userNo);
 	}
 
-	// 나의 판매내역 카테고리별 count
-	@Override
-	public List<CategoryCount> categoryCnt(int userNo) {
-		return siDao.categoryCnt(userNo);
-	}
-
 	// 나의 판매내역 기간별 리스트 조회 (1, 3, 6개월)
 	@Override
 	public List<DealInfo> selectMonthsList(PeriodInfo period) {
@@ -153,6 +146,36 @@ public class SellInfoServiceImpl implements SellInfoService{
 	@Override
 	public int updateProcessHold(int dealNo) {
 		return siDao.updateProcessHold(dealNo);
+	}
+
+	// 카테고리별 count(배송준비)
+	@Override
+	public int preparedCnt(int userNo) {
+		return siDao.preparedCnt(userNo);
+	}
+
+	// 카테고리별 count(배송중)
+	@Override
+	public int deliveryCnt(int userNo) {
+		return siDao.deliveryCnt(userNo);
+	}
+
+	// 카테고리별 count(구매결정완료)
+	@Override
+	public int decisionCnt(int userNo) {
+		return siDao.decisionCnt(userNo);
+	}
+
+	// 카테고리별 count(반품요청)
+	@Override
+	public int returnCnt(int userNo) {
+		return siDao.returnCnt(userNo);
+	}
+
+	// 카테고리별 count(거래완료)
+	@Override
+	public int finishedCnt(int userNo) {
+		return siDao.finishedCnt(userNo);
 	}	
 
 }

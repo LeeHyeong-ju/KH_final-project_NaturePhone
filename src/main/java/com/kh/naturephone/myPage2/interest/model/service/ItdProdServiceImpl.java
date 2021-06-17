@@ -25,4 +25,22 @@ public class ItdProdServiceImpl implements ItdProdService{
 		return ipDao.deleteInterest(itdNo);
 	}
 
+	// 선택한 상품 정보 조회
+	@Override
+	public ItdProduct selectItdProd(String keyword) {
+		return ipDao.selectItdProd(keyword);
+	}
+
+	// 조회된 상품 등록
+	@Override
+	public int insertInterestProd(ItdProduct p) {
+		return ipDao.insertInterestProd(p);
+	}
+
+	// 검색한 상품 리스트 조회
+	@Override
+	public List<ItdProduct> selectSearchProdList(String keyword) {
+		return ipDao.selectSearchProdList(keyword);
+	}
+
 }

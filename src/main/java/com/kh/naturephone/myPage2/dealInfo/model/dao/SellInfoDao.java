@@ -5,7 +5,6 @@ import java.util.List;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.BuyerInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CalculateInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CalendarInfo;
-import com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryCount;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.CategoryInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.DealInfo;
 import com.kh.naturephone.myPage2.dealInfo.model.vo.DeliveryInfo;
@@ -48,9 +47,6 @@ public interface SellInfoDao {
 
 	// 나의 판매내역 전체 count
 	int allCnt(int userNo);
-	
-	// 나의 판매내역 카테고리별 count
-	List<CategoryCount> categoryCnt(int userNo);
 
 	// 나의 판매내역 기간별 리스트 조회 (1, 3, 6개월)
 	List<DealInfo> selectMonthsList(PeriodInfo period);
@@ -81,5 +77,20 @@ public interface SellInfoDao {
 
 	// 거래진행상태 '반품보류'로 변경
 	int updateProcessHold(int dealNo);
+
+	// 카테고리별 count(배송준비)
+	int preparedCnt(int userNo);
+
+	// 카테고리별 count(배송중)
+	int deliveryCnt(int userNo);
+
+	// 카테고리별 count(구매결정완료)
+	int decisionCnt(int userNo);
+
+	// 카테고리별 count(반품요청)
+	int returnCnt(int userNo);
+
+	// 카테고리별 count(거래완료)
+	int finishedCnt(int userNo);
 					
 }

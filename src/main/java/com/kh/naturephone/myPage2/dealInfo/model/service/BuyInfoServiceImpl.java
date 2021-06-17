@@ -137,4 +137,40 @@ public class BuyInfoServiceImpl implements BuyInfoService{
 		return biDao.updateProcessDecision(dealNo);
 	}
 
+	// 나의 구매내역 전체 count
+	@Override
+	public int allCnt(int userNo) {
+		return biDao.allCnt(userNo);
+	}
+
+	// 카테고리별 count(배송준비)
+	@Override
+	public int preparedCnt(int userNo) {
+		return biDao.preparedCnt(userNo);
+	}
+
+	// 카테고리별 count(배송중)
+	@Override
+	public int deliveryCnt(int userNo) {
+		return biDao.deliveryCnt(userNo);
+	}
+
+	// 카테고리별 count(구매결정완료)
+	@Override
+	public int decisionCnt(int userNo) {
+		return biDao.decisionCnt(userNo);
+	}
+
+	// 카테고리별 count(반품요청)
+	@Override
+	public int returnCnt(int userNo) {
+		return biDao.returnCnt(userNo);
+	}
+
+	// 카테고리별 count(거래완료)
+	@Override
+	public int finishedCnt(int userNo) {
+		return biDao.finishedCnt(userNo);
+	}
+
 }

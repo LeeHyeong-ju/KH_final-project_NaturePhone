@@ -153,6 +153,8 @@
 	
 	#moreBtn {
 		display: none;
+		width: 100px;
+		margin: 20px 0px 50px 0px;
 	}	
 </style>
 </head>
@@ -183,7 +185,7 @@
 					<ul>
 						<li class="list-group-item sideTitle">주문내역</li>
 						<li><a href="${ contextPath }/sellInfo/list" class="list-group-item list-group-item-action sideContent">나의 판매내역</a></li>
-						<li><a href="${ contextPath }/buyInfo/list" class="list-group-item list-group-item-action sideContent">나의 구매내역</a></li>
+						<li><a href="${ contextPath }/buyInfo/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">나의 구매내역</a></li>
 						<li><a href="${ contextPath }/itd/list" class="list-group-item list-group-item-action sideContent">관심상품</a></li>
 					</ul>
 				</div>
@@ -199,27 +201,27 @@
 								<tr>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/book.png" onclick="location.href='${contextPath}/buyInfo/list'"></div>
-										<div onclick="location.href='${contextPath}/buyInfo/list'">0<br>전체</div>
+										<div onclick="location.href='${contextPath}/buyInfo/list'">${ allCnt }<br>전체</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/package.png" onclick="sortList('배송준비(결제완료)');"></div>
-										<div onclick="sortList('배송준비(결제완료)');">0<br>배송준비</div>
+										<div onclick="sortList('배송준비(결제완료)');">${ preparedCnt }<br>배송준비</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/airplane.png" onclick="sortList('배송');"></div>
-										<div onclick="sortList('배송');">0<br>배송중</div>
+										<div onclick="sortList('배송');">${ deliveryCnt }<br>배송중</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/calculator.png" onclick="sortList('구매결정완료');"></div>
-										<div onclick="sortList('구매결정완료');">0<br>구매결정완료</div>
+										<div onclick="sortList('구매결정완료');">${ decisionCnt }<br>구매결정완료</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/return.png" onclick="sortList('반품요청');"></div>
-										<div onclick="sortList('반품요청');">0<br>반품요청</div>
+										<div onclick="sortList('반품요청');">${ returnCnt }<br>반품요청</div>
 									</td>
 									<td>
 										<div><img src="${contextPath}/resources/images/icon/checked.png" onclick="sortList('거래완료');"></div>
-										<div onclick="sortList('거래완료');">0<br>거래완료</div>
+										<div onclick="sortList('거래완료');">${ finishedCnt }<br>거래완료</div>
 									</td>
 								</tr>	
 							</table>
@@ -315,7 +317,7 @@
 						
 						<div id="pagingArea">
 							<div>
-								<button type="button" class="btn btn-secondary btn-sm" id="moreBtn">더보기</button>
+								<button type="button" class="btn btn-success btn-sm" id="moreBtn">더보기</button>
 							</div>							
 						</div>						
 					</div>
