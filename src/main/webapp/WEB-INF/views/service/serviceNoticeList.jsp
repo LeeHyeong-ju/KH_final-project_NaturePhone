@@ -79,12 +79,11 @@
       margin:5px;
    }
    
-   .searchArea button {
-      background-color: #56CE7C;
-      color:white;
-      width : 100px;
+   /* .searchArea button {
+      width : 75px;
       border : none;
-   }
+      border-radius:5px;
+   } */
    
    .searchArea input[type=search]{
       width : 250px;
@@ -93,6 +92,9 @@
    tbody > tr:hover {
    	  cursor : pointer;
    }
+   .main-div h5 {
+		font-weight:bold;
+	}
 </style>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
@@ -102,7 +104,7 @@
                 <div class="list-group col-md-10 sideBar">
                     <ul>
                         <li class="list-group-item sideTitle">고객센터</li>
-                        <li><a href="${ contextPath }/notice/list" class="list-group-item list-group-item-action sideContent">공지사항</a></li>
+                        <li><a href="${ contextPath }/notice/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">공지사항</a></li>
                         <li><a href="${ contextPath }/qna/list" class="list-group-item list-group-item-action sideContent">Q&A</a></li>
                     </ul>
                 </div>               
@@ -175,7 +177,7 @@
 							</c:if>
 							<c:if test="${ !empty loginUser && loginUser.grade eq '관리자' }">
 								<div class="btnArea" style="float:right;">
-									<button class="btn btn-secondary" onclick="location.href='${ contextPath }/notice/write'">글쓰기</button>			
+									<button class="btn btn-secondary btn-sm" onclick="location.href='${ contextPath }/notice/write'">글쓰기</button>			
 								</div>
 							</c:if>
 							</td>			
@@ -192,7 +194,7 @@
 					<option value="content" <c:if test="${ param.searchCondition == 'content' }">selected</c:if>>내용</option>
 				</select>
 				<input type="search" name="searchValue" value="${ param.searchValue }">
-				<button>검색</button>
+				<button class="btn btn-success btn-sm">검색</button>
 			</form>
 		</div>
 			

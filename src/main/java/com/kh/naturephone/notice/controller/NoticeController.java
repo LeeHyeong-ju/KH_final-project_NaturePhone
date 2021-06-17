@@ -297,9 +297,9 @@ public class NoticeController {
 	@RequestMapping("/delete")
 	public String NoticeDelete(int bno, HttpServletRequest request) throws NoticeException {
 		
-		B_Att_TB att =  nService.selectNoticeAtt(bno);
+		B_Att_TB att = nService.selectNoticeAtt(bno);
 		
-		if(att.getBfrenameName() != null) {
+		if(att != null) {
 			deleteFile(att.getBfrenameName(), request);				
 		}				
 		

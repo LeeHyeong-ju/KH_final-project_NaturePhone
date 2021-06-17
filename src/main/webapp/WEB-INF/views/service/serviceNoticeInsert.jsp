@@ -69,7 +69,9 @@
       display :inline-block;
       margin:15px;
    }
-  
+  .main-div h5 {
+		font-weight:bold;
+	}
    
 </style>
 <body>
@@ -80,7 +82,7 @@
               <div class="list-group col-md-10 sideBar">
                   <ul>
                       <li class="list-group-item sideTitle">고객센터</li>
-                      <li><a href="${ contextPath }/notice/list" class="list-group-item list-group-item-action sideContent">공지사항</a></li>
+                      <li><a href="${ contextPath }/notice/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">공지사항</a></li>
                       <li><a href="${ contextPath }/qna/list" class="list-group-item list-group-item-action sideContent">Q&A</a></li>
                   </ul>
               </div>
@@ -118,8 +120,8 @@
 			</div>
 			        
             <hr>
-            <button type="button" class="btn btn-secondary" onclick="history.back()">목록으로</button>
-            <button type="submit" class="btn btn-secondary" style="float: right;">등록</button>            
+            <button type="button" class="btn btn-secondary btn-sm" style="float: right;" onclick="history.back()">목록으로</button>
+            <button type="submit" class="btn btn-success btn-sm">등록</button>            
             <br><br>
           </form>  
         </div>
