@@ -36,11 +36,17 @@ public interface BoardFreeDao {
 
 	void insertReply(Reply_TB r);
 
-	List<Board_TB> searchList(Search search);
-
 	int recommend(int bno);
 
 	int deleteReply(Reply_TB r);
+
+	int searchListCount(Search search);
+
+	List<Board_TB> searchList(Search search, PageInfo pi);
+
+	int insertFreeAtt(B_Att_TB att, int bno);
+
+	List<B_Att_TB> selectAttList(int bno);
 
 	
 

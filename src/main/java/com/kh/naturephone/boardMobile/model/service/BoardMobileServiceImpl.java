@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.naturephone.boardFree.model.dao.BoardFreeDao;
 import com.kh.naturephone.boardMobile.model.dao.BoardMobileDao;
 import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.common.Reply_TB;
@@ -25,7 +26,7 @@ public class BoardMobileServiceImpl implements BoardMobileService{
 
 	@Override
 	public List<Board_TB> selectList(PageInfo pi) {
-	
+		
 		return bDao.selectList(pi);
 	}
 
@@ -88,9 +89,27 @@ public class BoardMobileServiceImpl implements BoardMobileService{
 	}
 
 	@Override
-	public List<Board_TB> searchList(Search search) {
+	public int recommend(int bno) {
 		
-		return bDao.searchList(search);
+		return bDao.recommend(bno);
+	}
+
+	@Override
+	public int deleteReply(Reply_TB r) {
+		
+		return bDao.deleteReply(r);
+	}
+
+	@Override
+	public int searchListCount(Search search) {
+		
+		return bDao.searchListCount(search);
+	}
+
+	@Override
+	public List<Board_TB> searchList(Search search, PageInfo pi) {
+	
+		return bDao.searchList(search, pi);
 	}
 
 }

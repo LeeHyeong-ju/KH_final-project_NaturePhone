@@ -191,9 +191,9 @@ public class BoardSurveyController {
 		}		
 				
 		@RequestMapping("/delete")
-		public String boardDelete(int bno, HttpServletRequest request) {
+		public String boardDelete(int s_no, HttpServletRequest request) {
 					
-			int result = bService.deleteBoard(bno);
+			int result = bService.deleteBoard(s_no);
 					
 			if(result > 0) {		
 				return "redirect:/boardSurvey/list";

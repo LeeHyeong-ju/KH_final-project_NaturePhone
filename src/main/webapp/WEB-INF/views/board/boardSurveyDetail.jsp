@@ -109,7 +109,7 @@
                         <li class="list-group-item sideTitle">커뮤니티</li>
                         <li><a href="${ contextPath }/boardMobile/list" class="list-group-item list-group-item-action sideContent">모바일 뉴스</a></li>
                         <li><a href="${ contextPath }/boardFree/list" class="list-group-item list-group-item-action sideContent">자유게시판</a></li>
-                        <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent">회원 설문</a></li>
+                        <li><a href="${ contextPath }/boardSurvey/list" class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">회원 설문</a></li>
                     </ul>
               </div>
           </div>
@@ -117,7 +117,8 @@
          <div class="col-md-8 content">
              <div class="main-div">
                     <div class="panel">
-                        <h5>회원설문</h5>                        
+                        <h5><b>회원설문</b></h5>
+                                              
                     </div>
                     <div style="border-bottom: 1px #C8C8C8 solid; border-top: 1.5px #C8C8C8 solid; padding: 10px 0px 10px 0px; margin-bottom: 3px;">
                       [${ board.scategory }]&nbsp;&nbsp;${ board.stitle }</div>
@@ -126,7 +127,7 @@
                     <span class="topContent"> 조회 : ${ board.scount }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                    
-                    <span class="topContent"><button class="btn" style="background-color: #C8C8C8; ">신고</button></span>
+                    <span class="topContent"><button class="btn btn-warning btn-sm" ">신고</button></span>
                    
                     <br><br>
                     <div>${ board.scontent }</div>
@@ -182,10 +183,10 @@
                    <hr>
 
                     <c:if test="${ loginUser.id eq board.writer_id }">
-                    <span class="topContent" ><button style="background-color: #C8C8C8;" class="btn" onclick="location.href='${ contextPath }/boardSurvey/updatePage?s_no=${ board.s_no }&page=${ param.page }'">수정하기</button></span>                
-                    <span class="topContent"><button style="background-color: #C8C8C8;" class="btn" onclick="location.href='${ contextPath }/boardSurvey/delete?s_no=${ board.s_no }'">삭제하기</button></span>
+                    <span class="topContent" ><button class="btn btn-success btn-sm" onclick="location.href='${ contextPath }/boardSurvey/updatePage?s_no=${ board.s_no }&page=${ param.page }'">수정하기</button></span>                
+                    <span class="topContent"><button class="btn btn-success btn-sm" onclick="location.href='${ contextPath }/boardSurvey/delete?s_no=${ board.s_no }'">삭제하기</button></span>
                     </c:if>
-                     <span class="topContent" style="float:right;"><button style="background-color: #C8C8C8;"class="btn" onclick="location.href='${ contextPath }/boardSurvey/list?page=${ param.page }'">목록으로</button></span>
+                     <span class="topContent" style="float:right;"><button class="btn btn-secondary btn-sm" onclick="location.href='${ contextPath }/boardSurvey/list?page=${ param.page }'">목록으로</button></span>
                     <br>                  
 <!-- 댓글-->	  
 		<div class="content">

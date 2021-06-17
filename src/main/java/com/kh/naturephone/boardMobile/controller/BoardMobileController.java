@@ -35,6 +35,7 @@ import com.google.gson.GsonBuilder;
 import com.kh.naturephone.common.B_Att_TB;
 import com.kh.naturephone.common.Board_TB;
 import com.kh.naturephone.common.PageInfo;
+import com.kh.naturephone.boardFree.model.exception.BoardFreeException;
 import com.kh.naturephone.boardMobile.model.exception.BoardMobileException;
 import com.kh.naturephone.boardMobile.model.service.BoardMobileService;
 import com.kh.naturephone.common.Pagination;
@@ -193,12 +194,12 @@ public class BoardMobileController {
 			// !flagbno를 전달하여 true면 조회수 증가 필요, false면 조회수 증가 불필요
 			Board_TB board = mService.selectBoard(bno, !flagbno);
 			//System.out.println("board : " + board);
-			
+			B_Att_TB att =  mService.selectBoardAtt(bno);
 			List<Reply_TB> rlist = mService.selectReplyList(bno);
 			//System.out.println("rlist : " + rlist);
 			if(board != null) {
 				model.addAttribute("board", board);
-
+				model.addAttribute("att", att);
 				model.addAttribute("rlist", rlist);
 				return "board/boardMobileDetail";
 			} else {
@@ -296,24 +297,55 @@ public class BoardMobileController {
 			System.out.println("list : " + rlist);	 
 			// 날짜 포맷하기 위해 GsonBuilder를 이용해서 Gson 객체 생성
 			Gson gson = new GsonBuilder()
-							.setDateFormat("yyyy-MM-dd")
+							.setDateFormat("yy.MM.dd hh:mm")
 							.create();
 					
 				return gson.toJson(rlist);
 		}	
 	
-		// 검색기능
-		@GetMapping("/search")
-		public String noticeSearch(@ModelAttribute Search search,
-								   Model model) {
-			
-			List<Board_TB> searchList = mService.searchList(search);
-			System.out.println(searchList);
-			model.addAttribute("list", searchList);
+		// 리스트 키워드 검색
+				@GetMapping("/search")
+				public ModelAndView noticeSearch(@ModelAttribute Search search,
+										   ModelAndView mv,
+										   @RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 					
-			return "board/boardMobileList";
-		}
-	
+					int listCount = mService.searchListCount(search);
+					
+					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+					
+					List<Board_TB> searchList = mService.searchList(search, pi);
+					
+
+					if(searchList != null) {
+						mv.addObject("list", searchList);
+						mv.addObject("pi", pi);				
+						mv.setViewName("board/boardMobileList");
+					} else {
+						mv.addObject("msg", "게시글 전체 조회에 실패했습니다.");
+						mv.setViewName("common/errorPage");
+					}
+					return mv;
+				}
+				
+				//게시물 추천 관련 메소드
+			    @RequestMapping("/recommend")
+			    public String recommend (@RequestParam int bno) {	      
+			        int result = mService.recommend(bno);
+			        if(result > 0) {		        
+			        	return "redirect:/boardMobile/detail?bno=" + bno;
+			        } else {
+						throw new BoardMobileException("공감 클릭에 실패했습니다.");	
+					}	   
+			    }
+				
+				// 댓글 삭제
+				  @PostMapping(value="/deleteReply") 
+				  public @ResponseBody String deleteReply(Reply_TB r) {
+//				  System.out.println("r : " + r);
+				  int result = mService.deleteReply(r);
+//				  System.out.println(result);
+				  return Integer.toString(result); }
+				
 	
 	
 }

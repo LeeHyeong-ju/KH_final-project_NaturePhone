@@ -88,12 +88,6 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 	}
 
 	@Override
-	public List<Board_TB> searchList(Search search) {
-		
-		return bDao.searchList(search);
-	}
-
-	@Override
 	public int recommend(int bno) {
 		
 		return bDao.recommend(bno);
@@ -103,6 +97,32 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 	public int deleteReply(Reply_TB r) {
 		
 		return bDao.deleteReply(r);
+	}
+
+	@Override
+	public int searchListCount(Search search) {
+		
+		return bDao.searchListCount(search);
+	}
+
+	@Override
+	public List<Board_TB> searchList(Search search, PageInfo pi) {
+	
+		return bDao.searchList(search, pi);
+	}
+
+
+
+	@Override
+	public int insertFreeAtt(B_Att_TB att, int bno) {
+		
+		return bDao.insertFreeAtt(att, bno);
+	}
+
+	@Override
+	public List<B_Att_TB> selectAttList(int bno) {
+		
+		return bDao.selectAttList(bno);
 	}
 
 }
