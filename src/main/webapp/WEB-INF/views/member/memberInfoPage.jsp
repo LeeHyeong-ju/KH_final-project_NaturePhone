@@ -84,7 +84,7 @@ span {
 					<ul>
 						<li class="list-group-item sideTitle">마이페이지</li>
 						<li><a href="${ contextPath }/member/myPage"
-							class="list-group-item list-group-item-action sideContent">회원
+							class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">회원
 								정보</a></li>
 						<li><a href="${ contextPath }/member/myBoardList" class="list-group-item list-group-item-action sideContent">나의
 								게시글</a></li>
@@ -124,7 +124,7 @@ span {
 			<div class="col-md-8 content">
 				<div class="main-div">
 					<div class="panel">
-						<h5>회원 정보</h5>
+						<h5><b>회원 정보</b></h5>
 						<hr>
 					</div>
 

@@ -89,12 +89,22 @@
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">쪽지함</li>
+						<c:if test="${message.type eq '받은 쪽지함'}">
 						<li><a href="${ contextPath }/message/selectList?type=받은 쪽지함"
-							class="list-group-item list-group-item-action sideContent">받은
+							class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">받은
 								쪽지함</a></li>
 						<li><a href="${ contextPath }/message/selectList?type=보낸 쪽지함"
 							class="list-group-item list-group-item-action sideContent">보낸
 								쪽지함</a></li>
+						</c:if>
+						<c:if test="${message.type eq '보낸 쪽지함'}">
+						<li><a href="${ contextPath }/message/selectList?type=받은 쪽지함"
+							class="list-group-item list-group-item-action sideContent">받은
+								쪽지함</a></li>
+						<li><a href="${ contextPath }/message/selectList?type=보낸 쪽지함"
+							class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">보낸
+								쪽지함</a></li>
+						</c:if>
 					</ul>
 				</div>
 
@@ -120,9 +130,8 @@
 				<div class="main-div">
 					<div class="panel row">
 						<div class="col-7">
-							<h5 id="mType">${ message.type }</h5>
+							<h5 id="mType"><b>${ message.type }</b></h5>
 						</div>
-						
 						
 						<div class="col-5">
 						

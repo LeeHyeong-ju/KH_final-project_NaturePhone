@@ -34,7 +34,7 @@
 </style>
 <body>
 <jsp:include page="../common/menubar.jsp"/>
-  <div class="container">
+  <div class="container" >
     <div class="row">
      
       <!-- 내용 -->

@@ -110,7 +110,7 @@
                 <div class="main-div">
 
                     <div class="panel">
-                        <h5>${ detailMessage.type }</h5>
+                        <h5><b>${ detailMessage.type }</b></h5>
                         <hr>
                     </div>
 

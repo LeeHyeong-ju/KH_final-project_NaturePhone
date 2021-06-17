@@ -51,7 +51,7 @@ span {
 			<div class="col-md-8 content">
 				<div class="main-div">
 					<div class="panel">
-						<h5>회원 가입</h5>
+						<h5><b>회원 가입</b></h5>
 						<hr>
 					</div>
 

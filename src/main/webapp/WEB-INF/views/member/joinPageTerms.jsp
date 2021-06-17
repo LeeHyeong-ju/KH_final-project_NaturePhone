@@ -51,7 +51,7 @@
       <div class="main-div">
         <div class="agreement-form">
           <div class="panel">
-            <h5>약관 동의</h5>
+            <h5><b>약관 동의</b></h5>
             <hr>
           </div>
           <div class="agree">

@@ -76,7 +76,7 @@
 							class="list-group-item list-group-item-action sideContent">나의
 								게시글</a></li>
 						<li><a href="${ contextPath }/member/myReplyList"
-							class="list-group-item list-group-item-action sideContent">나의
+							class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">나의
 								댓글</a></li>
 					</ul>
 				</div>
@@ -114,7 +114,7 @@
 					<div class="col-md-8 content">
 						<div class="main-div">
 							<div class="panel">
-								<h5>나의 댓글</h5>
+								<h5><b>나의 댓글</b></h5>
 								<hr>
 							</div>
 							<table class="table table-hover">
@@ -130,10 +130,9 @@
 
 								<tbody>
 
-									<c:forEach items="${ list }" var="n" varStatus="status">
+									<c:forEach items="${ list }" var="n">
 										<tr style="cursor: pointer;" onclick="goBoard(${ n.boardNo }, '${ n.category }');">
-											<th scope="row">${ status.count }</th>
-
+											<th scope="row">${ n.rownum }</th>
 											<td>${ n.category }</td>
 											<td>${ n.content }</td>
 											<td>${ n.createDate }</td>
@@ -164,7 +163,7 @@
 									<c:forEach var="p" begin="${ pi.startPage }"
 										end="${pi.endPage }">
 										<c:if test="${ p eq pi.currentPage }">
-											<li class="page-item"><a class="page-link">${ p }</a></li>
+											<li class="page-item active"><a class="page-link">${ p }</a></li>
 										</c:if>
 										<c:if test="${ p ne pi.currentPage }">
 											<c:url var="pagination" value="/member/myBoardList">
@@ -212,10 +211,21 @@
 			</c:choose>
 		</div>
 	</div>
-
-
-
 	<jsp:include page="../common/footer.jsp"/>
+	
+	<script>
+		function goBoard(bno, bCategory){
+			if(bCategory == '자유') {
+				location.href = '${contextPath}/boardFree/detail?bno=' + bno;
+			} else if(bCategory == '뉴스'){
+				location.href = '${contextPath}/boardMobile/detail?bno=' + bno;
+			} else if(bCategory == '설문'){
+				location.href = '${contextPath}/boardSurvey/detail?s_no=' + bno;
+			} else if(bCategory == '공지'){
+				location.href = '${contextPath}/notice/detail?bno=' + bno;
+			} 
+		}
+	</script>
 </body>
 
 </html>
