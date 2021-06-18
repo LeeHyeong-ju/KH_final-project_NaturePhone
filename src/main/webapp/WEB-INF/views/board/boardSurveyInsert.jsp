@@ -113,8 +113,9 @@
             <hr>            
 
            <button type="submit" class="btn btn-success btn-sm" style="float: right;">등록</button>  
+            </form>  
            <button class="btn btn-secondary btn-sm" onclick="location.href='${ contextPath }/boardSurvey/list'">목록으로</button> 
-        </form>                
+                     
         </div>
       </div>	
      </div>

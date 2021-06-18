@@ -39,5 +39,7 @@ public interface NoticeService {
 	int deleteReply(Reply r);
 
 	int searchListCount(Search search);
+
+	List<Board_TB> selectMainList();
 	
 }

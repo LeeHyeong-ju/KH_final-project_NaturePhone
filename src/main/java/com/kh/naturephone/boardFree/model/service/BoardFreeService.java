@@ -57,7 +57,7 @@ public interface BoardFreeService {
 
 	int insertFreeAtt(B_Att_TB att, int bno);
 
-
+	List<B_Att_TB> selectAttList(int bno);
 	
 
 

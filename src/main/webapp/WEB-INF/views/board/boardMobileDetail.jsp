@@ -103,7 +103,7 @@
    	  }
         .thumbnailImg {
 	      width:500px;
-	      height:250px;
+	      height:auto;
    }  
 </style>
 <body>
