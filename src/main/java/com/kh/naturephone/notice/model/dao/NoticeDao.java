@@ -43,5 +43,7 @@ public interface NoticeDao {
 	int deleteReply(Reply r);
 
 	int searchListCount(Search search);
+
+	List<Board_TB> selectMainList();
 	
 }

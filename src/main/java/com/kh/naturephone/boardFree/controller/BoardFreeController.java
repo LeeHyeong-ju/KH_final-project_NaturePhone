@@ -262,29 +262,7 @@ public class BoardFreeController {
 				throw new BoardFreeException("게시글 수정에 실패하였습니다.");
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		public void deleteFile(String fileName, HttpServletRequest request) {
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			String savePath = root + "\\bfuploadFiles";
