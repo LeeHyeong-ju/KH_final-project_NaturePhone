@@ -11,6 +11,7 @@ import com.kh.naturephone.boardSurvey.model.vo.Survey_TB;
 import com.kh.naturephone.common.Board_TB;
 import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.member.model.vo.Member;
+import com.kh.naturephone.report.model.vo.Report;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -66,6 +67,18 @@ public class AdminDaoImpl implements AdminDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return sqlSession.selectList("adminMapper.selectSurveyList", null, rowBounds);
+	}
+
+	@Override
+	public int selectReportListCount() {
+		return sqlSession.selectOne("adminMapper.selectReportListCount");
+	}
+
+	@Override
+	public List<Report> selectReportList(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("adminMapper.selectReportList", null, rowBounds);
 	}
 
 }
