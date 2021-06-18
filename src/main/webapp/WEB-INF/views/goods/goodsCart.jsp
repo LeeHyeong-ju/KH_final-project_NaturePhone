@@ -194,20 +194,7 @@
               });
         	 
         	
-        	 
-        	 $.ajax({
-                 url         :   "${ contextPath }/goods/carttoorder",
-                 dataType    :   "json",
-                 contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
-                 type        :   "post",
-                 data        :    arr,
-                 success     :   function(e){                  
-                         alert("구매 정보를 작성해주세요");    
-                 },
-                 error       :   function(request, status, error){
-                     console.log("AJAX_ERROR");
-                 }
-             });
+        
         	 
          }
 
