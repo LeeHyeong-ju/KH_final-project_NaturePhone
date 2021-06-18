@@ -188,7 +188,7 @@
                   </nav>
                   </c:when>
                   <c:otherwise>
-                     <div class="nonContent">회원정보가 존재하지 않습니다.</div>
+                     <div class="nonContent">신고정보가 존재하지 않습니다.</div>
                   </c:otherwise>
                   </c:choose>
                 </div>
@@ -197,33 +197,8 @@
     </div>
     
     <script>
-    	$(function(){
-    		$("#member-grade-select").on("change", function(e){
-    			target = $(e.target);
-    			var grade = target.val();
-    			var userNo = target.parent().siblings('th').html();
-    			
-    			$.ajax({
-					url : "${ contextPath }/admin/memberGrade",
-					data : { grade : grade, userNo : userNo },
-					type : "post",
-					success : function(result){
-						if(result == 1){
-							alert("회원 등급이 변경되었습니다.");
-						}
-						else if(result == 0){
-							alert("회원 등급 변경에 실패하였습니다.");
-							target.val(grade).prop("selected", false);
-						}
-					},
-					error : function(e){
-						console.log(e);
-					}
-				});
-    		});
-    	});
     	function memberDetail(userNo){
-			location.href = '${contextPath}/admin/memberDetail?userNo=' + userNo;
+			location.href = '${contextPath}/admin/reportDetail?userNo=' + userNo;
 		}
     </script>
     

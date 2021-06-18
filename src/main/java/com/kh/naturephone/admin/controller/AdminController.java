@@ -31,6 +31,7 @@ import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.common.Pagination;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.notice.model.service.NoticeService;
+import com.kh.naturephone.report.model.vo.Report;
 import com.kh.naturephone.support.controller.SupportController;
 
 @Controller
@@ -204,6 +205,40 @@ public class AdminController {
 			return "redirect:/admin/boardList";
 		} else {
 			throw new AdminException("게시글 삭제에 실패했습니다.");
+		}
+	}
+	
+	@GetMapping("/reportList")
+	public ModelAndView adminReportPageView(ModelAndView mv,
+			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
+		
+			int listCount = aService.selectReportListCount();
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			List<Report> rplist = aService.selectReportList(pi);
+			
+			if(rplist != null) {
+				mv.addObject("rplist", rplist);
+				mv.addObject("pi", pi);
+				mv.setViewName("admin/adminReportPage");
+			} else {
+				mv.addObject("msg", "게시글 전체 조회에 실패했습니다.");
+				mv.setViewName("common/errorPage");
+			}
+			return mv;
+	}
+	
+	@GetMapping("/reportQuit")
+	public String adminQuitReport(int userNo, RedirectAttributes rd) throws AdminException {
+		
+		int result = aService.adminQuitMember(userNo);
+		
+		if(result > 0) {
+			rd.addFlashAttribute("msg", "해당 회원이 탈퇴되었습니다.");
+			return "redirect:/admin/memberList";
+		} else {
+			throw new AdminException("회원 탈퇴에 실패하였습니다.");
 		}
 	}
 }
