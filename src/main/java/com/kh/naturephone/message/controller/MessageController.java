@@ -113,7 +113,6 @@ public class MessageController {
 		} 
 		
 		List<Message> searchList = mService.searchList(search, pi);
-		System.out.println(pi);
 		model.addAttribute("list", searchList);
 		model.addAttribute("pi", pi);
 		return "message/messagePage";
