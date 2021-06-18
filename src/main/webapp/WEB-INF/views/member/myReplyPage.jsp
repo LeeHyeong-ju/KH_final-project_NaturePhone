@@ -99,7 +99,7 @@
 						<li><a href="${ contextPath }/sellInfo/list"
 							class="list-group-item list-group-item-action sideContent">나의
 								판매내역</a></li>
-						<li><a href="#"
+						<li><a href="${ contextPath }/buyInfo/list" class="list-group-item list-group-item-action sideContent"
 							class="list-group-item list-group-item-action sideContent">나의
 								구매내역</a></li>
 						<li><a href="${ contextPath }/itd/list"
