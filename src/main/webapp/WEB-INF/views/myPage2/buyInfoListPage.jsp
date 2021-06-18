@@ -169,16 +169,16 @@
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">마이페이지</li>
-						<li><a href="#" class="list-group-item list-group-item-action sideContent">회원 정보</a></li>
-						<li><a href="#" class="list-group-item list-group-item-action sideContent">나의 게시글</a></li>
-						<li><a href="#" class="list-group-item list-group-item-action sideContent">나의 댓글</a></li>
+						<li><a href="${ contextPath }/member/myPage" class="list-group-item list-group-item-action sideContent">회원 정보</a></li>
+						<li><a href="${ contextPath }/member/myBoardList" class="list-group-item list-group-item-action sideContent">나의 게시글</a></li>
+						<li><a href="${ contextPath }/member/myReplyList" class="list-group-item list-group-item-action sideContent">나의 댓글</a></li>
 					</ul>
 				</div>
 				<div class="list-group col-md-10 sideBar">
 					<ul>
 						<li class="list-group-item sideTitle">쪽지함</li>
-						<li><a href="#" class="list-group-item list-group-item-action sideContent">받은 쪽지함</a></li>
-						<li><a href="#" class="list-group-item list-group-item-action sideContent">보낸 쪽지함</a></li>
+						<li><a href="${ contextPath }/message/selectList?type=받은 쪽지함" class="list-group-item list-group-item-action sideContent">받은 쪽지함</a></li>
+						<li><a href="${ contextPath }/message/selectList?type=보낸 쪽지함" class="list-group-item list-group-item-action sideContent">보낸 쪽지함</a></li>
 					</ul>
 				</div>
 				<div class="list-group col-md-10 sideBar">
