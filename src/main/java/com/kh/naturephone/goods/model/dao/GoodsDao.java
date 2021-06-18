@@ -41,6 +41,10 @@ public interface GoodsDao {
 
 	Goods selectGoods(int gn);
 
+	Member selectSeller(int sellerNo);
+
+	List<Attachment> selectGAList(Integer goodsNo);
+
 	
 	
 	

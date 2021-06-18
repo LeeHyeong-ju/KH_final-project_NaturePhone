@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
     <!-- 자바스크립트-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js"></script>
     <!-- 부트스트랩 5.0 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -71,16 +70,26 @@
         }
 
         .totalPrice {
-            float: right;
+            
         }
 
         .priceP {
             font-size: 20px;
+            margin-right: 50px;
+            color : black;
         }
 
         .selectedPay {
             float: right;
-        }   
+        }
+        
+        .cartTh{
+        	text-align : center;
+        }
+        
+        .cartTitle {
+        	
+        }
     </style>
     
     
@@ -104,50 +113,54 @@
             <div class="col-md-8 content">
                 <div class="main-div">
                    <div class="cartTtitle">
-                        <h5>장바구니</h5>
+                        <h5 class="cartTitle"><b>장바구니</b></h5>
                    </div>
                    <br>  
                     <hr>
                     <br>                      
-                    <br>
                     <table class="table cartTable">
                         <thead>
-                            <tr><td colspan="6"></td></tr>
-                        </thead>
-                        
-	                          <tr>
-	                            <td scope="row"><input class="cartCk" type="checkbox"></td>
-	                            <td>sm-12345</td>
-	                            <td>핸드폰 팝니다</td>
-	                            <td class="priceTd">200000</td>
-	                            <td>id</td>
-	                            <td>03-12</td>
-	                          </tr>
-                          
-                          <tr class="cartRow">
-                            <td scope="row"><input type="checkbox"></td>
-                            <td>sm-12345</td>
-                            <td>핸드폰 팝니다</td>
-                            <td class="priceTd">200000</td>
-                            <td>id</td>
-                            <td>03-12</td>
-                          </tr>                       
+						    <tr class="cartTh">
+						      <th scope="col">선택</th>
+						      <th scope="col">물품번호</th>
+						      <th scope="col">제품명</th>
+						      <th scope="col">제목</th>
+						      <th scope="col">가격</th>
+						      <th scope="col">판매자</th>
+						      
+						    </tr>
+						 </thead>
+                        	  <c:forEach items="${ cList }" var="c" varStatus="status">
+	                        	  	<tr class="cartTh">
+			                            <td scope="row"><input class="cartCk" type="checkbox"></td>
+			                            <td>${ c.goodsNo }</td>
+			                            <td>${ p[status.index].modelname }</td>
+			                            <td class="titleTd">${ g[status.index].goodsTitle }</td>
+			                            <td class="priceTd">${ g[status.index].price + g[status.index].deliveryFee }</td>
+			                            <td>${ m[status.index].id }</td>
+			                           
+		                          </tr>
+                        	  </c:forEach>                     
                       </table>
-                        <br>
-                      <div class="totalPrice">
-                          <p class="priceP">선택한 물품 총액 : <span id="numPrice" class="numPrice"></span>원 </p> 
-                      </div>
-                      <br><br>
+                      
                       <div class="btnDiv">
+                        &nbsp;
                         <button type="button" class="btn btn-secondary" onclick="allSeleted();">전체선택</button>
                         &nbsp;
                         <button type="button" class="btn btn-secondary" onclick="allDeseleted();">전체취소</button>
                         &nbsp;
                         <button type="button" class="btn btn-secondary" onclick="selectedUnck();">선택 삭제</button>
-                            <span class="selectedPay"><button type="button" class="btn btn-success" >선택 물품 결제</button></span>
+                            
                       </div>
-
-
+                      
+                       <br><hr>
+                      
+                      <div class="totalPrice">
+                          <span class="priceP">선택한 물품 총액 : <span id="numPrice" class="numPrice">0</span>원 </span>
+                          <span class="selectedPay"><button type="button" class="btn btn-success" onclick="goOrder();" >선택 물품 결제</button></span> 
+                      </div>
+                      
+                      <br><br>
                 </div>
             </div>
         </div>
@@ -167,43 +180,72 @@
          function selectedUnck() {
                 $('input[type="checkbox"]:checked').each(function(index) {
                                        
-                    $(this).parents("tr").remove();
-					
-                    
-                 });
-           
-            
+                    $(this).parents("tr").remove();                   
+                 });       
+         }
+         
+         var arr = []
+         
+         function goOrder() {
+        	 $('input[type="checkbox"]:checked').each(function(index) {
+                         		 
+                 arr[index] = $(this).parents("td").siblings(".titleTd").text();
+                        
+              });
+        	 
+        	
+        
+        	 
          }
 
     </script>
 
     <script>
-        $(function(){
-            var total = 0;
-            var sum1;
-           
-           
-        
+        $(function(){       	
+        	// 선택한 물품 가격 합산
+     
             $('input[type="checkbox"]').change(function(){
+            	// console.log("체크 하나만 해도 체인지가 작동하나?") 작동함
                 var total = 0;
                 var sum1 = 0;
 
                 if($('input[type="checkbox"]').is("checked") == false) {
+                	// console.log("그럼 이건?");
                     $("#numPrice").text(0);
                 }
 
-                $('input[type="checkbox"]:checked').each(function(index) {                                               
-                    sum1 = parseInt($(this).parents("td").siblings(".priceTd").text());
-
-                    total = total + sum1;
-
-                    $("#numPrice").text(total);
+                $('input[type="checkbox"]:checked').each(function(index) {
+                	 var stringPrice = $(this).parents("td").siblings(".priceTd").text();
+                	 var stringPrice2 = stringPrice.split(',').join("");
+                	 sum1 = parseInt(stringPrice2);               	                 
+                     
+                	 total = total + sum1;
+                	 var result = total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                	 
+                    $("#numPrice").text(result);
 
                 });
 
             });
+                      
+            // 금액 세자리 쉼표
+            $(".priceTd").each(function(){
+            	var p = $(this).text();
+            	
+            	if($.isNumeric(p)) {
+                    const result = p.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                    $(this).text(result + "원");
+                  } else {
+                    $(this).text("0원")
+                  }    
 
+            	
             });
+            
+            
+            
+
+        });
     </script>
 </body>
 </html>

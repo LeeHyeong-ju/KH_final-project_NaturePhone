@@ -68,7 +68,7 @@ public class GoodsController {
 		g.setOpenDate(openDate); // 개통일 저장
 		// System.out.println(g.getUserNo());
 
-		
+		System.out.println(g);
 		
 
 		int insertReslut = gService.insertGoods(g); 
@@ -76,10 +76,10 @@ public class GoodsController {
 		
 		
 		
-	
+		// 다중 이미지 파일 업로드
 		int length = files.length;
 		String[] renameFileName = new String[length];		
-		// 이미지 파일 첨부 
+		
 		for(int i = 0; i < length; i++) {
 			Attachment att = new Attachment();
 			if(!files[i].getOriginalFilename().equals("")) {			
@@ -96,7 +96,6 @@ public class GoodsController {
 			
 			// 첨부이미지 정보 DB insert
 			gService.insertAtt(att);
-			
 			
 		}
 		
@@ -212,17 +211,29 @@ public class GoodsController {
 		// 물품 등록자 아이디 조회
 		Member m = gService.selectMember(userNo);
 		
-		// 물품, 제품, 판매자 정보 
+		// 조회 게시물 첨부사진 조회
+		List<Attachment> aList = gService.selectGAList(g.getGoodsNo());
+		
+		// System.out.println(aList);
+		
+		
+		// 물품, 제품, 판매자, 첨부사진 정보 
 		model.addAttribute("g", g);
 		model.addAttribute("p", p);
 		model.addAttribute("m", m);
+		model.addAttribute("aList", aList);
 		
 		return "goods/goodsDetail";
 	}
 	
-	@GetMapping("/order")
+	@RequestMapping("/order")
 	public String goodsOrder(int goodsNo,
-							  Model model) {
+							  Model model
+							  ) {
+		
+		
+		
+		
 		
 		Goods g = gService.selectDetailGoods(goodsNo);
 		int proNo = g.getProNo();
@@ -262,17 +273,34 @@ public class GoodsController {
 		int userNo = loginUser.getUserNo();
 		
 		List<Cart> cList = gService.selecteCart(userNo);
+		List<Goods> g = new ArrayList<Goods>();
+		List<Phone> p = new ArrayList<Phone>();
+		List<Member> m = new ArrayList<Member>();
 		
-		for(Cart c : cList) {
+		for(int i = 0; i < cList.size(); i++) {			
+			Cart c = cList.get(i);
 			int gn = c.getGoodsNo();
-			Goods g = gService.selectGoods(gn);
-			System.out.println(g);
-			int pn = g.getProNo();
-			Phone p = gService.selectPhoneNameList(pn);
+			Goods gg = gService.selectGoods(gn);
+			
+			// 물품에서 판매자 가져오기
+			int sellerNo = gg.getUserNo();
+			Member seller = gService.selectSeller(sellerNo);
+			m.add(seller);
+			//System.out.println(seller);
+			
+			g.add(gg);
+			int pn = gg.getProNo();
+			Phone pp = gService.selectPhoneNameList(pn);
+			p.add(pp);
 		}
+	
 		
 		if(cList != null) {
+			model.addAttribute("g", g);
+			model.addAttribute("p", p);
+			model.addAttribute("m", m);
 			model.addAttribute("cList", cList);
+			
 		}
 		return "goods/goodsCart";
 		
@@ -287,11 +315,19 @@ public class GoodsController {
 		int result = gService.insertCart(goodsNo, userNo);
 		
 		if(result > 0) {
-			return "redirect:/goods/cartPage";			
+			return "redirect:/goods/cartPage";		
 		} else {
 			return "common/errorPage";
 		}
 		
+	}
+	
+	@PostMapping("/carttoorder")
+	public String carttoorder() {
+		
+		
+		
+		return "";
 	}
 	
 	
