@@ -274,7 +274,7 @@ span {
 	
 					<div class="modal-body">
 						<input type="password" name="pwdOrigin" id="pwdOrigin" class="form-control" placeholder="현재 비밀번호" required><hr>
-						<input type="password" name="pwdChange" id="pwdChange" class="form-control" placeholder="새 비밀번호" required>
+						<input type="password" name="pwdChange" id="pwdChange" class="form-control" placeholder="8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요." required>
 						<input type="password" id="pwdChange2" class="form-control" placeholder="새 비밀번호 확인" required>
 					</div>
 	

@@ -145,7 +145,7 @@
 			<when test="searchCondition == 'content'">
 			AND     MSG_CONTENT LIKE #{sv}
 			</when>
-			<when test="searchCondition == 'name'">
+			<when test="searchCondition == 'id'">
 			AND     USER_ID LIKE #{sv}
 			</when>
 			<otherwise>
@@ -169,7 +169,7 @@
 			<when test="searchCondition == 'content'">
 			AND     MSG_CONTENT LIKE #{sv}
 			</when>
-			<when test="searchCondition == 'name'">
+			<when test="searchCondition == 'id'">
 			AND     USER_ID LIKE #{sv}
 			</when>
 			<otherwise>
@@ -214,7 +214,7 @@
 			<when test="searchCondition == 'content'">
 			AND     MSG_CONTENT LIKE #{sv}
 			</when>
-			<when test="searchCondition == 'name'">
+			<when test="searchCondition == 'id'">
 			AND     USER_ID LIKE #{sv}
 			</when>
 			<otherwise>
@@ -238,7 +238,7 @@
 			<when test="searchCondition == 'content'">
 			AND     MSG_CONTENT LIKE #{sv}
 			</when>
-			<when test="searchCondition == 'name'">
+			<when test="searchCondition == 'id'">
 			AND     USER_ID LIKE #{sv}
 			</when>
 			<otherwise>
