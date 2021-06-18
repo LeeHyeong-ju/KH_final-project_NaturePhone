@@ -190,13 +190,13 @@
 	<script>
 		function toSearchGoodsList(itdNo){
 			console.log(itdNo);
-			location.href = '${contextPath}/'; // 해당 모델이 검색된 물품 페이지로 연결
+			location.href = '${contextPath}/goods/list'; // 해당 모델이 검색된 물품 페이지로 연결
 		}
 	</script>
 	
 	<script>
 		$(function(){
-			var phoneList = ["SM-A325N", "A2407 128GB"];
+			var phoneList = ["SM-A325N", "A2407 128GB", "SM-G998N 256GB", "A2411 256GB", "LM-Q310N", "SM-F907N"];
 			
 			$("#searchInput").autocomplete({
 				source: phoneList,

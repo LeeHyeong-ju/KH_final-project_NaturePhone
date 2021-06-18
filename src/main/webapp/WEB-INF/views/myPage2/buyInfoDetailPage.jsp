@@ -381,7 +381,7 @@
 								<tr>
 									<td><fmt:formatNumber value="${ payInfo.price }" groupingUsed="true"/>원</td>
 									<td>${ payInfo.dealWay }</td>
-									<td>카드결제</td>
+									<td>계좌이체</td>
 									<td><fmt:formatNumber value="${ payInfo.deliveryFee }" groupingUsed="true"/>원</td>
 									<td><fmt:formatNumber value="${ payInfo.price + payInfo.deliveryFee }" groupingUsed="true"/>원</td>
 								</tr>               
