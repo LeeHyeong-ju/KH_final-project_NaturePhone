@@ -193,6 +193,10 @@
                         
               });
         	 
+        	 var objParams = {
+                     "arrList" : arr      
+                 };
+        	 
         	 $.ajax({
                  url         :   "${ contextPath }/goods/carttoorder",
                  dataType    :   "json",

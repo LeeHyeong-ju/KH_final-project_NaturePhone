@@ -323,7 +323,7 @@ public class GoodsController {
 	}
 	
 	@PostMapping("/carttoorder")
-	public String carttoorder(@RequestParam(value="arr[]") List<String> arr) {
+	public String carttoorder( @RequestParam(value="arr[]") List<String> arr) {
 		for(String a : arr) {
 			System.out.println(a);
 		}
