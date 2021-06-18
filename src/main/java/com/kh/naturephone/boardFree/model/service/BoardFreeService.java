@@ -56,6 +56,8 @@ public interface BoardFreeService {
 	List<Board_TB> searchList(Search search, PageInfo pi);
 
 	int insertFreeAtt(B_Att_TB att, int bno);
+	
+	public List<B_Att_TB> selectAttList(int bno);
 
 
 	

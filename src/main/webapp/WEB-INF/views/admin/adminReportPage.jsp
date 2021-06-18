@@ -112,28 +112,26 @@
                     <table class="table table-hover">
                         <thead class="table-light">
                           <tr>
-                            <th scope="col" class="col-1">번호</th>
-                            <th scope="col" class="col-3">회원명</th>
-                            <th scope="col" class="col-3">가입일자</th>
-                            <th scope="col" class="col-3">등급변경</th>
-                            <th scope="col" class="col-2">탈퇴</th>
+                            <th scope="col" class="col-1">신고번호</th>
+                            <th scope="col" class="col-3">신고자</th>
+                            <th scope="col" class="col-3">신고대상자</th>
+                            <th scope="col" class="col-3">등급강등</th>
+                            <th scope="col" class="col-2">탈퇴처리</th>
                           </tr>
                         </thead>
 
                         <tbody>
-                          <c:forEach items="${ mlist }" var="m" varStatus="status">
+                          <c:forEach items="${ rplist }" var="rp" varStatus="status">
                           <tr>
-                            <th scope="row" onclick="memberDetail(${ m.userNo });">${ m.userNo }</th>
-                            <td onclick="memberDetail(${ m.userNo });">${ m.name }</td>
-                            <td onclick="memberDetail(${ m.userNo });">${ m.createDate }</td>
+                            <th scope="row" onclick="reportDetail(${ rp.reportNo });">${ rp.reportNo }</th>
+                            <td onclick="reportDetail(${ rp.reportNo });">${ rp.reporter }</td>
+                            <td onclick="reportDetail(${ rp.reportNo });">${ rp.suspect }</td>
                             <td>
-                            	<select id="member-grade-select" style="border-radius:5px; border:1px solid lightgray; height:25px;">
-                            		<option <c:if test="${ m.grade eq '일반회원' }">selected</c:if>>일반회원</option>
-                            		<option <c:if test="${ m.grade eq '블랙회원' }">selected</c:if>>블랙회원</option>
-                            	</select>
+                            	<button type="button" class="btn-secondary" style="width:45px; height:25px; border-radius:5px; border:none; font-size:13px;"
+                            	onclick="location.href='${contextPath}/admin/reportDown?userNo=' + ${ rp.suspect }">강등</button>
                             </td>
                             <td><button type="button" class="btn-secondary" style="width:45px; height:25px; border-radius:5px; border:none; font-size:13px;"
-                            	onclick="location.href='${contextPath}/admin/memberQuit?userNo=' + ${ m.userNo }">탈퇴</button></td>
+                            	onclick="location.href='${contextPath}/admin/reportQuit?userNo=' + ${ rp.suspect }">탈퇴</button></td>
                           </tr>
                            </c:forEach>
                         </tbody>
@@ -149,7 +147,7 @@
                         </c:if>
                         <c:if test="${ pi.currentPage > 1 }">
                            <c:url var="before"
-                              value="/admin/memberList">
+                              value="/admin/reportList">
                               <c:param name="page" value="${ pi.currentPage -1 }" />
                            </c:url>
                            <a class="page-link" href="${ before }" aria-label="Previous">
@@ -164,7 +162,7 @@
                            </c:if>
                            <c:if test="${ p ne pi.currentPage }">
                               <c:url var="pagination"
-                                 value="/admin/memberList">
+                                 value="/admin/reportList">
                                  <c:param name="page" value="${ p }" />
                               </c:url>
                               <a class="page-link" href="${ pagination }">${ p }</a>
@@ -179,7 +177,7 @@
                         </c:if>
                         <c:if test="${ pi.currentPage < pi.maxPage }">
                            <c:url var="after"
-                              value="/admin/memberList">
+                              value="/admin/reportList">
                               <c:param name="page" value="${ pi.currentPage + 1 }" />
                            </c:url>
                            <a class="page-link" href="${ after }" aria-label="Next">
