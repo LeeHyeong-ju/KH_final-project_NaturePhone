@@ -80,11 +80,11 @@
 		margin-right: 20px;
 	}
 	
-	#sellerInfoTable{
+	#sellerInfoTable {
 		width: 80%;
 		margin: auto;
 	}
-	#sellerInfoTable th, #sellerInfoTable td{
+	#sellerInfoTable th, #sellerInfoTable td {
 		height: 50px;
 		vertical-align: middle;
 	}	
@@ -102,42 +102,42 @@
 		height: 80px;
 	}
 		
-	#modalArea{
+	#modalArea {
 		font-size: 0.9em;
 	}
 	
-	#staticBackdropLabel{
+	#staticBackdropLabel {
 		font-weight: bold;
 		margin-left: 185px;
 	}
 	
-	h6{
+	h6 {
 		text-align: center;
 		font-weight: bold;
 	}
 	
-	#selectReasonArea{
+	#selectReasonArea {
 		width: 60%;
 		margin: auto;
 	}
 	
-	#reasonTextArea{
+	#reasonTextArea {
 		resize: none;
 	}
 	
-	#selectDelOptionArea{
+	#selectDelOptionArea {
 		width: 170px;
 		margin: auto;
 	}
 
-	#expectedPayment{
+	#expectedPayment {
 		text-align: center;
 	}	
-	#payment{
+	#payment {
 		display: inline-block;
 	}
 	
-	#modalBtnArea{
+	#modalBtnArea {
 		margin: auto;
 	}	
 </style>
@@ -381,7 +381,7 @@
 								<tr>
 									<td><fmt:formatNumber value="${ payInfo.price }" groupingUsed="true"/>원</td>
 									<td>${ payInfo.dealWay }</td>
-									<td>카드결제</td>
+									<td>계좌이체</td>
 									<td><fmt:formatNumber value="${ payInfo.deliveryFee }" groupingUsed="true"/>원</td>
 									<td><fmt:formatNumber value="${ payInfo.price + payInfo.deliveryFee }" groupingUsed="true"/>원</td>
 								</tr>               
