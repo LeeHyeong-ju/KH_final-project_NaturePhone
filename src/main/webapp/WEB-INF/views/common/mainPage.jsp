@@ -34,8 +34,8 @@
      height: 50px;
      }
      .bno {
-			display : none;
-		}
+         display : none;
+      }
 </style>
 <body>
 <jsp:include page="../common/menubar.jsp"/>
@@ -88,7 +88,7 @@
                   </tbody>
                 </table>
               </div>
-			<div class="col-2" ></div>
+         <div class="col-2" ></div>
               <div class="col-5" >
                 <table class="table" >
                   <thead>
@@ -130,22 +130,22 @@
                   </tbody>
                 </table>
               </div>
-      		</div>
+            </div>
         </div>
       </div>
     </div>
     <c:if test="${ empty list }">
-    	<script>
-		window.onload=function(){
-		    location.href="${contextPath}/notice/mainList";
-		}
-		</script>
+       <script>
+      window.onload=function(){
+          location.href="${contextPath}/notice/mainList";
+      }
+      </script>
     </c:if>
     <script>
-			function selectBoard(bno){
-				location.href = '${contextPath}/notice/detail?bno=' + bno + '&page=${pi.currentPage}';					
-				}		
-	</script>  
+         function selectBoard(bno){
+            location.href = '${contextPath}/notice/detail?bno=' + bno + '&page=${pi.currentPage}';               
+            }      
+   </script>  
     
   </div>
   <jsp:include page="../common/footer.jsp"/>

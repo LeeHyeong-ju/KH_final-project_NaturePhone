@@ -201,13 +201,12 @@
                     <br><br><br>
 
                     <div class="contentDiv">
-                        <img src="${ contextPath }/resources/guploadFiles/20210614202038_82343.jpg" class="img-thumbnail imgContent" alt="...">
+                        <img src="${ contextPath }/resources/guploadFiles/${ aList[0].gaRename }" class="img-thumbnail imgContent" alt="...">
                         <br><br>
                         <div class="imgs">
-                            <img src="${ contextPath }/resources/guploadFiles/20210614203016_48730.jpg" class="img-thumbnail choosableImg" alt="...">
-                            <img src="${ contextPath }/resources/guploadFiles/20210614201452_43828.png" class="img-thumbnail choosableImg" alt="...">
-                            <img src="${ contextPath }/resources/guploadFiles/20210614201828_59775.jpg" class="img-thumbnail choosableImg" alt="...">
-                            <img src="${ contextPath }/resources/guploadFiles/20210614195818_13188.png" class="img-thumbnail choosableImg" alt="...">
+                        	<c:forEach items="${ aList }" var="a">
+                        		<img src="${ contextPath }/resources/guploadFiles/${ a.gaRename }" class="img-thumbnail choosableImg" alt="...">
+                        	</c:forEach>  
                         </div>
                     </div>
                     <br><br>

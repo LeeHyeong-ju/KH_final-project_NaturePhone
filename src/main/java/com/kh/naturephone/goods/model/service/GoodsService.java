@@ -41,6 +41,12 @@ public interface GoodsService {
 
 	Goods selectGoods(int gn);
 
+	Member selectSeller(int sellerNo);
+
+	List<Attachment> selectGAList(Integer goodsNo);
+
+	
+
 	
 
 

@@ -132,6 +132,16 @@ public class GoodsDaoImpl implements GoodsDao{
 		return sqlSession.selectOne("goodsMapper.selectGoods", gn);
 	}
 
+	@Override
+	public Member selectSeller(int sellerNo) {		
+		return sqlSession.selectOne("goodsMapper.selectSeller", sellerNo);
+	}
+
+	@Override
+	public List<Attachment> selectGAList(Integer goodsNo) {	
+		return sqlSession.selectList("goodsMapper.selectGAList", goodsNo);
+	}
+
 
 	
 	
