@@ -217,6 +217,7 @@ public class AdminController {
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
 			List<Report> rplist = aService.selectReportList(pi);
+			System.out.println(rplist);
 			
 			if(rplist != null) {
 				mv.addObject("rplist", rplist);
@@ -236,7 +237,20 @@ public class AdminController {
 		
 		if(result > 0) {
 			rd.addFlashAttribute("msg", "해당 회원이 탈퇴되었습니다.");
-			return "redirect:/admin/memberList";
+			return "redirect:/admin/reportList";
+		} else {
+			throw new AdminException("회원 탈퇴에 실패하였습니다.");
+		}
+	}
+	
+	@GetMapping("/reportDown")
+	public String adminDownReport(int userNo, RedirectAttributes rd) throws AdminException {
+		
+		int result = aService.adminDownMember(userNo);
+		
+		if(result > 0) {
+			rd.addFlashAttribute("msg", "해당 회원 등급이 블랙회원으로 변경되었습니다.");
+			return "redirect:/admin/reportList";
 		} else {
 			throw new AdminException("회원 탈퇴에 실패하였습니다.");
 		}

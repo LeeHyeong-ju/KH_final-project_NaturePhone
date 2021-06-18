@@ -47,6 +47,26 @@
 		<result property ="writer_id" column="USER_ID"/>
 	</resultMap>
 	
+	<resultMap id="adminReportResultSet" type="Report">
+		<id property="reportNo" column="REPORT_NO"/>
+		<result property="reportType" column="R_TYPE"/>
+		<result property="reportContent" column="R_CONTENT"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="reporter" column="REPORTER"/>
+		<result property="suspect" column="SUSPECT"/>
+		<result property="reporter_id" column="REPORTER_ID"/>
+		<result property="suspect_id" column="SUSPECT_ID"/>
+		<result property="s_grade" column="S_GRADE"/>
+		<result property="s_status" column="S_STATUS"/>
+		
+		<result property="boardNo" column="B_NO"/>
+		<result property="surveyNo" column="S_NO"/>
+		<result property="replyNo" column="RE_NO"/>
+		<result property="goodsNo" column="GOODS_NO"/>
+		<result property="goodsReplyNo" column="REPLY_NO"/>
+	</resultMap>
+	
 	<select id="selectMemberListCount" resultType="_int">
 		SELECT
 			  COUNT(*)
@@ -192,6 +212,47 @@
 	 ORDER BY
 				S_NO DESC
 	</select>
+	
+	<select id="selectReportListCount" resultType="_int">
+		SELECT 
+				COUNT(*)
+		  FROM
+				REPORT_TB
+		 WHERE
+				STATUS = 'Y'
+	</select>
+	
+	<select id="selectReportList" resultMap="adminReportResultSet">
+		SELECT
+				  RP.REPORT_NO
+				, RP.R_TYPE
+				, RP.R_CONTENT
+				, RP.CREATE_DATE
+				, RP.STATUS
+				, RP.REPORTER
+				, RP.SUSPECT
+				, R.USER_ID as "REPORTER_ID"
+				, S.USER_ID as "SUSPECT_ID"
+				, S.USER_GRADE as "S_GRADE"
+				, S.STATUS as "S_STATUS"
+		 FROM
+				REPORT_TB RP
+				JOIN MEMBER_TB R ON(R.USER_NO = RP.REPORTER)
+				JOIN MEMBER_TB S ON(S.USER_NO = RP.SUSPECT) 
+ 		WHERE
+ 				RP.STATUS= 'Y'
+	 ORDER BY
+				RP.REPORT_NO DESC
+	</select>
+	
+	<update id="updateDownMember" parameterType="_int">
+		UPDATE
+			MEMBER_TB
+		SET
+			USER_GRADE = '블랙회원'
+		WHERE
+			USER_NO = #{userNo}
+	</update>
 </mapper>
 
 

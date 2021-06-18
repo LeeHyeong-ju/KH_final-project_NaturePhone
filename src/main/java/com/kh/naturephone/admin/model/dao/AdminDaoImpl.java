@@ -81,4 +81,9 @@ public class AdminDaoImpl implements AdminDao {
 		return sqlSession.selectList("adminMapper.selectReportList", null, rowBounds);
 	}
 
+	@Override
+	public int updateDownMember(int userNo) {
+		return sqlSession.update("adminMapper.updateDownMember", userNo);
+	}
+
 }

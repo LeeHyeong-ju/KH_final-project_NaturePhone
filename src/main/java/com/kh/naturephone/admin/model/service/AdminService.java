@@ -35,4 +35,6 @@ public interface AdminService {
 
 	List<Report> selectReportList(PageInfo pi);
 
+	int adminDownMember(int userNo);
+
 }

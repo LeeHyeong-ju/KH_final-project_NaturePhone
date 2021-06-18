@@ -86,11 +86,11 @@
                <ul>
                   <li class="list-group-item sideTitle">관리페이지</li>
                   <li><a href="${ contextPath }/admin/memberList"
-                    class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">회원 관리</a></li>
+                    class="list-group-item list-group-item-action sideContent">회원 관리</a></li>
                   <li><a href="${ contextPath }/admin/boardList" 
                   	class="list-group-item list-group-item-action sideContent">게시글 관리</a></li>
                   <li><a href="${ contextPath }/admin/reportList"
-                    class="list-group-item list-group-item-action sideContent">신고 관리</a></li>
+                    class="list-group-item list-group-item-action sideContent" style="background-color:#f1f3f5;">신고 관리</a></li>
                   <li><a href="${ contextPath }/admin/phoneInfoInsert"
                     class="list-group-item list-group-item-action sideContent">폰 정보입력</a></li>
                   <li><a href="${ contextPath }/admin/calculate"
@@ -112,11 +112,11 @@
                     <table class="table table-hover">
                         <thead class="table-light">
                           <tr>
-                            <th scope="col" class="col-1">신고번호</th>
-                            <th scope="col" class="col-3">신고자</th>
-                            <th scope="col" class="col-3">신고대상자</th>
+                            <th scope="col" class="col-2">신고번호</th>
+                            <th scope="col" class="col-2">신고자</th>
+                            <th scope="col" class="col-2">신고대상자</th>
                             <th scope="col" class="col-3">등급강등</th>
-                            <th scope="col" class="col-2">탈퇴처리</th>
+                            <th scope="col" class="col-3">탈퇴처리</th>
                           </tr>
                         </thead>
 
@@ -124,14 +124,26 @@
                           <c:forEach items="${ rplist }" var="rp" varStatus="status">
                           <tr>
                             <th scope="row" onclick="reportDetail(${ rp.reportNo });">${ rp.reportNo }</th>
-                            <td onclick="reportDetail(${ rp.reportNo });">${ rp.reporter }</td>
-                            <td onclick="reportDetail(${ rp.reportNo });">${ rp.suspect }</td>
+                            <td onclick="reportDetail(${ rp.reportNo });">${ rp.reporter_id }</td>
+                            <td style="text-align:center;" onclick="reportDetail(${ rp.reportNo });">${ rp.suspect_id }</td>
                             <td>
-                            	<button type="button" class="btn-secondary" style="width:45px; height:25px; border-radius:5px; border:none; font-size:13px;"
+                            	<c:if test="${ rp.s_grade eq '일반회원' }">
+                            		<button type="button" class="btn-secondary" style="width:45px; height:25px; border-radius:5px; border:none; font-size:13px;"
                             	onclick="location.href='${contextPath}/admin/reportDown?userNo=' + ${ rp.suspect }">강등</button>
+                            	</c:if>
+                            	<c:if test="${ rp.s_grade eq '블랙회원' }">
+                            		강등완료
+                            	</c:if>
                             </td>
-                            <td><button type="button" class="btn-secondary" style="width:45px; height:25px; border-radius:5px; border:none; font-size:13px;"
-                            	onclick="location.href='${contextPath}/admin/reportQuit?userNo=' + ${ rp.suspect }">탈퇴</button></td>
+                            <td>
+                            	<c:if test="${ rp.s_status eq 'Y' }">
+                            		<button type="button" class="btn-secondary" style="width:45px; height:25px; border-radius:5px; border:none; font-size:13px;"
+                            		onclick="location.href='${contextPath}/admin/reportQuit?userNo=' + ${ rp.suspect }">탈퇴</button>
+                            	</c:if>
+                            	<c:if test="${ rp.s_status eq 'N' }">
+                            		탈퇴완료
+                            	</c:if>
+                            </td>
                           </tr>
                            </c:forEach>
                         </tbody>

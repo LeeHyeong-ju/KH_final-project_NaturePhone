@@ -79,4 +79,9 @@ public class AdminServiceImpl implements AdminService {
 		return aDao.selectReportList(pi);
 	}
 
+	@Override
+	public int adminDownMember(int userNo) {
+		return aDao.updateDownMember(userNo);
+	}
+
 }

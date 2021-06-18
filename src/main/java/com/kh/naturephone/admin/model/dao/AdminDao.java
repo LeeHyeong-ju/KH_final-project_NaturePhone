@@ -32,4 +32,6 @@ public interface AdminDao {
 
 	List<Report> selectReportList(PageInfo pi);
 
+	int updateDownMember(int userNo);
+
 }
