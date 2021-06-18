@@ -141,7 +141,7 @@
 								<option value="all" <c:if test="${ param.searchCondition == 'all' }">selected</c:if>>전체</option>
 								<option value="title" <c:if test="${ param.searchCondition == 'title' }">selected</c:if>>제목</option>
 								<option value="content" <c:if test="${ param.searchCondition == 'content' }">selected</c:if>>내용</option>
-								<option value="writer" <c:if test="${ param.searchCondition == 'name' }">selected</c:if>>이름</option>
+								<option value="id" <c:if test="${ param.searchCondition == 'id' }">selected</c:if>>아이디</option>
 							</select>
 							<input type="search" class="form-control" name="searchValue" style="width:100px;" value="${ param.searchValue }" required>
 							<input type="hidden" name="type" value="${ message.type }">
