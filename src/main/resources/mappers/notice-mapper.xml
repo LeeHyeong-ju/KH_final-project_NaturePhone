@@ -370,6 +370,53 @@
 			</choose>
 		</where>
 	</select>
+	
+	<select id="selectMainList" resultMap="noticeResultSet">
+		SELECT
+				B_NO
+			  , BTITLE
+			  , B_CREATE_DATE
+		  FROM
+	            (SELECT
+	       			 ROWNUM RNUM,
+	            	 A.*
+		    	   FROM
+		       		    (
+		                  SELECT 
+	                    		 B_NO
+			 				   , BTITLE
+			  				   , B_CREATE_DATE
+		                    FROM 
+		                         BOARD_TB
+		                   WHERE 
+		                         B_STATUS = 'Y'
+		                     AND CATEGORY = '공지'	
+		                ORDER BY 
+		                    	 B_CREATE_DATE DESC) A)
+	      WHERE 
+	             RNUM BETWEEN 1 AND 5	  	
+         	
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
 
 

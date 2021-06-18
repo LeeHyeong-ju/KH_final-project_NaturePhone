@@ -107,4 +107,10 @@ public class NoticeDaoImpl implements NoticeDao {
 	public int searchListCount(Search search) {
 		return sqlSession.selectOne("noticeMapper.searchNoticeListCount", search);
 	}
+
+	@Override
+	public List<Board_TB> selectMainList() {
+		
+		return sqlSession.selectList("noticeMapper.selectMainList");
+	}
 }

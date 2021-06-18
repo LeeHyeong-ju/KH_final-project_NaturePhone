@@ -97,4 +97,10 @@ public class NoticeServiceImpl implements NoticeService {
 	public int searchListCount(Search search) {
 		return nDao.searchListCount(search);
 	}
+
+	@Override
+	public List<Board_TB> selectMainList() {
+		
+		return nDao.selectMainList();
+	}
 }
