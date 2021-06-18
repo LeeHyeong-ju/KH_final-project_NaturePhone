@@ -697,8 +697,7 @@
 					  var imgs = $("#imgDiv").children('img');
 					 			 
 	     		 };
-	     		
-	     		 
+	     		     		 
 	     	 };		
 		};
 
@@ -802,19 +801,9 @@
 						$(".az3").css({"display" : "block"});
 					}
 				});
-			
-			
-			
-			
-			
-			
-			
+
 		});
-		
-		
-		
-		
-		
+
     </script>
     
   

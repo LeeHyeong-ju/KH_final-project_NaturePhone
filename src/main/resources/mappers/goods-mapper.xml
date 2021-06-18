@@ -353,6 +353,35 @@
  		WHERE
  				GOODS_NO = #{ goodsNo }
  	</select>
+ 	
+ 	<select id="selectSeller" parameterType="_int" resultMap="goodsMemberResultSet">
+ 		SELECT
+ 				USER_NO
+ 			  , USER_GRADE
+ 			  , USER_ID
+ 			  , USER_NAME
+ 			  , CREATE_DATE
+ 	      FROM
+ 	      		MEMBER_TB
+ 	     WHERE
+ 	     		USER_NO = #{ userNo }
+ 	</select>
+ 	
+ 	<select id="selectGAList" parameterType="_int" resultMap="attListResultSet">
+ 		SELECT
+ 				GDS_ATT_NO
+ 			  , GOODS_NO
+ 			  , ATT_ORDER
+ 			  , ATT_FILENAME
+ 			  , ATT_FILEPATH
+ 			  , ATT_RENAME
+ 			  
+ 	    FROM
+ 	    		G_ATT_TB
+ 	   WHERE
+ 	   		    GOODS_NO = #{ goodsNo }
+ 	    		
+ 	</select>
 
 
 </mapper>

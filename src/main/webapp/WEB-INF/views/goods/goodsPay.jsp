@@ -114,7 +114,7 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody>                            
                                 <tr>
                                     <td>
                                       	${ p.modelname } 

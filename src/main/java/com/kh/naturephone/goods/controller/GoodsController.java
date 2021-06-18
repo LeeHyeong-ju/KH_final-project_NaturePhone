@@ -211,17 +211,29 @@ public class GoodsController {
 		// 물품 등록자 아이디 조회
 		Member m = gService.selectMember(userNo);
 		
-		// 물품, 제품, 판매자 정보 
+		// 조회 게시물 첨부사진 조회
+		List<Attachment> aList = gService.selectGAList(g.getGoodsNo());
+		
+		// System.out.println(aList);
+		
+		
+		// 물품, 제품, 판매자, 첨부사진 정보 
 		model.addAttribute("g", g);
 		model.addAttribute("p", p);
 		model.addAttribute("m", m);
+		model.addAttribute("aList", aList);
 		
 		return "goods/goodsDetail";
 	}
 	
-	@GetMapping("/order")
+	@RequestMapping("/order")
 	public String goodsOrder(int goodsNo,
-							  Model model) {
+							  Model model
+							  ) {
+		
+		
+		
+		
 		
 		Goods g = gService.selectDetailGoods(goodsNo);
 		int proNo = g.getProNo();
@@ -263,28 +275,30 @@ public class GoodsController {
 		List<Cart> cList = gService.selecteCart(userNo);
 		List<Goods> g = new ArrayList<Goods>();
 		List<Phone> p = new ArrayList<Phone>();
+		List<Member> m = new ArrayList<Member>();
 		
 		for(int i = 0; i < cList.size(); i++) {			
 			Cart c = cList.get(i);
 			int gn = c.getGoodsNo();
 			Goods gg = gService.selectGoods(gn);
 			
-			// 물품에서 작성자 아이디 가져오기
-			
+			// 물품에서 판매자 가져오기
+			int sellerNo = gg.getUserNo();
+			Member seller = gService.selectSeller(sellerNo);
+			m.add(seller);
+			//System.out.println(seller);
 			
 			g.add(gg);
 			int pn = gg.getProNo();
 			Phone pp = gService.selectPhoneNameList(pn);
 			p.add(pp);
 		}
-		
-		System.out.println(cList);
-		System.out.println(p);
-		System.out.println(g);
+	
 		
 		if(cList != null) {
 			model.addAttribute("g", g);
 			model.addAttribute("p", p);
+			model.addAttribute("m", m);
 			model.addAttribute("cList", cList);
 			
 		}
@@ -306,6 +320,16 @@ public class GoodsController {
 			return "common/errorPage";
 		}
 		
+	}
+	
+	@PostMapping("/carttoorder")
+	public String carttoorder(@RequestParam(value="arr[]") List<String> arr) {
+		for(String a : arr) {
+			System.out.println(a);
+		}
+		
+		
+		return "";
 	}
 	
 	

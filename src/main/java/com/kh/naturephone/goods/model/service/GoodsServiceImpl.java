@@ -124,6 +124,20 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 
+	@Override
+	public Member selectSeller(int sellerNo) {
+		
+		return gDao.selectSeller(sellerNo);
+	}
+
+
+	@Override
+	public List<Attachment> selectGAList(Integer goodsNo) {
+		
+		return gDao.selectGAList(goodsNo);
+	}
+
+
 
 
 
