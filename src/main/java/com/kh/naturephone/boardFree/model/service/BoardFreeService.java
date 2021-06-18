@@ -59,7 +59,7 @@ public interface BoardFreeService {
 	
 	public List<B_Att_TB> selectAttList(int bno);
 
-
+	List<B_Att_TB> selectAttList(int bno);
 	
 
 

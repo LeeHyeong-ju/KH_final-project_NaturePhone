@@ -89,7 +89,7 @@
 		(
 			  SEQ_S_NO.NEXTVAL
 			, #{userNo} 
-			, #{prono}
+			, null
 			, #{stitle}
 			, #{scontent}
 			, #{scategory}

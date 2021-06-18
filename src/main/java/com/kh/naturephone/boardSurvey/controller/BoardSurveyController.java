@@ -82,7 +82,7 @@ public class BoardSurveyController {
 			Member loginUser = (Member)session.getAttribute("loginUser");
 			board.setUserNo(loginUser.getUserNo());
 			board.setScategory("설문");
-			board.setProno(1); 
+			
 			
 			int result = bService.insertBoard(board);
 			
@@ -147,10 +147,9 @@ public class BoardSurveyController {
 			sDetail.get(0);
 			sDetail.get(1);
 			
-			System.out.println("1" + sDetail.get(0));
-			System.out.println("2" + sDetail.get(1));
-		
-			
+//			System.out.println("1" + sDetail.get(0));
+//			System.out.println("2" + sDetail.get(1));
+					
 			List<Reply_TB> rlist = bService.selectReplyList(s_no);
 			System.out.println("rlist : " + rlist);
 			if(board != null) {

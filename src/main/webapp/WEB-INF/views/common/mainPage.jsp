@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,6 +33,9 @@
      width: 80%;
      height: 50px;
      }
+     .bno {
+			display : none;
+		}
 </style>
 <body>
 <jsp:include page="../common/menubar.jsp"/>
@@ -65,7 +70,7 @@
           <br><br>
             <div class="row row-cols-auto" >
               
-              <div class="col-6">
+              <div class="col-5">
                 <table class="table">
                   <thead>
                     <tr>
@@ -73,32 +78,19 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td scope="row">모바일 중고장터 등록 오류 안내</td>
-                      <td>21-04-28</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">모바일 중고장터 등록 오류 안내</td>
-                      <td>21-04-28</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">모바일 중고장터 등록 오류 안내</td>
-                      <td>21-04-28</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">모바일 중고장터 등록 오류 안내</td>
-                      <td>21-04-28</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">모바일 중고장터 등록 오류 안내</td>
-                      <td>21-04-28</td>
-                    </tr>
+                     <c:forEach items="${ list }" var="notice">
+                          <tr  onclick="selectBoard(${ notice.bno });" style="cursor: pointer">
+                            <th scope="row" class="bno">${ notice.bno }</th>
+                            <td>${ notice.btitle }</td>                   
+                            <td>${ notice.bcreateDate }</td>
+                          </tr>
+                          </c:forEach>    
                   </tbody>
                 </table>
               </div>
-
-              <div class="col-6">
-                <table class="table">
+			<div class="col-2" ></div>
+              <div class="col-5" >
+                <table class="table" >
                   <thead>
                     <tr>
                       <th scope="col" colspan="4">중고장터 실시간 거래 현황</th>                           
@@ -108,40 +100,53 @@
                     <tr>
                       <td scope="row">갤럭시 A6 2018</td>
                       <td>SM-A600S</td>
-                      <td>60,000</td>
-                      <td>7분 전</td>
+                      <td>160,000</td>
+                      <td>1분 전</td>
                     </tr>
                     <tr>
-                      <td scope="row">갤럭시 A6 2018</td>
-                      <td>SM-A600S</td>
-                      <td>60,000</td>
-                      <td>7분 전</td>
+                      <td scope="row">아이폰12</td>
+                      <td>A2403</td>
+                      <td>320,000</td>
+                      <td>9분 전</td>
                     </tr>
                     <tr>
-                      <td scope="row">갤럭시 A6 2018</td>
-                      <td>SM-A600S</td>
-                      <td>60,000</td>
-                      <td>7분 전</td>
+                      <td scope="row">갤럭시 노트10</td>
+                      <td>SM-N970</td>
+                      <td>370,000</td>
+                      <td>17분 전</td>
                     </tr>
                     <tr>
-                      <td scope="row">갤럭시 A6 2018</td>
-                      <td>SM-A600S</td>
-                      <td>60,000</td>
-                      <td>7분 전</td>
+                      <td scope="row">갤럭시 S10</td>
+                      <td>SM-G973N</td>
+                      <td>600,000</td>
+                      <td>37분 전</td>
                     </tr>
                     <tr>
-                      <td scope="row">갤럭시 A6 2018</td>
-                      <td>SM-A600S</td>
+                      <td scope="row">아이폰8</td>
+                      <td>A1905</td>
                       <td>60,000</td>
-                      <td>7분 전</td>
+                      <td>45분 전</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-      </div>
+      		</div>
         </div>
       </div>
     </div>
+    <c:if test="${ empty list }">
+    	<script>
+		window.onload=function(){
+		    location.href="${contextPath}/notice/mainList";
+		}
+		</script>
+    </c:if>
+    <script>
+			function selectBoard(bno){
+				location.href = '${contextPath}/notice/detail?bno=' + bno + '&page=${pi.currentPage}';					
+				}		
+	</script>  
+    
   </div>
   <jsp:include page="../common/footer.jsp"/>
 </body>
