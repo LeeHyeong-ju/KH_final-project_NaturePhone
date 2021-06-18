@@ -193,16 +193,14 @@
                         
               });
         	 
-        	 var objParams = {
-                     "arrList" : arr      
-                 };
+        	
         	 
         	 $.ajax({
                  url         :   "${ contextPath }/goods/carttoorder",
                  dataType    :   "json",
                  contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
                  type        :   "post",
-                 data        :    objParams,
+                 data        :    arr,
                  success     :   function(e){                  
                          alert("구매 정보를 작성해주세요");    
                  },
