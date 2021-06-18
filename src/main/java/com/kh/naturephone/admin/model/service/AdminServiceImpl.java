@@ -14,6 +14,7 @@ import com.kh.naturephone.boardSurvey.model.vo.Survey_TB;
 import com.kh.naturephone.common.Board_TB;
 import com.kh.naturephone.common.PageInfo;
 import com.kh.naturephone.member.model.vo.Member;
+import com.kh.naturephone.report.model.vo.Report;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -66,6 +67,21 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Survey_TB> selectSurveyList(PageInfo pi) {
 		return aDao.selectSurveyList(pi);
+	}
+
+	@Override
+	public int selectReportListCount() {
+		return aDao.selectReportListCount();
+	}
+
+	@Override
+	public List<Report> selectReportList(PageInfo pi) {
+		return aDao.selectReportList(pi);
+	}
+
+	@Override
+	public int adminDownMember(int userNo) {
+		return aDao.updateDownMember(userNo);
 	}
 
 }

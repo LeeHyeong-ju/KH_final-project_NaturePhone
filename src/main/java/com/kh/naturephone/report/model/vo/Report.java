@@ -21,6 +21,10 @@ public class Report {
 	private String status;			// 상태
 	private int reporter;			// 신고 하는 사람 회원번호
 	private int suspect;			// 신고 당하는 사람 회원번호
+	private String reporter_id;
+	private String suspect_id;
+	private String s_grade;
+	private String s_status;
 	
 	
 	private int boardNo;			// 게시판 글번호
