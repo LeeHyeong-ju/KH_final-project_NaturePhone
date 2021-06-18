@@ -130,8 +130,8 @@
 							<b>관심상품</b>
 							<hr>
 							<div id="searchArea">
-								<h6>제품명</h6>
-								<input type="text" class="form-control form-control-sm" placeholder="제품명을 입력해 주세요" id="searchInput" name="keyword">
+								<h6>모델명</h6>
+								<input type="text" class="form-control form-control-sm" placeholder="모델명을 입력해 주세요" id="searchInput" name="keyword">
 								<button type="submit" class="btn btn-secondary btn-sm" id="insertBtn">등록</button>
 							</div>
 						</div>
@@ -190,13 +190,13 @@
 	<script>
 		function toSearchGoodsList(itdNo){
 			console.log(itdNo);
-			location.href = '${contextPath}/'; // 해당 모델이 검색된 물품 페이지로 연결
+			location.href = '${contextPath}/goods/list'; // 해당 모델이 검색된 물품 페이지로 연결
 		}
 	</script>
 	
 	<script>
 		$(function(){
-			var phoneList = ["SM-A325N", "A2407 128GB"];
+			var phoneList = ["SM-A325N", "A2407 128GB", "SM-G998N 256GB", "A2411 256GB", "LM-Q310N", "SM-F907N"];
 			
 			$("#searchInput").autocomplete({
 				source: phoneList,
