@@ -94,9 +94,11 @@
                 
           <button type="submit" class="btn btn-primary">로그인 하기</button>
           </form>
+          <div id="naver_id_login" class="form-group" style="padding-top: 10px;">
+    	      	<img id="naver_id_login" src="${ contextPath }/resources/images/btnG_완성형.png" style="width: 100%; cursor: pointer;">
+          </div>
                 
           <div class="forgot">
-          <br>
             <a href="${ contextPath }/member/joinPage">회원가입</a> |
             <a href="" id="searchMemberOpen">아이디/비밀번호 찾기</a>
           </div>
@@ -109,8 +111,11 @@
     	document.getElementById("searchMemberOpen").onclick = function() {
     		window.open('${ contextPath }/member/searchMemberPage', 'popup2', 'width=800, height=450');
     	}
-    
-    
+    	
+    	document.getElementById("naver_id_login").onclick = function() {
+    		window.open('${url}', 'popup2', 'width=800, height=450');
+    		
+    	}
     </script>   
 </body>
 </html>

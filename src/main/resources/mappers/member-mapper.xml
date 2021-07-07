@@ -155,4 +155,80 @@
 		        EMAIL = #{ email }
 		AND 	STATUS = 'Y'
 	</update>
+	
+	<select id="searchNEmail" parameterType="String" resultMap="memberResultSet">
+		SELECT
+				  USER_NO
+		        , TOKEN
+		        , USER_GRADE
+		        , USER_ID
+		        , USER_PWD
+		        , USER_NAME
+		        , PHONE
+		        , ADDRESS
+		        , APPROVAL_KEY
+		        , APPROVAL_STATUS
+		        , EMAIL
+		        , CREATE_DATE
+		        , MODIFY_DATE
+		        , STATUS
+		        , QUIT_TYPE
+		        , QUIT_CONTENT
+		FROM
+				MEMBER_TB
+		WHERE 
+				EMAIL = #{ nEmail }
+	</select>
+	
+	<select id="searchNId" parameterType="String" resultType="int">
+		SELECT
+				COUNT(*)
+		FROM
+				MEMBER_TB
+		WHERE 
+				USER_ID = #{ nId }
+	</select>
+	
+	<insert id="naverInsert" parameterType="Member">
+		INSERT
+		INTO MEMBER_TB
+		(
+			  USER_NO
+			, TOKEN
+			, USER_GRADE
+			, USER_ID
+			, USER_PWD
+			, USER_NAME
+			, PHONE
+			, ADDRESS
+			, APPROVAL_KEY
+			, APPROVAL_STATUS
+			, EMAIL
+			, CREATE_DATE
+			, MODIFY_DATE
+			, STATUS
+			, QUIT_TYPE
+			, QUIT_CONTENT
+		)
+		VALUES
+		(
+			  SEQ_USER_NO.nextval
+			, NULL
+			, DEFAULT
+			, #{ id }
+			, 0
+			, #{ name }
+			, #{ phone }
+			, ' '
+			, 0
+			, 'N'
+			, #{ email }
+			, SYSDATE
+			, SYSDATE
+			, DEFAULT
+			, NULL
+			, NULL
+		)
+	
+	</insert>
 </mapper>

@@ -36,6 +36,9 @@ public interface MemberDao {
 	// 9. 회원 비밀번호 찾기(Ajax) - 인증키로 비밀번호 update
 	int findPwdSendEmail(Member m);
 	
+	// 10. 네이버 고유 아이디 DB에 존재하는지 확인
+	Member searchNEmail(String nEmail);
+		
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 	
 	// 1. 나의 게시글 조회
@@ -49,6 +52,10 @@ public interface MemberDao {
 	
 	// 2-1. 댓글 페이징 처리
 	int selectReplyListCount(int userNo);
+
+	void naverInsert(Member m);
+
+	
 
 
 

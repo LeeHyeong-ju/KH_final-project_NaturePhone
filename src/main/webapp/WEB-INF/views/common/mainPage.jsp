@@ -38,6 +38,14 @@
       }
 </style>
 <body>
+	<c:if test="${ !empty closeWindow }">
+		<script>
+			opener.window.location.reload();
+			self.close();
+			console.log('왜안돼');
+		</script>
+	</c:if>
+
 <jsp:include page="../common/menubar.jsp"/>
   <div class="container" >
     <div class="row">

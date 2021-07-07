@@ -72,7 +72,11 @@ public class MemberServiceImpl implements MemberService{
 	public int findPwdSendEmail(Member m) {
 		return mDao.findPwdSendEmail(m);
 	}
-
+	
+	@Override
+	public Member searchNEmail(String nEmail) {
+		return mDao.searchNEmail(nEmail);
+	}
 
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 	
@@ -95,6 +99,12 @@ public class MemberServiceImpl implements MemberService{
 	public int selectReplyListCount(int userNo) {
 		return mDao.selectReplyListCount(userNo);
 	}
+
+	@Override
+	public void naverInsert(Member m) {
+		mDao.naverInsert(m);
+	}
+
 
 	
 	
