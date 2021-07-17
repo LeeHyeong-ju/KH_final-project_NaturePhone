@@ -34,9 +34,4 @@ public interface MessageDao {
 	// 6. 쪽지 보내기
 	int messageInsert(Message m);
 
-
-	
-
-
-	// 6. 쪽지 간 이동
 }

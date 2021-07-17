@@ -63,11 +63,24 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.update("memberMapper.findPwdSendEmail", m);
 	}
 	
+	/*----------------- 네아로 관련 -----------------*/
+	
 	@Override
 	public Member searchNEmail(String nEmail) {
 		return sqlSession.selectOne("memberMapper.searchNEmail", nEmail);
 	}
 
+	@Override
+	public void naverInsert(Member m) {
+		String nId = "NAVER"+KeyPublish.createId();
+		int result = sqlSession.selectOne("memberMapper.searchNId", nId);
+		while(result < 0) {
+			nId = "NAVER"+KeyPublish.createId();
+		}
+		m.setId(nId);
+		sqlSession.insert("memberMapper.naverInsert", m);
+	}
+	
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 
 	@Override
@@ -94,16 +107,6 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("myListMapper.selectReplyListCount", userNo);
 	}
 
-	@Override
-	public void naverInsert(Member m) {
-		String nId = "NAVER"+KeyPublish.createId();
-		int result = sqlSession.selectOne("memberMapper.searchNId", nId);
-		while(result < 0) {
-			nId = "NAVER"+KeyPublish.createId();
-		}
-		m.setId(nId);
-		sqlSession.insert("memberMapper.naverInsert", m);
-	}
 
 	
 

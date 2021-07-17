@@ -38,11 +38,13 @@ public class MessageServiceImpl implements MessageService{
 		
 		return mDao.selectMessage(m);
 	}
+	
 	// 4. 쪽지함 검색 페이징 처리
 	@Override
 	public int searchListCount(MessageSearch search) {
 		return mDao.searchListCount(search);
 	}
+	
 	// 4-1. 쪽지함 검색
 	@Override
 	public List<Message> searchList(MessageSearch search, PageInfo pi) {
@@ -55,10 +57,10 @@ public class MessageServiceImpl implements MessageService{
 		return mDao.messageDelete(map);
 	}
 
+	// 6. 쪽지 보내기 
 	@Override
 	public int messageInsert(Message m) {
 		return mDao.messageInsert(m);
 	}
-	
 	
 }

@@ -31,6 +31,7 @@ public class MessageDaoImpl implements MessageDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return sqlSession.selectList("messageMapper.selectList", m, rowBounds);
 	}
+	
 	// 3. 쪽지함 상세페이지
 	@Override
 	public Message selectMessage(Message m) {
@@ -63,17 +64,10 @@ public class MessageDaoImpl implements MessageDao{
 		return sqlSession.update("messageMapper.messageDelete", map);
 	}
 
+	// 6. 쪽지 보내기 
 	@Override
 	public int messageInsert(Message m) {
 		return sqlSession.insert("messageMapper.messageInsert", m);
 	}
 
-
-	
-	
-	
-	
-	
-	
-	
 }
