@@ -30,7 +30,6 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public int emailOverlapCheck(String email) {
-		System.out.println("dad : " + email);
 		return sqlSession.selectOne("memberMapper.emailOverlapCheck", email);
 	}
 
@@ -103,7 +102,6 @@ public class MemberDaoImpl implements MemberDao{
 			nId = "NAVER"+KeyPublish.createId();
 		}
 		m.setId(nId);
-		
 		sqlSession.insert("memberMapper.naverInsert", m);
 	}
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,8 +95,8 @@
                 
           <button type="submit" class="btn btn-primary">로그인 하기</button>
           </form>
-          <div id="naver_id_login" class="form-group" style="padding-top: 10px;">
-    	      	<img id="naver_id_login" src="${ contextPath }/resources/images/btnG_완성형.png" style="width: 100%; cursor: pointer;">
+          <div id="naver_id_login" class="form-group" style="margin-top: 10px; background-color:#03C75A;" onclick="loginWithNaver();">
+    	      	<img id="naver_id_login" src="${ contextPath }/resources/images/btnG_완성형.png" style="width: 70%; cursor: pointer;">
           </div>
                 
           <div class="forgot">
@@ -107,15 +108,30 @@
       </div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
+    
     <script>
     	document.getElementById("searchMemberOpen").onclick = function() {
     		window.open('${ contextPath }/member/searchMemberPage', 'popup2', 'width=800, height=450');
     	}
     	
-    	document.getElementById("naver_id_login").onclick = function() {
+    	// 네이버 로그인 버튼 클릭
+        function loginWithNaver() {
+            $.ajax({
+                url: '${ contextPath }/member/getNaverAuthUrl',
+                type: 'get',
+                async: false,
+                dataType: 'text',
+                success: function (res) {
+                    location.href = res;
+                }
+            });
+        }
+    	
+    	
+    	/* document.getElementById("naver_id_login").onclick = function() {
+    		console.log('${url}');
     		window.open('${url}', 'popup2', 'width=800, height=450');
-    		
-    	}
+    	} */
     </script>   
 </body>
 </html>

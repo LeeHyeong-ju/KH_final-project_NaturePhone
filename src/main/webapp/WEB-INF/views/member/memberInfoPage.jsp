@@ -138,14 +138,14 @@ span {
 									<div>${ loginUser.id }</div>
 								</td>
 							</tr>
-							
+							<c:if test="${ loginUser.token == null}">
 							<tr>
 								<th scope="row"><label for="userPwd" class="req">비밀번호</label></th>
 								<td>
 									<button type="button" class="btn btn-success" id="pwdChangeBtn">비밀번호 변경</button>
 								</td>
 							<tr>
-							
+							</c:if>
 							<tr>
 								<th scope="row">
 									<label for="userName" class="req">이름</label>
@@ -336,9 +336,9 @@ span {
 		
 	</script>
 	
+	/*--------- 다음 주소 API ---------*/
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
-	/*--------- 다음 주소 API ---------*/
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
 				{

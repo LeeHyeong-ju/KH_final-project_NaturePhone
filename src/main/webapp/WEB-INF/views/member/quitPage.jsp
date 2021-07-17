@@ -170,9 +170,11 @@
 	                    	if(data == 'success'){
 	                        	alert("탈퇴가 처리되었습니다. 그동안 이용해주셔서 감사합니다.");
 	                        	window.close();
-	                        	opener.parent.location='${ contextPath }'
+	                        	opener.parent.location='${ contextPath }';
 	                    	} else if('inconsistency'){
 	                    		alert("비밀번호가 일치하지 않습니다.");
+	                    	} else {
+	                    		console.log("탈퇴처리 실패");
 	                    	}
 	                    },
 	                    error: function(e){

@@ -55,7 +55,9 @@ public class MessageController {
 			
 			pi = Pagination.getPageInfo(currentPage, listCount);
 			
-		} else if(m.getType().equals("보낸 쪽지함")) {
+		} 
+		
+		if(m.getType().equals("보낸 쪽지함")) {
 			
 			m.setSenderNo(loginUser.getUserNo());
 			listCount = mService.selectListCount(m);
@@ -103,7 +105,9 @@ public class MessageController {
 			
 			pi = Pagination.getPageInfo(currentPage, listCount);
 			
-		} else if(search.getType().equals("보낸 쪽지함")) {
+		} 
+		
+		if(search.getType().equals("보낸 쪽지함")) {
 			
 			search.setSenderNo(loginUser.getUserNo());
 			listCount = mService.searchListCount(search);

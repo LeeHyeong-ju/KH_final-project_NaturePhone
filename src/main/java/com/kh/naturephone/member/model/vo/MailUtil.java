@@ -8,8 +8,8 @@ public class MailUtil {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "vaumc4@naver.com";
-		String hostSMTPpwd = "1234qwer!Q";
+		String hostSMTPid = "vaumc4";
+		String hostSMTPpwd = "123qwe!Q";
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = "vaumc4@naver.com";

@@ -38,7 +38,6 @@ public interface MemberService {
 	// 8. 회원 아이디 찾기(Ajax)
 	String findIdSendMail(String findIdEmail);
 
-	
 	// 9. 회원 비밀번호 찾기(Ajax) - update
 	int findPwdSendEmail(Member m);
 

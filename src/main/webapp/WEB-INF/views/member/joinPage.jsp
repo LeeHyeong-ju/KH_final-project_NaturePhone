@@ -319,10 +319,12 @@ span {
 			})
 		})
 		
+		// 이메일 인증 - Ajax
 		function joinSendMail(){
 			var email = document.getElementById("email").value;
 			var email1 = document.getElementById("email1").value;
 			var email2 = document.getElementById("email2").value;
+			
 			if(email1 == "" || email2 == ""){
 				alert("이메일을 입력해주세요.")
 				return false;
@@ -344,6 +346,7 @@ span {
 			})
 		}
 		
+		// 이메일 인증키 입력 - Ajax
 		$("#modalBtn").on("click", function(){
 			
 			var modalInput = document.getElementById("modalInput").value;
@@ -363,7 +366,7 @@ span {
                         	$("#email3").attr('disabled', true);
                         	$("#joinSendMailBtn").attr('disabled', true);
                         	$("#btn_submit").attr('disabled', false);
-                    	} else if('false'){
+                    	} else {
                     		alert("인증키가 일치하지 않습니다. 이메일을 다시 확인해주세요.");
                     	}
                     },
@@ -373,14 +376,10 @@ span {
                     }     
 				});
 				
-				
-				
 			}else {
 				alert("인증키를 입력해주세요");
 			}
-			
-			
-			
+
 		});
 
 		/*--------- 로그인 폼 유효성 확인 ---------*/
@@ -454,9 +453,9 @@ span {
 		}
 		</script>
 		
+		/*--------- 다음 주소 API ---------*/
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
-		/*--------- 다음 주소 API ---------*/
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
 					{

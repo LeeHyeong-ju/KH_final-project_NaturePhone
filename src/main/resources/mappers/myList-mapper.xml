@@ -25,7 +25,8 @@
 	
 	
 	<select id="selectMyBoardList" parameterType="_int" resultMap="myBoardListResultSet">
-		SELECT ROWNUM, B.*
+		SELECT 
+				  ROWNUM, B.*
         FROM
         (SELECT
 				  B_NO
@@ -55,7 +56,8 @@
         ) B
 	</select>
 	<select id="selectListCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(*)
+		SELECT 
+				  COUNT(*)
         FROM
         (SELECT
 				  B_NO

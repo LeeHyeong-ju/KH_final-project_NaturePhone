@@ -116,13 +116,16 @@ public class MemberController {
 
 	// 1. 회원 로그인 서비스를 위한 메소드
 	@PostMapping("/login")
-	public String memberLogin(@ModelAttribute Member m, Model model) {
+	public String memberLogin(@ModelAttribute Member m, 
+						      Model model, 
+						      RedirectAttributes rd) {
 
 		Member loginUser = mService.loginMember(m);
 
 		if (loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) {
 
 			model.addAttribute("loginUser", loginUser);
+			rd.addFlashAttribute("msg", "네이처폰에 오신것을 환영합니다!");
 			return "redirect:/";
 
 		} else {
@@ -140,11 +143,10 @@ public class MemberController {
 	// 2-2. 이메일 중복 검사 메소드 (Ajax)
 	@RequestMapping(value = "/emailOverlap", method = RequestMethod.POST)
 	public void emailOverlapCheck(String email, HttpServletResponse response) throws Exception {
-		System.out.println(email);
 		mService.emailOverlapCheck(email, response);
 	}
 
-	// 3-1. 회원가입 - 메일 인증
+	// 3-1. 메일 인증 메소드 (Ajax)
 	@RequestMapping(value = "/joinSendMail", method = RequestMethod.POST)
 	@ResponseBody
 	public void joinSendMail(@ModelAttribute Member m, HttpSession session) throws Exception {
@@ -166,10 +168,12 @@ public class MemberController {
 
 	}
 
-	// 3-2. 메일 인증키 확인
+	// 3-2. 메일 인증키 확인 메소드(Ajax)
 	@RequestMapping(value = "/keyCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String keyCheck(@RequestParam("modalInput") String key, @SessionAttribute("keyCode") String keyCode) {
+	public String keyCheck(@RequestParam("modalInput") String key, 
+						   @SessionAttribute("keyCode") String keyCode) {
+		
 		if (key != null && key.equals(keyCode)) {
 			return "success";
 		} else {
@@ -177,13 +181,18 @@ public class MemberController {
 		}
 	}
 
-	// 4. 회원가입 (DB insert)
+	// 4. 회원가입 메소드
 	@PostMapping("/join")
-	public String memberJoin(@ModelAttribute Member m, @RequestParam("postcode") String postcode,
-			@RequestParam("address1") String address1, @RequestParam("address2") String address2,
-			@RequestParam("hp1") String hp1, @RequestParam("hp2") String hp2, @RequestParam("hp3") String hp3,
-			Model model, RedirectAttributes rd) throws Exception {
-		System.out.println(m.getEmail());
+	public String memberJoin(@ModelAttribute Member m, 
+							 @RequestParam("postcode") String postcode,
+							 @RequestParam("address1") String address1, 
+							 @RequestParam("address2") String address2,
+							 @RequestParam("hp1") String hp1, 
+							 @RequestParam("hp2") String hp2, 
+							 @RequestParam("hp3") String hp3,
+							 Model model, 
+							 RedirectAttributes rd) throws Exception {
+		
 		m.setAddress(postcode + "," + address1 + "," + address2);
 		m.setPhone(hp1 + "-" + hp2 + "-" + hp3);
 		m.setPwd(bcryptPasswordEncoder.encode(m.getPwd()));
@@ -199,12 +208,16 @@ public class MemberController {
 		}
 	}
 
-	// 5. 회원정보 수정
+	// 5. 회원정보 수정 메소드
 	@PostMapping("/update")
-	public String memberUpdate(@ModelAttribute("loginUser") Member m, @RequestParam("postcode") String postcode,
-			@RequestParam("address1") String address1, @RequestParam("address2") String address2,
-			@RequestParam("hp1") String hp1, @RequestParam("hp2") String hp2, @RequestParam("hp3") String hp3,
-			Model model) {
+	public String memberUpdate(@ModelAttribute("loginUser") Member m, 
+							   @RequestParam("postcode") String postcode,
+							   @RequestParam("address1") String address1, 
+							   @RequestParam("address2") String address2,
+							   @RequestParam("hp1") String hp1, 
+							   @RequestParam("hp2") String hp2, 
+							   @RequestParam("hp3") String hp3,
+							   Model model) {
 		m.setAddress(postcode + "," + address1 + "," + address2);
 		m.setPhone(hp1 + "-" + hp2 + "-" + hp3);
 
@@ -219,10 +232,14 @@ public class MemberController {
 		}
 	}
 
-	// 6. 비밀번호 변경
+	// 6. 비밀번호 변경 메소드
 	@PostMapping("/pwdupdate")
-	public String pwdUpdate(@RequestParam("pwdOrigin") String pwdOrigin, @RequestParam("pwdChange") String pwdChange,
-			@SessionAttribute("loginUser") Member loginUser, RedirectAttributes rd, SessionStatus status, Model model) {
+	public String pwdUpdate(@RequestParam("pwdOrigin") String pwdOrigin,
+							@RequestParam("pwdChange") String pwdChange,
+							@SessionAttribute("loginUser") Member loginUser, 
+							RedirectAttributes rd, 
+							SessionStatus status, 
+							Model model) {
 
 		if (bcryptPasswordEncoder.matches(pwdOrigin, loginUser.getPwd()) == true) {
 			loginUser.setPwd(bcryptPasswordEncoder.encode(pwdChange));
@@ -243,13 +260,16 @@ public class MemberController {
 		}
 	}
 
-	// 7. 회원 탈퇴 - 비밀번호 확인 (Ajax)
+	// 7. 회원 탈퇴 - 비밀번호 확인 메소드 (Ajax)
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteMember(@RequestBody Member m, @SessionAttribute("loginUser") Member loginUser,
-			SessionStatus status) throws Exception {
-
+	public String deleteMember(@RequestBody Member m, 
+							   @SessionAttribute("loginUser") Member loginUser,
+							   SessionStatus status) throws Exception {
+		
+		// session에 저장 된 비밀번호와 일치 하다면 탈퇴 처리 진행
 		if (bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd()) == true) {
+			
 			m.setUserNo(loginUser.getUserNo());
 			int result = mService.deleteMember(m);
 
@@ -259,13 +279,13 @@ public class MemberController {
 			} else {
 				return "error";
 			}
-
+		// session에 저장 된 비밀번호와 일치하지 않다면 탈퇴 처리 중단
 		} else {
 			return "inconsistency";
 		}
 	}
 
-	// 8. 아이디 찾기
+	// 8. 아이디 찾기 메소드
 	@RequestMapping(value = "/findIdSendMailAjax", method = RequestMethod.POST)
 	@ResponseBody
 	public String findIdSendMail(@RequestParam(value = "findIdEmail") String findIdEmail) throws Exception {
@@ -274,7 +294,8 @@ public class MemberController {
 
 		String subject = "";
 		String msg = "";
-
+		
+		// 사용자가 입력한 이메일이 DB에 존재한다면, 이메일로 ID를 보내준다  
 		if (searchId != null) {
 			// 회원가입 메일 내용
 			subject = "Nature Phone 아이디입니다.";
@@ -290,18 +311,19 @@ public class MemberController {
 		}
 	}
 
-	// 9. 비밀번호 찾기
+	// 9. 비밀번호 찾기 메소드
 	@RequestMapping(value = "/findPwdEmailAjax", method = RequestMethod.POST)
 	@ResponseBody
 	public String findPwdSendEmail(@RequestBody Member m) throws Exception {
 
 		String searchId = mService.findIdSendMail(m.getEmail());
 
+		// 사용자가 입력한 이메일이 DB에 존재한다면, KeyPublish 객체를 이용해 새로운 비밀번호를 생성해서 DB에 저장 후 이메일로 전달한다. 
 		if (searchId != null) {
 			String keyCode = KeyPublish.createKey() + "Q" + "v" + "!" + "5";
 
 			m.setApprovalKey(bcryptPasswordEncoder.encode(keyCode));
-			System.out.println(m);
+			
 			String subject = "";
 			String msg = "";
 
@@ -314,19 +336,30 @@ public class MemberController {
 				msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 				msg += "<div style='font-size: 130%'>";
 				msg += "새로운 비밀번호 <strong>";
-				msg += keyCode + "</strong> 를 발급해드렸습니다. 로그인 하신 후 비밀번호를 꼭 바꿔주세요.</div><br/>";
+				msg += keyCode + "</strong> 를 발급해드렸습니다. 로그인 하신 후 비밀번호를 꼭 변경해주세요.</div><br/>";
 
 				MailUtil.sendMail(m.getEmail(), subject, msg);
 
 				return "success";
+				
 			} else {
-				return "updateFail";
+				return "fail";
 			}
+		
+		// 사용자가 입력한 이메일이 DB에 존재하지 않을 때
 		} else {
 			return "null";
 		}
 	}
-
+	
+	/*---------------------- 네이버 간편 로그인 ----------------------*/
+	// 네이버 로그인창 호출
+	@RequestMapping(value = "/getNaverAuthUrl")
+	public @ResponseBody String getNaverAuthUrl(HttpSession session) throws Exception {
+	    String reqUrl = naverLoginBO.getAuthorizationUrl(session);
+	    return reqUrl;
+	}
+	
 	// 네이버 로그인
 	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, 
@@ -335,6 +368,7 @@ public class MemberController {
 						   RedirectAttributes rd,
 						   HttpSession session,
 						   HttpServletResponse response) throws IOException, ParseException {
+		
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		// 1. 로그인 사용자 정보를 읽어온다.
@@ -353,46 +387,52 @@ public class MemberController {
 		String nName = (String) response_obj.get("name");
 		String nEmail = (String) response_obj.get("email");
 		String nPhone = (String) response_obj.get("mobile");
-
+		String nTokenId = (String) response_obj.get("id");
+		
 		// 4. 가입된 회원인지 확인
-		Member m = new Member();
+		
 		Member loginUser = mService.searchNEmail(nEmail);
 
-		// 4-1. 가입된 회원일 시
-		if (loginUser != null) { // 로그인 처리
+		// 4-1. 가입된 회원일 시 로그인 처리
+		if (loginUser != null) { 
 			model.addAttribute("loginUser", loginUser);
+			rd.addFlashAttribute("msg", "네이처폰에 오신것을 환영합니다!");
 			return "redirect:/";
 		
-		// 4-2. 가입되지 않은 회원일 때
+		// 4-2. 가입되지 않은 회원일 때 회원가입 처리
 		} else {
-
-			PrintWriter out = response.getWriter();
-
-			// 필수입력값 다 들어왔다면 DB에 저장후 로그인
+			// 필수입력값이 다 들어왔다면 DB에 저장후 로그인
 			if (nName != null && nEmail != null && nPhone != null) {
+				Member m = new Member();
+				
+				String nPwd = KeyPublish.createKey();
+				
+				m.setPwd(bcryptPasswordEncoder.encode(nPwd));
 				m.setName(nName);
 				m.setPhone(nPhone);
 				m.setEmail(nEmail);
-
+				m.setToken(nTokenId);
+				
 				// DB 저장
 				mService.naverInsert(m);
+				
 				// 로그인
 				m = mService.loginMember(m);
 				model.addAttribute("loginUser", m);
-				rd.addAttribute("closeWindow", "close");
+				rd.addFlashAttribute("msg", "네이처폰에 오신것을 환영합니다!");
 				return "redirect:/";
 
-				// 필수입력값 다 들어오지 않았다면 네아로 재요청
+			// 필수입력값 다 들어오지 않았다면 네아로 재요청
 			} else {
 				String url = URLEncoder.encode("http://localhost:8800/naturephone/member/callback", "UTF-8");
-				out.println("<script>alert('이름, 이메일, 전화번호는 필수입니다.');</script>");
 				return "redirect:https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=_neJ4MDnS0PpuxFf3FQU&state="
 						+ state + "&redirect_uri=" + url + "&auth_type=reprompt";
 
 			}
 		}
 	}
-
+	
+	/*---------------------- 마이페이지 - 나의 게시글, 나의 댓글 조회 ----------------------*/
 	// 나의 게시글 조회
 	@GetMapping("/myBoardList")
 	public ModelAndView selectMyBoardList(ModelAndView mv, @SessionAttribute("loginUser") Member loginUser,

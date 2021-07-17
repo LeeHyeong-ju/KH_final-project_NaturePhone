@@ -178,6 +178,7 @@
 				MEMBER_TB
 		WHERE 
 				EMAIL = #{ nEmail }
+		AND 	STATUS = 'Y'
 	</select>
 	
 	<select id="searchNId" parameterType="String" resultType="int">
@@ -213,15 +214,15 @@
 		VALUES
 		(
 			  SEQ_USER_NO.nextval
-			, NULL
+			, #{ token }
 			, DEFAULT
 			, #{ id }
-			, 0
+			, #{ pwd }
 			, #{ name }
 			, #{ phone }
 			, ' '
 			, 0
-			, 'N'
+			, 'Y'
 			, #{ email }
 			, SYSDATE
 			, SYSDATE
