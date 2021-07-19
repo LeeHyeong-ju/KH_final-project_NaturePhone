@@ -44,25 +44,39 @@
 	font-size: 14px;
 	font-weight: bold;
 }
- /* 테이블 */
-    .table{
-        text-align: center;
-        font-size:13px;
-    }
-    td:nth-child(3) {
-        text-align: left;
-    }
-    .messageMove{
-      text-align: center;
-    }
-    .btn{
-      font-size: 13px;
-    }
-.nonContent {
-    	text-align : center;
-    	font-size:14px;
-    }
 
+/* 테이블  */
+.table {
+	text-align: center;
+	font-size: 13px;
+}
+
+td:nth-child(3) {
+	text-align: left;
+}
+
+.messageMove {
+	text-align: center;
+}
+
+.btn {
+	font-size: 13px;
+}
+
+.nonContent {
+	text-align: center;
+	font-size: 14px;
+}
+/* 페이징  */
+.page-item.active .page-link {
+	color: #fff !important;
+	background-color: #198754 !important;
+	border-color: #198754 !important;
+}
+
+.page-link {
+	color: #212529 !important;
+}
 </style>
 
 </head>
@@ -242,16 +256,16 @@
 									<!-- 이전 -->
 									<c:if test="${pi.currentPage <= 1 }">
 										<li class="page-item"><a class="page-link"
-											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+											aria-label="Previous"> <span aria-hidden="true">&lt;</span>
 										</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
 										<c:url var="before"
 											value="/message/selectList?type=${ message.type }">
-											<c:param name="page" value="${ pi.currentPage -1 }" />
+											<c:param name="page" value="${ pi.currentPage - 1 }" />
 										</c:url>
 										<a class="page-link" href="${ before }" aria-label="Previous">
-											<span aria-hidden="true">&laquo;</span>
+											<span aria-hidden="true">&lt;</span>
 										</a>
 									</c:if>
 
@@ -272,7 +286,7 @@
 									<!-- 다음 -->
 									<c:if test="${ pi.currentPage >= pi.maxPage }">
 										<li class="page-item"><a class="page-link"
-											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+											aria-label="Next"> <span aria-hidden="true">&gt;</span>
 										</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage < pi.maxPage }">
@@ -281,7 +295,7 @@
 											<c:param name="page" value="${ pi.currentPage + 1 }" />
 										</c:url>
 										<a class="page-link" href="${ after }" aria-label="Next">
-											<span aria-hidden="true">&raquo;</span>
+											<span aria-hidden="true">&gt;</span>
 										</a>
 									</c:if>
 								</ul>
@@ -300,11 +314,11 @@
 					<div class="col-md-8 content">
 						<div class="main-div">
 							<div class="panel">
-                        		<h5>${ message.type }</h5>
+                        		<h5><b>${ message.type }</b></h5>
                         		<hr>
                     		</div>
                     		<br><br>
-							<div class="nonContent">쪽지가 없습니다.</div>
+							<div class="nonContent">쪽지함이 비었습니다.</div>
 						</div>
 					</div>
 
@@ -369,7 +383,7 @@
         	// 쪽지가 선택 되었다면
         	} else{
         		// 정말 삭제할 것인지 확인
-	        	if(confirm("선택 된 쪽지를 삭제하시겠습니까?") == true){
+	        	if(confirm("선택 된 쪽지를 삭제하시겠습니까?") == true) {
 	        		$.ajax({
 	        			type : 'POST',
 	        			url : "${ contextPath }/message/delete",
@@ -395,10 +409,6 @@
 	        	}
         	}
     	}
-    	
-    	
-		
-    
     	
     </script>
 </body>

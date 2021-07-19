@@ -14,10 +14,10 @@ import lombok.ToString;
 @ToString
 public class MyReply {
 	private int rownum;
-	private int replyNo;
-	private int userNo;
-	private String content;
-	private Date createDate;
-	private String category;
-	private int boardNo;
+	private int replyNo;		// 댓글 번호
+	private int userNo;			// 회원 번호
+	private String content;		// 댓글 내용
+	private Date createDate;	// 댓글 생성 날짜
+	private String category;	// 카테고리	
+	private int boardNo;		// 댓글 처리 된 게시물 번호
 }

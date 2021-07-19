@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.naturephone.common.PageInfo;
+import com.kh.naturephone.member.model.vo.KeyPublish;
 import com.kh.naturephone.member.model.vo.Member;
 import com.kh.naturephone.member.model.vo.MyBoard;
 import com.kh.naturephone.member.model.vo.MyReply;
@@ -29,7 +30,6 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public int emailOverlapCheck(String email) {
-		System.out.println("dad : " + email);
 		return sqlSession.selectOne("memberMapper.emailOverlapCheck", email);
 	}
 
@@ -62,7 +62,25 @@ public class MemberDaoImpl implements MemberDao{
 	public int findPwdSendEmail(Member m) {
 		return sqlSession.update("memberMapper.findPwdSendEmail", m);
 	}
+	
+	/*----------------- 네아로 관련 -----------------*/
+	
+	@Override
+	public Member searchNEmail(String nEmail) {
+		return sqlSession.selectOne("memberMapper.searchNEmail", nEmail);
+	}
 
+	@Override
+	public void naverInsert(Member m) {
+		String nId = "NAVER"+KeyPublish.createId();
+		int result = sqlSession.selectOne("memberMapper.searchNId", nId);
+		while(result < 0) {
+			nId = "NAVER"+KeyPublish.createId();
+		}
+		m.setId(nId);
+		sqlSession.insert("memberMapper.naverInsert", m);
+	}
+	
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 
 	@Override
@@ -88,6 +106,9 @@ public class MemberDaoImpl implements MemberDao{
 	public int selectReplyListCount(int userNo) {
 		return sqlSession.selectOne("myListMapper.selectReplyListCount", userNo);
 	}
+
+
+	
 
 	
 	

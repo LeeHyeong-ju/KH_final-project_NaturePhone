@@ -11,54 +11,65 @@
 <style>
 /* 사이드 바*/
 .sideBar {
-   text-align: center;
+	text-align: center;
 }
 
 .sideTitle {
-   background-color: lightgray;
-   border-color: lightgray;
+	background-color: lightgray;
+	border-color: lightgray;
 }
 
 .sideContent {
-   font-size: 13px;
+	font-size: 13px;
 }
 
 .main-div {
-   background: #ffffff none repeat scroll 0 0;
-   border-radius: 2px;
-   margin: 10px auto 30px;
-   max-width: 850px;
-   padding: 50px 70px 70px 71px;
+	background: #ffffff none repeat scroll 0 0;
+	border-radius: 2px;
+	margin: 10px auto 30px;
+	max-width: 850px;
+	padding: 50px 70px 70px 71px;
 }
 
 .rightSpace a {
-   color: rgb(7, 7, 7) !important;
+	color: rgb(7, 7, 7) !important;
 }
 
 .sideBar li {
-   background-color: #56CE7C;
-   color: #ffffff;
+	background-color: #56CE7C;
+	color: #ffffff;
 }
 
 .sideTitle {
-   font-size: 14px;
-   font-weight: bold;
+	font-size: 14px;
+	font-weight: bold;
 }
 
+/* 테이블 */
+.table {
+	text-align: center;
+	font-size: 13px;
+}
 
-    /* 테이블 */
-    .table{
-        text-align: center;
-        font-size:13px;
-    }
-    td:nth-child(3) {
-        text-align: left;
-    }
-    
-    .nonContent {
-       text-align : center;
-       font-size:14px;
-    }
+td:nth-child(3) {
+	text-align: left;
+}
+
+.nonContent {
+	text-align: center;
+	font-size: 14px;
+}
+
+/* 페이징  */
+.page-item.active .page-link {
+	color: #fff !important;
+	background-color: #198754 !important;
+	border-color: #198754 !important;
+}
+
+.page-link {
+	color: #212529 !important;
+}
 </style>
 </head>
 <body>
@@ -148,7 +159,7 @@
 									<!-- 이전 -->
 									<c:if test="${pi.currentPage <= 1 }">
 										<li class="page-item"><a class="page-link"
-											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+											aria-label="Previous"> <span aria-hidden="true">&lt;</span>
 										</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
@@ -156,7 +167,7 @@
 											<c:param name="page" value="${ pi.currentPage -1 }" />
 										</c:url>
 										<a class="page-link" href="${ before }" aria-label="Previous">
-											<span aria-hidden="true">&laquo;</span>
+											<span aria-hidden="true">&lt;</span>
 										</a>
 									</c:if>
 
@@ -177,7 +188,7 @@
 									<!-- 다음 -->
 									<c:if test="${ pi.currentPage >= pi.maxPage }">
 										<li class="page-item"><a class="page-link"
-											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+											aria-label="Next"> <span aria-hidden="true">&gt;</span>
 										</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage < pi.maxPage }">
@@ -185,7 +196,7 @@
 											<c:param name="page" value="${ pi.currentPage + 1 }" />
 										</c:url>
 										<a class="page-link" href="${ after }" aria-label="Next">
-											<span aria-hidden="true">&raquo;</span>
+											<span aria-hidden="true">&gt;</span>
 										</a>
 									</c:if>
 								</ul>

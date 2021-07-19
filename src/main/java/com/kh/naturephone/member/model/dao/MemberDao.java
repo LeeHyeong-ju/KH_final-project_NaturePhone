@@ -18,23 +18,31 @@ public interface MemberDao {
 	// 2-2. 이메일 중복 검사 메소드 (Ajax)
 	int emailOverlapCheck(String email);
 
-	// 4. 회원가입 (DB insert)
+	// 3. 회원가입 (DB insert)
 	int insertMember(Member m);
 	
-	// 5. 회원정보 수정
+	// 4. 회원정보 수정
 	int updateMember(Member m);
 	
-	// 6. 비밀번호 변경
+	// 5. 비밀번호 변경
 	int pwdUpdate(Member loginUser);
 	
-	// 7. 회원 탈퇴 - 비밀번호 확인 (Ajax)
+	// 6. 회원 탈퇴 - 비밀번호 확인 (Ajax)
 	int deleteMember(Member m);
 
-	// 8. 회원 아이디 찾기(Ajax)
+	// 7. 회원 아이디 찾기(Ajax)
 	String findIdSendMail(String findIdEmail);
 	
-	// 9. 회원 비밀번호 찾기(Ajax) - 인증키로 비밀번호 update
+	// 8. 회원 비밀번호 찾기(Ajax) - 인증키로 비밀번호 update
 	int findPwdSendEmail(Member m);
+	
+	/*----------------- 네아로 관련 -----------------*/
+	
+	// 네이버 고유 아이디 DB에 존재하는지 확인
+	Member searchNEmail(String nEmail);
+	
+	// 네아로로 가입
+	void naverInsert(Member m);
 	
 	/*----------------- 나의 게시글, 나의 댓글 조회 -----------------*/
 	
@@ -49,6 +57,9 @@ public interface MemberDao {
 	
 	// 2-1. 댓글 페이징 처리
 	int selectReplyListCount(int userNo);
+
+
+	
 
 
 

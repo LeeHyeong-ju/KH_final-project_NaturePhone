@@ -31,8 +31,4 @@ public interface MessageService {
 	int messageInsert(Message m);
 
 	
-	// 2. 휴지통에서 쪽지 완전 삭제
-	
-	
-	
 }

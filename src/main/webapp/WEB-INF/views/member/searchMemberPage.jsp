@@ -154,7 +154,7 @@
         </div>
     </div>
         <script>
-        	// 탭 클릭할 때마다
+        	// 탭 클릭할 때마다 아이디 찾기와 비밀번호 찾기 창이 바뀜
             $(function () {
                 var $tabButtonItem = $('#tab-button li'),
                     $tabSelect = $('#tab-select'),
@@ -189,38 +189,40 @@
         	// 아이디 찾기 
             $("#findIdBtn").on("click", function(){
 		
-			var findIdEmail = document.getElementById("findIdEmail").value;
-			
-			if(findIdEmail != ""){
-				$.ajax({
-					type : 'POST',
-					data : { findIdEmail : findIdEmail },
-					dataType: "text",
-					url: "${ contextPath }/member/findIdSendMailAjax",
-					success: function(data) {
-						if(data == 'success'){
-                    		alert("메일이 전송되었습니다. 아이디를 확인하시고 로그인해주세요.");
-						} else {
-							alert("가입하지 않은 계정입니다. 회원가입을 해주세요");
-							window.close();
-						}
-                    },
-                    error: function(){
-                        alert("error code : " + e.status + "\n"
-                                + "message : " + e.responseText);
-                    }     
-				});
-			}else {
-				alert("이메일 주소를 정확하게 입력해주세요.");
-			}
-		});
+				var findIdEmail = document.getElementById("findIdEmail").value;
+				
+				// 이메일이 정확하게 입력 되었다면
+				if(findIdEmail != ""){
+					$.ajax({
+						type : 'POST',
+						data : { findIdEmail : findIdEmail },
+						dataType: "text",
+						url: "${ contextPath }/member/findIdSendMailAjax",
+						success: function(data) {
+							if(data == 'success'){
+	                    		alert("메일이 전송되었습니다. 아이디를 확인하시고 로그인해주세요.");
+							} else {
+								alert("가입하지 않은 계정입니다. 회원가입을 해주세요.");
+								window.close();
+							}
+	                    },
+	                    error: function(){
+	                        alert("error code : " + e.status + "\n"
+	                                + "message : " + e.responseText);
+	                    }     
+					});
+				// 이메일이 정확하게 입력되지 않았다면
+				} else {
+					alert("이메일 주소를 정확하게 입력해주세요.");
+				}
+			});
         	
         	// 비밀번호 찾기
 			$("#findPwdBtn").on("click", function(){
 			
 			var findPwdEmail = document.getElementById("findPwdEmail").value;
 			var obj = { email : findPwdEmail };
-			if(findPwdEmail != null){
+			if(findPwdEmail != ""){
 				$.ajax({
 					type : 'POST',
 					data : JSON.stringify(obj),
@@ -230,10 +232,10 @@
 					success: function(data) {
 						if(data == 'success'){
                     		alert("임시비밀번호가 발급되었습니다. 로그인 후 비밀번호를 꼭 변경해주세요.");
-						} else if(null){
+						} else if(data == 'null'){
+							alert("가입하지 않은 계정입니다. 회원가입을 해주세요.");
+						} else {
 							console.log("비밀번호 업데이트 실패");
-						} else{
-							alert("가입하지 않으셨습니다. 회원가입을 해주세요.");
 						}
                     },
                     error: function(e){
@@ -241,8 +243,8 @@
                                 + "message : " + e.responseText);
                     }     
 				});
-			}else {
-				alert("인증키를 입력해주세요");
+			} else {
+				alert("이메일 주소를 정확하게 입력해주세요.");
 			}
 		});
         </script>

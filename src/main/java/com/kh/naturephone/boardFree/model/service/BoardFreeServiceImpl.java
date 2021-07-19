@@ -119,10 +119,6 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 		return bDao.insertFreeAtt(att, bno);
 	}
 
-	@Override
-	public List<B_Att_TB> selectAttList(int bno) {
-		
-		return bDao.selectAttList(bno);
-	}
+	
 
 }

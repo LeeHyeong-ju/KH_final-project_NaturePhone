@@ -13,11 +13,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MyBoard {
-	private int rownum;
-	private int boardNo;
-	private int userNo;
-	private String btitle;
-	private String category;
-	private Date createDate;
-	private String bstatus;
+	private int rownum;			
+	private int boardNo;		// 게시물 번호
+	private int userNo;			// 회원 번호
+	private String btitle;		// 게시물 제목
+	private String category;	// 카테고리
+	private Date createDate;	// 게시물 생성 날짜
+	private String bstatus;		// 게시물 삭제 여부
 }
