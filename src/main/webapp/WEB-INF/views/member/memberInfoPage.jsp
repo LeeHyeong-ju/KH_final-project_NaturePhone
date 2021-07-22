@@ -199,7 +199,7 @@ span {
 
 							</tr>
 							
-							<c:forTokens items="${ loginUser.address }" var="addr" delims="," varStatus="status">
+							<c:forTokens items="${ loginUser.address }" var="addr" delims="*" varStatus="status">
 								<c:if test="${ status.index eq 0 }">
 									<c:set var ="addr1" value="${ addr }"/>
 								</c:if>

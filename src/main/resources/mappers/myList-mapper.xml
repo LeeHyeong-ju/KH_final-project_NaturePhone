@@ -140,7 +140,7 @@
         JOIN    BOARD_TB B
         ON      A.B_NO  = B.B_NO  
 		WHERE
-				A.USER_NO = 3
+				A.USER_NO = #{ userNo }
 		AND		A.RE_STATUS = 'Y'
 		
         UNION
@@ -157,7 +157,7 @@
         JOIN    SURVEY_TB C
         ON      A.S_NO  = C.S_NO  
 		WHERE
-				A.USER_NO = 3
+				A.USER_NO = #{ userNo }
 		AND		A.RE_STATUS = 'Y'
         )
 	</select>
