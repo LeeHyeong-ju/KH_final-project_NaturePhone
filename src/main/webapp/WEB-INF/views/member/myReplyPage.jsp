@@ -162,7 +162,7 @@ td:nth-child(3) {
 										</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage > 1 }">
-										<c:url var="before" value="/member/myBoardList">
+										<c:url var="before" value="/member/myReplyList">
 											<c:param name="page" value="${ pi.currentPage -1 }" />
 										</c:url>
 										<a class="page-link" href="${ before }" aria-label="Previous">
@@ -177,7 +177,7 @@ td:nth-child(3) {
 											<li class="page-item active"><a class="page-link">${ p }</a></li>
 										</c:if>
 										<c:if test="${ p ne pi.currentPage }">
-											<c:url var="pagination" value="/member/myBoardList">
+											<c:url var="pagination" value="/member/myReplyList">
 												<c:param name="page" value="${ p }" />
 											</c:url>
 											<a class="page-link" href="${ pagination }">${ p }</a>
@@ -191,7 +191,7 @@ td:nth-child(3) {
 										</a></li>
 									</c:if>
 									<c:if test="${ pi.currentPage < pi.maxPage }">
-										<c:url var="after" value="/member/myBoardList">
+										<c:url var="after" value="/member/myReplyList">
 											<c:param name="page" value="${ pi.currentPage + 1 }" />
 										</c:url>
 										<a class="page-link" href="${ after }" aria-label="Next">
