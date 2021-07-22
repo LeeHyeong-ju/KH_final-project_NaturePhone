@@ -21,7 +21,7 @@
 
 |✔계정관리|✔마이페이지1|마이페이지2|마켓|커뮤니티|편의기능|서비스|관리자|✔기타|
 |---|---|---|---|---|---|---|---|---|
-|<pre style="font-size:10px">로그인<br>회원가입<br>아이디찾기<br>비밀번호 찾기</pre>|<pre style="font-size:10px">회원정보 수정<br>비밀번호 변경<br>회원 탈퇴<br>나의 게시글 조회<br>나의 댓글 조회<br>쪽지함</pre>|<pre style="font-size:10px">나의 판매내역<br>나의 구매내역<br>관심상품<br>거래진행상태<반품/취소</pre>|<pre style="font-size:10px">물품검색<br>물품등록<br>장바구니</pre>|<pre style="font-size:10px">모바일뉴스<br>자유게시판<br>회원설문</pre>|<pre style="font-size:10px">사양비교</pre>|<pre style="font-size:10px">공지사항</pre>|<pre style="font-size:10px">회원관리<br>게시글관리<br>신고관리</pre>|<pre style="font-size:10px">쪽지보내기<br>신고하기</pre>|
+|<pre style="font-size:10px">로그인<br>회원가입<br>아이디찾기<br>비밀번호 찾기</pre>|<pre style="font-size:10px">회원정보 수정<br>비밀번호 변경<br>회원 탈퇴<br>나의 게시글 조회<br>나의 댓글 조회<br>쪽지함</pre>|<pre style="font-size:10px">나의 판매내역<br>나의 구매내역<br>관심상품<br>거래진행상태<br>반품/취소</pre>|<pre style="font-size:10px">물품검색<br>물품등록<br>장바구니</pre>|<pre style="font-size:10px">모바일뉴스<br>자유게시판<br>회원설문</pre>|<pre style="font-size:10px">사양비교</pre>|<pre style="font-size:10px">공지사항</pre>|<pre style="font-size:10px">회원관리<br>게시글관리<br>신고관리</pre>|<pre style="font-size:10px">쪽지보내기<br>신고하기</pre>|
 
 - 개발 일정 : 5월 21일 ~ 6월 18일
 - 개발 환경 및 사용 기술
