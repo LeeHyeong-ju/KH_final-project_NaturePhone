@@ -193,7 +193,7 @@ public class MemberController {
 							 Model model, 
 							 RedirectAttributes rd) throws Exception {
 		
-		m.setAddress(postcode + "," + address1 + "," + address2);
+		m.setAddress(postcode + "*" + address1 + "*" + address2);
 		m.setPhone(hp1 + "-" + hp2 + "-" + hp3);
 		m.setPwd(bcryptPasswordEncoder.encode(m.getPwd()));
 
@@ -218,7 +218,7 @@ public class MemberController {
 							   @RequestParam("hp2") String hp2, 
 							   @RequestParam("hp3") String hp3,
 							   Model model) {
-		m.setAddress(postcode + "," + address1 + "," + address2);
+		m.setAddress(postcode + "*" + address1 + "*" + address2);
 		m.setPhone(hp1 + "-" + hp2 + "-" + hp3);
 
 		int result = mService.updateMember(m);
