@@ -41,6 +41,7 @@
 - 회원 가입 2단계 : 사용자 정보 입력
   - Spring Security 라이브러리 사용 : 회원 가입 시 비밀번호를 암호화  
   - Apache Commons Email 라이브러리 사용 : 회원가입 전 이메일을 인증하기 위해 사용  
+  
 ![008](https://user-images.githubusercontent.com/75263831/126876036-3bb45395-ab0e-4c79-a055-ab868118ce3a.png)<br><br><br>    
 </details>
 
