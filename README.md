@@ -30,7 +30,7 @@
 ------------
 
 ## [ 담당 기능 구현 화면 ]
-1. 회원가입
+**1. 회원가입**
 <details>
 <summary>더보기</summary>
   
@@ -44,7 +44,6 @@
   
 ![008](https://user-images.githubusercontent.com/75263831/126876036-3bb45395-ab0e-4c79-a055-ab868118ce3a.png)<br><br><br>    
 </details>
-
 
 2. 아이디 찾기 / 비밀번호 찾기
 
