@@ -31,19 +31,17 @@
 
 ## [ 담당 기능 구현 화면 ]
 **1. 회원가입**
-<details>
-<summary>더보기</summary>
-  
-- 회원 가입 1단계 : 약관 동의
-  
-![007](https://user-images.githubusercontent.com/75263831/126876033-03ec65a8-a999-4a42-bf65-84ba02dc4350.png)<br><br><br>
+ 
+>- 회원 가입 1단계 : 약관 동의
+>  
+>![007](https://user-images.githubusercontent.com/75263831/126876033-03ec65a8-a999-4a42-bf65-84ba02dc4350.png)<br><br><br>
+>
+>- 회원 가입 2단계 : 사용자 정보 입력
+>  - Spring Security 라이브러리 사용 : 회원 가입 시 비밀번호를 암호화  
+>  - Apache Commons Email 라이브러리 사용 : 회원가입 전 이메일을 인증하기 위해 사용  
+>  
+>![008](https://user-images.githubusercontent.com/75263831/126876036-3bb45395-ab0e-4c79-a055-ab868118ce3a.png)<br><br><br>    
 
-- 회원 가입 2단계 : 사용자 정보 입력
-  - Spring Security 라이브러리 사용 : 회원 가입 시 비밀번호를 암호화  
-  - Apache Commons Email 라이브러리 사용 : 회원가입 전 이메일을 인증하기 위해 사용  
-  
-![008](https://user-images.githubusercontent.com/75263831/126876036-3bb45395-ab0e-4c79-a055-ab868118ce3a.png)<br><br><br>    
-</details>
 
 2. 아이디 찾기 / 비밀번호 찾기
 
@@ -55,13 +53,17 @@
 
 6. 회원 탈퇴
 
-7. 나의 게시판 / 나의 댓글
+**7. 나의 게시글 / 나의 댓글**
+>![나의게시글나의댓글](https://user-images.githubusercontent.com/75263831/127024155-1553fed9-baf1-4caa-ad83-0da8b808a0ed.png)<br><br><br>
 
 8. 쪽지함
 
-9. 쪽지보내기
+9. 쪽지보내기  
 
-10. 신고하기
+**10. 신고하기**
+>![신고하기](https://user-images.githubusercontent.com/75263831/127026503-5f33ca0d-c1f6-4edb-812f-5918bc1dd004.png)<br><br><br>
+
+
 ------------
 
 ## [ 패키지별 구현 기능 ]
