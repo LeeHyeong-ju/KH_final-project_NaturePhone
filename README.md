@@ -59,9 +59,10 @@
 **4. 나의 게시글 / 나의 댓글 페이지**
 >![나의게시글나의댓글](https://user-images.githubusercontent.com/75263831/127024155-1553fed9-baf1-4caa-ad83-0da8b808a0ed.png)<br><br>  
 
-5. 쪽지함
-
-6. 쪽지보내기  
+5. 쪽지 기능
+> - 쪽지보내기  
+> - 받은 쪽지함
+> - 보낸 쪽지함
 
 **7. 신고하기**
 >![신고하기](https://user-images.githubusercontent.com/75263831/127026503-5f33ca0d-c1f6-4edb-812f-5918bc1dd004.png)<br><br>  
