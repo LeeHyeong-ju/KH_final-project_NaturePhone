@@ -3,7 +3,7 @@
 ## [ 프로젝트 소개 ]
 - 기획 의도
 > 새 휴대폰을 만드는 과정에서 막대한 자원과 에너지가 들어간다는 것을 알고 계신가요?  
-> 부품과 완성품이 이동하는 과정에서는 이산화탄소와 미세먼지가 발생하며, 휴대폰 생산에 꼭 필요한 희귀 금속들은 생태계를 위협한다고 합니다.  
+> 부품과 완성품이 이동하는 과정에서 이산화탄소와 미세먼지가 발생하며, 휴대폰 생산에 꼭 필요한 희귀 금속들은 생태계를 위협한다고 합니다.  
 > 실례로 휴대폰 부품에 꼭 필요한 희귀금속인 콜탄은, 광산의 위치가 고릴라의 서식지와 거의 겹쳐있기 때문에 이 금속을 채굴하는 과정에서 서식지 파괴나 무분별한 사냥등으로 인해 고릴라가 멸종위기에 처해 있습니다.  
 > 따라서 새로운 휴대폰을 구입하기보다 중고폰을 사용하여 휴대폰의 교체시기를 늘리는 것이 여러모로 환경 보호에 도움이 된다고 합니다.
 >
@@ -30,38 +30,41 @@
 ------------
 
 ## [ 담당 기능 구현 화면 ]
-**1. 회원가입**
+**1. 로그인 페이지**
+> ![로그인](https://user-images.githubusercontent.com/75263831/127144878-53197978-14f4-4993-a89c-b245fbb7c833.png)<br><br>  
+
+**2. 회원가입**
  
-> - 회원 가입 1단계 : 약관 동의
+> - 회원 가입 1단계 : 약관 동의 페이지
 >  
->![007](https://user-images.githubusercontent.com/75263831/126876033-03ec65a8-a999-4a42-bf65-84ba02dc4350.png)<br><br><br>
+> ![007](https://user-images.githubusercontent.com/75263831/126876033-03ec65a8-a999-4a42-bf65-84ba02dc4350.png)<br><br>  
 >
-> - 회원 가입 2단계 : 사용자 정보 입력
+> - 회원 가입 2단계 : 사용자 정보 입력 페이지
 >   - Spring Security 라이브러리 사용 : 회원 가입 시 비밀번호를 암호화  
 >   - Apache Commons Email 라이브러리 사용 : 회원가입 전 이메일을 인증하기 위해 사용  
 >  
->![008](https://user-images.githubusercontent.com/75263831/126876036-3bb45395-ab0e-4c79-a055-ab868118ce3a.png)<br><br><br>    
+> ![008](https://user-images.githubusercontent.com/75263831/126876036-3bb45395-ab0e-4c79-a055-ab868118ce3a.png)<br><br>  
 
 
-2. 아이디 찾기 / 비밀번호 찾기
+**3. 아이디 찾기 / 비밀번호 찾기 페이지**
+> ![아이디,비밀번호 찾기](https://user-images.githubusercontent.com/75263831/127117195-7a36db3e-6e16-4853-8947-c31eb1a6a60d.png)<br><br>  
 
-3. 로그인
+**4. 회원정보 페이지**
+> ![회원정보](https://user-images.githubusercontent.com/75263831/127156355-d92e42d8-ea13-40ef-aa22-08f1c4bb9acf.png)
+> - 비밀번호 변경
+> ![비밀번호 변경](https://user-images.githubusercontent.com/75263831/127156382-422406bd-ec58-4376-bf5b-359447b53982.png)
+> - 회원 탈퇴
+> ![탈퇴하기](https://user-images.githubusercontent.com/75263831/127156394-fb36736d-eab9-4156-a3e3-4c3d5afe5926.png)
 
-4. 회원정보 수정
+**4. 나의 게시글 / 나의 댓글 페이지**
+>![나의게시글나의댓글](https://user-images.githubusercontent.com/75263831/127024155-1553fed9-baf1-4caa-ad83-0da8b808a0ed.png)<br><br>  
 
-5. 비밀번호 변경
+5. 쪽지함
 
-6. 회원 탈퇴
+6. 쪽지보내기  
 
-**7. 나의 게시글 / 나의 댓글**
->![나의게시글나의댓글](https://user-images.githubusercontent.com/75263831/127024155-1553fed9-baf1-4caa-ad83-0da8b808a0ed.png)<br><br><br>
-
-8. 쪽지함
-
-9. 쪽지보내기  
-
-**10. 신고하기**
->![신고하기](https://user-images.githubusercontent.com/75263831/127026503-5f33ca0d-c1f6-4edb-812f-5918bc1dd004.png)<br><br><br>
+**7. 신고하기**
+>![신고하기](https://user-images.githubusercontent.com/75263831/127026503-5f33ca0d-c1f6-4edb-812f-5918bc1dd004.png)<br><br>  
 
 
 ------------
