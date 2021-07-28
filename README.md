@@ -56,13 +56,17 @@
 > - 회원 탈퇴
 > ![탈퇴하기](https://user-images.githubusercontent.com/75263831/127156394-fb36736d-eab9-4156-a3e3-4c3d5afe5926.png)
 
-**4. 나의 게시글 / 나의 댓글 페이지**
->![나의게시글나의댓글](https://user-images.githubusercontent.com/75263831/127024155-1553fed9-baf1-4caa-ad83-0da8b808a0ed.png)<br><br>  
+**5. 나의 게시글 / 나의 댓글 페이지**
+> ![나의게시글나의댓글](https://user-images.githubusercontent.com/75263831/127359611-f52afeec-31b0-44cd-ac3b-5252d7ade0e8.png)<br><br>  
 
-5. 쪽지 기능
-> - 쪽지보내기  
-> - 받은 쪽지함
+**6. 쪽지 기능**
+> - 쪽지보내기
+> ![쪽지보내기](https://user-images.githubusercontent.com/75263831/127359693-863f7f39-8c90-424e-a984-d339574253f4.png)
 > - 보낸 쪽지함
+> ![보낸쪽지함](https://user-images.githubusercontent.com/75263831/127359730-225f6a83-7d09-439b-8116-f80e51295406.png)  
+> - 받은 쪽지함
+> ![받은 쪽지함](https://user-images.githubusercontent.com/75263831/127359718-efa43aea-5710-4a54-83ea-5666b68f1ba5.png)
+
 
 **7. 신고하기**
 >![신고하기](https://user-images.githubusercontent.com/75263831/127026503-5f33ca0d-c1f6-4edb-812f-5918bc1dd004.png)<br><br>  
