@@ -25,8 +25,8 @@
 
 - 개발 일정 : 2021년 5월 21일 ~ 6월 18일
 - 개발 환경 및 사용 기술
-  - 개발 도구 : 
-  - 사용 기술 : 
+  - 개발 도구 : STS, Oracle, Visual Studio Code, Bootstrap
+  - 사용 기술 : Java, JavaScript, SQL, Mybatis
 ------------
 
 ## [ 담당 기능 구현 화면 ]
