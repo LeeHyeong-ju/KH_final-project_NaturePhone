@@ -25,11 +25,11 @@
 
 - 개발 일정 : 2021년 5월 21일 ~ 6월 18일
 - 개발 환경
-  - Language : Java 8, HTML5, CSS, JavaScript, Servlet
+  - Language : Java 8, HTML5, CSS, JavaScript
   - OS : Window 10
   - IDE : Eclipse, SQL developer, Visual Studio Code
   - Framework : Spring Tool Suite(STS), MyBatis, JDBC 8.0
-  - SDK : JDK 1.8, SERVLET, JSP
+  - SDK : JDK 1.8, JSP
   - RDBMS : Oracle
   - Server : Apache Tomcat 8.5
   - Library : jQuery, Ajax, Bootstrap 5, Scribe OpenSource OAuth Java Library, Spring Security, Apache Commons-Email
