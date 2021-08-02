@@ -84,7 +84,7 @@
 
 4. com/kh/naturephone/boardSurvey : 회원 설문 게시판의 CRUD 기능 패키지
 
-5. com/kh/naturephone/common : 
+5. com/kh/naturephone/common : 공통 페이징 처리와 검색 기능 패키지
 
 6. com/kh/naturephone/goods : 상품을 등록, 검색, 구매, 장바구니에 넣기 기능 패키지
 
