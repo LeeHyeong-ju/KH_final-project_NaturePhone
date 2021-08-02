@@ -27,7 +27,7 @@
 - 개발 환경
   - Language : Java 8, HTML5, CSS, JavaScript, Servlet
   - OS : Window 10
-  - IDE : Eclipse, SQL developer, Vusyak Studio
+  - IDE : Eclipse, SQL developer, Visual Studio
   - Framework : Spring Tool Suite(STS), MyBatis, JDBC 8.0
   - SDK : JDK 1.8, SERVLET, JSP
   - RDBMS : Oracle
