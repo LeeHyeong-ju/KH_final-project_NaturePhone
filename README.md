@@ -27,13 +27,14 @@
 - 개발 환경
   - Language : Java 8, HTML5, CSS, JavaScript, Servlet
   - OS : Window 10
-  - IDE : Eclipse, SQL developer, Visual Studio
+  - IDE : Eclipse, SQL developer, Visual Studio Code
   - Framework : Spring Tool Suite(STS), MyBatis, JDBC 8.0
   - SDK : JDK 1.8, SERVLET, JSP
   - RDBMS : Oracle
   - Server : Apache Tomcat 8.5
   - Library : jQuery, Ajax, Bootstrap 5, Scribe OpenSource OAuth Java Library, Spring Security, Apache Commons-Email
-  - 협업툴 : GitHub, Slack
+  - API : 다음 주소 API
+  - 협업 도구 : GitHub, Slack
 ------------
 
 ## [ 담당 기능 구현 화면 ]
