@@ -1,4 +1,4 @@
-# NaturePhone(중고폰 거래 사이트)
+# 🌱 NaturePhone (중고폰 거래 사이트)
 
 ## [ 프로젝트 소개 ]
 - 기획 의도
@@ -41,7 +41,7 @@
 **1. 로그인 페이지**
 > ![로그인](https://user-images.githubusercontent.com/75263831/127144878-53197978-14f4-4993-a89c-b245fbb7c833.png)<br><br>  
 
-**2. 회원가입**
+**2. 회원가입** 
  
 > - 회원 가입 1단계 : 약관 동의 페이지
 >  
@@ -133,3 +133,88 @@
 12. com/kh/naturephone/support : 휴대폰 성능을 비교하는 기능을 관리하는 패키지
 
 ------------
+## [기능 구현 고민점 & 해결 과정 ]
+<details markdown="1">
+<summary>접기/펼치기</summary>  
+
+**✉ 회원가입 중 이메일 인증**
+
+회원가입 중에 이메일 인증을 기획 했는데 생각보다 어려웠고, 기능 구현 기간의 초반이여서 다른 기능들이 많이 남아있었습니다.
+그래서 일단 회원가입 후 인증할 수 있게 완성을 해두고 우선순위에 따라 중요 기능들을 구현한 다음, 코드를 수정하여 기간 내에 기획했던대로 기능을 완성했습니다.
+
+
+
+- 변경 전 : 회원가입 → 이메일 발송 → 확인 버튼을 클릭하여 인증 →  로그인
+> 
+> 회원가입 후 이메일이 보내지고 인증 이메일 안의 확인 버튼을 누르면 memberApproval 메소드를 호출하여   
+> 회원 인증상태인 APPROVAL_STATUS 컬럼을 'Y'로 update 하기.  
+> 로그인 할 때 APPROVAL_STATUS 상태를 확인한 후 'N'가 아니라면 로그인이 가능. 
+ 
+```java
+
+@RequestMapping("/member")
+public String memberLogin(@ModelAttribute Member m, Model model) {
+  if (loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) {
+
+			if(loginUser.getApprovalStatus().equals("N")) {
+				model.addAttribute("msg", "이메일 인증을 하신 후 로그인해주세요.");
+				return "member/loginPage";
+			} else {
+				model.addAttribute("loginUser", loginUser);
+				return "redirect:/";
+			}
+      
+  } else {
+		model.addAttribute("msg", "로그인에 실패하였습니다.");
+		return "member/loginPage";
+  }
+}
+```
+
+- 변경 후 : 이메일 발송 → 인증키 입력 → 회원가입 완료 → 로그인
+> controller에서 메일 인증을 요청 받으면 먼저 KeyPublish객체로 인증키를 생성하고 그 인증키를 session에 담음.  
+> MailUtil 클래스의 sendMail 메소드를 호출하여 사용자가 입력한 이메일주소와 메일 제목, 내용을 매개변수에 대입하여 이메일을 보냄.  
+> 메일을 확인하여 인증키를 입력하고, 그 값을 session값과 비교해서 일치하면 인증이 완료.
+
+```java
+
+// 3-1. 메일 인증 메소드 (Ajax)
+@RequestMapping(value = "/joinSendMail", method = RequestMethod.POST)
+@ResponseBody
+public void joinSendMail(@ModelAttribute Member m, HttpSession session) throws Exception {
+    
+    // 인증키 생성
+		String keyCode = KeyPublish.createKey();
+
+		session.setAttribute("keyCode", keyCode);
+
+		String subject = "";
+		String msg = "";
+
+		// 회원가입 메일 내용
+		subject = "Nature Phone 회원가입 인증 코드입니다.";
+		msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+		msg += "<div style='font-size: 130%'>";
+		msg += "회원가입 페이지에서 인증코드 <strong>";
+		msg += keyCode + "</strong> 를 입력해 주세요.</div><br/>";
+
+		MailUtil.sendMail(m.getEmail(), subject, msg);
+
+}
+
+// 3-2. 메일 인증키 확인 메소드(Ajax)
+@RequestMapping(value = "/keyCheck", method = RequestMethod.POST)
+@ResponseBody
+public String keyCheck(@RequestParam("modalInput") String key, 
+						   @SessionAttribute("keyCode") String keyCode) {
+		
+		if (key != null && key.equals(keyCode)) {
+			return "success";
+		} else {
+			return "false";
+		}
+}
+  
+```
+
+</details>
