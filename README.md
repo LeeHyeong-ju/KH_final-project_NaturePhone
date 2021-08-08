@@ -137,11 +137,10 @@
 <details markdown="1">
 <summary>접기/펼치기</summary>  
 
-**✉ 회원가입 중 이메일 인증**
+**🚩 회원가입 중 이메일 인증**
 
-회원가입 중에 이메일 인증을 기획 했는데 생각보다 어려웠고, 기능 구현 기간의 초반이여서 다른 기능들이 많이 남아있었습니다.
-그래서 일단 회원가입 후 인증할 수 있게 완성을 해두고 우선순위에 따라 중요 기능들을 구현한 다음, 코드를 수정하여 기간 내에 기획했던대로 기능을 완성했습니다.
-
+회원가입 중 이메일 인증을 어떻게 접근해야 할지 고민하는 시간이 길어졌고, 구현 기간의 초반이여서 다른 기능들이 많이 남아있었기 때문에
+일단 회원가입 후 인증할 수 있게 완성을 해두고 우선순위에 따라 다른 중요 기능들을 구현한 다음, 코드를 수정하여 기간 내에 기획했던대로 기능을 완성했다.
 
 
 - 변경 전 : 회원가입 → 이메일 발송 → 확인 버튼을 클릭하여 인증 →  로그인
@@ -216,5 +215,126 @@ public String keyCheck(@RequestParam("modalInput") String key,
 }
   
 ```
-
 </details>
+
+**🚩 쪽지 선택 삭제**
+
+Q. 선택 된 쪽지들을 view단에서 어떻게 처리해서 controller단으로 넘길까?  
+→ each() 메서드를 이용해 체크 된 값들을 찾아 차례로 배열에 담아 Ajax 통신으로 넘긴다.  
+
+```java
+// view
+/*---------------- 삭제버튼 눌렀을 때 ----------------*/
+		function deleteMessage(){
+    		var type = "${ message.type }";	
+    		var ckArr = [];					
+        	$("input[name=checkRow]:checked").each(function(){
+        		var chk = $(this).val();
+        		ckArr.push(chk);
+        	})
+        		
+        	// 쪽지가 선택 되지 않았을 때
+        	if(ckArr.length == 0){
+        		alert("삭제할 쪽지를 선택해주세요.");
+        	
+        	// 쪽지가 선택 되었다면
+        	} else{
+        		// 정말 삭제할 것인지 확인
+	        	if(confirm("선택 된 쪽지를 삭제하시겠습니까?") == true) {
+	        		$.ajax({
+	        			type : 'POST',
+	        			url : "${ contextPath }/message/delete",
+	        			data:{ "ckArr" : ckArr, "type" : type },
+	        			dataType: "text",
+	                    success: function(data) {
+	                    	if(data == 'success'){
+	                    		location.reload();
+	                        	alert("삭제가 완료되었습니다.");
+	                    	} else {
+	                    		alert("삭제 실패.");
+	                    	}
+	                    },
+	                    error: function(e){
+	                        alert("error code : " + e.status + "\n"
+	                                + "message : " + e.responseText);
+	                    }        
+	        		});
+	        	
+	        	// 취소 버튼 눌렀을 때	페이지 reload
+	        	} else {	
+	        		location.reload(true);
+	        	}
+        	}
+    	}
+```
+
+
+Q. controller로 들어온 배열을 어떻게 받아서 처리 해야할까?  
+→ 배열은 @RequestParam(value="parameter이름[]")List<String> 형식으로 받아와야 한다.  
+→ 여기서 배열에 들어있는 데이터는 쪽지고유번호, 즉 int형이므로 List<Integer>형으로 받아 왔다.  
+→ ArrayList를 하나 선언하고(deleteArray) for문을 돌려서 받아온 쪽지고유번호를 하나하나 담는다.
+
+```
+
+// controller
+// 4. 쪽지 삭제(Ajax)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public @ResponseBody String messageDelete(@RequestParam(value="ckArr[]") List<Integer> deleteList,
+											  @RequestParam(value="type") String type) {
+		
+		ArrayList<Integer> deleteArray = new ArrayList<Integer>();
+		for(int i=0; i < deleteList.size(); i++) {
+			deleteArray.add(deleteList.get(i));
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("deleteArray", deleteArray);
+		
+		int result = mService.messageDelete(map);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+
+```
+
+Q. controller에서 전달한 여러개의 쪽지들을 DB에서 어떻게 삭제할까?
+→ 동적쿼리를 사용하기(Mybatis의 foreach문 사용).    
+1. 먼저 리스트/배열 변수 값을 collection에 넣어주고, item이라는 설정으로 별칭 설정을 해준다.
+
+2. 리스트/배열의 값이 시작하기 전 open="(" 이 설정돼있으므로'(' (열린 괄호)가 열리게 되고
+
+3. 리스트/배열의 값이 한 번씩 반복문을 거칠 때마다 separator 옵션에 있는 ', '(콤마)가 찍히게 된다.
+
+4. 반복이 끝나면 close=")" 설정이 있으므로 ')' (닫힌 괄호)가 쓰인다.
+	
+```
+// Mapper
+<!-- 5. 쪽지 삭제 -->
+	<update id="messageDelete" parameterType="hashmap">
+	<choose>
+		<when test="type == '받은 쪽지함'">
+		UPDATE		MESSAGE_TB
+		SET 		SENDER_STATUS = 'N'
+		WHERE 		MSG_NO IN
+		<foreach collection="deleteArray" item="item" index="index" separator="," open="(" close=")">
+		 #{ item }
+		</foreach>
+		</when>
+		
+		<when test="type == '보낸 쪽지함'">
+		UPDATE		MESSAGE_TB
+		SET 		RECIPIENT_STATUS = 'N'
+		WHERE 		MSG_NO IN
+		<foreach collection="deleteArray" item="item" index="index" separator="," open="(" close=")">
+		 #{ item }
+		</foreach>
+		</when>
+	</choose>
+	</update>
+
+```
