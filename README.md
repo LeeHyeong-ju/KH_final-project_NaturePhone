@@ -215,7 +215,7 @@ public String keyCheck(@RequestParam("modalInput") String key,
 }
   
 ```
-</details>
+
 
 **🚩 쪽지 선택 삭제**
 
@@ -302,7 +302,7 @@ Q. controller로 들어온 배열을 어떻게 받아서 처리 해야할까?
 
 ```
 
-Q. controller에서 전달한 여러개의 쪽지들을 DB에서 어떻게 삭제할까?
+Q. controller에서 전달한 여러개의 쪽지들을 DB에서 어떻게 삭제할까?  
 → 동적쿼리를 사용하기(Mybatis의 foreach문 사용).    
 1. 먼저 리스트/배열 변수 값을 collection에 넣어주고, item이라는 설정으로 별칭 설정을 해준다.
 
@@ -338,3 +338,5 @@ Q. controller에서 전달한 여러개의 쪽지들을 DB에서 어떻게 삭�
 	</update>
 
 ```
+	
+</details>
