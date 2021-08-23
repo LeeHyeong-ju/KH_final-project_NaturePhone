@@ -373,6 +373,7 @@ td:nth-child(3) {
     		var ckArr = [];					
         	$("input[name=checkRow]:checked").each(function(){
         		var chk = $(this).val();
+        		console.log(chk);
         		ckArr.push(chk);
         	})
         		
