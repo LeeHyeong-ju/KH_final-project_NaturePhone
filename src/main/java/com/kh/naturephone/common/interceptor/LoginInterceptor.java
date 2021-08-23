@@ -25,7 +25,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			System.out.println(1);
 			logger.info("비 로그인 상태에서 [ {} ] 접근하려고 함!", request.getRequestURI());
 			session.setAttribute("msg", "로그인 후 이용할 수 있습니다.");
-			response.sendRedirect(request.getContextPath() + "/");
+			response.sendRedirect(request.getContextPath() + "/member/loginPage");
 			return false;
 		}
 		return super.preHandle(request, response, handler);
