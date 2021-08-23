@@ -143,6 +143,7 @@
 ## 기능 구현의 고민점과 해결 과정
 <details markdown="1">
 <summary>접기/펼치기</summary>  
+<br>
 
 **🚩 회원가입 중 이메일 인증**
 
@@ -277,8 +278,8 @@ Q. 선택 된 쪽지들을 view단에서 어떻게 처리해서 controller단으
 
 
 Q. controller로 들어온 배열을 어떻게 받아서 처리 해야할까?  
-→ 배열은 @RequestParam(value="parameter이름[]")List<String> 형식으로 받아와야 한다.  
-→ 여기서 배열에 들어있는 데이터는 쪽지고유번호, 즉 int형이므로 List<Integer>형으로 받아 왔다.  
+→ 배열은 @RequestParam(value="parameter이름[]")List&lt;String&gt; 형식으로 받아와야 한다.  
+→ 여기서 배열에 들어있는 데이터는 쪽지고유번호, 즉 int형이므로 List&lt;Integer&gt;형으로 받아 왔다.  
 → ArrayList를 하나 선언하고(deleteArray) for문을 돌려서 받아온 쪽지고유번호를 하나하나 담는다.
 
 ```
